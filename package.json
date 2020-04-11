@@ -1,14 +1,18 @@
 {
-  "name": "login-register-react",
+  "name": "resort",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "delay": "^4.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-pose": "^4.0.8",
-    "react-scripts": "^3.4.1",
-    "react-spring": "^8.0.20"
+    "contentful": "^7.5.0",
+    "morgan": "^1.10.0",
+    "node-sass": "^4.13.1",
+    "pg": "^8.0.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-icons": "^3.6.1",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.0",
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,8 +34,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "node-sass": "^4.13.1"
   }
 }
