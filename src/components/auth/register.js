@@ -1,6 +1,9 @@
 import React from "react";
-import loginImg from "../../login.svg";
 import "./style.scss";
+import InputMask from 'react-input-mask';
+
+
+
 
 export class Register extends React.Component {
   constructor(props) {
@@ -9,11 +12,17 @@ export class Register extends React.Component {
       uname: '',
       pass: '',
       repass:'',
-      email:''
+      email:'',
+      mobile:'',
+      date: new Date(),
+      date_of_birth: ''   
+
   };
+  this.handleDateOfBirth = this.handleDateOfBirth.bind(this);   
+
   }
   handleSignup = (e) => {
-    console.log(this.state.uname+"  "+this.state.pass);
+    console.log(this.state.uname+"  "+this.state.pass+" "+this.state.date_of_birth);
   
   }
   handleChange = (e) => {
@@ -21,22 +30,36 @@ export class Register extends React.Component {
         [e.target.name]: e.target.value
     })
 }
+handleDateOfBirth(e) {
+  this.setState({
+    date_of_birth: e.target.value
+  });
+
+  }
+
+
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Register</div>
         <div className="content">
-          <div className="image">
-            <img src={loginImg} />
-          </div>
+
           <div className="form">
             <div className="form-group">
               <label htmlFor="username">Name</label>
               <input type="text" name="uname" onChange={e => this.handleChange(e)}  value={this.state.uname} placeholder="username" />
             </div>
             <div className="form-group">
+              <label htmlFor="username">Mobile No</label>
+              <input type="text" name="mobile" onChange={e => this.handleChange(e)} minLength={10} maxLength={10} value={this.state.mobile} placeholder="Mobile NUmber" />
+            </div>
+            <div className="form-group">
               <label htmlFor="email">Email</label>
               <input type="email" name="email" onChange={e => this.handleChange(e)} value={this.state.email} placeholder="email" />
+            </div>
+            <div className="form-group">
+            <label htmlFor="date">Date of birth</label>
+            <InputMask  value={this.state.date_of_birth} mask="99/99/9999" placeholder="01/01/2001" onChange={this.handleDateOfBirth} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
