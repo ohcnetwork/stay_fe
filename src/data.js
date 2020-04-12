@@ -28,7 +28,7 @@ export default [
       size: 200,
       capacity: 1,
       pets: false,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -82,7 +82,7 @@ export default [
       size: 250,
       capacity: 1,
       pets: false,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -136,7 +136,7 @@ export default [
       size: 300,
       capacity: 1,
       pets: true,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -190,7 +190,7 @@ export default [
       size: 400,
       capacity: 1,
       pets: true,
-      breakfast: true,
+      location:"kochi",breakfast: true,
       featured: false,
       description:
       "Desciption",
@@ -244,7 +244,7 @@ export default [
       size: 300,
       capacity: 2,
       pets: false,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -298,7 +298,7 @@ export default [
       size: 350,
       capacity: 2,
       pets: false,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -352,7 +352,7 @@ export default [
       size: 400,
       capacity: 2,
       pets: true,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -406,7 +406,7 @@ export default [
       size: 500,
       capacity: 2,
       pets: true,
-      breakfast: true,
+      location:"kochi",breakfast: true,
       featured: true,
       description:
       "Desciption",
@@ -460,7 +460,7 @@ export default [
       size: 500,
       capacity: 3,
       pets: false,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -514,7 +514,7 @@ export default [
       size: 550,
       capacity: 4,
       pets: false,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -568,7 +568,7 @@ export default [
       size: 600,
       capacity: 5,
       pets: true,
-      breakfast: false,
+      location:"kochi",breakfast: false,
       featured: false,
       description:
       "Desciption",
@@ -622,7 +622,7 @@ export default [
       size: 700,
       capacity: 6,
       pets: true,
-      breakfast: true,
+      location:"kochi",breakfast: true,
       featured: true,
       description:
       "Desciption",
@@ -676,7 +676,7 @@ export default [
       size: 1000,
       capacity: 10,
       pets: true,
-      breakfast: true,
+      location:"kochi",breakfast: true,
       featured: true,
       description:
       "Desciption",

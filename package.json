@@ -8,8 +8,12 @@
     "node-sass": "^4.13.1",
     "pg": "^8.0.2",
     "react": "^16.8.6",
+    "react-date-picker": "^8.0.1",
     "react-dom": "^16.8.6",
     "react-icons": "^3.6.1",
+    "react-input-calendar": "^0.5.4",
+    "react-input-mask": "^2.0.4",
+    "react-phone-number-input": "^3.0.22",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
     "styled-components": "^4.2.0"

@@ -73,8 +73,9 @@ const RoomsFilter = ({ rooms }) => {
         </div>
         {/* end of guests */}
         {/* room price */}
+
         <div className="form-group">
-          <label htmlFor="price">room price Rs {price}</label>
+          <label htmlFor="location">room price Rs {price}</label>
           <input
             type="range"
             name="price"
