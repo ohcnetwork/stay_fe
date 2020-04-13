@@ -1,6 +1,8 @@
 import React from "react";
 import "./style.scss";
 import InputMask from 'react-input-mask';
+//import axios from 'axios';
+
 
 
 
@@ -23,6 +25,10 @@ export class Register extends React.Component {
   }
   handleSignup = (e) => {
     console.log(this.state.uname+"  "+this.state.pass+" "+this.state.date_of_birth);
+/*    axios.post('#todo link to database', {name:this.state.uname,password:this.state.pass,confirm:this.state.repass,email:this.state.email})\
+    .then(res => {
+      console.log(res.data);
+    })*/
   
   }
   handleChange = (e) => {
