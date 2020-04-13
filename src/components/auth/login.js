@@ -17,10 +17,10 @@ export class Login extends React.Component {
 }
 handlelogin = (e) => {
   console.log(this.state.email+"  "+this.state.password );
-  axios.post('#todolinkto the database' , {email: this.state.email,password: this.state.password})
+/*  axios.post('#todolinkto the database' , {email: this.state.email,password: this.state.password})
     .then(res => {
       console.log(res.data);
-  })
+  })*/
 
 }
     render() {
