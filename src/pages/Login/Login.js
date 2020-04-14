@@ -18,11 +18,11 @@ function Login() {
                 <div className="form">
                     <div className="form-group">
                         <label >Email</label>
-                        <input type="text" name="email" placeholder="email" value={email} onChange={e => setUserEmail(e.target.value)} />
+                        <input className="forminput" type="text" name="email" placeholder="email" value={email} onChange={e => setUserEmail(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="password" value={password} onChange={e => setUserPassword(e.target.value)} /> 
+                        <input className="forminput" type="password" name="password" placeholder="password" value={password} onChange={e => setUserPassword(e.target.value)} /> 
                      </div>
                 </div>
             </div>
