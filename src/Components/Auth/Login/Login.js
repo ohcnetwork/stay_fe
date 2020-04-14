@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import loginImg from "../../assets/login.svg";
+import loginImg from "../../../Common/images/login.svg";
 import './Login.css';
 
-import { userActions } from '../../redux/actions';
+import { userActions } from '../../../Redux/actions';
 
 function Login(props) {
 

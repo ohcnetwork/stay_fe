@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import logo from '../../assets/icon.svg';
+import logo from '../../../Common/images/icon.svg';
 import './Loading.css';
 
 function Loading() {
