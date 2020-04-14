@@ -13,7 +13,7 @@ function User(props) {
 
   return (
     <div className="user">
-      <h2>Hey {user.username},</h2>
+      <h2>Hey {user.email},</h2>
     </div>
   );
 }

@@ -1,17 +1,19 @@
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import loginImg from "../../assets/login.svg";
+import './Login.css';
 
 import { userActions } from '../../redux/actions';
 
 function Login(props) {
 
-  const [submitted, setSubmitted] = useState(false);
   const [inputs, setInputs] = useState({
-    username: '',
+    email: '',
     password: ''
   });
-  const { username, password } = inputs;
+  const { email, password } = inputs;
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
 
@@ -31,46 +33,41 @@ function Login(props) {
   function handleSubmit(e) {
       e.preventDefault();
 
-      setSubmitted(true);
-      if (username && password) {
+      if (email && password) {
         console.log('logging in');
-        const data = { username, password, token: 'mock-jwt' };
+        const data = { email, password, token: 'mock-jwt' };
         setTimeout(() => {
           localStorage.setItem('user', JSON.stringify(data));
           dispatch(userActions.login(data));
-        }, 2000);
+        }, 2000); /* mock loding time */
       }
   }
 
 
   return (
-    <div className="login">
-      <h2>Login</h2>
-      <form name="form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Username</label>
-          <input type="text" name="username" value={username} onChange={handleChange} />
-          {submitted && !username &&
-            <div className="invalid-feedback">Username is required</div>
-          }
+    <div className="base-container" >
+      <div className="header">Login</div>
+      <form name="form" onSubmit={handleSubmit} className="form">
+        <div className="content">
+          <div className="image">
+            <img src={loginImg} alt="login image"/>
+          </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="email" value={email} onChange={handleChange} />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="password" value={password} onChange={handleChange} />
+          </div>
         </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" name="password" value={password} onChange={handleChange} />
-          {submitted && !password &&
-            <div className="invalid-feedback">Password is required</div>
-          }
-        </div>
-        <div>
-          <button>
-              {<span className="spinner-border spinner-border-sm mr-1"></span>}
-              Login
+        <div className="footer">
+          <button type="button" className="btn" type="submit">
+            Login
           </button>
-          <Link to="/register" className="btn btn-link">Register</Link>
         </div>
       </form>
     </div>
   );
 }
-
 export default Login;
