@@ -15,22 +15,22 @@ function Register() {
                 <div className="image">
                    <img src={loginImg} alt="login image"/>
                 </div>
-                <form className="registerform"name="form">
+                <form name="form">
                    <div className="form-group">
                         <label >Name</label>
-                        <input className="reginput" type="text" name="username" placeholder="username"  value={name} onChange={e => setUsername(e.target.value)} />
+                        <input type="text" name="username" placeholder="username"  value={name} onChange={e => setUsername(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label >Email</label>
-                        <input className="reginput" type="text" name="email" placeholder="email" value={email} onChange={e => setUserEmail(e.target.value)} />
+                        <input type="text" name="email" placeholder="email" value={email} onChange={e => setUserEmail(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label >Password</label>
-                        <input className="reginput" type="text" name="password" placeholder="password" value={password} onChange={e => setUserpassword(e.target.value)} />
+                        <input type="text" name="password" placeholder="password" value={password} onChange={e => setUserpassword(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label >Confirm Password</label>
-                        <input className="reginput" type="text" name="cpassword" placeholder="confirm password" value={cpassword} onChange={e => setUsercpassword(e.target.value)}/>
+                        <input type="text" name="cpassword" placeholder="confirm password" value={cpassword} onChange={e => setUsercpassword(e.target.value)}/>
                     </div>
                 </form>
             </div>

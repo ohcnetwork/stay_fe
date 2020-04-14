@@ -1,20 +1,11 @@
-import React from "react";
-import Hero from "./Hero";
-import { Link } from "react-router-dom";
-import RoomsContainer from "./RoomContainer";
-const Rooms = () => {
+import React from 'react';
+
+function Rooms() {
   return (
-    <>
-      <Hero hero="roomsHero">
-        <div className="banner">
-          <Link to="/" className="btn-primary">
-            return home
-          </Link>
-        </div>
-      </Hero>
-      <RoomsContainer />
-    </>
+    <div className="rooms">
+      <h2>Rooms</h2>
+    </div>
   );
-};
+}
 
 export default Rooms;
