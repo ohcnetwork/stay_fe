@@ -1,27 +1,44 @@
-import React from "react";
-import "./App.css";
-import Home from "./pages/Home";
-import Rooms from "./pages/Rooms";
-import SingleRoom from "./pages/SingleRoom";
-import Error from "./pages/Error";
-import Lgin from "./components/Lgin";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Navbar from "./components/Navbar";
+import './App.css';
+import './Index.css';
 
-import { Switch, Route } from "react-router-dom";
+import Navbar from './components/Navbar/Navbar';
+import SingleRoom from "./pages/Rooms/SingleRoom";
+import Home from './pages/Home/Home';
+import About from './pages/About/About';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import User from './pages/User/User';
+import Facilitator from './pages/Facilitator/Facilitator';
+import Rooms from './pages/Rooms/Rooms';
+import NotFound from './pages/NotFound/NotFound';
+import Book from "./pages/Book/Book";
+
+
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/rooms/" component={Rooms} />
-        <Route exact path="/rooms/:slug" component={SingleRoom} />
-        <Route exact path="/auth" component={Lgin} />
-        <Route component={Error} />
-      </Switch>
-    </>
+    <div className="app">
+      <Router>
+          <Navbar />
+          <main>
+            <Switch>  
+              <Route path="/" exact component={Home} />
+              <Route path="/about" exact component={About} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Register} />
+              <Route  path="/rooms/:slug" component={SingleRoom} />
+              <Route path="/user" exact component={User} />
+              <Route path="/facilitator" exact component={Facilitator} />
+              <Route path="/rooms" exact component={Rooms} />
+              <Route path="/:slug/book" component={Book} />    
+              <Route component={NotFound} />
+            </Switch>
+          </main>
+      </Router>
+    </div>
   );
 }
 
