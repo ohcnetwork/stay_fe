@@ -24,14 +24,14 @@ img {
         height: 100%;
     }
     
-.loginform {
+.form {
         margin-top: 2em;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
         
-.loginform-group {
+.form-group {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -42,7 +42,7 @@ label {
         font-size: 20px;
     }
         
-.forminput {
+input {
         margin-top: 6px;
         min-width: 18em;
         height: 37px;
