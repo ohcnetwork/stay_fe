@@ -6,18 +6,6 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-}
-
-.app main {
-  margin-top: 70px; /* Space left for navbar */
-}
-
-.app h1 {
-  font-weight: 400;
-  font-size: 2rem;
-}
 :root {
   --primaryColor: #af9a7d;
   --mainWhite: #fff;
@@ -49,7 +37,18 @@ body {
   color: var(--primaryColor);
 }
 
+body {
+  font-family: "Poppins", sans-serif;
+}
 
+.app main {
+  margin-top: 70px; /* Space left for navbar */
+}
+
+.app h1 {
+  font-weight: 400;
+  font-size: 2rem;
+}
 
 .home-root {
   min-height: calc(100vh - 66px);
