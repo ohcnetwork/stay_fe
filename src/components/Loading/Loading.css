@@ -1,0 +1,56 @@
+.main-loader {
+  display: flex;
+  opacity: 1;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0,;
+  height: 100vh;
+  width: 100%;
+  background-color: #FFFFFF;
+  z-index: 150;
+  transition: opacity 300ms;
+}
+
+.main-loader.disabled {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2300ms, opacity 300ms 2s; /* mock loading */
+}
+
+.main-loader .progress-logo {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 40vmin;
+  height: 40vmin;
+}
+
+.main-loader .loader-custom {
+  position: relative;
+  height: 8px;
+  background-color: #000000;
+  border-radius: 4px;
+  animation: loader-custom 1s 0s infinite;
+}
+
+@keyframes loader-custom {
+  0% {
+    left: 0;
+    width: 0;
+  }
+  40% {
+    left: 50%;
+    width: 50%;
+  }
+  80% {
+    width: 40%;
+  }
+  100% {
+    left: 100%;
+    width: 10%;
+  }
+}
+
+

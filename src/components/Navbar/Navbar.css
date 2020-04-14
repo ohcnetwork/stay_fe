@@ -87,6 +87,8 @@
   color: #FFFFFF;
   transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
   border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .navbar .nav-link.nav-btn.nav-btn-theme {

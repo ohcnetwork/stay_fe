@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-function User() {
+import { useSelector } from 'react-redux';
+
+function User(props) {
+  const user = useSelector(state => state.user);
+
+  useEffect(() => {
+    if (!user) {
+      props.history.push('/login');
+    }
+  }, [user, props.history])
+
   return (
     <div className="user">
-      <h2>User</h2>
+      <h2>Hey {user.email},</h2>
     </div>
   );
 }
