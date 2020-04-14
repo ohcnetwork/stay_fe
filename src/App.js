@@ -4,19 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './App.css';
 
-import Navbar from './components/Navbar/Navbar';
-import Loading from './components/Loading/Loading';
+import Navbar from './Components/Common/Navbar/Navbar';
+import Loading from './Components/Common/Loading/Loading';
 
-import Home from './pages/Home/Home';
-import About from './pages/About/About';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import User from './pages/User/User';
-import Facilitator from './pages/Facilitator/Facilitator';
-import Rooms from './pages/Rooms/Rooms';
-import NotFound from './pages/NotFound/NotFound';
+import Home from './Components/Home/Home';
+import Login from './Components/Auth/Login/Login';
+import Register from './Components/Auth/Register/Register';
+import User from './Components/User/User';
+import Facilitator from './Components/Facilitator/Facilitator';
+import Rooms from './Components/Rooms/Rooms';
+import NotFound from './Components/NotFound/NotFound';
 
-import { userActions, appStateActions } from './redux/actions';
+import { userActions, appStateActions } from './Redux/actions';
 
 function App() {
   
@@ -43,7 +42,6 @@ function App() {
           <main>
             <Switch>  
               <Route path="/" exact component={Home} />
-              <Route path="/about" exact component={About} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
               <Route path="/user" exact component={User} />
