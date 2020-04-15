@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
+import './Index.css';
 import Loading from "./Components/Common/Loading/Loading";
 import { userActions, appStateActions } from "./redux/actions";
 import PublicRouter from "./Router/PublicRouter";
@@ -10,7 +11,7 @@ function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.appState.isLoading);
   const loggedInUser = useSelector(state => state.user);
-  
+
   console.log(`app.js: loading(${isLoading})`);
 
   useEffect(() => {
@@ -27,13 +28,13 @@ function App() {
   return (
     <div className="app">
       <Loading />
-        {
-          loggedInUser
+      {
+        loggedInUser
           ?
-            <AppRouter />
+          <AppRouter />
           :
-            <PublicRouter />
-        }
+          <PublicRouter />
+      }
 
     </div>
   );
