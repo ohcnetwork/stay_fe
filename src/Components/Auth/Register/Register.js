@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-// import { navigate } from "hookrouter";
+import { navigate } from "hookrouter";
 
 import { USER_TYPES } from "../../../Common/constants";
 import { TextInputField, SelectInputField } from "../../Common/FormElements/InputFields";
@@ -73,7 +73,7 @@ function Register() {
             axios.post("http://localhost:4009/api/v1/auth/register", inputs)
                 .then(res => {
                     console.log(res);
-                    // navigate("/login");
+                    navigate("/login");
                 })
                 .catch(e => {
                     let backendErrors = e.response? e.response.data? e.response.data.message: null: null;
