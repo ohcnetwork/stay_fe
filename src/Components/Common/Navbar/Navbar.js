@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../../redux/actions";
 
 import "./Navbar.css";
+import { A, navigate } from "hookrouter";
 
 function Navbar() {
   const user = useSelector((state) => state.user);
@@ -45,7 +46,7 @@ function Navbar() {
       >
         {user ? (
           <>
-            <Link to="/user" className="nav-link">
+            {/* <Link to="/user" className="nav-link">
               Dashboard
             </Link>
             <Link to="/rooms" className="nav-link">
@@ -57,11 +58,24 @@ function Navbar() {
               className="nav-link nav-btn nav-btn-theme"
             >
               Logout
+            </div> */}
+            <A href="/user" className="nav-link">
+              Dashboard
+            </A>
+            <A href="/rooms" className="nav-link">
+              Rooms
+            </A>
+            <div
+              role="button"
+              onClick={logoutUser}
+              className="nav-link nav-btn nav-btn-theme"
+            >
+              Logout
             </div>
           </>
         ) : (
           <>
-            <Link to="/" className="nav-link">
+            {/* <Link to="/" className="nav-link">
               Home
             </Link>
             <Link to="/about" className="nav-link">
@@ -72,7 +86,19 @@ function Navbar() {
             </Link>
             <Link to="/register" className="nav-link nav-btn nav-btn-theme">
               Register
-            </Link>
+            </Link> */}
+            <A href="/" className="nav-link">
+              Home
+            </A>
+            <A href="/about" className="nav-link">
+              About
+            </A>
+            <A href="/login" className="nav-link nav-btn">
+              Login
+            </A>
+            <A href="/register" className="nav-link nav-btn nav-btn-theme">
+              Register
+            </A>
           </>
         )}
       </nav>
