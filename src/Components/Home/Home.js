@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { A } from "hookrouter";
 
 function Home() {
   return (
@@ -7,9 +7,9 @@ function Home() {
       <div className="banner">
         <h1 className="secion-title">Quarantine Stay</h1>
         <div />
-        <Link to="/rooms" className="btn-primary">
+        <A href="/rooms" className="btn-primary">
           our rooms
-        </Link>
+        </A>
       </div>
     </div>
   );
