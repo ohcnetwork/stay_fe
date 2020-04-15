@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-
 import NavbarPublic from "./NavbarPublic";
 import NavbarPrivate from "./NavbarPrivate";
-
 import "./Navbar.css";
 
 function Navbar({ type }) {
@@ -15,7 +13,7 @@ function Navbar({ type }) {
   function menuDisable() {
     setMenuActive(false);
   }
-
+  
   return (
     <header className="navbar">
       <h1>Stay</h1>
@@ -40,6 +38,7 @@ function Navbar({ type }) {
           :
             <NavbarPublic />
         }
+
       </nav>
     </header>
   );

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
 import loginImg from "../../../Common/images/login.svg";
 import "./Login.css";
-
 import { userActions } from "../../../redux/actions";
 import { navigate } from "hookrouter";
 
 function Login() {
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -19,7 +18,7 @@ function Login() {
     const { name, value } = e.target;
     setInputs((inputs) => ({ ...inputs, [name]: value }));
   }
-
+  
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -42,6 +41,7 @@ function Login() {
           <div className="image">
             <img src={loginImg} alt="login page" />
           </div>
+    
           <div className="form-group">
             <label>Email</label>
             <input
@@ -52,6 +52,7 @@ function Login() {
               onChange={handleChange}
             />
           </div>
+    
           <div className="form-group">
             <label>Password</label>
             <input
@@ -62,6 +63,7 @@ function Login() {
               onChange={handleChange}
             />
           </div>
+    
         </div>
         <div className="footer">
           <button className="btn" type="submit">
