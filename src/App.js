@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './App.css';
-import './Index.css';
 
 import Navbar from './Components/Common/Navbar/Navbar';
 import Loading from './Components/Common/Loading/Loading';
