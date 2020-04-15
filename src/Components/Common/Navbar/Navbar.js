@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-
-import { userActions } from "../../../redux/actions";
-
+import NavbarPublic from "./NavbarPublic";
+import NavbarPrivate from "./NavbarPrivate";
 import "./Navbar.css";
 
-function Navbar() {
-  const user = useSelector((state) => state.user);
-
+function Navbar({ type }) {
   const [menuActive, setMenuActive] = useState(false);
-
-  const dispatch = useDispatch();
 
   function menuToggle() {
     menuActive ? menuDisable() : setMenuActive(true);
@@ -20,12 +13,7 @@ function Navbar() {
   function menuDisable() {
     setMenuActive(false);
   }
-
-  function logoutUser() {
-    localStorage.removeItem("user");
-    dispatch(userActions.logout());
-  }
-
+  
   return (
     <header className="navbar">
       <h1>Stay</h1>
@@ -43,38 +31,14 @@ function Navbar() {
         className={`${menuActive ? "is-active" : ""}`}
         onClick={menuDisable}
       >
-        {user ? (
-          <>
-            <Link to="/user" className="nav-link">
-              Dashboard
-            </Link>
-            <Link to="/rooms" className="nav-link">
-              Rooms
-            </Link>
-            <div
-              role="button"
-              onClick={logoutUser}
-              className="nav-link nav-btn nav-btn-theme"
-            >
-              Logout
-            </div>
-          </>
-        ) : (
-          <>
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-            <Link to="/about" className="nav-link">
-              About
-            </Link>
-            <Link to="/login" className="nav-link nav-btn">
-              Login
-            </Link>
-            <Link to="/register" className="nav-link nav-btn nav-btn-theme">
-              Register
-            </Link>
-          </>
-        )}
+        {
+          type === "private" 
+          ?
+            <NavbarPrivate />
+          :
+            <NavbarPublic />
+        }
+
       </nav>
     </header>
   );
