@@ -3,7 +3,7 @@ import axios from "axios";
 // import { navigate } from "hookrouter";
 
 import { USER_TYPES } from "../../../Common/constants";
-import { TextInputField } from "../../Common/InputFields/InputFields";
+import { TextInputField, SelectInputField } from "../../Common/InputFields/InputFields";
 
 import loginImg from "../../../Common/images/login.svg";
 import "./Register.css";
@@ -100,13 +100,7 @@ function Register(props) {
                 <TextInputField label="Email" type="email" name="email" placeholder="Email address" value={inputs.email} onChange={handleChange} error={errors.email} />
                 <TextInputField label="Password" type="password" name="password" placeholder="Password" value={inputs.password} onChange={handleChange} error={errors.password} />
                 <TextInputField label="Confirm Password" type="password" name="confirm" placeholder="Confirm password" value={inputs.confirm} onChange={handleChange} error={errors.confirm} />
-                <div className="form-group">
-                    <label>Type</label>
-                    <select className={`${errors.type? "error": ""}`} name="type" value={inputs.type} onChange={handleChange}>
-                        {USER_TYPES.map(uType => <option key={uType.type} value={uType.type}>{uType.string}</option>)}
-                    </select>
-                    {errors.type && <div className="error-text">{errors.type}</div>}
-                </div>
+                <SelectInputField label="Type" options={USER_TYPES} name="type" value={inputs.type} onChange={handleChange} error={errors.type} />
                 {formError && <div className="error-text">{formError}</div>}
                 <div className="form-group btn-container">
                     <button className={`btn ${formLoading? "loading": ""}`} type="submit">Register</button>
