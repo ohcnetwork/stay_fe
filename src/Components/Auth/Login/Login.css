@@ -42,7 +42,7 @@ label {
         font-size: 20px;
     }
         
-input {
+.input-field {
         margin-top: 6px;
         min-width: 18em;
         height: 37px;
