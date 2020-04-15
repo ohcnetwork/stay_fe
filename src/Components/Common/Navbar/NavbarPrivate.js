@@ -8,7 +8,7 @@ function NavbarPrivate() {
   const dispatch = useDispatch();
 
   function logoutUser() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("stay_access_token");
     dispatch(userActions.logout());
     navigate('/');
   }

@@ -5,7 +5,7 @@ const initialState = '';
 export function user(state = initialState, action) {
   switch (action.type) {
     case userConstants.USER_LOGIN: {
-      return action.payload
+      return action.payload;
     }
 
     case userConstants.USER_LOGOUT: {
