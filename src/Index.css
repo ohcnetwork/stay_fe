@@ -151,13 +151,13 @@ h6 {
 .defaultHero,
 .roomsHero {
   min-height: calc(100vh - 1px);
-  background: url("./images/defaultBcg.jpeg") center/cover no-repeat;
+  background: url("./Common/images/defaultBcg.jpeg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .roomsHero {
-  background-image: url("./images/room-2.jpeg");
+  background-image: url("./Common/images/room-2.jpeg");
   min-height: 60vh;
 }
 /* End of Hero */
@@ -560,7 +560,7 @@ body {
 
 .home-root {
   min-height: calc(100vh - 1px);
-  background: url("./images/HomeBg.jpeg") center/cover no-repeat;
+  background: url("./Common/images/HomeBg.jpeg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -626,12 +626,12 @@ body {
 /* end of Title */
 .roomsHero {
   min-height: calc(100vh - 1px);
-  background: url("./images/defaultBcg.jpeg") center/cover no-repeat;
+  background: url("./Common/images/defaultBcg.jpeg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .roomsHero {
-  background-image: url("./images/room-2.jpeg");
+  background-image: url("./Common/images/room-2.jpeg");
   min-height: 60vh;
 }
