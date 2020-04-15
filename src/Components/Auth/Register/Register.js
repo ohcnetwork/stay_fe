@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 // import { navigate } from "hookrouter";
 
+import { USER_TYPES } from "../../../Common/constants";
 
 import loginImg from "../../../Common/images/login.svg";
 import "./Register.css";
@@ -110,18 +111,13 @@ function Register(props) {
                     {errors.password && <div className="error-text">{errors.password}</div>}
                 </div>
                 <div className="form-group">
-                    <label>Confirm Password</label>
-                    <input className={`${errors.confirm? "error": ""}`} type="password" name="confirm" placeholder="Confirm password" value={inputs.confirm} onChange={handleChange} />
-                    {errors.confirm && <div className="error-text">{errors.confirm}</div>}
-                </div>
-                <div className="form-group">
                     <label>Type</label>
                     <select className={`${errors.type? "error": ""}`} name="type" value={inputs.type} onChange={handleChange}>
-                        <option value="customer">Customer</option>
-                        <option value="facilityowner">Facility Owner</option>
+                        {USER_TYPES.map(uType => <option key={uType.type} value={uType.type}>{uType.string}</option>)}
                     </select>
                     {errors.type && <div className="error-text">{errors.type}</div>}
                 </div>
+                {formError && <div className="error-text">{formError}</div>}
                 <div className="form-group btn-container">
                     <button className={`btn ${formLoading? "loading": ""}`} type="submit">Register</button>
                 </div>
