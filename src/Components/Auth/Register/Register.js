@@ -36,29 +36,29 @@ function Register() {
     }
 
     function validateInputs() {
-        let formContainsError = false;
+        let formValid = false;
         let err = Object.assign({}, initError);
         const { password, confirm } = inputs;
 
         Object.keys(inputs).forEach(key => {
             if (inputs[key] === "") {
-                formContainsError = true;
+                formValid = true;
                 err[key] = "This field is required";
             }
         });
         if (password.length < 8) {
             err["password"] = "Password must have atleat 8 characters";
-            formContainsError = true;
+            formValid = true;
         } else if (password.length > 49) {
             err["password"] = "Password should not exceed 49 characters";
-            formContainsError = true;
+            formValid = true;
         } else if (password !== confirm) {
             err["confirm"] = "Password and confirm password do not match";
-            formContainsError = true;
+            formValid = true;
         }
 
         setErrors(err);
-        return formContainsError;
+        return formValid;
     }
     
     function handleSubmit(e) {
