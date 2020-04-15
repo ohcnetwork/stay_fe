@@ -1,25 +1,31 @@
 import React from "react";
-import { useRedirect, useRoutes, navigate } from "hookrouter";
+import { useRoutes } from "hookrouter";
 
 import Home from "../Components/Home/Home";
 import Login from "../Components/Auth/Login/Login";
 import Register from "../Components/Auth/Register/Register";
-import Facilitator from "../Components/Facilitator/Facilitator";
 import Rooms from "../Components/Rooms/Rooms";
 import NotFound from "../Components/NotFound/NotFound";
-import User from "../Components/User/User";
+
+import Navbar from "../Components/Common/Navbar/Navbar";
+
 const routes = {
   "/": () => <Home />,
-  "/rooms": () => <Rooms />,
   "/register": () => <Register />,
-  "/user": () => <User />,
   "/login": () => <Login />,
-  "/facilitator": () => <Facilitator />,
-  "": () => <NotFound />,
+  "/rooms": () => <Rooms />,
+  "*": () => <NotFound />
 };
 const PublicRouter = () => {
-  const pages = useRoutes(routes);
-  return <div>{pages}</div>;
+  const page = useRoutes(routes) || <Home />;
+  return (
+      <div>
+        <Navbar type="public" />
+        <main>
+          {page}
+        </main>
+      </div>
+    );
 };
 
 export default PublicRouter;

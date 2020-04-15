@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
 
-import Navbar from "./Components/Common/Navbar/Navbar";
 import Loading from "./Components/Common/Loading/Loading";
 
 // import Home from "./Components/Home/Home";
@@ -17,10 +15,12 @@ import Loading from "./Components/Common/Loading/Loading";
 
 import { userActions, appStateActions } from "./redux/actions";
 import PublicRouter from "./Router/PublicRouter";
+import AppRouter from "./Router/AppRouter";
 
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.appState.isLoading);
+  const loggedInUser = useSelector(state => state.user);
   console.log(`app.js: loading(${isLoading})`);
 
   useEffect(() => {
@@ -37,21 +37,13 @@ function App() {
   return (
     <div className="app">
       <Loading />
-      <Router>
-        <Navbar />
-        <main>
-          {/* <Switch> */}
-          {/* <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/user" exact component={User} />
-            <Route path="/facilitator" exact component={Facilitator} />
-            <Route path="/rooms" exact component={Rooms} />
-            <Route component={NotFound} /> */}
-          <PublicRouter />
-          {/* </Switch> */}
-        </main>
-      </Router>
+        {
+          loggedInUser
+          ?
+            <AppRouter />
+          :
+            <PublicRouter />
+        }
     </div>
   );
 }

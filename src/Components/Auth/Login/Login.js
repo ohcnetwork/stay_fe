@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import loginImg from "../../../Common/images/login.svg";
 import "./Login.css";
 
 import { userActions } from "../../../redux/actions";
+import { navigate } from "hookrouter";
 
-function Login(props) {
+function Login() {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
   const { email, password } = inputs;
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
 
   function handleChange(e) {
     const { name, value } = e.target;
     setInputs((inputs) => ({ ...inputs, [name]: value }));
   }
-
-  // check login status
-  useEffect(() => {
-    if (user) {
-      console.log("login.js: a user had already logged in", user);
-      props.history.push("/user");
-    }
-  }, [user, props.history]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,6 +29,7 @@ function Login(props) {
       setTimeout(() => {
         localStorage.setItem("user", JSON.stringify(data));
         dispatch(userActions.login(data));
+        navigate("/user");
       }, 2000); /* mock loding time */
     }
   }
@@ -47,7 +40,7 @@ function Login(props) {
       <form name="form" onSubmit={handleSubmit} className="form">
         <div className="content">
           <div className="image">
-            <img src={loginImg} alt="login image" />
+            <img src={loginImg} alt="login page" />
           </div>
           <div className="form-group">
             <label>Email</label>
@@ -71,7 +64,7 @@ function Login(props) {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn" type="submit">
+          <button className="btn" type="submit">
             Login
           </button>
         </div>
