@@ -10,44 +10,6 @@ import loginImg from "../../../Common/images/login.svg";
 import "./Register.css";
 
 function Register() {
-<<<<<<< HEAD
-    const [name, setUsername] = useState('');
-    const [email, setUserEmail] = useState('');
-    const [password, setUserpassword] = useState('');
-    const [cpassword, setUsercpassword] = useState('');
-
-    return (
-        <div className="base-container" >
-            <div className="header">Register</div>
-            <div className="content">
-                <div className="image">
-                    <img src={loginImg} alt="register page" />
-                </div>
-                <form name="form">
-                    <div className="form-group">
-                        <label >Name</label>
-                        <input className="input-field" type="text" name="username" placeholder="username" value={name} onChange={e => setUsername(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label >Email</label>
-                        <input className="input-field" type="text" name="email" placeholder="email" value={email} onChange={e => setUserEmail(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label >Password</label>
-                        <input className="input-field" type="text" name="password" placeholder="password" value={password} onChange={e => setUserpassword(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label >Confirm Password</label>
-                        <input className="input-field" type="text" name="cpassword" placeholder="confirm password" value={cpassword} onChange={e => setUsercpassword(e.target.value)} />
-                    </div>
-                </form>
-            </div>
-            <div className="footer">
-                <button type="button" className="btn">
-                    Register
-                </button>
-            </div>
-=======
     const initVals = {
         name: "",
         email: "",
@@ -148,8 +110,7 @@ function Register() {
                     <ThemeButton text="Register" type="submit" loading={formLoading} />
                 </div>
             </form>
->>>>>>> 8c52c2d27b2ac069aecf6eeb357e6609fec88be4
         </div>
     );
-}
+  }
 export default Register;

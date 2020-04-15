@@ -10,54 +10,13 @@
     text-align: center;
 }   
      
-<<<<<<< HEAD
-.image {
-          width: 21em;
-    }
-        
-.img {
-        width: 100%;
-        height: 100%;
-    }
-    
-.form {
-        margin-top: 2em;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-=======
 .register-container .image {
     width: 95vw;
     max-width: 500px;
     padding: 20px 0 40px 0;
 }
->>>>>>> 8c52c2d27b2ac069aecf6eeb357e6609fec88be4
         
     
-<<<<<<< HEAD
-label {
-        font-size: 20px;
-    }
-        
-.input-field {
-        margin-top: 6px;
-        min-width: 18em;
-        height: 37px;
-        padding: 0px 10px;
-        font-size: 16px;
-        font-family: "Open Sans", sans-serif;
-        background-color: #f3f3f3;
-        border: 0;
-        border-radius: 4px;
-        margin-bottom: 31px;
-        transition: all 250ms ease-in-out;
-    }
-    
-.footer {
-        margin-top: 3em;
-    }
-=======
 .register-container .form.regsiter {
     display: flex;
     flex-direction: column;
@@ -66,7 +25,6 @@ label {
     padding: 0 10px;
 }
   
->>>>>>> 8c52c2d27b2ac069aecf6eeb357e6609fec88be4
 
 .register-container .btn-container {
     margin-top: 30px;
