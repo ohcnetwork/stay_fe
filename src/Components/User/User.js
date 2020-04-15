@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 function User(props) {
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     if (!user) {
-      props.history.push('/login');
+      props.history.push("/login");
     }
-  }, [user, props.history])
+  }, [user, props.history]);
 
   return (
     <div className="user">
