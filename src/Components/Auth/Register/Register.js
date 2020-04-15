@@ -3,6 +3,7 @@ import axios from "axios";
 // import { navigate } from "hookrouter";
 
 import { USER_TYPES } from "../../../Common/constants";
+import { TextInputField } from "../../Common/InputFields/InputFields";
 
 import loginImg from "../../../Common/images/login.svg";
 import "./Register.css";
@@ -77,9 +78,9 @@ function Register(props) {
                     if (backendErrors === null) {
                         formErr = "Something went wrong, please try again";
                     } else {
-                    backendErrors.forEach(individualError => {
-                        err[individualError.property] = Object.values(individualError.constraints)[0];
-                    });
+                        backendErrors.forEach(individualError => {
+                            err[individualError.property] = Object.values(individualError.constraints)[0];
+                        });
                     }
                     console.log(err);
                     setFormError(formErr);
@@ -95,21 +96,10 @@ function Register(props) {
             <h2 className="heading">Register</h2>
             <form name="form" onSubmit={handleSubmit} className="form regsiter">
                 <img src={loginImg} className="image" alt="login page"/>
-                <div className="form-group">
-                    <label>Name</label>
-                    <input className={`${errors.name? "error": ""}`} type="text" name="name" placeholder="Your Name" value={inputs.name} onChange={handleChange} />
-                    {errors.name && <div className="error-text">{errors.name}</div>}
-                </div>
-                <div className="form-group">
-                    <label>Email</label>
-                    <input className={`${errors.email? "error": ""}`} type="text" name="email" placeholder="Email address" value={inputs.email} onChange={handleChange} />
-                    {errors.email && <div className="error-text">{errors.email}</div>}
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <input className={`${errors.password? "error": ""}`} type="password" name="password" placeholder="Password" value={inputs.password} onChange={handleChange} />
-                    {errors.password && <div className="error-text">{errors.password}</div>}
-                </div>
+                <TextInputField label="Name" type="text" name="name" placeholder="Your name" value={inputs.value} onChange={handleChange} error={errors.name} />
+                <TextInputField label="Email" type="email" name="email" placeholder="Email address" value={inputs.email} onChange={handleChange} error={errors.email} />
+                <TextInputField label="Password" type="password" name="password" placeholder="Password" value={inputs.password} onChange={handleChange} error={errors.password} />
+                <TextInputField label="Confirm Password" type="password" name="confirm" placeholder="Confirm password" value={inputs.confirm} onChange={handleChange} error={errors.confirm} />
                 <div className="form-group">
                     <label>Type</label>
                     <select className={`${errors.type? "error": ""}`} name="type" value={inputs.type} onChange={handleChange}>
