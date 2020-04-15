@@ -30,7 +30,7 @@ function Register() {
     const [formError, setFormError] = useState("");
     const [inputs, setInputs] = useState(initVals);
     const [errors, setErrors] = useState(initError);
-    
+
     function handleChange(e) {
         const { name, value } = e.target;
         setInputs(inputs => ({ ...inputs, [name]: value }));
@@ -61,10 +61,10 @@ function Register() {
         setErrors(err);
         return formValid;
     }
-    
+
     function handleSubmit(e) {
         e.preventDefault();
-        
+
         if (!validateInputs() && !formLoading) {
             let err = initError;
 
@@ -72,14 +72,14 @@ function Register() {
             setFormLoading(true);
 
             let apiObj = api.register;
-            
+
             axios[apiObj.method.toLowerCase()](`${BASE_URL}${apiObj.path}`, inputs)
                 .then(res => {
                     console.log("Register.js: ", res);
                     navigate("/login");
                 })
                 .catch(e => {
-                    let backendErrors = e.response? e.response.data? e.response.data.message: null: null;
+                    let backendErrors = e.response ? e.response.data ? e.response.data.message : null : null;
                     let formErr = "";
 
                     if (backendErrors === null) {
@@ -97,12 +97,12 @@ function Register() {
         }
 
     }
- 
+
     return (
         <div className="register-container" >
             <h2 className="heading">Register</h2>
             <form name="form" onSubmit={handleSubmit} className="form regsiter">
-                <img src={loginImg} className="image" alt="login page"/>
+                <img src={loginImg} className="image" alt="login page" />
                 <TextInputField label="Name" type="text" name="name" placeholder="Your name" value={inputs.value} onChange={handleChange} error={errors.name} />
                 <TextInputField label="Email" type="email" name="email" placeholder="Email address" value={inputs.email} onChange={handleChange} error={errors.email} />
                 <TextInputField label="Password" type="password" name="password" placeholder="Password" value={inputs.password} onChange={handleChange} error={errors.password} />
@@ -115,5 +115,5 @@ function Register() {
             </form>
         </div>
     );
-  }
+}
 export default Register;
