@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { navigate } from "hookrouter";
 
-import { USER_TYPES } from "../../../Common/constants";
+import { USER_TYPES, BASE_URL } from "../../../Common/constants";
+import api from "../../../Common/api";
 import { TextInputField, SelectInputField } from "../../Common/FormElements/InputFields";
 import { ThemeButton } from "../../Common/FormElements/Buttons";
 
@@ -67,12 +68,14 @@ function Register() {
         if (!validateInputs() && !formLoading) {
             let err = initError;
 
-            console.log("creating a new user", inputs);
+            console.log("Register.js: ", "creating a new user", inputs);
             setFormLoading(true);
+
+            let apiObj = api.register;
             
-            axios.post("http://localhost:4009/api/v1/auth/register", inputs)
+            axios[apiObj.method.toLowerCase()](`${BASE_URL}${apiObj.path}`, inputs)
                 .then(res => {
-                    console.log(res);
+                    console.log("Register.js: ", res);
                     navigate("/login");
                 })
                 .catch(e => {
@@ -86,11 +89,11 @@ function Register() {
                             err[individualError.property] = Object.values(individualError.constraints)[0];
                         });
                     }
-                    console.log(err);
+                    console.log("Register.js: ", err);
                     setFormError(formErr);
                     setErrors(err);
+                    setFormLoading(false);
                 })
-                .finally(() => setFormLoading(false));
         }
 
     }

@@ -24,7 +24,13 @@
     margin: 0;
     padding: 0 10px;
 }
-  
+
+.register-container .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+}  
 
 .register-container .btn-container {
     margin-top: 30px;
