@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import loginImg from '../../../Common/images/login.svg';
-import './Register.css';
+import React, { useState } from "react";
+import axios from "axios";
+// import { navigate } from "hookrouter";
 
-function Register() {
+
+import loginImg from "../../../Common/images/login.svg";
+import "./Register.css";
+
+function Register(props) {
     const [formLoading, setFormLoading] = useState(false);
+    const [formError, setFormError] = useState("");
     const [inputs, setInputs] = useState({
-        name: '',
-        email: '',
-        password: '',
-        confirm: '',
-        type: 'customer'
+        name: "",
+        email: "",
+        password: "",
+        confirm: "",
+        type: "customer"
     });
     const [errors, setErrors] = useState({
-        name: '',
-        email: '',
-        password: '',
-        confirm: '',
-        type: ''
+        name: "",
+        email: "",
+        password: "",
+        confirm: "",
+        type: ""
     });
     
     
@@ -28,24 +32,24 @@ function Register() {
 
     function validateInputs() {
         let formContainsError = false;
-        let err = {name: '', email: '', password: '', confirm: '', type: ''};
+        let err = {name: "", email: "", password: "", confirm: "", type: ""};
         const { password, confirm } = inputs;
 
         Object.keys(inputs).forEach(key => {
-            if (inputs[key] === '') {
+            if (inputs[key] === "") {
                 formContainsError = true;
                 err[key] = "This field is required";
             }
         });
         
         if (password.length < 8) {
-            err['password'] = 'Password must have atleat 8 characters';
+            err["password"] = "Password must have atleat 8 characters";
             formContainsError = true;
         } else if (password.length > 49) {
-            err['password'] = 'Password should not exceed 49 characters';
+            err["password"] = "Password should not exceed 49 characters";
             formContainsError = true;
         } else if (password !== confirm) {
-            err['confirm'] = 'Password and confirm password do not match';
+            err["confirm"] = "Password and confirm password do not match";
             formContainsError = true;
         }
 
@@ -56,25 +60,28 @@ function Register() {
     function handleSubmit(e) {
         e.preventDefault();
         
-        // const formContainsError = validateInputs();
-        const formContainsError = false;
-        
-        if (!formContainsError) {
-            console.log('creating a new user', inputs);
+        if (!validateInputs() && !formLoading) {
+            console.log("creating a new user", inputs);
             setFormLoading(true);
-            axios.post('http://localhost:4009/api/v1/auth/register', inputs)
+            axios.post("http://localhost:4009/api/v1/auth/register", inputs)
                 .then(res => {
                     console.log(res);
+                    // navigate("/login");
                 })
                 .catch(e => {
                     let backendErrors = e.response? e.response.data? e.response.data.message: null: null;
-                    let err = {name: '', email: '', password: '', confirm: '', type: ''};
+                    let err = {name: "", email: "", password: "", confirm: "", type: ""};
+                    let formErr = "";
 
-                    console.log(backendErrors);
+                    if (backendErrors === null) {
+                        formErr = "Something went wrong, please try again";
+                    } else {
                     backendErrors.forEach(individualError => {
                         err[individualError.property] = Object.values(individualError.constraints)[0];
                     });
+                    }
                     console.log(err);
+                    setFormError(formErr);
                     setErrors(err);
                 })
                 .finally(() => setFormLoading(false));
