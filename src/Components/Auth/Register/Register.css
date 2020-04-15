@@ -1,20 +1,16 @@
-.base-container {
+.register-container {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
+    padding-bottom: 50px;
+}
 
-.header {
-      font-size: 24px;
-      font-family: "Open Sans", sans-serif;
-    }
-    
-.content {
-        display: flex;
-        flex-direction: column;
-    }    
+.register-container .heading {
+    font-size: 2rem;
+    font-weight: 400;
+    padding: 20px 0;
+    text-align: center;
+}   
      
+<<<<<<< HEAD
 .image {
           width: 21em;
     }
@@ -30,14 +26,16 @@
         flex-direction: column;
         align-items: center;
     }
+=======
+.register-container .image {
+    width: 95vw;
+    max-width: 500px;
+    padding: 20px 0 40px 0;
+}
+>>>>>>> 8c52c2d27b2ac069aecf6eeb357e6609fec88be4
         
-.form-group {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: fit-content;
-    }
     
+<<<<<<< HEAD
 label {
         font-size: 20px;
     }
@@ -59,14 +57,17 @@ label {
 .footer {
         margin-top: 3em;
     }
+=======
+.register-container .form.regsiter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0 10px;
+}
+  
+>>>>>>> 8c52c2d27b2ac069aecf6eeb357e6609fec88be4
 
-.btn {
-        font-size: 21px;
-        padding: 5px 20px;
-        border: 0;
-        background-color: #3498db;
-        color: #fff;
-        border-radius: 3px;
-        transition: all 250ms ease-in-out;
-        cursor: pointer;
-    }
+.register-container .btn-container {
+    margin-top: 30px;
+}

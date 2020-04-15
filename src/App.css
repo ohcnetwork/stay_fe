@@ -116,3 +116,98 @@ body {
   background: var(--primaryColor);
 }
 /* end of Title */
+
+/* FormElements */
+      
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+  
+.form-group .label {
+  font-size: 1rem;;
+}
+      
+.form-group .input, .form-group .select {
+  outline: none;
+  padding: 0px 10px;
+  margin: 0;
+  min-width: unset;
+  width: 95vw;
+  max-width: 400px;
+  height: 40px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  background-color: #efefef;
+  border: 2px solid #efefef;
+  color: #222222;
+  border-radius: 4px;
+  transition: all 250ms ease-in-out;
+}
+
+.form-group .input.error {
+  outline: 2px solid #ce2929;
+}
+
+.form-group .input:focus, .form-group .select:focus, .form-group .button:focus {
+  border: 2px solid #aed2eb;
+}
+
+.form-group .error-text {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #b90000;
+}
+/* Buttons */
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border: 0;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+  cursor: pointer;
+}
+
+.button.theme-button {
+  background-color: #cf3c3c;
+  color: #ffffff;
+}
+
+.button:active {
+  box-shadow: 0 0 10px #444444;
+}
+
+.button.loading:after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9px;
+  border: 4px solid transparent;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  margin-left: 5px;
+  animation: loading-rotate 500ms linear infinite;
+}
+
+.button.theme-button:hover {
+  background-color: #b13030;
+}
+
+@keyframes loading-rotate {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}
