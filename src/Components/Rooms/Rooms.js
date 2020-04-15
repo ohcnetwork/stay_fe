@@ -1,23 +1,11 @@
 import React from 'react';
-import Hero from "./Hero";
-import RoomsContainer from "./RoomContainer";
-
-import { A } from "hookrouter";
-
-
 
 function Rooms(props) {
+
   return (
-    <>
-      <Hero hero="roomsHero">
-        <div className="banner">
-          <A href="/" className="btn-primary">
-            return home
-         </A>
-        </div>
-      </Hero>
-      <RoomsContainer />
-    </>
+    <div className="rooms">
+      <h2>Rooms</h2>
+    </div>
   );
 }
 

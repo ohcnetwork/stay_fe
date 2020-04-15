@@ -18,7 +18,7 @@ function Login() {
     const { name, value } = e.target;
     setInputs((inputs) => ({ ...inputs, [name]: value }));
   }
-
+  
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -41,11 +41,10 @@ function Login() {
           <div className="image">
             <img src={loginImg} alt="login page" />
           </div>
-
+    
           <div className="form-group">
             <label>Email</label>
             <input
-              className="input-field"
               type="text"
               name="email"
               placeholder="email"
@@ -53,11 +52,10 @@ function Login() {
               onChange={handleChange}
             />
           </div>
-
+    
           <div className="form-group">
             <label>Password</label>
             <input
-              className="input-field"
               type="password"
               name="password"
               placeholder="password"
@@ -65,7 +63,7 @@ function Login() {
               onChange={handleChange}
             />
           </div>
-
+    
         </div>
         <div className="footer">
           <button className="btn" type="submit">
