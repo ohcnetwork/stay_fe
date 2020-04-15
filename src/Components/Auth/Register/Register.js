@@ -3,29 +3,32 @@ import axios from "axios";
 // import { navigate } from "hookrouter";
 
 import { USER_TYPES } from "../../../Common/constants";
-import { TextInputField, SelectInputField } from "../../Common/InputFields/InputFields";
+import { TextInputField, SelectInputField } from "../../Common/FormElements/InputFields";
+import { ThemeButton } from "../../Common/FormElements/Buttons";
 
 import loginImg from "../../../Common/images/login.svg";
 import "./Register.css";
 
-function Register(props) {
-    const [formLoading, setFormLoading] = useState(false);
-    const [formError, setFormError] = useState("");
-    const [inputs, setInputs] = useState({
+function Register() {
+    const initVals = {
         name: "",
         email: "",
         password: "",
         confirm: "",
-        type: "customer"
-    });
-    const [errors, setErrors] = useState({
+        type: USER_TYPES[0].type
+    }
+    const initError = {
         name: "",
         email: "",
         password: "",
         confirm: "",
         type: ""
-    });
-    
+    }
+
+    const [formLoading, setFormLoading] = useState(false);
+    const [formError, setFormError] = useState("");
+    const [inputs, setInputs] = useState(initVals);
+    const [errors, setErrors] = useState(initError);
     
     function handleChange(e) {
         const { name, value } = e.target;
@@ -34,7 +37,7 @@ function Register(props) {
 
     function validateInputs() {
         let formContainsError = false;
-        let err = {name: "", email: "", password: "", confirm: "", type: ""};
+        let err = Object.assign({}, initError);
         const { password, confirm } = inputs;
 
         Object.keys(inputs).forEach(key => {
@@ -43,7 +46,6 @@ function Register(props) {
                 err[key] = "This field is required";
             }
         });
-        
         if (password.length < 8) {
             err["password"] = "Password must have atleat 8 characters";
             formContainsError = true;
@@ -63,8 +65,11 @@ function Register(props) {
         e.preventDefault();
         
         if (!validateInputs() && !formLoading) {
+            let err = initError;
+
             console.log("creating a new user", inputs);
             setFormLoading(true);
+            
             axios.post("http://localhost:4009/api/v1/auth/register", inputs)
                 .then(res => {
                     console.log(res);
@@ -72,7 +77,6 @@ function Register(props) {
                 })
                 .catch(e => {
                     let backendErrors = e.response? e.response.data? e.response.data.message: null: null;
-                    let err = {name: "", email: "", password: "", confirm: "", type: ""};
                     let formErr = "";
 
                     if (backendErrors === null) {
@@ -103,7 +107,7 @@ function Register(props) {
                 <SelectInputField label="Type" options={USER_TYPES} name="type" value={inputs.type} onChange={handleChange} error={errors.type} />
                 {formError && <div className="error-text">{formError}</div>}
                 <div className="form-group btn-container">
-                    <button className={`btn ${formLoading? "loading": ""}`} type="submit">Register</button>
+                    <ThemeButton text="Register" type="submit" loading={formLoading} />
                 </div>
             </form>
         </div>
