@@ -1,70 +1,113 @@
 import React, { Component } from "react";
 import items from "./Room_data";
-import Hotel_data from "./Hotel_data";
+import axios from 'axios'
 var globe;
 
 const RoomContext = React.createContext();
 export default class RoomProvider extends Component {
   state = {
     rooms: [],
-    hotels:[],
+    hotels: [],
     sortedRooms: [],
-    sortedHotels:[],
+    sortedHotels: [],
     featuredRooms: [],
     loading: true,
-    location:"all",
+    location: "all",
     type: "all",
     capacity: 1,
     price: 0,
-    hid:"po",
+    hid: "po",
     minPrice: 0,
     maxPrice: 0,
     minSize: 0,
     maxSize: 0,
     breakfast: false,
     pets: false,
+    hotelList: []
   };
 
 
 
   componentDidMount() {
     // this.getData();
-    let hotels = this.formatData(Hotel_data);
+    let hotels
+    axios.get('http://localhost:3999/api/v1/facility/all-facility')
+      .then(res => {
+        console.log(res.data)
+        hotels = res.data
+        let rooms = this.formatData(items);
 
-    let rooms = this.formatData(items);
+        let featuredRooms = rooms.filter(room => room.featured === true);
+        //
+        let maxPrice = Math.max(...rooms.map(item => item.price));
+        let maxSize = Math.max(...rooms.map(item => item.size));
 
-    let featuredRooms = rooms.filter(room => room.featured === true);
-    //
-    let maxPrice = Math.max(...rooms.map(item => item.price));
-    let maxSize = Math.max(...rooms.map(item => item.size));
- 
 
-    
-    this.setState({
-      rooms,
-      hotels,
-      featuredRooms,
-      sortedRooms: rooms,
-      sortedHotels:hotels,
-      loading: false,
-      pri:0,
-      //
-      bk:"",
-      price: maxPrice,
-      maxPrice,
-      maxSize,
-    });
-    for(var i=0;i<hotels.length;i++){
-      for(var j=0;j<rooms.length;j++){
-        if(hotels[i].id === rooms[j].hid){
-            rooms[j].hname = hotels[i].name;
+        for (var i = 0; i < hotels.length; i++) {
+          for (var j = 0; j < rooms.length; j++) {
+            if (hotels[i].hotelId === rooms[j].hid) {
+              rooms[j].hname = hotels[i].name;
+            }
+          }
         }
-      }
-    }
-   // rooms[0].rooms.hname="sasi";
+
+        // var temprooms = Array.from(new Set(rooms.map(h => h.hid)))
+        //   .map(hid => {
+        //     return rooms.find(h => h.hid === hid)
+
+        //   })
+        // console.log(rooms);
+        this.setState({
+          rooms,
+          hotels,
+          featuredRooms,
+          sortedRooms: rooms,
+          sortedHotels: hotels,
+          loading: false,
+          pri: 0,
+          //
+          bk: "",
+          price: maxPrice,
+          maxPrice,
+          maxSize,
+        });
+
+
+        // console.log(rooms);
+
+      })
+  }
+  // const data = {
+  //   ownerID: "1235656445",
+  //   name: "hotel1",
+  //   address: "abc",
+  //   panchayath: "abc",
+  //   district: "ernakulam",
+  //   starCategory: "3",
+  //   latitude: "123",
+  //   longitude: "123",
+  //   facilities: "all",
+  //   contact: "29555465465",
+  //   policy: "null",
+  //   photos: "null",
+  //   status: "ACTIVE"
+  // }
+  // axios.post('http://localhost:3999/api/v1/facility/add-facility', data).then(
+  //   res => {
+  //     console.log(res.data)
+  //   }
+  // )
+  // let hotels = this.formatData(Hotel_data);
+
+  getUnique = rooms => {
+    rooms = Array.from(new Set(rooms.map(h => h.hid)))
+      .map(hid => {
+        return rooms.find(h => h.hid === hid)
+
+      })
     console.log(rooms);
   }
-  
+
   formatData(items) {
     //let hotels = this.formatData(Hotel_data);
 
@@ -79,20 +122,20 @@ export default class RoomProvider extends Component {
   getRoom = slug => {
     let tempRooms = [...this.state.rooms];
     const room = tempRooms.find(room => room.slug === slug);
-    globe=room;
+    globe = room;
     return room;
   };
-  getID = slug => { 
+  getID = slug => {
     return globe;
   };
 
-  
+
   handleChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    
-    console.log(name, value );
+
+    console.log(name, value);
 
     this.setState(
       {
@@ -117,24 +160,24 @@ export default class RoomProvider extends Component {
     } = this.state;
 
     let tempRooms = [...rooms];
-    let tempHotels=[...hotels];
+    let tempHotels = [...hotels];
     // transform values
     // get capacity
     capacity = parseInt(capacity);
     price = parseInt(price);
     // filter by type
- 
+
     if (type !== "all") {
-    
+
       tempRooms = tempRooms.filter(room => room.type === type);
-    
+
     }
-    if(type !== "all"){
-      hid="h2";
-     tempRooms=tempRooms.filter(hotels => hotels.hid === hid);
+    if (type !== "all") {
+      hid = "h2";
+      tempRooms = tempRooms.filter(hotels => hotels.hid === hid);
     }
 
-    if(location !== "all"){
+    if (location !== "all") {
       tempRooms = tempRooms.filter(room => room.location === location);
 
     }
@@ -156,9 +199,14 @@ export default class RoomProvider extends Component {
     if (pets) {
       tempRooms = tempRooms.filter(room => room.pets === true);
     }
+
+    var tempHotelsarray = Array.from(new Set(tempRooms.map(h => h.hid)))
+      .map(hid => {
+        return tempHotels.find(h => h.hotelId === hid)
+      })
     this.setState({
       sortedRooms: tempRooms,
-      sortedHotels:tempHotels
+      sortedHotels: tempHotelsarray
     });
   };
   render() {
@@ -166,8 +214,8 @@ export default class RoomProvider extends Component {
       <RoomContext.Provider
         value={{
           ...this.state,
-          getRoom: this.getRoom ,
-          getID:this.getID,
+          getRoom: this.getRoom,
+          getID: this.getID,
           handleChange: this.handleChange
         }}
       >
@@ -182,7 +230,7 @@ export { RoomProvider, RoomConsumer, RoomContext };
 
 export function withRoomConsumer(Component) {
   return function ConsumerWrapper(props) {
-  
+
     return (
       <RoomConsumer>
         {value => <Component {...props} context={value} />}

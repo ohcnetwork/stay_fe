@@ -3,7 +3,7 @@ import img2 from "../../Common/dataImages/room-11.jpeg";
 export default [
   {
     sys: {
-      id: "h1"
+      id: "1"
     },
     fields: {
       name: "hotel1",
@@ -25,7 +25,7 @@ export default [
 
   {
     sys: {
-      id: "h2"
+      id: "2"
     },
     fields: {
       name: "hotel2",
@@ -44,7 +44,7 @@ export default [
   },
   {
     sys: {
-      id: "h3"
+      id: "3"
     },
     fields: {
       name: "karthik",

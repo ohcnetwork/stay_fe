@@ -5,15 +5,15 @@ import Login from '../components/Account/Login';
 import Register from '../components/Account/Register';
 import ViewRoom from '../components/Room/ViewRoom';
 import BrowseRooms from '../components/Browse/BrowseRooms';
-import Roomcontainer from '../components/Browse/RoomContainer';
+import HotelContainer from '../components/Browse/HotelContainer';
 
 
 const routes = {
     "/login": () => <Login />,
     "/register": () => <Register />,
-    // "/room": () => <Roomcontainer />,
+    // "/room": () => <HotelContainer />,
     "/room/:slug": ({ slug }) => <ViewRoom slug={slug} />,
-    "/browse": () => <Roomcontainer />,
+    "/browse": () => <HotelContainer />,
 };
 
 const PublicRouter = () => {
