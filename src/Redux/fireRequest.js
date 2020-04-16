@@ -92,8 +92,8 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
             baseURL: 'https://api.care.coronasafe.in/',
             headers: {},
         };
-        if (!request.noAuth && localStorage.getItem('care_access_token')) {
-            config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('care_access_token');
+        if (!request.noAuth && localStorage.getItem('stay_access_token')) {
+            config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('stay_access_token');
         }
         const axiosApiCall = axios.create(config)
 
@@ -108,8 +108,8 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
                 // currentUser is ignored because on the first page load
                 // 403 error is displayed for invalid credential.
                 if (error.response.status === 403 && key === "currentUser") {
-                    if (localStorage.getItem('care_access_token')) {
-                        localStorage.removeItem('care_access_token');
+                    if (localStorage.getItem('stay_access_token')) {
+                        localStorage.removeItem('stay_access_token');
                     }
                     return error;
                 }
