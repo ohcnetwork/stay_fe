@@ -1,9 +1,9 @@
 import { actions } from './fireRequest';
 
-const reducer = (state = {}, changeAction: any) => {
+const reducer = (state = {}, changeAction) => {
   switch (changeAction.type) {
     case actions.FETCH_REQUEST: {
-      const obj: any = Object.assign({}, state);
+      const obj = Object.assign({}, state);
       obj[changeAction.key] = {
         isFetching: true,
         error: false,
@@ -11,7 +11,7 @@ const reducer = (state = {}, changeAction: any) => {
       return obj;
     }
     case actions.FETCH_REQUEST_SUCCESS: {
-      const obj: any = Object.assign({}, state);
+      const obj = Object.assign({}, state);
       obj[changeAction.key] = {
         isFetching: false,
         error: false,
@@ -20,7 +20,7 @@ const reducer = (state = {}, changeAction: any) => {
       return obj;
     }
     case actions.FETCH_REQUEST_ERROR: {
-      const obj: any = Object.assign({}, state);
+      const obj = Object.assign({}, state);
       obj[changeAction.key] = {
         isFetching: false,
         error: true,
@@ -29,7 +29,7 @@ const reducer = (state = {}, changeAction: any) => {
       return obj;
     }
     case actions.SET_DATA: {
-      const obj :any = Object.assign({}, state);
+      const obj = Object.assign({}, state);
       obj[changeAction.key] = changeAction.value;
       return obj;
     }
