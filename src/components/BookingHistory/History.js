@@ -15,8 +15,8 @@ for(i=0;i<history_now.hotels.length;i++){
 console.log(history_now.hotels[0]);
 console.log(item);
         return(
-    <div className="py-10 min-h-full">
-      <div className="max-w-5xl  mx-auto bg-white shadow overflow-hidden  sm:rounded-lg">
+    <div className="py-10 bg-gray-400 min-h-full">
+      <div className="max-w-5xl  mx-auto bg-gray-400  overflow-hidden  sm:rounded-lg">
         <div className="text-center">
           <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
             Booking History
