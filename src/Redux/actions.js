@@ -6,3 +6,6 @@ export const postRegister = (form: object) => {
 export const postLogin = (form: object) => {
     return fireRequest('login', [], form);
 };
+export const postAddHotel = (form: object) => {
+    return fireRequest('addFacility', [], form);
+};

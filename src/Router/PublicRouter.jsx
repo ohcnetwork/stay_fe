@@ -6,6 +6,7 @@ import Register from "../components/Account/Register";
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
+import AddRoom from "../components/Facilitator/AddRoom";
 
 const routes = {
   "/login": () => <Login />,
@@ -13,6 +14,7 @@ const routes = {
   "/room": () => <ViewRoom />,
   "/browse": () => <BrowseRooms />,
   "/facilitator": () => <AddHotelForm />,
+  "/add-room":()=> <AddRoom/>,
 };
 
 const PublicRouter = () => {
