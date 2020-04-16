@@ -3458,6 +3458,38 @@ video {
   flex-direction: column-reverse !important;
 }
 
+.hover\:flex-row:hover {
+  flex-direction: row !important;
+}
+
+.hover\:flex-row-reverse:hover {
+  flex-direction: row-reverse !important;
+}
+
+.hover\:flex-col:hover {
+  flex-direction: column !important;
+}
+
+.hover\:flex-col-reverse:hover {
+  flex-direction: column-reverse !important;
+}
+
+.focus\:flex-row:focus {
+  flex-direction: row !important;
+}
+
+.focus\:flex-row-reverse:focus {
+  flex-direction: row-reverse !important;
+}
+
+.focus\:flex-col:focus {
+  flex-direction: column !important;
+}
+
+.focus\:flex-col-reverse:focus {
+  flex-direction: column-reverse !important;
+}
+
 .flex-wrap {
   flex-wrap: wrap !important;
 }
@@ -13797,6 +13829,38 @@ video {
     flex-direction: column-reverse !important;
   }
 
+  .sm\:hover\:flex-row:hover {
+    flex-direction: row !important;
+  }
+
+  .sm\:hover\:flex-row-reverse:hover {
+    flex-direction: row-reverse !important;
+  }
+
+  .sm\:hover\:flex-col:hover {
+    flex-direction: column !important;
+  }
+
+  .sm\:hover\:flex-col-reverse:hover {
+    flex-direction: column-reverse !important;
+  }
+
+  .sm\:focus\:flex-row:focus {
+    flex-direction: row !important;
+  }
+
+  .sm\:focus\:flex-row-reverse:focus {
+    flex-direction: row-reverse !important;
+  }
+
+  .sm\:focus\:flex-col:focus {
+    flex-direction: column !important;
+  }
+
+  .sm\:focus\:flex-col-reverse:focus {
+    flex-direction: column-reverse !important;
+  }
+
   .sm\:flex-wrap {
     flex-wrap: wrap !important;
   }
@@ -24102,6 +24166,38 @@ video {
   }
 
   .md\:flex-col-reverse {
+    flex-direction: column-reverse !important;
+  }
+
+  .md\:hover\:flex-row:hover {
+    flex-direction: row !important;
+  }
+
+  .md\:hover\:flex-row-reverse:hover {
+    flex-direction: row-reverse !important;
+  }
+
+  .md\:hover\:flex-col:hover {
+    flex-direction: column !important;
+  }
+
+  .md\:hover\:flex-col-reverse:hover {
+    flex-direction: column-reverse !important;
+  }
+
+  .md\:focus\:flex-row:focus {
+    flex-direction: row !important;
+  }
+
+  .md\:focus\:flex-row-reverse:focus {
+    flex-direction: row-reverse !important;
+  }
+
+  .md\:focus\:flex-col:focus {
+    flex-direction: column !important;
+  }
+
+  .md\:focus\:flex-col-reverse:focus {
     flex-direction: column-reverse !important;
   }
 
@@ -34413,6 +34509,38 @@ video {
     flex-direction: column-reverse !important;
   }
 
+  .lg\:hover\:flex-row:hover {
+    flex-direction: row !important;
+  }
+
+  .lg\:hover\:flex-row-reverse:hover {
+    flex-direction: row-reverse !important;
+  }
+
+  .lg\:hover\:flex-col:hover {
+    flex-direction: column !important;
+  }
+
+  .lg\:hover\:flex-col-reverse:hover {
+    flex-direction: column-reverse !important;
+  }
+
+  .lg\:focus\:flex-row:focus {
+    flex-direction: row !important;
+  }
+
+  .lg\:focus\:flex-row-reverse:focus {
+    flex-direction: row-reverse !important;
+  }
+
+  .lg\:focus\:flex-col:focus {
+    flex-direction: column !important;
+  }
+
+  .lg\:focus\:flex-col-reverse:focus {
+    flex-direction: column-reverse !important;
+  }
+
   .lg\:flex-wrap {
     flex-wrap: wrap !important;
   }
@@ -44718,6 +44846,38 @@ video {
   }
 
   .xl\:flex-col-reverse {
+    flex-direction: column-reverse !important;
+  }
+
+  .xl\:hover\:flex-row:hover {
+    flex-direction: row !important;
+  }
+
+  .xl\:hover\:flex-row-reverse:hover {
+    flex-direction: row-reverse !important;
+  }
+
+  .xl\:hover\:flex-col:hover {
+    flex-direction: column !important;
+  }
+
+  .xl\:hover\:flex-col-reverse:hover {
+    flex-direction: column-reverse !important;
+  }
+
+  .xl\:focus\:flex-row:focus {
+    flex-direction: row !important;
+  }
+
+  .xl\:focus\:flex-row-reverse:focus {
+    flex-direction: row-reverse !important;
+  }
+
+  .xl\:focus\:flex-col:focus {
+    flex-direction: column !important;
+  }
+
+  .xl\:focus\:flex-col-reverse:focus {
     flex-direction: column-reverse !important;
   }
 
