@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../Redux/actions";
-import { navigate } from "hookrouter";
+import { navigate, A } from "hookrouter";
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export default function Login() {
         const valid = validateInputs();
         if (valid && !formLoading) {
             setFormLoading(true);
-            console.log("Login.js: sending the data to backend", form);
+            
             dispatch(postLogin(form)).then(resp => {
                 const { data: res } = resp;
                 const { status: statusCode } = resp;
@@ -58,10 +58,7 @@ export default function Login() {
                     setFormError("Check your email and password");
                     setFormLoading(false);
                 }
-            }).catch(err => {
-                setFormError("Check your email and password");
-                setFormLoading(false);
-            })
+            });
         }
     }
 
@@ -75,43 +72,48 @@ export default function Login() {
                 </div>
                 <form onSubmit={handleSubmit} className="bg-gray-200 shadow-lg rounded px-8 pt-6 pb-8 my-20">
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                             Email
                         </label>
                         <input aria-label="Email"
-                                name="email"
-                                type="text"
-                                value={form.email}
-                                onChange={handleChange}
-                                className={`shadow appearance-none border ${formError?"border-red-500": ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-                                placeholder="Email address" />
+                            name="email"
+                            type="text"
+                            value={form.email}
+                            onChange={handleChange}
+                            className={`shadow appearance-none border ${formError ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            placeholder="Email address" />
                     </div>
                     <div className="mb-2">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                             Password
                         </label>
                         <input
-                                aria-label="Password"
-                                name="password"
-                                type="password"
-                                value={form.password}
-                                onChange={handleChange}
-                                className={`shadow appearance-none border ${formError?"border-red-500": ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-                                placeholder="******************" />
+                            aria-label="Password"
+                            name="password"
+                            type="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            className={`shadow appearance-none border ${formError ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            placeholder="******************" />
                     </div>
                     <div className="h-10">
                         <p className="text-red-500 text-xs italic bold">{formError}</p>
                     </div>
                     <div className="flex items-center justify-between">
-                        <button type="submit" className={`flex items-center ${formLoading? "bg-gray-600": "bg-indigo-600 hover:bg-indigo-800"} text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline`}>
-                            <svg className={`h-5 w-5 ${formLoading? "text-gray-400": "text-indigo-500"} transition ease-in-out duration-150 mr-1`} fill="currentColor" viewBox="0 0 20 20">
+                        <button type="submit" className={`flex items-center ${formLoading ? "bg-gray-600" : "bg-indigo-600 hover:bg-indigo-800"} text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline`}>
+                            <svg className={`h-5 w-5 ${formLoading ? "text-gray-400" : "text-indigo-500"} transition ease-in-out duration-150 mr-1`} fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                             </svg>
                             Sign In
                          </button>
-                        <a className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800" href="#">
-                            Forgot Password?
-                        </a>
+                        <div className="flex flex-col items-center">
+                            <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1" href="/register">
+                                Register Account
+                            </A>
+                            <a className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800" href="#">
+                                Forgot Password?
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
