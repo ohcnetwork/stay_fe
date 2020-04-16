@@ -9,19 +9,21 @@ export default function AddHotelForm() {
     const dispatch = useDispatch();
     const initForm = {
         name: "",
+        ownerID:"1",
         address: "",
         panchayath:"",
         district:"",
         starCategory:"",
         latitude:"11.1",
         longitude:"2.1",
-        facilities:"s",
+        facilities:"",
         photos:"photo",
         contact:"",
         policy:""
     }
     const initError = {
       name: "",
+      ownerID:"1",
       address: "",
       panchayath:"",
       district:"",
@@ -38,10 +40,12 @@ export default function AddHotelForm() {
     const [error, setError] = useState(initError);
     const [formError, setFormError] = useState(false);
     const [star, setStar] = useState('');
+    const [checkbox, setCheckbox] = useState('[]');
 
     const handleChange = (e) => {
       const { value, name } = e.target;
       const fieldValue = { ...form }
+      setCheckbox([...checkbox])
 
       // error handling needed
 
@@ -163,25 +167,25 @@ const handleSubmit = (e) => {
     <label className="block text-sm text-gray-600 " htmlFor="facilities">Facilities</label>
     <div className="flex mb-4 bg-gray-200">
             <div className="w-1/4 px-5 py-1 flex items-center">
-              <input id="AC" type="checkbox" name="facility" value="AC" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+              <input id="AC" type="checkbox" name="facilities" value="AC" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" onChange={handleChange} onClick={() => setCheckbox("AC")}  />
               <label htmlFor="AC" className="ml-2 block text-sm leading-5 text-gray-700">
                 AC
              </label>
         </div>
         <div className="w-1/4 px-5 flex items-center">
-              <input id="wifi" type="checkbox" name="facility" value="wifi" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+              <input id="wifi" type="checkbox" name="facilities" value="wifi" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" onChange={handleChange}  onClick={() => setCheckbox("wifi")} />
               <label htmlFor="wifi" className="ml-2 block text-sm leading-5 text-gray-700">
                 Wifi
              </label>
         </div>
         <div className="w-1/4 px-5 flex items-center">
-              <input id="CCTV" type="checkbox" name="facility" value="cctv" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+              <input id="CCTV" type="checkbox" name="facilities" value="cctv" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" onChange={handleChange} onClick={() => setCheckbox("cctv")} />
               <label htmlFor="CCTV" className="ml-2 block text-sm leading-5 text-gray-700">
                 CCTV
              </label>
         </div>
         <div className="w-1/4 px-5 flex items-center">
-              <input id="geyser" type="checkbox" name="facility" value="geyser" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+              <input id="geyser" type="checkbox" name="facilities" value="geyser" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" onChange={handleChange} onClick={() => setCheckbox("geyser")} />
               <label htmlFor="geyser" className="ml-2 block text-sm leading-5 text-gray-700">
                 Geyser
              </label>
