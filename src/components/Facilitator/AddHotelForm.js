@@ -5,29 +5,39 @@ import * as Notficiation from "../../util/Notifications";
 import { navigate} from "hookrouter";
 
 
-
 export default function AddHotelForm() {
     const dispatch = useDispatch();
     const initForm = {
-        hotel_name: "",
+        name: "",
         address: "",
         panchayath:"",
         district:"",
-        contact_num:"",
+        starCategory:"",
+        latitude:"11.1",
+        longitude:"2.1",
+        facilities:"s",
+        photos:"photo",
+        contact:"",
         policy:""
     }
     const initError = {
-      hotel_name: "",
+      name: "",
       address: "",
       panchayath:"",
       district:"",
-      contact_num:"",
+      starCategory:"",
+      latitude:"11.1",
+      longitude:"2.1",
+      facilities:"",
+      photos:"",
+      contact:"",
       policy:""
     }
     const [formLoading, setFormLoading] = useState(false);
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
     const [formError, setFormError] = useState(false);
+    const [star, setStar] = useState('');
 
     const handleChange = (e) => {
       const { value, name } = e.target;
@@ -62,8 +72,9 @@ const handleSubmit = (e) => {
       console.log("AddHotelForm.js: ", "creating a new hotel", form);
       setFormLoading(true);
       dispatch(postAddHotel(form)).then(resp => {
-          const { status: statusCode } = resp;
-          const { data: res } = resp;
+          const { status : statusCode } = resp;
+          const { data : res } = resp;
+          console.log("Error");
           
           // set captha logic needed
           if (res && statusCode === 201 && res.success === true) {
@@ -77,6 +88,8 @@ const handleSubmit = (e) => {
           // error exists show error 
           if (res && res.success === false && res.data) {
               formErr = Object.values(res.data)[0];
+              
+              
           }
           const errorMessages = resp.response ? resp.response.data ? resp.response.data.message : null : null;
           if (errorMessages) {
@@ -100,7 +113,7 @@ const handleSubmit = (e) => {
             <p className="text-gray-800 font-medium text-center">Hotel information</p>
             <div className="mt-2">
       <label className="block text-sm text-gray-600" htmlFor="name">Hotel Name</label>
-      <input className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="hotel-name" name="hotel_name" value={form.hotel_name}
+      <input className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="hotel-name" name="name" value={form.name}
                             onChange={handleChange} type="text" required="" placeholder="Enter Hotel Name" aria-label="Name"/>
       <div className="text-xs italic text-red-500">{error.name}</div>
 
@@ -123,23 +136,23 @@ const handleSubmit = (e) => {
 
   <div className="flex mb-4 bg-gray-200">
     <label className="inline-flex px-5 items-center">
-      <input type="radio" className="form-radio" name="star" value="1"/>
+      <input type="radio" className="form-radio" name="starCategory" checked={star === '1'} value="1" onChange={handleChange} onClick={() => setStar('1')}/>
       <span className="ml-2 text-gray-600">1 star</span>
     </label>
     <label className="inline-flex items-center ml-6">
-      <input type="radio" className="form-radio" name="star" value="2"/>
+      <input type="radio" className="form-radio" name="starCategory" checked={star === '2'} value="2" onChange={handleChange} onClick={() => setStar('2')}/>
       <span className="ml-2  text-gray-600">2 star</span>
     </label>
     <label className="inline-flex items-center ml-6">
-      <input type="radio" className="form-radio" name="star" value="3"/>
-      <span className="ml-2  text-gray-600">3 star</span>
+      <input type="radio" className="form-radio" name="starCategory" checked={star === '3'} value="3" onChange={handleChange} onClick={() => setStar('3')}/>
+      <span className="ml-2  text-gray-600">3 star</span> 
     </label>
     <label className="inline-flex items-center ml-6">
-      <input type="radio" className="form-radio" name="star" value="4"/>
+      <input type="radio" className="form-radio" name="starCategory" checked={star === '4'} value="4" onChange={handleChange} onClick={() => setStar('4')}/>
       <span className="ml-2  text-gray-600">4 star</span>
     </label>
     <label className="inline-flex items-center ml-6">
-      <input type="radio" className="form-radio" name="star" value="5"/>
+      <input type="radio" className="form-radio" name="starCategory" checked={star === '5'} value="5" onChange={handleChange} onClick={() => setStar('5')}/>
       <span className="ml-2  text-gray-600">5 star</span>
     </label>
   </div>
@@ -194,7 +207,7 @@ const handleSubmit = (e) => {
     </div>
     <div className="mt-2">
       <label className="block text-sm text-gray-600" htmlFor="cus_name">Contact Number</label>
-      <input className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="cus_name" name="contact_num" value={form.contact_num} onChange={handleChange} type="text" required="" placeholder="Enter Contact Number" aria-label="Name"/>
+      <input className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="cus_name" name="contact" value={form.contact} onChange={handleChange} type="text" required="" placeholder="Enter Contact Number" aria-label="Name"/>
     </div>
 
     <div className="mt-2">

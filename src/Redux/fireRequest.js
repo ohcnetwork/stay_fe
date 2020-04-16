@@ -89,7 +89,7 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
 
         // set authorization header in the request header
         const config = {
-            baseURL: 'https://api.care.coronasafe.in/',
+            baseURL: 'http://localhost:4009/',
             headers: {},
         };
         if (!request.noAuth && localStorage.getItem('care_access_token')) {
