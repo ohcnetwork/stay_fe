@@ -6,3 +6,6 @@ export const postRegister = (form) => {
 export const postLogin = (form) => {
     return fireRequest('login', [], form);
 };
+export const getCurrentUser = () => {
+    return fireRequest('currentUser');
+};

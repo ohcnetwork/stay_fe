@@ -16,7 +16,7 @@ export default function NavBar(){
            title: 'Home'
          }
        ].map(route=>(
-         <A className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8"
+         <A key={route.title} className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8"
                   href={route.link}
           >
              {route.title}
@@ -26,8 +26,7 @@ export default function NavBar(){
            href='/logout'
            onClick={(e)=>{
               e.preventDefault()
-              localStorage.setItem("access_token","")
-              localStorage.setItem("refresh_token","")
+              localStorage.setItem("stay_access_token","")
               navigate("/")
               window.location.reload()
            }}
