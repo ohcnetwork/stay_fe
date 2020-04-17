@@ -13,7 +13,7 @@ export default function AddRoom() {
     category: "",
     beds: "",
     photos: "photo",
-    noOfRooms:"",
+    noOfRooms: "",
     cost: "",
   };
   const initError = {
@@ -23,7 +23,7 @@ export default function AddRoom() {
     category: "",
     beds: "",
     photos: "photo",
-    noOfRooms:"",
+    noOfRooms: "",
     cost: "",
   };
   const [formLoading, setFormLoading] = useState(false);
@@ -147,8 +147,11 @@ export default function AddRoom() {
               <div className="text-xs italic text-red-500">{error.name}</div>
             </div>
             <div className="mt-2">
-              <label className="block text-sm text-gray-600" htmlFor="description">
-               Description
+              <label
+                className="block text-sm text-gray-600"
+                htmlFor="description"
+              >
+                Description
               </label>
               <textarea
                 className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
@@ -167,7 +170,7 @@ export default function AddRoom() {
                 className="block text-sm text-gray-600 "
                 htmlFor="features"
               >
-               Room Features
+                Room Features
               </label>
               <div className="flex mb-4 bg-gray-200">
                 <div className="w-1/4 px-5 py-1 flex items-center">
@@ -237,7 +240,6 @@ export default function AddRoom() {
               </div>
             </div>
 
-
             <div className="mt-2">
               <label
                 className="block text-sm text-gray-600 "
@@ -298,9 +300,6 @@ export default function AddRoom() {
               </div>
             </div>
 
-
-
-
             <div className="inline-block mt-2 w-1/2 pr-1">
               <label
                 className="block text-sm text-gray-600 "
@@ -321,10 +320,23 @@ export default function AddRoom() {
               />
             </div>
             <div className="inline-block mt-2 w-1/2 pr-1">
-              <label
-                className="block text-sm text-gray-600 "
-                htmlFor="cost"
-              >
+              <label className="block text-sm text-gray-600 " htmlFor="cost">
+                Bed Capacity
+              </label>
+              <input
+                className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                id="beds"
+                name="beds"
+                value={form.beds}
+                onChange={handleChange}
+                type="text"
+                required=""
+                placeholder="Capacity"
+                aria-label="Name"
+              />
+            </div>
+            <div className="inline-block mt-2  pr-1">
+              <label className="block text-sm text-gray-600 " htmlFor="cost">
                 Enter the Cost
               </label>
               <input
@@ -339,10 +351,6 @@ export default function AddRoom() {
                 aria-label="Name"
               />
             </div>
-            
-
-            
-            
 
             {/* File upload */}
             <div className="mt-2">
@@ -369,10 +377,10 @@ export default function AddRoom() {
               </div>
             </div>
             <div className="h-10">
-            <p className="text-red-500 text-xs italic bold text-center mt-2">
-              {formError}
-            </p>
-          </div>
+              <p className="text-red-500 text-xs italic bold text-center mt-2">
+                {formError}
+              </p>
+            </div>
 
             <div className="mt-2">
               <button
