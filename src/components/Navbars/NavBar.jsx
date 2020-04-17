@@ -26,8 +26,7 @@ export default function NavBar(){
            href='/logout'
            onClick={(e)=>{
               e.preventDefault()
-              localStorage.setItem("access_token","")
-              localStorage.setItem("refresh_token","")
+              localStorage.setItem("stay_access_token","")
               navigate("/")
               window.location.reload()
            }}
