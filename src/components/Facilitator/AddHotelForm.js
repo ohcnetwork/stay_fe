@@ -4,7 +4,7 @@ import { postAddHotel } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
 
-export default function AddHotelForm() {
+export default function AddHotelForm(props) {
   const dispatch = useDispatch();
   const initForm = {
     name: "",
@@ -19,6 +19,7 @@ export default function AddHotelForm() {
     photos: "photo",
     contact: "",
     policy: "",
+    hotelId:""
   };
   const initError = {
     name: "",
@@ -33,6 +34,7 @@ export default function AddHotelForm() {
     photos: "",
     contact: "",
     policy: "",
+    hotelId:""
   };
   const [formLoading, setFormLoading] = useState(false);
   const [form, setForm] = useState(initForm);
@@ -91,14 +93,16 @@ export default function AddHotelForm() {
        dispatch(postAddHotel(form)).then((resp) => {
          const { status: statusCode } = resp;
          const { data: res } = resp;
-         console.log("Error");
+         console.log(form);
 
          // set captha logic needed
          if (res && statusCode === 201 && res.success === true) {
            Notficiation.Success({
              msg: "Hotel Created",
            });
-           navigate("/add-rooms");
+          //  navigate("/add-room");
+          navigate(`add-room/${form.id}`);
+
          }
 
          let formErr = "Some problem occurred";

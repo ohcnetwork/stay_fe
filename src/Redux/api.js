@@ -10,6 +10,11 @@ export default {
     method:"POST",
     noAuth: false
   },
+  addRooms:{
+    path:"/api/v1/rooms/1",
+    method:"POST",
+    noAuth: false
+  },
   login: {
       path: '/api/v1/auth/login',
       method: 'POST',

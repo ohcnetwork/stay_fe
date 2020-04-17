@@ -1,30 +1,38 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postAddHotel } from "../../Redux/actions";
+import { postAddRooms } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
 
-export default function AddRoom() {
+export default function AddRoom(props) {
+  const [state]=useState({
+    id:props.id,
+  });
+
   const dispatch = useDispatch();
   const initForm = {
     title: "",
-    features: "1",
+    hotelId:"",
+    features: "",
     description: "",
     category: "",
     beds: "",
     photos: "photo",
     noOfRooms: "",
     cost: "",
+
   };
   const initError = {
     title: "",
-    features: "1",
+    hotelId:"",
+    features: "",
     description: "",
     category: "",
     beds: "",
     photos: "photo",
     noOfRooms: "",
     cost: "",
+
   };
   const [formLoading, setFormLoading] = useState(false);
   const [form, setForm] = useState(initForm);
@@ -32,11 +40,12 @@ export default function AddRoom() {
   const [formError, setFormError] = useState(false);
   const [category, setCategory] = useState("");
   const [checkbox, setCheckbox] = useState({
-    geyser: false,
-    wifi: false,
     ac: false,
-    cctv: false,
+    wifi: false,
+    mini_fridge: false,
+    geyser: false,
   });
+  
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -74,28 +83,28 @@ export default function AddRoom() {
     // form[facilities] = Object.keys(checkbox).map(...).join(",");
 
     let submitData = form;
-    submitData.facilities = Object.keys(checkbox).filter((el) => checkbox[el]);
+    submitData.features= Object.keys(checkbox).filter((el) => checkbox[el]).join(",");
     console.log(submitData);
 
     if (validInputs() && !formLoading) {
       console.log("AddHotelForm.js: ", "creating a new hotel", form);
       setFormLoading(true);
-      dispatch(postAddHotel(form)).then((resp) => {
+      dispatch(postAddRooms(form)).then((resp) => {
         const { status: statusCode } = resp;
         const { data: res } = resp;
-        console.log("Error");
+        console.log(resp);
 
         // set captha logic needed
-        if (res && statusCode === 201 && res.success === true) {
+        if (res && statusCode === 201 ) {
           Notficiation.Success({
             msg: "Hotel Created",
           });
-          navigate("/add-rooms");
+          // navigate("/add-rooms");
         }
 
         let formErr = "Some problem occurred";
         // error exists show error
-        if (res && res.success === false && res.data) {
+        if (res && res.data) {
           formErr = Object.values(res.data)[0];
         }
         const errorMessages = resp.response
