@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import AppRouter from './Router/AppRouter';
 import PublicRouter from './Router/PublicRouter';
+import FacilitatorRouter from './Router/FacilitatorRouter';
 import axios from 'axios';
 import { useAbortableEffect } from './util/useAbortableEffect'
 import { getCurrentUser } from './Redux/actions';
@@ -68,7 +69,11 @@ function App() {
 
 
   if(currentUser && currentUser.data) {
-    return <AppRouter/>
+    if  (currentUser.data.data.type === "facilityowner") {
+      return <FacilitatorRouter/>
+    } else {
+      return <AppRouter/>
+    }
   } else {
     return <PublicRouter/>
   }
