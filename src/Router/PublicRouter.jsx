@@ -5,7 +5,7 @@ import Login from "../components/Account/Login";
 import Register from "../components/Account/Register";
 import HotelContainer from '../components/Browse/HotelContainer';
 import ViewRoom from "../components/Room/ViewRoom";
-import BrowseRooms from "../components/Browse/BrowseRooms";
+//import BrowseRooms from "../components/Browse/BrowseRooms";
 import History from "../components/BookingHistory/History";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import AddRoom from "../components/Facilitator/AddRoom";
@@ -15,7 +15,7 @@ const routes = {
   "/register": () => <Register />,
   // "/room": () => <HotelContainer />,
   "/room/:slug": ({ slug }) => <ViewRoom slug={slug} />,
-  "/browse": () => <BrowseRooms />,
+  "/browse": () => <HotelContainer />,
   "/facilitator": () => <AddHotelForm />,
   "/add-room":()=> <AddRoom/>,
   "/history": () => <History />

@@ -31,7 +31,7 @@ export default class RoomProvider extends Component {
   componentDidMount() {
     // this.getData();
     let hotels
-    axios.get('http://localhost:3999/api/v1/facility/all-facility')
+    axios.get('http://localhost:4009/api/v1/facility/all-facility')
       .then(res => {
         console.log(res.data)
         hotels = res.data
