@@ -89,7 +89,7 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
 
         // set authorization header in the request header
         const config = {
-            baseURL: 'http://0.0.0.0:4009',
+            baseURL: 'http://localhost:4009/',
             headers: {},
         };
         if (!request.noAuth && localStorage.getItem('stay_access_token')) {
