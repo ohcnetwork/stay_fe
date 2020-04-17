@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { A } from "hookrouter";
 
 import { getUserHotelList } from "../../Redux/actions";
 
@@ -14,11 +15,10 @@ export default function Facilitator() {
 
     const dispatch = useDispatch();
     const { userHotelList } = state;
-    console.log(userHotelList);
 
     useEffect(() => {
         dispatch(getUserHotelList(currentUser.id));
-    }, [dispatch]);
+    }, [dispatch, currentUser.id]);
 
     function timeString(tme) {
         let hours = tme.getHours() % 12;
@@ -32,11 +32,10 @@ export default function Facilitator() {
 
     function showHotels(data) {
         let hotels = Object.values(data);
-
         if (hotels.length > 0) {
             return (
                 hotels.map(hotel => 
-                    <div className="flex px-6 py-6 text-gray-800 items-center border-b -mx-4 hover:bg-gray-100 cursor-pointer">
+                    <A href={`/hotel/${hotel.hotelId}`} className="flex px-6 py-6 text-gray-800 items-center border-b -mx-4 hover:bg-gray-100 cursor-pointer">
                         <div className="w-1/2 lg:w-2/5 px-2 capitalize text-left font-semibold">
                         <span className="text-md md:text-lg">{hotel.name}</span>
                         </div>
@@ -56,7 +55,7 @@ export default function Facilitator() {
                                 <div className="text-sm py-1 px-2 bg-green-600 text-white rounded font-bold uppercase tracking-wide text-center">{hotel.status}</div>
                             </div>
                         </div>
-                    </div>
+                    </A>
                 )
             );
         } else {
