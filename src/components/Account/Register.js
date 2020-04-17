@@ -93,6 +93,10 @@ export default function Register() {
                 }
                 setFormError(formErr);
                 setFormLoading(false);
+            }).catch(err => {
+                Notficiation.Error({
+                    msg: 'Something went wrong, please try again'
+                });
             });
         }
     }
