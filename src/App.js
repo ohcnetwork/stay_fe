@@ -1,64 +1,77 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import './Index.css';
-import PublicRouter from "./Router/PublicRouter";
-import AppRouter from "./Router/AppRouter";
-import { userActions, appStateActions } from "./redux/actions";
-import Loading from "./Components/Common/Loading/Loading";
-import "./App.css";
-import { BASE_URL } from "./Common/constants";
-import api from "./Common/api";
+import React,{useState, useEffect} from 'react';
+import AppRouter from './Router/AppRouter';
+import PublicRouter from './Router/PublicRouter';
+import axios from 'axios';
+import { useAbortableEffect } from './util/useAbortableEffect'
+import { getCurrentUser } from './Redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-    const dispatch = useDispatch();
-    const isLoading = useSelector((state) => state.appState.isLoading);
-    const loggedInUser = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
+  const { currentUser } = state;
+  const [user, setUser] = useState(false);
 
-    console.log(`app.js: loading(${isLoading})`);
+  // const updateRefreshToken = () => {
+  //   const refresh = localStorage.getItem('refresh_token');
+  //   const access = localStorage.getItem('access_token');
+  //
+  //   // if access token is invalid and refresh token is valid
+  //   // remove refresh token
+  //
+  //   if( !access && refresh ){
+  //     localStorage.removeItem('refresh_token')
+  //     document.location.reload();
+  //     return;
+  //   }
+  //
+  //   if(!refresh){
+  //     return;
+  //   }
+  //   axios.post('https://api.care.coronasafe.in/api/v1/auth/token/refresh/',{
+  //     refresh
+  //   }).then(res=>{
+  //     localStorage.setItem('access_token',res.data.access)
+  //     localStorage.setItem('refresh_token',res.data.refresh)
+  //   })
+  //   .catch( err=>{
+  //     console.log('Error when refreshing', err)
+  //   })
+  // }
+  //
+  // useEffect(() => {
+  //   updateRefreshToken()
+  //   setInterval(updateRefreshToken, 5 * 60 * 1000)
+  // }, [])
 
-    useEffect(() => {
-        const access_token = localStorage.getItem("stay_access_token");
-        if (access_token && !loggedInUser) {
-            console.log("app.js: access_token found");
-            let apiObj = api.getCurrentUser;
-            let config = { headers: { Authorization: `Bearer ${access_token}` } };
-            axios[apiObj.method.toLowerCase()](`${BASE_URL}${apiObj.path}`, config)
-                .then(res => {
-                    localStorage.setItem("stay_access_token", access_token);
-                    if (res.data && res.data.data) {
-                        let { id, name, email, type } = res.data.data;
-                        dispatch(userActions.login({ id, name, email, type }));
-                        console.log("app.js: a user had already logged in", loggedInUser);
-                    } else {
-                        console.log("app.js:", res);
-                        localStorage.removeItem("stay_access_token");
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                    localStorage.removeItem("stay_access_token");
-                })
-                .finally(() => dispatch(appStateActions.setLoading(false)));
-        } else {
-            console.log("app.js: not logged in");
-            dispatch(appStateActions.setLoading(false));
-        }
-    }, [dispatch, loggedInUser]);
+  // Removing Causes Infinite Loop
+  useAbortableEffect( async(status)=>{
+    const access = localStorage.getItem('stay_access_token');
+    if (access) {
+      const res = await dispatch(getCurrentUser()); 
+      if(!status.aborted && res && res.statusCode === 200){
+        setUser(res.data);
+      }   
+    } else {
+      setUser(null);
+    }
+  }, [dispatch] );
 
-    return (
-        <div className="app">
-            <Loading />
-            {
-                loggedInUser
-                    ?
-                    <AppRouter />
-                    :
-                    <PublicRouter />
-            }
+  // keep isLoading in redux, so that if any component is loading
+  // App component will render loading page
+  // This can be kept within AppRouter as well incase navbar needs
+  // to be kept on UI
+  console.log("app.js: current user: ", currentUser);
+  if(user !== null && (!currentUser || currentUser.isFetching)) {
+    return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
+  }
 
-        </div>
-    );
+
+  if(currentUser && currentUser.data) {
+    return <AppRouter/>
+  } else {
+    return <PublicRouter/>
+  }
 }
 
 export default App;
