@@ -39,19 +39,24 @@ export default function AddHotelForm() {
   const [error, setError] = useState(initError);
   const [formError, setFormError] = useState(false);
   const [star, setStar] = useState("");
-  const [checkbox, setCheckbox] = useState("[]");
+  const [checkbox, setCheckbox] = useState({
+    ac: false,
+    wifi: false,
+    pool: false,
+    geyser: false,
+  });
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { value, name } = e.target;
     const fieldValue = { ...form };
-    setCheckbox([...checkbox]);
+    // setCheckbox({...checkbox});
 
     // error handling needed
 
-    fieldValue[name] = fieldValue[name] = value;
+    fieldValue[name] = value;
 
     setForm(fieldValue);
-  };
+  }
 
   function validInputs() {
     let formValid = true;
@@ -116,10 +121,10 @@ export default function AddHotelForm() {
       <div className="leading-loose">
         <form
           onSubmit={handleSubmit}
-          className="max-w-xl m-4 p-10 bg-white rounded shadow-xl"
+          className="max-w-xl p-10  bg-white rounded shadow-xl"
         >
-          <p className="text-gray-800 font-medium text-center">
-            Hotel information
+          <p className="text-gray-800 text-3xl font-bold text-center">
+            Hotel Information
           </p>
           <div className="mt-2">
             <label className="block text-sm text-gray-600" htmlFor="name">
@@ -153,6 +158,7 @@ export default function AddHotelForm() {
               placeholder="Enter Hotel Address"
               aria-label="Name"
             />
+            <div className="text-xs italic text-red-500">{error.address}</div>
           </div>
           <div className="inline-block mt-2 w-1/2 pr-1">
             <label
@@ -172,6 +178,9 @@ export default function AddHotelForm() {
               placeholder="Enter Panchayat"
               aria-label="Name"
             />
+            <div className="text-xs italic text-red-500">
+              {error.panchayath}
+            </div>
           </div>
           <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
             <label className="block text-sm text-gray-600 " htmlFor="district">
@@ -188,6 +197,7 @@ export default function AddHotelForm() {
               placeholder="Enter District"
               aria-label="Name"
             />
+            <div className="text-xs italic text-red-500">{error.district}</div>
           </div>
 
           <div className="mt-2">
@@ -260,6 +270,9 @@ export default function AddHotelForm() {
                 <span className="ml-2  text-gray-600">5 star</span>
               </label>
             </div>
+            <div className="text-xs italic text-red-500">
+              {error.starCategory}
+            </div>
           </div>
 
           <div className="mt-2  ">
@@ -275,10 +288,11 @@ export default function AddHotelForm() {
                   id="AC"
                   type="checkbox"
                   name="facilities"
-                  value="AC"
+                  value="ac"
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                  onChange={handleChange}
-                  onClick={() => setCheckbox("AC")}
+                  // onChange={handleChange}
+                  // onClick={() => setCheckbox(!checkbox)}
+                  onChange={(e) => setCheckbox({ ac: !checkbox })}
                 />
                 <label
                   htmlFor="AC"
@@ -295,7 +309,7 @@ export default function AddHotelForm() {
                   value="wifi"
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleChange}
-                  onClick={() => setCheckbox("wifi")}
+                  onClick={() => setCheckbox(!checkbox)}
                 />
                 <label
                   htmlFor="wifi"
@@ -306,19 +320,19 @@ export default function AddHotelForm() {
               </div>
               <div className="w-1/4 px-5 flex items-center">
                 <input
-                  id="CCTV"
+                  id="pool"
                   type="checkbox"
                   name="facilities"
-                  value="cctv"
+                  value="pool"
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleChange}
-                  onClick={() => setCheckbox("cctv")}
+                  onClick={() => setCheckbox(!checkbox)}
                 />
                 <label
-                  htmlFor="CCTV"
+                  htmlFor="pool"
                   className="ml-2 block text-sm leading-5 text-gray-700"
                 >
-                  CCTV
+                  Pool
                 </label>
               </div>
               <div className="w-1/4 px-5 flex items-center">
@@ -329,7 +343,7 @@ export default function AddHotelForm() {
                   value="geyser"
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleChange}
-                  onClick={() => setCheckbox("geyser")}
+                  onClick={() => setCheckbox(!checkbox)}
                 />
                 <label
                   htmlFor="geyser"
@@ -338,6 +352,9 @@ export default function AddHotelForm() {
                   Geyser
                 </label>
               </div>
+            </div>
+            <div className="text-xs italic text-red-500">
+              {error.facilities}
             </div>
           </div>
 
@@ -377,6 +394,7 @@ export default function AddHotelForm() {
               placeholder="Enter Contact Number"
               aria-label="Name"
             />
+            <div className="text-xs italic text-red-500">{error.contact}</div>
           </div>
 
           <div className="mt-2">
@@ -394,6 +412,7 @@ export default function AddHotelForm() {
               placeholder="Enter Hotel Policies"
               aria-label="Name"
             />
+            <div className="text-xs italic text-red-500">{error.policy}</div>
           </div>
           <div className="h-10">
             <p className="text-red-500 text-xs italic bold text-center mt-2">
