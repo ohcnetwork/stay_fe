@@ -22,7 +22,7 @@ console.log(item);
             Booking History
           </h2>
         </div>
-        <div className="relative  content-center bg-white m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
+        <div className="relative  content-center bg-white lg:mx-8 lg:my-4 lg:max-w-5xl">
             {item.map((value,index) =>  {
                 return (
                     <div id="" class="w-6/12  mx-auto my-8 bg-gray-400 rounded overflow-hidden shadow-lg">
