@@ -7,10 +7,10 @@ import { getCurrentUser } from './Redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  // const dispatch = useDispatch();
-  // const state = useSelector(state => state);
-  // const { currentUser } = state;
-  // const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
+  const { currentUser } = state;
+  const [user, setUser] = useState(false);
 
   // const updateRefreshToken = () => {
   //   const refresh = localStorage.getItem('refresh_token');
@@ -45,27 +45,33 @@ function App() {
   // }, [])
 
   // Removing Causes Infinite Loop
-  // useAbortableEffect( async(status)=>{
-    // const res = await dispatch(getCurrentUser());
-    // if(!status.aborted && res && res.statusCode === 200){
-    //   setUser(res.data)
-    // }
-  // }, [dispatch] )
+  useAbortableEffect( async(status)=>{
+    const access = localStorage.getItem('stay_access_token');
+    if (access) {
+      const res = await dispatch(getCurrentUser()); 
+      if(!status.aborted && res && res.statusCode === 200){
+        setUser(res.data);
+      }   
+    } else {
+      setUser(null);
+    }
+  }, [dispatch] );
 
   // keep isLoading in redux, so that if any component is loading
   // App component will render loading page
   // This can be kept within AppRouter as well incase navbar needs
   // to be kept on UI
-  // if(!currentUser || currentUser.isFetching){
-  //   return <div class="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
-  // }
+  console.log("app.js: current user: ", currentUser);
+  if(user !== null && (!currentUser || currentUser.isFetching)) {
+    return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
+  }
 
 
-  // if(currentUser && currentUser.data)
-  //   return <AppRouter/>
-  // else {
+  if(currentUser && currentUser.data) {
+    return <AppRouter/>
+  } else {
     return <PublicRouter/>
-  // }
+  }
 }
 
 export default App;

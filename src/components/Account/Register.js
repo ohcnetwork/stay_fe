@@ -1,113 +1,204 @@
-import React,{useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { postLogin } from '../../Redux/actions'
-import { navigate } from 'hookrouter'
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postRegister } from "../../Redux/actions"
+import { navigate, A } from "hookrouter";
+import { USER_TYPES } from "../../Common/constants";
+import * as Notficiation from "../../util/Notifications";
 
-export default function Login() {
-  const dispatch = useDispatch();
-  const initForm = {
-    username: '',
-    password: ''
-  }
+export default function Register() {
+    const dispatch = useDispatch();
+    const initForm = {
+        name: "",
+        email: "",
+        password: "",
+        confirm: "",
+        type: USER_TYPES[0].type
+    }
+    const initError = {
+        name: "",
+        email: "",
+        password: "",
+        confirm: "",
+        type: ""
+    }
 
-  const [ form, setForm ] = useState(initForm);
-  const [ error, setError ] = useState(false);
+    const [formLoading, setFormLoading] = useState(false);
+    const [form, setForm] = useState(initForm);
+    const [error, setError] = useState(initError);
+    const [formError, setFormError] = useState(false);
 
-  const handleChange = (e) => {
-    const { value, name } = e.target;
-    const fieldValue = { ...form }
+    const handleChange = (e) => {
+        const { value, name } = e.target;
+        const fieldValue = { ...form }
 
-    // error handling needed
+        // error handling needed
 
-    fieldValue[name] = name==='username'?
-                        value.toLowerCase():
-                        value
+        fieldValue[name] = name === "email" ?
+            value.toLowerCase() :
+            value
 
-    setForm(fieldValue)
-  }
+        setForm(fieldValue)
+    }
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      // error handling required
-      const valid = true;
-      if(valid){
-        dispatch(postLogin(form)).then(resp=>{
-          const {data:res} = resp;
-          const {status:statusCode} = resp;
-          // set captha logic needed
-          if( res && statusCode === 200){
-            localStorage.setItem("care_access_token", res.access);
-            localStorage.setItem("care_refresh_token", res.refresh);
-            navigate("/");
-            window.location.reload();
-          }
-        })
+    function validInputs() {
+        let formValid = true;
+        let err = Object.assign({}, initError);
+        const { password, confirm } = form;
 
-      }
-  }
+        Object.keys(form).forEach(key => {
+            if (form[key] === "") {
+                formValid = false;
+                err[key] = "This field is required";
+            }
+        });
+        if (password !== confirm) {
+            err["confirm"] = "Passwords do not match";
+            formValid = false;
+        }
 
-  return (
-    <div className="h-full flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        <div>
-          <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-            Sign in to continue
-          </h2>
+        setError(err);
+        return formValid;
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (validInputs() && !formLoading) {
+            console.log("Register.js: ", "creating a new user", form);
+            setFormLoading(true);
+            dispatch(postRegister(form)).then(resp => {
+                const { status: statusCode } = resp;
+                const { data: res } = resp;
+                
+                // set captha logic needed
+                if (res && statusCode === 201 && res.success === true) {
+                    Notficiation.Success({
+                        msg: "Account created, now login"
+                    });
+                    navigate("/login");
+                }
+
+                let formErr = "Some problem occurred";
+                // error exists show error 
+                if (res && res.success === false && res.data) {
+                    formErr = Object.values(res.data)[0];
+                }
+                const errorMessages = resp.response ? resp.response.data ? resp.response.data.message : null : null;
+                if (errorMessages) {
+                    let err = initError;
+                    errorMessages.forEach(msgObj => {
+                        err[msgObj.property] = Object.values(msgObj.constraints).map((val, i) => <p key={i.toString()}>{val}</p>);
+                    });
+                    setError(err);
+                }
+                setFormError(formErr);
+                setFormLoading(false);
+            });
+        }
+    }
+
+    return (
+        <div className="h-full flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full">
+                <div>
+                    <h2 className="mt-6 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
+                        Create an account
+                    </h2>
+                </div>
+                <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded px-8 pt-6 pb-8 my-20 bg-gray-200">
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                            Name
+                        </label>
+                        <input aria-label="Name"
+                            name="name"
+                            type="name"
+                            value={form.name}
+                            onChange={handleChange}
+                            className={`shadow appearance-none border ${error.name ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            placeholder="Your name" />
+                        <div className="text-xs italic text-red-500">{error.name}</div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                            Email
+                        </label>
+                        <input aria-label="Email"
+                            name="email"
+                            type="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            className={`shadow appearance-none border ${error.email ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            placeholder="Email address" />
+                        <div className="text-xs italic text-red-500">{error.email}</div>
+                    </div>
+                    <div className="mb-4 md:flex md:justify-between">
+                        <div className="mb-4 md:mr-2 md:mb-0">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                                Password
+                            </label>
+                            <input
+                                aria-label="Password"
+                                name="password"
+                                type="password"
+                                value={form.password}
+                                onChange={handleChange}
+                                className={`shadow appearance-none border ${error.password ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                placeholder="******************" />
+                            <div className="text-xs italic text-red-500">{error.password}</div>
+                        </div>
+                        <div className="md:ml-2">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirm">
+                                Confirm Password
+                            </label>
+                            <input
+                                aria-label="Confirm Password"
+                                name="confirm"
+                                type="password"
+                                value={form.confirm}
+                                onChange={handleChange}
+                                className={`shadow appearance-none border ${error.confirm ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                placeholder="******************" />
+                            <div className="text-xs italic text-red-500">{error.confirm}</div>
+                        </div>
+                    </div>
+                    <div className="-mt-px">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
+                            User Type
+                        </label>
+                        <div className="relative">
+                            <select
+                                value={form.type}
+                                name="type"
+                                onChange={handleChange}
+                                className={`shadow appearance-none border ${error.type ? "border-red-500" : ""} bg-white rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            >
+                                {
+                                    USER_TYPES.map(type => <option key={type.type} value={type.type}>{type.string}</option>)
+                                }
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                            </div>
+                        </div>
+                        <div className="text-xs italic text-red-500">{error.type}</div>
+                    </div>
+                    <div className="h-10">
+                        <p className="text-red-500 text-xs italic bold text-center mt-2">{formError}</p>
+                    </div>
+                    <div className="flex items-center justify-between sm:flex-row">
+                        <button type="submit" className={`flex items-center ${formLoading ? "bg-gray-600" : "bg-indigo-600 hover:bg-indigo-800"} text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline`}>
+                            <svg className={`h-5 w-5 ${formLoading ? "text-gray-400" : "text-indigo-500"} transition ease-in-out duration-150 mr-1`} fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                            </svg>
+                            Register
+                         </button>
+                        <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800" href="/login">
+                            Already have an account?
+                        </A>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form onSubmit={handleSubmit} className="mt-8">
-          <input type="hidden" name="remember" value="true" />
-            {error && "Credentials dont match"}
-          <div className="rounded-md shadow-sm">
-            <div>
-              <input aria-label="Username"
-                     name="username"
-                     type="text"
-                     value={form.username}
-                     onChange={handleChange}
-                     required
-                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Username" />
-            </div>
-            <div className="-mt-px">
-              <input
-                      aria-label="Password"
-                      name="password"
-                      type="password"
-                      value={form.password}
-                      onChange={handleChange}
-                      required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
-            </div>
-            <div className="-mt-px">
-              <input
-                      aria-label="Password"
-                      name="password"
-                      type="password"
-                      value={form.password}
-                      onChange={handleChange}
-                      required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
-            </div>
-            <div className="-mt-px">
-              <input
-                      aria-label="Password"
-                      name="password"
-                      type="password"
-                      value={form.password}
-                      onChange={handleChange}
-                      required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition ease-in-out duration-150" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                </svg>
-              </span>
-              Register
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  )
+    );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRoutes, navigate } from 'hookrouter';
+import { useRoutes, navigate, useRedirect } from 'hookrouter';
 import NavBar from '../components/Navbars/NavBar';
 
 const routes = {
@@ -7,8 +7,9 @@ const routes = {
 };
 
 const AppRouter = () => {
+	useRedirect("/login", "/");
 	const pages = useRoutes(routes);
-	!pages && navigate("/")
+	
 	return (
 		<div className="bg-gray-200">
 			<NavBar />

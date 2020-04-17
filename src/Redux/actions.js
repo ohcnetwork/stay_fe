@@ -9,3 +9,6 @@ export const postLogin = (form) => {
 export const postAddHotel = (form) => {
     return fireRequest('addFacility', [], form);
 };
+export const getCurrentUser = () => {
+    return fireRequest('currentUser');
+};
