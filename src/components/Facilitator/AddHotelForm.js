@@ -83,7 +83,7 @@ export default function AddHotelForm() {
           Notficiation.Success({
             msg: "Hotel Created",
           });
-          navigate("/add-rooms");
+          navigate("/add-room");
         }
 
         let formErr = "Some problem occurred";
