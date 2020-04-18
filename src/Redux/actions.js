@@ -65,3 +65,6 @@ export const dopostBook = (userId, roomId, hotelId, body) => {
 export const changeRoomStatus = (roomid, status) => {
   return fireRequest("changeRoomStatus", [roomid], status);
 };
+export const deleteHotel = (id) => {
+    return fireRequest('deleteHotel', [id]);
+};

@@ -92,4 +92,10 @@ export default {
     method: "PATCH",
     noAuth: false,
   },
-};
+  
+  deleteHotel: {
+    path: '/api/v1/facility',
+    method: "DELETE",
+    noAuth: true
+  },
+}

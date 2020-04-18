@@ -17,6 +17,7 @@ export default function Facilitator() {
     const { userHotelList } = state;
 
     useEffect(() => {
+        console.log("fetch_hotel data")
         dispatch(getUserHotelList(currentUser.id));
     }, [dispatch, currentUser.id]);
 
