@@ -12,8 +12,8 @@ import AddRoom from "../components/Facilitator/AddRoom";
 const routes = {
   "/login": () => <Login />,
   "/register": () => <Register />,
-  "/room/:slug": ({ id }) => <ViewRoom id={id} />,
-  "/roomlist/:id": ({ slug }) => <BrowseRooms id={slug} />,
+  "/room/:id": ({ id }) => <ViewRoom id={id} />,
+  "/roomlist/:id": ({ id }) => <BrowseRooms id={id} />,
   "/browse": () => <Hotel />,
   "/facilitator": () => <AddHotelForm />,
   "/add-room": () => <AddRoom />,
