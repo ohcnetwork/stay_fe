@@ -3,7 +3,7 @@ import { useDispatch , useSelector} from "react-redux";
 import { changePassword  } from "../../../Redux/actions"
 import * as Notficiation from "../../../util/Notifications";
 
-export default function Register() {
+export default function UserEdit() {
     const dispatch = useDispatch();
     const state = useSelector(state => state);
     const { currentUser } = state;
