@@ -107,7 +107,7 @@ export default function AddRoom({ id }) {
           Notficiation.Success({
             msg: "Room Created",
           });
-          navigate("/facilitator");
+          navigate(`/hotel/${id}`);
         } else {
           let formErr = "Some problem occurred";
 

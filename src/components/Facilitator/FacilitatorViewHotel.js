@@ -15,9 +15,8 @@ export default function FacilitatorViewHotel({ id }) {
     const { hotelRoomList } = state;
 
     useEffect(() => {
-        if (!userHotelList) {
             dispatch(getUserHotelList(currentUser.id));
-        }
+    
         dispatch(getHotelRoomList(id));
     }, [dispatch, currentUser.id, id]);
 
