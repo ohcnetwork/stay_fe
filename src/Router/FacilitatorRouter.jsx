@@ -4,6 +4,7 @@ import NavBar from "../components/Navbars/NavBar";
 
 import Facilitator from "../components/Facilitator/Facilitator";
 import FacilitatorViewHotel from "../components/Facilitator/FacilitatorViewHotel";
+import ViewBookings from "../components/Facilitator/ViewBookings";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import AddRoom from "../components/Facilitator/AddRoom";
 
@@ -12,6 +13,7 @@ const routes = {
 	"/hotel/add": () => <AddHotelForm />,
 	"/hotel/:id": ({ id }) => <FacilitatorViewHotel id={id} />,
 	"/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
+	"/hotel/:id/bookings": ({ id }) => <ViewBookings id={id} />,
 };
 
 const FacilitatorRouter = () => {

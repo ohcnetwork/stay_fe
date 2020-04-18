@@ -18,3 +18,6 @@ export const getUserHotelList = (id) => {
 export const getHotelRoomList = (id) => {
     return fireRequest('hotelRoomList', [id]);
 };
+export const getHotelBookingList = (id) => {
+    return fireRequest('hotelBookingList', [id]);
+};
