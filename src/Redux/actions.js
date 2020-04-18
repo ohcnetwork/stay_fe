@@ -12,3 +12,12 @@ export const postAddHotel = (form) => {
 export const getCurrentUser = () => {
     return fireRequest('currentUser');
 };
+export const getHotelList = (params) => {
+    return fireRequest('getHotelDetails', [], params);
+};
+export const getOptionlist = () => {
+    return fireRequest('getOptionlist');
+};
+export const getDistricts = () => {
+    return fireRequest('getDistricts');
+};
