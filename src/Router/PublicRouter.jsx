@@ -10,6 +10,7 @@ import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import AddRoom from "../components/Facilitator/AddRoom";
 
 const routes = {
+
   "/login": () => <Login />,
   "/register": () => <Register />,
   "/room/:id": ({ id }) => <ViewRoom id={id} />,
@@ -17,6 +18,7 @@ const routes = {
   "/browse": () => <Hotel />,
   "/facilitator": () => <AddHotelForm />,
   "/add-room": () => <AddRoom />,
+
 };
 
 const PublicRouter = () => {
