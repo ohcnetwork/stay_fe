@@ -11,16 +11,16 @@ const Range = createSliderWithTooltip(Slider.Range);
 function Hotel() {
 
     const dispatch = useDispatch()
-    const [price, setprice] = useState([0, 1000])
+    const [price, setprice] = useState([])
     const [form, setform] = useState({
         category: "All",
         location: "All"
     })
     const [optionlist, setoptionlist] = useState({
         category: ["All"],
-        location: ["ALL"],
-        minPrice: 0,
-        maxPrice: 1000
+        location: ["All"],
+        // minPrice: 0,
+        // maxPrice: 1000
     })
     const [hotels, sethotels] = useState([])
 
@@ -72,29 +72,29 @@ function Hotel() {
             for (var i = 0; i < res.data[0].length; i++) {
                 category[i] = res.data[0][i].category
             }
-            setoptionlist({
+            const minimum = parseInt(res.data[1][0].minimum) - 50
+            const maximum = parseInt(res.data[1][0].maximum) + 50
+            console.log("Minimum", minimum, maximum, 500)
 
-                // category: ["All", ...res.data.category],
-                // guest: res.data.guest,
-                // minPrice: res.data.minPrice,
-                // maxPrice: res.data.maxPrice
-                category: ["All", ...category],
-                minPrice: 0,
-                maxPrice: 1000,
-                location: ["All", "Hello"]
+            dispatch(getDistricts()).then(res => {
+                console.log(res)
+                const array = []
+                for (var i = 0; i < res.data.length; i++) {
+                    array[i] = res.data[i].district
+                }
+                console.log(array)
+                setoptionlist({
+                    ...optionlist,
+                    location: ["All", ...array],
+                    category: ["All", ...category],
+                    minPrice: minimum,
+                    maxPrice: maximum,
+                })
+                setprice([minimum, maximum])
+
             })
         })
 
-        dispatch(getDistricts()).then(res => {
-            console.log(res)
-            const array = []
-            for (var i = 0; i < res.data.length; i++) {
-                array[i] = res.data[i].district
-            }
-            console.log(array)
-            setoptionlist({ ...optionlist, location: ["All", ...array] })
-
-        })
 
     }
     const onSliderChange = (value) => {
