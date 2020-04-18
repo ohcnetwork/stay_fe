@@ -38,7 +38,9 @@ function Home() {
       {user.mobno}
       </p>
       <div class="mt-5">
-        <A href="/history" class="border rounded-full py-2 bg-white px-4 text-md font-semibold text-black-700">Booking History</A>
+        <A href="/history" class="bg-white hover:bg-blue-500 text-blue-700 font-semibold mt-6 hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+        Booking history 
+        </A>
       </div>
     </div>
   </div>

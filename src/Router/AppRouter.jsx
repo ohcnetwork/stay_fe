@@ -9,16 +9,15 @@ import History from "../components/BookingHistory/History";
 
 
 const routes = {
-	'/': () => <div className='h-screen flex justify-center py-16'>Home</div>,
 
-	"/dash" :() => <UserDashboard/>,
+	"/" :() => <UserDashboard/>,
 	"/edit" :() => <UserEdit/>,
 	"/history": () => <History  />,
 
 };
 
 const AppRouter = () => {
-	useRedirect("/login", "/dash");
+	useRedirect("/login", "/");
 	const pages = useRoutes(routes);
 	
 	return (
