@@ -7,13 +7,13 @@ export default function NavBar(){
      <div className="-mb-px flex max-w-6xl mx-auto">
        <img className="px-10" alt="Logo" />
        {[
-         // {
-         //   link: '/',
-         //   title: 'Home'
-         // },
          {
            link: '/',
            title: 'Home'
+         },
+         {
+           link: '/dash',
+           title: 'Dashboard'
          }
        ].map(route=>(     
          <A className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8"

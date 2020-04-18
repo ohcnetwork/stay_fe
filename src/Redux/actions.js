@@ -6,6 +6,11 @@ export const postRegister = (form) => {
 export const postLogin = (form) => {
     return fireRequest('login', [], form);
 };
+export const changePassword = (form) => {
+    console.log(form);  
+    return fireRequest('changepassword', [], form);
+};
+
 export const postAddHotel = (form) => {
     return fireRequest('addFacility', [], form);
 };

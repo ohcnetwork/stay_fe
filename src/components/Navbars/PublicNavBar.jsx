@@ -19,10 +19,6 @@ export default function PublicNavBar() {
             link: '/browse',
             title: 'Browse'
           },
-          {
-            link: '/history',
-            title: 'View history'
-          },
         ].map(route => (
           <A className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8"
             href={route.link}

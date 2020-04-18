@@ -1,9 +1,15 @@
 import React from 'react';
 import { useRoutes, navigate, useRedirect } from 'hookrouter';
 import NavBar from '../components/Navbars/NavBar';
+import UserDashboard from "../components/Dashboard/Userdashboard/UserDashboard";
+import UserEdit from '../components/Dashboard/Userdashboard/UserEdit';
+import History from "../components/BookingHistory/History";
 
 const routes = {
 	'/': () => <div className='h-screen flex justify-center py-16'>Home</div>,
+	"/dash" :() => <UserDashboard/>,
+	"/edit" :() => <UserEdit/>,
+	"/history": () => <History  />
 };
 
 const AppRouter = () => {
@@ -11,7 +17,7 @@ const AppRouter = () => {
 	const pages = useRoutes(routes);
 	
 	return (
-		<div className="bg-gray-200">
+		<div className="bg-white">
 			<NavBar />
 			{pages}
 			{!pages && (

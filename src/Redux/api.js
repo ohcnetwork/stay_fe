@@ -5,6 +5,11 @@ export default {
       method: 'POST',
       noAuth: true
   },
+  changepassword: {
+    path: '/api/v1/auth/change-password',
+    method: 'PUT',
+    noAuth: false
+},
   addFacility:{
     path:"/api/v1/facility/add-facility",
     method:"POST",
