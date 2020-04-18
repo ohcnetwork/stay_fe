@@ -71,7 +71,6 @@ export default function AddRoom({ id }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // form[facilities] = Object.keys(checkbox).map(...).join(",");
 
     let submitData = form;
     submitData.features = Object.keys(checkbox)
@@ -92,7 +91,7 @@ export default function AddRoom({ id }) {
           Notficiation.Success({
             msg: "Room Created",
           });
-          // navigate("/add-rooms");
+          navigate("/facilitator");
         } else {
           let formErr = "Some problem occurred";
 
@@ -129,7 +128,7 @@ export default function AddRoom({ id }) {
                 placeholder="Enter Title"
                 aria-label="Name"
               />
-              <div className="text-xs italic text-red-500">{error.name}</div>
+              <div className="text-xs italic text-red-500">{error.title}</div>
             </div>
             <div className="mt-2">
               <label
@@ -149,6 +148,9 @@ export default function AddRoom({ id }) {
                 placeholder="Enter Room Description"
                 aria-label="Name"
               />
+              <div className="text-xs italic text-red-500">
+                {error.description}
+              </div>
             </div>
             <div className="mt-2  ">
               <label
@@ -303,6 +305,9 @@ export default function AddRoom({ id }) {
                 placeholder="Enter the number of rooms"
                 aria-label="Name"
               />
+              <div className="text-xs italic text-red-500">
+                {error.noOfRooms}
+              </div>
             </div>
             <div className="inline-block mt-2 w-1/2 pr-1">
               <label className="block text-sm text-gray-600 " htmlFor="cost">
@@ -319,6 +324,7 @@ export default function AddRoom({ id }) {
                 placeholder="Capacity"
                 aria-label="Name"
               />
+              <div className="text-xs italic text-red-500">{error.beds}</div>
             </div>
             <div className="inline-block mt-2  pr-1">
               <label className="block text-sm text-gray-600 " htmlFor="cost">
@@ -335,6 +341,7 @@ export default function AddRoom({ id }) {
                 placeholder="Cost"
                 aria-label="Name"
               />
+              <div className="text-xs italic text-red-500">{error.cost}</div>
             </div>
 
             {/* File upload */}

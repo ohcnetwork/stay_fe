@@ -6,16 +6,13 @@ import Register from "../components/Account/Register";
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import History from "../components/BookingHistory/History";
-// import AddHotelForm from "../components/Facilitator/AddHotelForm";
-// import AddRoom from "../components/Facilitator/AddRoom";
+
 
 const routes = {
   "/login": () => <Login />,
   "/register": () => <Register />,
   "/room": () => <ViewRoom />,
   "/browse": () => <BrowseRooms />,
-//   "/facilitator": () => <AddHotelForm />,
-//   "/add-room":()=> <AddRoom/>,
   "/history": () => <History />
 };
 

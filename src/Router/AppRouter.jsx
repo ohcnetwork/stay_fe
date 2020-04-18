@@ -1,12 +1,11 @@
 import React from 'react';
 import { useRoutes,useRedirect } from 'hookrouter';
 import NavBar from '../components/Navbars/NavBar';
-import AddHotelForm from "../components/Facilitator/AddHotelForm";
-import AddRoom from "../components/Facilitator/AddRoom";
+
 const routes = {
 	'/': () => <div className='h-screen flex justify-center py-16'>Home</div>,
-	"/hotel/add": () => <AddHotelForm />,
-	"/hotel/:id/room/add":({id})=> <AddRoom id={id}/>,
+	// "/hotel/add": () => <AddHotelForm />,
+	// "/hotel/:id/room/add":({id})=> <AddRoom id={id}/>,
 };
 
 const AppRouter = () => {

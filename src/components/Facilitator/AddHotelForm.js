@@ -13,7 +13,7 @@ export default function AddHotelForm() {
     const { currentUser: temp } = state;
     const currentUser = temp.data.data;
     console.log("I am",currentUser.id);
-    
+
   const initForm = {
     name: "",
     ownerID: currentUser.id,
@@ -30,7 +30,6 @@ export default function AddHotelForm() {
   };
   const initError = {
     name: "",
-    // ownerID: "",
     address: "",
     panchayath: "",
     district: "",
@@ -106,7 +105,7 @@ export default function AddHotelForm() {
          // set captha logic needed
          if (res && statusCode === 201 && res.success === true) {
            Notficiation.Success({
-             msg: "Hotel Created",
+             msg: "Hotel Created, Add Room Details",
            });
           //  navigate("/add-room");
           // navigate(`add-room/${res.data.hotelId}`);
@@ -174,7 +173,7 @@ export default function AddHotelForm() {
             </label>
             <textarea
               className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="address"
               name="address"
               value={form.address}
               onChange={handleChange}
@@ -183,6 +182,8 @@ export default function AddHotelForm() {
               placeholder="Enter Hotel Address"
               aria-label="Name"
             />
+                        <div className="text-xs italic full-width text-red-500">{error.address}</div>
+
           </div>
           <div className="inline-block mt-2 w-1/2 pr-1">
             <label
@@ -193,7 +194,7 @@ export default function AddHotelForm() {
             </label>
             <input
               className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="panchayath"
               name="panchayath"
               value={form.panchayath}
               onChange={handleChange}
@@ -202,6 +203,7 @@ export default function AddHotelForm() {
               placeholder="Enter Panchayat"
               aria-label="Name"
             />
+
           </div>
           <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
             <label className="block text-sm text-gray-600 " htmlFor="district">
@@ -209,7 +211,7 @@ export default function AddHotelForm() {
             </label>
             <input
               className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="district"
               name="district"
               value={form.district}
               onChange={handleChange}
@@ -218,6 +220,7 @@ export default function AddHotelForm() {
               placeholder="Enter District"
               aria-label="Name"
             />
+
           </div>
 
           <div className="mt-2">
@@ -369,7 +372,7 @@ export default function AddHotelForm() {
 
           {/* File upload */}
           <div className="mt-2">
-            <label className="block text-sm text-gray-600 " htmlFor="cus_name">
+            <label className="block text-sm text-gray-600 " htmlFor="photos">
               Upload photos
             </label>
 
@@ -389,12 +392,12 @@ export default function AddHotelForm() {
             </div>
           </div>
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="cus_name">
+            <label className="block text-sm text-gray-600" htmlFor="contact">
               Contact Number
             </label>
             <input
               className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="contact"
               name="contact"
               value={form.contact}
               onChange={handleChange}
@@ -403,15 +406,17 @@ export default function AddHotelForm() {
               placeholder="Enter Contact Number"
               aria-label="Name"
             />
+                                    <div className="text-xs italic text-red-500">{error.contact}</div>
+
           </div>
 
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="cus_name">
+            <label className="block text-sm text-gray-600" htmlFor="policy">
               Policy
             </label>
             <textarea
               className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="policy"
               name="policy"
               value={form.policy}
               onChange={handleChange}
