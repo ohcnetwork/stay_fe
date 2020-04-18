@@ -3,6 +3,12 @@ export const phonePreg = (phone) => {
     return pattern.test(phone);
 };
 
+export const isNumber=(number)=>{
+    const pattern =/^[0-9]+$/;
+    return pattern.test(number);
+
+}
+
 export const validateLocationCoordinates = (location) => {
     const pattern = /^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}/;
     return pattern.test(location);

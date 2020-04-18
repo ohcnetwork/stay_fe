@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { postAddRooms } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
+import  {isNumber} from "../../util/validation"
 
 export default function AddRoom({ id }) {
   const dispatch = useDispatch();
@@ -58,6 +59,8 @@ export default function AddRoom({ id }) {
   function validInputs() {
     let formValid = true;
     let err = Object.assign({}, initError);
+    const { beds,noOfRooms,cost } = form;
+
 
     Object.keys(form).forEach((key) => {
       if (form[key] === "") {
@@ -65,6 +68,19 @@ export default function AddRoom({ id }) {
         err[key] = "This field is required";
       }
     });
+    if(!isNumber(beds)){
+      formValid = false;
+       err["beds"]="Enter Valid number"
+    };
+    if(!isNumber(noOfRooms)){
+      formValid = false;
+       err["noOfRooms"]="Enter Valid number"
+    };
+    if(!isNumber(cost)){
+      formValid = false;
+       err["cost"]="Enter Valid number"
+    };
+
     setError(err);
     return formValid;
   }

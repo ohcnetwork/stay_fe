@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postAddHotel } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
-
+import  {phonePreg} from "../../util/validation"
 export default function AddHotelForm() {
 
 
@@ -75,6 +75,8 @@ export default function AddHotelForm() {
   function validInputs() {
     let formValid = true;
     let err = Object.assign({}, initError);
+    const { contact } = form;
+
 
     Object.keys(form).forEach((key) => {
       if (form[key] === "") {
@@ -82,6 +84,14 @@ export default function AddHotelForm() {
         err[key] = "This field is required";
       }
     });
+   
+    if(!phonePreg(contact)){
+      formValid = false;
+       err["contact"]="Enter Valid phone number"
+    };
+
+ 
+
     setError(err);
     return formValid;
   }
