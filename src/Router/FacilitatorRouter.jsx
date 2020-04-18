@@ -1,11 +1,17 @@
 import React from "react";
-import { useRoutes, navigate, useRedirect } from "hookrouter";
+import { useRoutes, useRedirect } from "hookrouter";
 import NavBar from "../components/Navbars/NavBar";
 
 import Facilitator from "../components/Facilitator/Facilitator";
+import FacilitatorViewHotel from "../components/Facilitator/FacilitatorViewHotel";
+import AddHotelForm from "../components/Facilitator/AddHotelForm";
+import AddRoom from "../components/Facilitator/AddRoom";
 
 const routes = {
 	"/": () => <Facilitator />,
+	"/hotel/add": () => <AddHotelForm />,
+	"/hotel/:id": ({ id }) => <FacilitatorViewHotel id={id} />,
+	"/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
 };
 
 const FacilitatorRouter = () => {

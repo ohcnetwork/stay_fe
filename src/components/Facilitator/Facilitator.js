@@ -35,7 +35,7 @@ export default function Facilitator() {
         if (hotels.length > 0) {
             return (
                 hotels.map(hotel => 
-                    <A href={`/hotel/${hotel.hotelId}`} className="flex px-6 py-6 text-gray-800 items-center border-b -mx-4 hover:bg-gray-100 cursor-pointer">
+                    <A key={hotel.hotelId.toString()} href={`/hotel/${hotel.hotelId}`} className="flex px-6 py-6 text-gray-800 items-center border-b -mx-4 hover:bg-gray-200 cursor-pointer">
                         <div className="w-1/2 lg:w-2/5 px-2 capitalize text-left font-semibold">
                         <span className="text-md md:text-lg">{hotel.name}</span>
                         </div>
@@ -60,7 +60,7 @@ export default function Facilitator() {
             );
         } else {
             return (
-                <div className="text-gray-400 py-8 text-center text-xl">You currently have no hotels</div>
+                <div className="text-gray-500 py-8 text-center text-xl">You currently have no hotels</div>
             );
         }
     }
@@ -129,13 +129,10 @@ export default function Facilitator() {
                                 <h3 className="text-blue-dark py-4 font-normal text-lg">Actions</h3>
                             </div>
                         </div>
-                        <div>
-                            <button className="flex items-center text-xl m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
-                                <svg className="2-5 h-5 mr-2" viewBox="0 0 259 274" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M102 108V5H167V108H254V171.5H167V269H102V171.5H5V108H102Z" stroke="white" strokeWidth="10" />
-                                </svg>
+                        <div className="flex flex-wrap justify-evenly">
+                            <A href="/hotel/add" className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Add Hotel
-                                </button>
+                            </A>
                         </div>
                     </div>
                 </div>

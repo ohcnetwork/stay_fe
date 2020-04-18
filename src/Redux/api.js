@@ -20,9 +20,14 @@ export default {
     path: '/api/v1/auth/user',
     noAuth: false
   },
-
+    
   userHotelList: {
     path: '/api/v1/facility',
-    noAuth: false
+    noAuth: true
+  },
+
+  hotelRoomList: {
+    path: '/api/v1/rooms/hotel',
+    noAuth: true
   },
 }
