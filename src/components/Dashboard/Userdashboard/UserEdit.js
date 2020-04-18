@@ -92,8 +92,6 @@ export default function UserEdit() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        form.id=3;
-      //  form.currentPassword="Qwerty@123";
         console.log(validInputs());
       
         if (validInputs() && !formLoading) {
