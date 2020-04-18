@@ -36,7 +36,7 @@ export default function FacilitatorViewHotel({ id }) {
                 rooms.map(room => {
                     const r = room[0];
                     return ( 
-                        <div className="md:w-1/2 lg:w-1/3">
+                        <div key={r.title} className="md:w-1/2 lg:w-1/3">
                             <div key={r.title} className="mx-5 my-5 flex flex-col shadow-lg bg-indigo-100 rounded">
                                 <div className="">
                                     <img alt={r.title} className="w-full rounded" src="https://images.unsplash.com/photo-1515362778563-6a8d0e44bc0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=350&q=80" />
@@ -193,7 +193,7 @@ export default function FacilitatorViewHotel({ id }) {
                             </div>
                         </div>
                         <div className="flex flex-wrap justify-evenly">
-                            <A className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                            <A href="#" className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 View Bookings
                             </A>
                             <A href={`/hotel/${currentHotel.hotelId}/room/add`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
