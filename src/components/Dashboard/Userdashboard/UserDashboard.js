@@ -4,7 +4,7 @@ import {  useSelector } from 'react-redux';
 
 
 
-function Home() {
+function UserDashboard() {
 
     const defimage="https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg"
      
@@ -52,4 +52,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default UserDashboard;
