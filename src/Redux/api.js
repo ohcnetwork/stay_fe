@@ -25,4 +25,9 @@ export default {
     path: '/api/v1/auth/user',
     noAuth: false
   },
+  bookingHistory: {
+    path: '/api/v1/booking/UserDetails',
+    method:'get',
+    noAuth: false
+  },
 }

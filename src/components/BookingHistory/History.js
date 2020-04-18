@@ -1,19 +1,44 @@
-import React from "react";
-import hisdata from "./hisdata";
+import React , {useEffect , useState } from "react";
+
+
+import {  useSelector , useDispatch } from 'react-redux';
+
+import {getBookingHistory} from "../../Redux/actions";
+
 export default function ViewRoom() {
 
-const id_now="user1";var i=0;var history_now="";
+
 var item=[];
-for(i=0;i<hisdata.length;i++){
-    if(hisdata[i].userid===id_now){
-        history_now=hisdata[i];
+const state = useSelector(state => state);
+const { currentUser } = state;
+const user=currentUser.data.data;
+
+const dispatch = useDispatch();
+
+const [form, setForm] = useState({});
+
+var defimg="https://www.galeriemagazine.com/wp-content/uploads/2018/07/Bulgari-Shanghai-Room-1366x768-2.jpg";
+var i=0;
+
+useEffect(() => {
+    dispatch(getBookingHistory(user)).then(resp => 
+      { 
+       // const { status: statusCode } = resp;
+        const { data: res } = resp;
+        setForm(res.data);
+      }  )
+      
+}, [dispatch, user]);
+
+
+for(i=0;i<form.length;i++){
+    if(form[i].image === null){
     }
+    item=item.concat(form[i]);
+
 }
-for(i=0;i<history_now.hotels.length;i++){
-    item=item.concat(history_now.hotels[i]);
-}
-console.log(history_now.hotels[0]);
 console.log(item);
+
         return(
     <div className="py-10 bg-white min-h-full">
       <div className="max-w-5xl  mx-auto   overflow-hidden  sm:rounded-lg">
@@ -26,15 +51,15 @@ console.log(item);
             {item.map((value,index) =>  {
                 return (
                     <div id="" className="w-6/12 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
-                        <img className="w-full  h-30" src={value.image} alt="Sunset in the mountains"/>
+                        <img className="w-full  h-30" src={value.image} alt="Room Picture"/>
                             <div className="px-6 py-4">
                                 <div className="font-bold text-xl mb-2">{value.name}</div>
                                 <p className="text-gray-700 text-base">
                                     <ul>
-                                    <li>Room Type : {value.type}</li>
-                                    <li>Booked : {value.booking_date}</li>
-                                    <li>Status : {value.status}</li>
-                                    <li>Paid : {value.paid}</li>
+                                    <li>Room Type : {value.image}</li>
+                                    <li>Checkin : {value.checkinDate}</li>
+                                    <li>Checkout : {value.checkoutDate}</li>
+                                    <li>Paid : Rs {value.cost}</li>
                                     </ul>
                                 </p>
                             </div>

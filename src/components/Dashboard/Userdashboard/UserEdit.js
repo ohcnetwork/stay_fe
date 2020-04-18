@@ -3,7 +3,7 @@ import { useDispatch , useSelector} from "react-redux";
 import { changePassword  } from "../../../Redux/actions"
 import * as Notficiation from "../../../util/Notifications";
 
-export default function Register() {
+export default function UserEdit() {
     const dispatch = useDispatch();
     const state = useSelector(state => state);
     const { currentUser } = state;
@@ -21,6 +21,7 @@ export default function Register() {
   };
     const initError = {
         id:currentUser.data.data.id,
+        currentPassword:"",
         password: "",
         confirm: "",
     };
@@ -73,7 +74,7 @@ export default function Register() {
     function validInputs() {
         let formValid = true;
         let err = Object.assign({}, initError);
-        const { password, confirm } = form;
+        const { currentPassword,password, confirm } = form;
 
         Object.keys(form).forEach(key => {
             if (form[key] === "") {
@@ -85,6 +86,10 @@ export default function Register() {
             err["confirm"] = "Passwords do not match";
             formValid = false;
         }
+        else if(password === currentPassword){
+            err["password"] = "Cannot be old password";
+            formValid = false;
+        }
 
         setError(err);
         return formValid;
@@ -92,33 +97,28 @@ export default function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        form.id=3;
-      //  form.currentPassword="Qwerty@123";
-        console.log(validInputs());
-      
+
         if (validInputs() && !formLoading) {
-          
+
             setFormLoading(true);
             dispatch(changePassword(form)).then(resp => {
                 const { status: statusCode } = resp;
                 const { data: res } = resp;
-                
                 // set captha logic needed
                 if (res && statusCode === 200 && res.success === true) {
                     Notficiation.Success({
                         msg: "Password Changed"
                     });
+                    setForm(initForm);
                 }
 
                 let formErr = "Some problem occurred";
                 // error exists show error 
                 if (res && res.success === false && res.data) {
                     formErr = Object.values(res.data)[0];
-                    
+
                 }
-                if(res.success === true){
-                  formErr= "";
-                }
+              
                 const errorMessages = resp.response ? resp.response.data ? resp.response.data.message : null : null;
                 if (errorMessages) {
                     let err = initError;
@@ -127,7 +127,8 @@ export default function Register() {
                     });
                     setError(err);
                 }
-                setFormError(formErr);
+
+                        //setFormError(formErr);
                 setFormLoading(false);
             });
         }
@@ -135,7 +136,7 @@ export default function Register() {
 
     return (
         <div className="h-full lg:flex sm:flex-column  items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md sm:h-1/4 lg:mr-3 w-full">
+            <div className="max-w-md md:m-0   sm:h-1/4 lg:mr-3 w-full">
                 <div>
                     <h2 className="mt-3 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
                         Change Details
@@ -157,8 +158,8 @@ export default function Register() {
                             <div className="text-xs italic text-red-500">{error2.password}</div>
                         </div>
 
-                    
-                   
+
+
                     <div className="mb-4 sm:h-1/4 md:flex md:justify-between">
                         <div className="mb-4 md:mr-2 md:mb-0">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
@@ -226,8 +227,8 @@ export default function Register() {
                             <div className="text-xs italic text-red-500">{error.password}</div>
                         </div>
 
-                    
-                   
+
+
                     <div className="mb-4 md:flex md:justify-between">
                         <div className="mb-4 md:mr-2 md:mb-0">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">

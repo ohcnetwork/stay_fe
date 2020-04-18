@@ -17,7 +17,7 @@ const routes = {
 };
 
 const AppRouter = () => {
-	useRedirect("/login", "/");
+	useRedirect("/login", "/dash");
 	const pages = useRoutes(routes);
 	
 	return (
