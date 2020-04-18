@@ -6,7 +6,6 @@ import Register from "../components/Account/Register";
 import Hotel from '../components/Browse/Hotel';
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
-import History from "../components/BookingHistory/History";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import AddRoom from "../components/Facilitator/AddRoom";
 

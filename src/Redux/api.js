@@ -5,9 +5,14 @@ export default {
     method: 'POST',
     noAuth: true
   },
-  addFacility: {
-    path: "/api/v1/facility/add-facility",
-    method: "POST",
+  changepassword: {
+    path: '/api/v1/auth/change-password',
+    method: 'PUT',
+    noAuth: false
+},
+  addFacility:{
+    path:"/api/v1/facility/add-facility",
+    method:"POST",
     noAuth: false
   },
   login: {
@@ -20,7 +25,12 @@ export default {
     path: '/api/v1/auth/user',
     noAuth: false
   },
-
+  bookingHistory: {
+    path: '/api/v1/booking/UserDetails',
+    method:'get',
+    noAuth: false
+  },
+  
   userHotelList: {
     path: '/api/v1/facility',
     noAuth: true
