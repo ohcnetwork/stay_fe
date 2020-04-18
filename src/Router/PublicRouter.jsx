@@ -4,7 +4,6 @@ import PublicNavBar from "../components/Navbars/PublicNavBar";
 import Login from "../components/Account/Login";
 import Register from "../components/Account/Register";
 import Hotel from '../components/Browse/Hotel';
-import History from '../components/BookingHistory/History';
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
@@ -17,7 +16,7 @@ const routes = {
     "/browse": () => <Hotel />,
     "/facilitator": () => <AddHotelForm />,
     "/add-room": () => <AddRoom />,
-    "/history": () => <History />
+  
 };
 
 const PublicRouter = () => {

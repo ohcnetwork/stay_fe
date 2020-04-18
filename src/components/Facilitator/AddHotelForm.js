@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postAddHotel } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
-
+import  {phonePreg} from "../../util/validation"
 export default function AddHotelForm() {
+
+
   const dispatch = useDispatch();
+
+  const state = useSelector(state => state);
+    const { currentUser: temp } = state;
+    const currentUser = temp.data.data;
+    console.log("I am",currentUser.id);
+
   const initForm = {
     name: "",
-    ownerID: "1",
+    ownerID: currentUser.id,
     address: "",
     panchayath: "",
     district: "",
@@ -22,7 +30,6 @@ export default function AddHotelForm() {
   };
   const initError = {
     name: "",
-    ownerID: "1",
     address: "",
     panchayath: "",
     district: "",
@@ -39,12 +46,18 @@ export default function AddHotelForm() {
   const [error, setError] = useState(initError);
   const [formError, setFormError] = useState(false);
   const [star, setStar] = useState("");
-  const [checkbox, setCheckbox] = useState("[]");
+  const [checkbox, setCheckbox] = useState({
+    geyser: false,
+    wifi: false,
+    ac: false,
+    cctv: false
+  });
 
+  
+    
   const handleChange = (e) => {
     const { value, name } = e.target;
     const fieldValue = { ...form };
-    setCheckbox([...checkbox]);
 
     // error handling needed
 
@@ -53,9 +66,17 @@ export default function AddHotelForm() {
     setForm(fieldValue);
   };
 
+  const handleCheckbox = (e) => {
+    const { name } = e.target;
+    const prevState = checkbox[name];
+    setCheckbox({...checkbox, [name]: !prevState});
+  }
+
   function validInputs() {
     let formValid = true;
     let err = Object.assign({}, initError);
+    const { contact } = form;
+
 
     Object.keys(form).forEach((key) => {
       if (form[key] === "") {
@@ -63,60 +84,79 @@ export default function AddHotelForm() {
         err[key] = "This field is required";
       }
     });
+   
+    if(!phonePreg(contact)){
+      formValid = false;
+       err["contact"]="Enter Valid phone number"
+    };
+
+ 
+
     setError(err);
     return formValid;
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  console.log(validInputs(),"hey",formLoading);
 
-    if (validInputs() && !formLoading) {
-      console.log("AddHotelForm.js: ", "creating a new hotel", form);
-      setFormLoading(true);
-      dispatch(postAddHotel(form)).then((resp) => {
-        const { status: statusCode } = resp;
-        const { data: res } = resp;
-        console.log("Error");
+    let submitData = form;
+    submitData.facilities = Object.keys(checkbox).filter(el => checkbox[el]).join(",");
+    console.log(submitData);
 
-        // set captha logic needed
-        if (res && statusCode === 201 && res.success === true) {
-          Notficiation.Success({
-            msg: "Hotel Created",
-          });
-          navigate("/add-room");
-        }
+     if (validInputs() && !formLoading) {
+       console.log("AddHotelForm.js: ", "creating a new hotel", form);
+       setFormLoading(true);
+       dispatch(postAddHotel(currentUser.id,submitData)).then((resp) => {
+         const { status: statusCode } = resp;
+         const { data: res } = resp;
+         console.log(res);
 
-        let formErr = "Some problem occurred";
-        // error exists show error
-        if (res && res.success === false && res.data) {
-          formErr = Object.values(res.data)[0];
-        }
-        const errorMessages = resp.response
-          ? resp.response.data
-            ? resp.response.data.message
-            : null
-          : null;
-        if (errorMessages) {
-          let err = initError;
-          errorMessages.forEach((msgObj) => {
-            err[msgObj.property] = Object.values(
-              msgObj.constraints
-            ).map((val, i) => <p key={i.toString()}>{val}</p>);
-          });
-          setError(err);
-        }
-        setFormError(formErr);
-        setFormLoading(false);
-      });
-    }
+
+         // set captha logic needed
+         if (res && statusCode === 201 && res.success === true) {
+           Notficiation.Success({
+             msg: "Hotel Created, Add Room Details",
+           });
+          //  navigate("/add-room");
+          // navigate(`add-room/${res.data.hotelId}`);
+          navigate(`${res.data.hotelId}/room/add `);
+
+         }
+
+         let formErr = "Some problem occurred";
+         // error exists show error
+         if (res && res.success === false && res.data) {
+           formErr = Object.values(res.data)[0];
+         }
+         const errorMessages = resp.response
+           ? resp.response.data
+             ? resp.response.data.message
+             : null
+           : null;
+         if (errorMessages) {
+           let err = initError;
+           errorMessages.forEach((msgObj) => {
+             err[msgObj.property] = Object.values(
+               msgObj.constraints
+             ).map((val, i) => <p key={i.toString()}>{val}</p>);
+           });
+           setError(err);
+         }
+         setFormError(formErr);
+         setFormLoading(false);
+       });
+     }
   };
 
   return (
-    <div className="h-screen overflow-hidden flex items-center justify-center bg-gray-400 ">
+
+    // class="p-3 bg-indigo-400 text-white w-full hover:bg-indigo-300"    
+    <div className="h-screen  overflow-hidden flex items-center justify-center bg-gray-400 ">
       <div className="leading-loose">
         <form
           onSubmit={handleSubmit}
-          className="max-w-xl m-4 p-10 bg-white rounded shadow-xl"
+          className="max-w-xl  m-4 p-10 bg-white rounded shadow-xl"
         >
           <p className="text-gray-800 font-medium text-center">
             Hotel information
@@ -144,7 +184,7 @@ export default function AddHotelForm() {
             </label>
             <textarea
               className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="address"
               name="address"
               value={form.address}
               onChange={handleChange}
@@ -153,6 +193,8 @@ export default function AddHotelForm() {
               placeholder="Enter Hotel Address"
               aria-label="Name"
             />
+                        <div className="text-xs italic full-width text-red-500">{error.address}</div>
+
           </div>
           <div className="inline-block mt-2 w-1/2 pr-1">
             <label
@@ -163,7 +205,7 @@ export default function AddHotelForm() {
             </label>
             <input
               className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="panchayath"
               name="panchayath"
               value={form.panchayath}
               onChange={handleChange}
@@ -172,6 +214,7 @@ export default function AddHotelForm() {
               placeholder="Enter Panchayat"
               aria-label="Name"
             />
+
           </div>
           <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
             <label className="block text-sm text-gray-600 " htmlFor="district">
@@ -179,7 +222,7 @@ export default function AddHotelForm() {
             </label>
             <input
               className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="district"
               name="district"
               value={form.district}
               onChange={handleChange}
@@ -188,6 +231,7 @@ export default function AddHotelForm() {
               placeholder="Enter District"
               aria-label="Name"
             />
+
           </div>
 
           <div className="mt-2">
@@ -274,11 +318,10 @@ export default function AddHotelForm() {
                 <input
                   id="AC"
                   type="checkbox"
-                  name="facilities"
-                  value="AC"
+                  name="ac"
+                  checked={checkbox.ac}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                  onChange={handleChange}
-                  onClick={() => setCheckbox("AC")}
+                  onClick={handleCheckbox}
                 />
                 <label
                   htmlFor="AC"
@@ -291,11 +334,10 @@ export default function AddHotelForm() {
                 <input
                   id="wifi"
                   type="checkbox"
-                  name="facilities"
-                  value="wifi"
+                  name="wifi"
+                  checked={checkbox.wifi}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                  onChange={handleChange}
-                  onClick={() => setCheckbox("wifi")}
+                  onChange={handleCheckbox}
                 />
                 <label
                   htmlFor="wifi"
@@ -308,11 +350,10 @@ export default function AddHotelForm() {
                 <input
                   id="CCTV"
                   type="checkbox"
-                  name="facilities"
-                  value="cctv"
+                  name="cctv"
+                  checked={checkbox.cctv}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                  onChange={handleChange}
-                  onClick={() => setCheckbox("cctv")}
+                  onChange={handleCheckbox}
                 />
                 <label
                   htmlFor="CCTV"
@@ -325,11 +366,10 @@ export default function AddHotelForm() {
                 <input
                   id="geyser"
                   type="checkbox"
-                  name="facilities"
-                  value="geyser"
+                  name="geyser"
+                  checked={checkbox.geyser}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                  onChange={handleChange}
-                  onClick={() => setCheckbox("geyser")}
+                  onChange={handleCheckbox}
                 />
                 <label
                   htmlFor="geyser"
@@ -343,7 +383,7 @@ export default function AddHotelForm() {
 
           {/* File upload */}
           <div className="mt-2">
-            <label className="block text-sm text-gray-600 " htmlFor="cus_name">
+            <label className="block text-sm text-gray-600 " htmlFor="photos">
               Upload photos
             </label>
 
@@ -363,12 +403,12 @@ export default function AddHotelForm() {
             </div>
           </div>
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="cus_name">
+            <label className="block text-sm text-gray-600" htmlFor="contact">
               Contact Number
             </label>
             <input
               className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="contact"
               name="contact"
               value={form.contact}
               onChange={handleChange}
@@ -377,15 +417,17 @@ export default function AddHotelForm() {
               placeholder="Enter Contact Number"
               aria-label="Name"
             />
+                                    <div className="text-xs italic text-red-500">{error.contact}</div>
+
           </div>
 
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="cus_name">
+            <label className="block text-sm text-gray-600" htmlFor="policy">
               Policy
             </label>
             <textarea
               className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="cus_name"
+              id="policy"
               name="policy"
               value={form.policy}
               onChange={handleChange}
@@ -401,10 +443,10 @@ export default function AddHotelForm() {
             </p>
           </div>
 
-          <div className="mt-4 ">
+          <div className="mt-2">
             <button
-              className="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
-              type="submit"
+              className="px-4 py-1 text-white w-full font-light tracking-wider bg-indigo-600 hover:bg-indigo-300 rounded "
+              type="submit" 
             >
               Submit
             </button>
