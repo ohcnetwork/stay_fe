@@ -1,19 +1,28 @@
 import React from 'react';
 import { useRoutes,useRedirect } from 'hookrouter';
 import NavBar from '../components/Navbars/NavBar';
+import UserDashboard from "../components/Dashboard/Userdashboard/UserDashboard";
+import UserEdit from '../components/Dashboard/Userdashboard/UserEdit';
+import History from "../components/BookingHistory/History";
+
+
+
 
 const routes = {
 	'/': () => <div className='h-screen flex justify-center py-16'>Home</div>,
-	// "/hotel/add": () => <AddHotelForm />,
-	// "/hotel/:id/room/add":({id})=> <AddRoom id={id}/>,
+
+	"/dash" :() => <UserDashboard/>,
+	"/edit" :() => <UserEdit/>,
+	"/history": () => <History  />,
+
 };
 
 const AppRouter = () => {
-	useRedirect("/login", "/");
+	useRedirect("/login", "/dash");
 	const pages = useRoutes(routes);
 	
 	return (
-		<div className="bg-gray-200">
+		<div className="bg-white">
 			<NavBar />
 			{pages}
 			{!pages && (

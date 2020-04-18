@@ -112,6 +112,7 @@ export default function AddHotelForm() {
          const { data: res } = resp;
          console.log(res);
 
+
          // set captha logic needed
          if (res && statusCode === 201 && res.success === true) {
            Notficiation.Success({
