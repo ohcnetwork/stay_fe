@@ -21,3 +21,12 @@ export const getHotelRoomList = (id) => {
 export const getHotelBookingList = (id) => {
     return fireRequest('hotelBookingList', [id]);
 };
+export const getHotelList = (params) => {
+    return fireRequest('getHotelDetails', [], params);
+};
+export const getOptionlist = () => {
+    return fireRequest('getOptionlist');
+};
+export const getDistricts = () => {
+    return fireRequest('getDistricts');
+};

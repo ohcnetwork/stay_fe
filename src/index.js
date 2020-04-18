@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { RoomProvider } from "./components/Context/context";
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk'
 import reducer from './Redux/reducer'
@@ -13,9 +12,7 @@ const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>
-    <RoomProvider>
-      <App />
-    </RoomProvider>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
