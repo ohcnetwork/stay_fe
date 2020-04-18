@@ -9,7 +9,7 @@ export const postLogin = (form) => {
 
 export const postAddHotel = (id,form) => {
     return fireRequest('addFacility', [], form);
-
+};
 export const changePassword = (form) => {
 
     return fireRequest('changepassword', [], form);
