@@ -1,6 +1,5 @@
 import React , {useEffect , useState } from "react";
-
-
+import StarRatingComponent from 'react-star-rating-component';
 import {  useSelector , useDispatch } from 'react-redux';
 
 import {getBookingHistory} from "../../Redux/actions";
@@ -56,9 +55,15 @@ console.log(item);
                                 <div className="font-bold text-xl mb-2">{value.name}</div>
                                 <p className="text-gray-700 text-base">
                                     <ul>
-                                    <li>Room Type : {value.image}</li>
-                                    <li>Checkin : {value.checkinDate}</li>
-                                    <li>Checkout : {value.checkoutDate}</li>
+                                    <li>Room Type :  <span>
+                                    <StarRatingComponent 
+                                        className="text-lg"
+                                        name="rate1" 
+                                        starCount={5}
+                                        value={value.category}
+                                    /></span></li>
+                                    <li>Checkin : {new Date(value.checkinDate).toLocaleString()}</li>
+                                    <li>Checkout : {new Date(value.checkoutDate).toLocaleString()}</li>
                                     <li>Paid : Rs {value.cost}</li>
                                     </ul>
                                 </p>
