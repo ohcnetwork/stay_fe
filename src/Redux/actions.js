@@ -6,11 +6,11 @@ export const postRegister = (form) => {
 export const postLogin = (form) => {
     return fireRequest('login', [], form);
 };
-export const postAddHotel = (form) => {
+export const postAddHotel = (id,form) => {
     return fireRequest('addFacility', [], form);
 };
-export const postAddRooms = (form) => {
-    return fireRequest('addRooms', [], form);
+export const postAddRooms = (id, form) => {
+    return fireRequest('addRooms', [id], form);
 };
 export const getCurrentUser = () => {
     return fireRequest('currentUser');

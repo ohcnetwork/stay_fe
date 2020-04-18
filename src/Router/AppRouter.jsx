@@ -5,8 +5,8 @@ import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import AddRoom from "../components/Facilitator/AddRoom";
 const routes = {
 	'/': () => <div className='h-screen flex justify-center py-16'>Home</div>,
-	"/add-hotel": () => <AddHotelForm />,
-	"/add-room/:id":({id})=> <AddRoom id={id}/>,
+	"/hotel/add": () => <AddHotelForm />,
+	"/hotel/:id/room/add":({id})=> <AddRoom id={id}/>,
 };
 
 const AppRouter = () => {

@@ -11,7 +11,7 @@ export default {
     noAuth: false
   },
   addRooms:{
-    path:"/api/v1/rooms/1",
+    path:"/api/v1/rooms",
     method:"POST",
     noAuth: false
   },

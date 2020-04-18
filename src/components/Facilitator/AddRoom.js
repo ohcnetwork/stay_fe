@@ -4,15 +4,10 @@ import { postAddRooms } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
 
-export default function AddRoom(props) {
-  const [state]=useState({
-    id:props.id,
-  });
-
+export default function AddRoom({ id }) {
   const dispatch = useDispatch();
   const initForm = {
     title: "",
-    hotelId:"",
     features: "",
     description: "",
     category: "",
@@ -20,19 +15,16 @@ export default function AddRoom(props) {
     photos: "photo",
     noOfRooms: "",
     cost: "",
-
   };
   const initError = {
     title: "",
-    hotelId:"",
     features: "",
     description: "",
     category: "",
     beds: "",
-    photos: "photo",
+    photos: "",
     noOfRooms: "",
     cost: "",
-
   };
   const [formLoading, setFormLoading] = useState(false);
   const [form, setForm] = useState(initForm);
@@ -45,7 +37,6 @@ export default function AddRoom(props) {
     mini_fridge: false,
     geyser: false,
   });
-  
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -83,45 +74,30 @@ export default function AddRoom(props) {
     // form[facilities] = Object.keys(checkbox).map(...).join(",");
 
     let submitData = form;
-    submitData.features= Object.keys(checkbox).filter((el) => checkbox[el]).join(",");
+    submitData.features = Object.keys(checkbox)
+      .filter((el) => checkbox[el])
+      .join(",");
     console.log(submitData);
 
     if (validInputs() && !formLoading) {
       console.log("AddHotelForm.js: ", "creating a new hotel", form);
       setFormLoading(true);
-      dispatch(postAddRooms(form)).then((resp) => {
+      dispatch(postAddRooms(id, submitData)).then((resp) => {
         const { status: statusCode } = resp;
         const { data: res } = resp;
         console.log(resp);
 
         // set captha logic needed
-        if (res && statusCode === 201 ) {
+        if (res && statusCode === 201) {
           Notficiation.Success({
-            msg: "Hotel Created",
+            msg: "Room Created",
           });
           // navigate("/add-rooms");
-        }
+        } else {
+          let formErr = "Some problem occurred";
 
-        let formErr = "Some problem occurred";
-        // error exists show error
-        if (res && res.data) {
-          formErr = Object.values(res.data)[0];
+          setFormError(formErr);
         }
-        const errorMessages = resp.response
-          ? resp.response.data
-            ? resp.response.data.message
-            : null
-          : null;
-        if (errorMessages) {
-          let err = initError;
-          errorMessages.forEach((msgObj) => {
-            err[msgObj.property] = Object.values(
-              msgObj.constraints
-            ).map((val, i) => <p key={i.toString()}>{val}</p>);
-          });
-          setError(err);
-        }
-        setFormError(formErr);
         setFormLoading(false);
       });
     }

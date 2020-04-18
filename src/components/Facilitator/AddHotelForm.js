@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postAddHotel } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
 
-export default function AddHotelForm(props) {
+export default function AddHotelForm() {
+
+
   const dispatch = useDispatch();
+
+  const state = useSelector(state => state);
+    const { currentUser: temp } = state;
+    const currentUser = temp.data.data;
+    console.log("I am",currentUser.id);
+    
   const initForm = {
     name: "",
-    ownerID: "1",
+    ownerID: currentUser.id,
     address: "",
     panchayath: "",
     district: "",
@@ -19,11 +27,10 @@ export default function AddHotelForm(props) {
     photos: "photo",
     contact: "",
     policy: "",
-    hotelId:""
   };
   const initError = {
     name: "",
-    ownerID: "1",
+    // ownerID: "",
     address: "",
     panchayath: "",
     district: "",
@@ -34,7 +41,6 @@ export default function AddHotelForm(props) {
     photos: "",
     contact: "",
     policy: "",
-    hotelId:""
   };
   const [formLoading, setFormLoading] = useState(false);
   const [form, setForm] = useState(initForm);
@@ -48,6 +54,8 @@ export default function AddHotelForm(props) {
     cctv: false
   });
 
+  
+    
   const handleChange = (e) => {
     const { value, name } = e.target;
     const fieldValue = { ...form };
@@ -81,7 +89,7 @@ export default function AddHotelForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // form[facilities] = Object.keys(checkbox).map(...).join(",");
+  console.log(validInputs(),"hey",formLoading);
 
     let submitData = form;
     submitData.facilities = Object.keys(checkbox).filter(el => checkbox[el]).join(",");
@@ -90,10 +98,10 @@ export default function AddHotelForm(props) {
      if (validInputs() && !formLoading) {
        console.log("AddHotelForm.js: ", "creating a new hotel", form);
        setFormLoading(true);
-       dispatch(postAddHotel(form)).then((resp) => {
+       dispatch(postAddHotel(currentUser.id,submitData)).then((resp) => {
          const { status: statusCode } = resp;
          const { data: res } = resp;
-         console.log(form);
+         console.log(res);
 
          // set captha logic needed
          if (res && statusCode === 201 && res.success === true) {
@@ -101,7 +109,8 @@ export default function AddHotelForm(props) {
              msg: "Hotel Created",
            });
           //  navigate("/add-room");
-          navigate(`add-room/${form.id}`);
+          // navigate(`add-room/${res.data.hotelId}`);
+          navigate(`${res.data.hotelId}/room/add `);
 
          }
 
