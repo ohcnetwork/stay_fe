@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../Redux/actions";
 import { navigate, A } from "hookrouter";
+import * as Notficiation from "../../util/Notifications";
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -58,6 +59,10 @@ export default function Login() {
                     setFormError("Check your email and password");
                     setFormLoading(false);
                 }
+            }).catch(err => {
+                Notficiation.Error({
+                    msg: 'Something went wrong, please try again'
+                });
             });
         }
     }

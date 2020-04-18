@@ -107,10 +107,13 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
             if (error.response) {
                 // currentUser is ignored because on the first page load
                 // 403 error is displayed for invalid credential.
-                if (error.response.status === 403 && key === "currentUser") {
+                if (error.response.status !== 200 && key === "currentUser") {
                     if (localStorage.getItem('stay_access_token')) {
                         localStorage.removeItem('stay_access_token');
                     }
+                    Notficiation.Error({
+                        msg: "Token invalid, please login again"
+                    });
                     return error;
                 }
 
