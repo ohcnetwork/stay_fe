@@ -44,9 +44,9 @@ export default function EditHotel({ id }) {
     };
 
     const initFacilities = {
-        geyser: false,
+        parking: false,
         wifi: false,
-        ac: false,
+        pool: false,
         cctv: false
     };
 
@@ -357,18 +357,18 @@ export default function EditHotel({ id }) {
                         <div className="flex mb-4 bg-gray-200">
                             <div className="w-1/4 px-5 py-1 flex items-center">
                                 <input
-                                    id="AC"
+                                    id="pool"
                                     type="checkbox"
-                                    name="ac"
-                                    checked={checkbox.ac}
+                                    name="pool"
+                                    checked={checkbox.pool}
                                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     onChange={handleCheckbox}
                                 />
                                 <label
-                                    htmlFor="AC"
+                                    htmlFor="pool"
                                     className="ml-2 block text-sm leading-5 text-gray-700"
                                     >
-                                    AC
+                                    Pool
                                 </label>
                             </div>
                             <div className="w-1/4 px-5 flex items-center">
@@ -405,18 +405,18 @@ export default function EditHotel({ id }) {
                             </div>
                             <div className="w-1/4 px-5 flex items-center">
                                 <input
-                                    id="geyser"
+                                    id="parking"
                                     type="checkbox"
-                                    name="geyser"
-                                    checked={checkbox.geyser}
+                                    name="parking"
+                                    checked={checkbox.parking}
                                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     onChange={handleCheckbox}
                                 />
                                 <label
-                                    htmlFor="geyser"
+                                    htmlFor="parking"
                                     className="ml-2 block text-sm leading-5 text-gray-700"
                                     >
-                                    Geyser
+                                    Parking
                                 </label>
                             </div>
                         </div>
