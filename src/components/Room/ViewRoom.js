@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getRoomByRoomid,
-  dopostBook,
-  changeRoomStatus,
-} from "../../Redux/actions";
 import { navigate, useQueryParams, usePath } from "hookrouter";
+import { getRoomByRoomid, dopostBook } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
@@ -27,10 +23,10 @@ export default function ViewRoom({ id, startdate, enddate }) {
   console.log("room id", roomid);
   
   const [datein, setdatein] = useState({
-    date: startdate,
+    date: new Date(startdate),
   });
   const [dateout, setdateout] = useState({
-    date: enddate,
+    date: new Date(enddate),
   });
   const onDateChange = (newdate) => {
     setdatein({ date: newdate });
@@ -41,7 +37,18 @@ export default function ViewRoom({ id, startdate, enddate }) {
   const currentURI = usePath();
 
   const confirm = () => {
+    var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = new Date(startdate.date - startdates)
+      .toISOString()
+      .slice(0, -14);
+
+    var enddates = enddate.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = new Date(enddate.date - enddates)
+      .toISOString()
+      .slice(0, -14);
     if (currentUser && currentUser.data) {
+      //logged in
+
       const body = {
         roomid: id,
         checkin: datein.date,
@@ -59,6 +66,7 @@ export default function ViewRoom({ id, startdate, enddate }) {
         }
       });
     } else {
+      //not logged in
       Notficiation.Error({
         msg: "Please login to confirm your booking",
       });
@@ -68,7 +76,7 @@ export default function ViewRoom({ id, startdate, enddate }) {
       //not logged in
     }
   };
-
+  console.log("date", datein.date);
   return (
     <div className="py-10 bg-gray-300 h-full">
       <div className="max-w-5xl mx-auto bg-white shadow overflow-hidden  sm:rounded-lg">
@@ -110,8 +118,14 @@ export default function ViewRoom({ id, startdate, enddate }) {
             </form>
             <div className="mt-8">
               <button
-                onClick={confirm}
+                // onClick={}
                 className="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
+              >
+                Apply
+              </button>
+              <button
+                onClick={confirm}
+                className="bg-gray-900 text-gray-100 px-8 py-3 font-semibold rounded float-right"
               >
                 Book Now
               </button>
