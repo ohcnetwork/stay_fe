@@ -6,6 +6,7 @@ import Facilitator from "../components/Facilitator/Facilitator";
 import FacilitatorViewHotel from "../components/Facilitator/FacilitatorViewHotel";
 import ViewBookings from "../components/Facilitator/ViewBookings";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
+import EditHotel from "../components/Facilitator/EditHotel";
 import AddRoom from "../components/Facilitator/AddRoom";
 
 const routes = {
@@ -13,6 +14,7 @@ const routes = {
 	"/hotel/add": () => <AddHotelForm />,
 	"/hotel/:id": ({ id }) => <FacilitatorViewHotel id={id} />,
 	"/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
+	"/hotel/:id/edit": ({ id }) => <EditHotel id={id} />,
 	"/hotel/:id/bookings": ({ id }) => <ViewBookings id={id} />,
 };
 

@@ -17,6 +17,7 @@ export default function Facilitator() {
     const { userHotelList } = state;
 
     useEffect(() => {
+        console.log("fetch_hotel data")
         dispatch(getUserHotelList(currentUser.id));
     }, [dispatch, currentUser.id]);
 
@@ -67,6 +68,13 @@ export default function Facilitator() {
 
     if (!userHotelList || userHotelList.isFetching) {
         return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
+    }
+    if (userHotelList.error) {
+        return (
+            <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
+                <div className="text-5xl text-gray-400">Some problem occured, please try again</div>
+            </div>
+        );
     }
 
 
