@@ -14,12 +14,18 @@ export default function ViewBooking({ id }) {
 
     const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
+    const [trigger, setTrigger] = useState(0);
+
     useEffect(() => {
         dispatch(getHotelBookingList(id));
-    }, [dispatch, id]);
+    }, [dispatch, id, trigger]);
 
     function toggle(id) {
         setShowUpdation({ shown: !showUpdation.shown, data: bookings.find(b => b.bookingId === id) });
+    }
+
+    function triggerer() {
+        setTrigger(trigger + 1);
     }
 
     function dateString(date) {
@@ -130,7 +136,7 @@ export default function ViewBooking({ id }) {
                     }
                 </div>      
             </div>
-            { showUpdation.shown && <UpdateBooking toggle={toggle} shown={showUpdation.shown} data={showUpdation.data}/> }
+            { showUpdation.shown && <UpdateBooking toggle={toggle} shown={showUpdation.shown} data={showUpdation.data} triggerer={triggerer} /> }
         </div>
     );
 }

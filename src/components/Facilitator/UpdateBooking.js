@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { navigate, A } from "hookrouter";
 
-export default function UpdateBooking({ toggle, data, shown }) {
+import * as Notification from "../../util/Notifications";
+import { deleteBooking } from "../../Redux/actions";
+
+export default function UpdateBooking({ toggle, data, shown, triggerer }) {
 
     const [roomError, setRoomError] = useState(false);
     const [roomno, setRoomno] = useState("");
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+    const dispatch = useDispatch();
     
     useEffect(() => {
         setRoomno(data.roomno);
@@ -12,7 +21,7 @@ export default function UpdateBooking({ toggle, data, shown }) {
     
     function updateRoomno() {
         setRoomError(false);
-        if (roomno) {
+        if (roomno && !loading) {
             console.log("update room no to", roomno);
         } else {
             setRoomError(true);
@@ -20,16 +29,31 @@ export default function UpdateBooking({ toggle, data, shown }) {
     }
     
     function del() {
-        if (confirmDelete) {
-            console.log("continue to deletion");
-        } else {
+        navigate("");
+        if (confirmDelete && !loading) {
+            setLoading(true);
+            dispatch(deleteBooking(data.bookingId)).then(res => {
+                if (res.status === 200) {
+                    Notification.Success({
+                        msg: `Deleted booking #${data.bookingId}`
+                    });
+                    triggerer();
+                    toggle(data.bookingId);
+                } else {
+                    setError(true);
+                    setLoading(false);
+                }
+            });
+        } else if (!loading) {
             setConfirmDelete(true);
         }
     }
     
     function back() {
-        setConfirmDelete(false);
-        toggle(data.bookingId)
+        if (!loading) {
+            setConfirmDelete(false);
+            toggle(data.bookingId)
+        }
     }
     
     return (
@@ -82,14 +106,15 @@ export default function UpdateBooking({ toggle, data, shown }) {
                         </div>
                         </div>
                     </div>
+                    {error && <div className="text-sm text-red-700 font-medium">Something went wrong please. Try again.</div>}
                     <div className="flex justify-between font-bold tracking-wide">
                         <div className="flex" onClick={back}>
-                            <div className="flex items-center justify-center p-2 px-3 md:px-6 rounded bg-gray-300  hover:bg-gray-400 cursor-pointer">
+                            <div className={`flex items-center justify-center p-2 px-3 md:px-6 rounded ${loading? "bg-gray-600" :"bg-gray-300  hover:bg-gray-400"} cursor-pointer`}>
                                 Back
                             </div>
                         </div>
                         <div className="flex text-white">
-                            <div onClick={del} className="flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 bg-red-700 hover:bg-red-800 cursor-pointer">
+                            <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
                                 {
                                     confirmDelete
                                     ? 
@@ -98,7 +123,7 @@ export default function UpdateBooking({ toggle, data, shown }) {
                                         "Delete"
                                 }
                             </div>
-                            <div onClick={updateRoomno} className="flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 bg-indigo-600 hover:bg-indigo-800 cursor-pointer">
+                            <div onClick={updateRoomno} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
                                 Check In
                             </div>
                         </div>

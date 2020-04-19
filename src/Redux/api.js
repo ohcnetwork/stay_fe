@@ -104,4 +104,10 @@ export default {
     method: "PATCH",
     noAuth: true
   },
+
+  deleteBooking: {
+    path: '/api/v1/booking',
+    method: "DELETE",
+    noAuth: true
+  },
 }
