@@ -14,10 +14,10 @@ export default {
     method: "POST",
     noAuth: false,
   },
-  addRooms:{
-    path:"/api/v1/rooms",
-    method:"POST",
-    noAuth: false
+  addRooms: {
+    path: "/api/v1/rooms",
+    method: "POST",
+    noAuth: false,
   },
   login: {
     path: "/api/v1/auth/login",
@@ -37,7 +37,7 @@ export default {
 
   userHotelList: {
     path: "/api/v1/facility",
-    noAuth: true,
+    noAuth: false,
   },
 
   hotelRoomList: {
@@ -47,7 +47,7 @@ export default {
 
   hotelBookingList: {
     path: "/api/v1/booking/HotelDetails",
-    noAuth: true,
+    noAuth: false,
   },
   getHotelDetails: {
     path: "/api/v1/rooms",
@@ -75,16 +75,10 @@ export default {
     noAuth: true,
   },
 
-  hotelByRoomId: {
-    path: "/api/v1/rooms/hotelid",
-    method: "GET",
-    noAuth: true,
-  },
-
   postBook: {
-    path: "/api/v1/booking",
+    path: "/api/v1/booking/createBooking",
     method: "POST",
-    noAuth: true,
+    noAuth: false,
   },
 
   changeRoomStatus: {
@@ -92,16 +86,22 @@ export default {
     method: "PATCH",
     noAuth: false,
   },
-  
+
   deleteHotel: {
-    path: '/api/v1/facility',
+    path: "/api/v1/facility",
     method: "DELETE",
-    noAuth: true
+    noAuth: false
   },
 
   updateHotel: {
-    path: '/api/v1/facility',
+    path: "/api/v1/facility",
     method: "PATCH",
-    noAuth: true
+    noAuth: false
   },
-}
+
+  deleteBooking: {
+    path: '/api/v1/booking',
+    method: "DELETE",
+    noAuth: false
+  },
+};

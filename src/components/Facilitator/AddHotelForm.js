@@ -47,9 +47,9 @@ export default function AddHotelForm() {
   const [formError, setFormError] = useState(false);
   const [star, setStar] = useState("");
   const [checkbox, setCheckbox] = useState({
-    geyser: false,
+    pool: false,
     wifi: false,
-    ac: false,
+    restaurant: false,
     cctv: false
   });
 
@@ -152,16 +152,16 @@ export default function AddHotelForm() {
   return (
 
     // class="p-3 bg-indigo-400 text-white w-full hover:bg-indigo-300"    
-    <div className="overflow-hidden flex items-center justify-center bg-gray-400 ">
-      <div className="leading-loose max-w-3/4">
+    <div className="h-full  overflow-hidden flex items-center justify-center bg-gray-400 ">
+      <div className="leading-loose">
         <form
           onSubmit={handleSubmit}
-          className="max-w-xl  m-3 p-5 bg-white rounded shadow-xl"
+          className="max-w-xl  m-4 p-10 bg-white rounded shadow-xl"
         >
-          <p className="text-black-800 text-lg text-center">
+          <p className="text-gray-800 font-medium text-center">
             Hotel information
           </p>
-          <div className="">
+          <div className="mt-2">
             <label className="block text-sm text-gray-600" htmlFor="name">
               Hotel Name
             </label>
@@ -178,12 +178,12 @@ export default function AddHotelForm() {
             />
             <div className="text-xs italic text-red-500">{error.name}</div>
           </div>
-          <div className="mt-1">
+          <div className="mt-2">
             <label className="block text-sm text-gray-600" htmlFor="address">
               Address
             </label>
             <textarea
-              className="form-textarea w-full h-1/4 px-5 py-1 text-gray-700 bg-gray-200 rounded"
+              className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
               id="address"
               name="address"
               value={form.address}
@@ -196,7 +196,7 @@ export default function AddHotelForm() {
                         <div className="text-xs italic full-width text-red-500">{error.address}</div>
 
           </div>
-          <div className="inline-block mt-1 w-1/2 pr-1">
+          <div className="inline-block mt-2 w-1/2 pr-1">
             <label
               className="block text-sm text-gray-600 "
               htmlFor="panchayath"
@@ -216,7 +216,7 @@ export default function AddHotelForm() {
             />
 
           </div>
-          <div className="inline-block mt-1 -mx-1 pl-1 w-1/2">
+          <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
             <label className="block text-sm text-gray-600 " htmlFor="district">
               District
             </label>
@@ -234,7 +234,7 @@ export default function AddHotelForm() {
 
           </div>
 
-          <div className="mt-1">
+          <div className="mt-2">
             <label
               className="block text-sm text-gray-600 "
               htmlFor="starCategory"
@@ -306,7 +306,7 @@ export default function AddHotelForm() {
             </div>
           </div>
 
-          <div className="mt-0">
+          <div className="mt-2  ">
             <label
               className="block text-sm text-gray-600 "
               htmlFor="facilities"
@@ -316,18 +316,18 @@ export default function AddHotelForm() {
             <div className="flex mb-4 bg-gray-200">
               <div className="w-1/4 px-5 py-1 flex items-center">
                 <input
-                  id="AC"
+                  id="pool"
                   type="checkbox"
-                  name="ac"
-                  checked={checkbox.ac}
+                  name="pool"
+                  checked={checkbox.pool}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onClick={handleCheckbox}
                 />
                 <label
-                  htmlFor="AC"
+                  htmlFor="pool"
                   className="ml-2 block text-sm leading-5 text-gray-700"
                 >
-                  AC
+                  Pool
                 </label>
               </div>
               <div className="w-1/4 px-5 flex items-center">
@@ -364,31 +364,30 @@ export default function AddHotelForm() {
               </div>
               <div className="w-1/4 px-5 flex items-center">
                 <input
-                  id="geyser"
+                  id="restaurant"
                   type="checkbox"
-                  name="geyser"
-                  checked={checkbox.geyser}
+                  name="restaurant"
+                  checked={checkbox.restaurant}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleCheckbox}
                 />
                 <label
-                  htmlFor="geyser"
+                  htmlFor="restaurant"
                   className="ml-2 block text-sm leading-5 text-gray-700"
                 >
-                  Geyser
+                  Restaurant
                 </label>
               </div>
             </div>
           </div>
 
           {/* File upload */}
-          <div className="flex-row mt-0">
-          <div className="inline-block mt-0">
+          <div className="mt-2">
             <label className="block text-sm text-gray-600 " htmlFor="photos">
               Upload photos
             </label>
 
-            <div class="flex-row w-full items-center  px-5 bg-grey-lighter">
+            <div class="flex w-full items-center px-5 bg-grey-lighter">
               <label class="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
                 <svg
                   class="w-5 h-5"
@@ -403,8 +402,8 @@ export default function AddHotelForm() {
               </label>
             </div>
           </div>
-          <div className="mt-2 inline-block">
-            <label className="text-sm text-gray-600" htmlFor="contact">
+          <div className="mt-2">
+            <label className="block text-sm text-gray-600" htmlFor="contact">
               Contact Number
             </label>
             <input
@@ -418,15 +417,14 @@ export default function AddHotelForm() {
               placeholder="Enter Contact Number"
               aria-label="Name"
             />
-          <div className="text-xs italic text-red-500">{error.contact}</div>
+            <div className="text-xs italic text-red-500">{error.contact}</div>
 
           </div>
-          </div>
-          <div className="mt-1">
+
+          <div className="mt-2">
             <label className="block text-sm text-gray-600" htmlFor="policy">
               Policy
             </label>
-            
             <textarea
               className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
               id="policy"
@@ -445,7 +443,7 @@ export default function AddHotelForm() {
             </p>
           </div>
 
-          <div className="mt-1">
+          <div className="mt-2">
             <button
               className="px-4 py-1 text-white w-full font-light tracking-wider bg-indigo-600 hover:bg-indigo-300 rounded "
               type="submit" 

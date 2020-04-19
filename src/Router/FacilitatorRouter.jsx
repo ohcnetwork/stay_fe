@@ -1,6 +1,6 @@
 import React from "react";
 import { useRoutes, useRedirect } from "hookrouter";
-import NavBar from "../components/Navbars/NavBar";
+import FacilitatorNavBar from "../components/Navbars/FacilitatorNavBar";
 
 import Facilitator from "../components/Facilitator/Facilitator";
 import FacilitatorViewHotel from "../components/Facilitator/FacilitatorViewHotel";
@@ -24,7 +24,7 @@ const FacilitatorRouter = () => {
 	
 	return (
 		<div className="bg-gray-200">
-			<NavBar />
+			<FacilitatorNavBar />
 			{pages}
 			{!pages && (
 				<div className="h-screen flex justify-center py-16">

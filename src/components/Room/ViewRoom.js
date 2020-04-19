@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getRoomByRoomid,
-  getHotelByRoomid,
   dopostBook,
   changeRoomStatus,
 } from "../../Redux/actions";
 import { navigate } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
+import DatePicker from "react-date-picker";
 
 export default function ViewRoom({ id }) {
   const dispatch = useDispatch();
@@ -15,43 +15,47 @@ export default function ViewRoom({ id }) {
   const { currentUser } = state;
 
   const [detail, setDetail] = useState(false);
-  const [hdetail, sethDetail] = useState(false);
+  // const [hdetail, sethDetail] = useState(false);
   useEffect(() => {
     dispatch(getRoomByRoomid(id)).then((res) => {
       setDetail(res.data);
-    });
-    dispatch(getHotelByRoomid(id)).then((resp) => {
-      sethDetail(resp.data.data);
     });
   }, []);
   const roomid = id;
   console.log("room id", roomid);
 
-  const hotelid = hdetail.hotelId;
-  console.log("hotelid", hotelid);
+  const [datein, setdatein] = useState({
+    date: new Date(),
+  });
+  const [dateout, setdateout] = useState({
+    date: new Date(),
+  });
+  const onDateChange = (newdate) => {
+    setdatein({ date: newdate });
+  };
+  const onDateChange1 = (newdate1) => {
+    setdateout({ date: newdate1 });
+  };
 
   const confirm = () => {
     if (currentUser && currentUser.data) {
-      console.log("user id", currentUser.data.data.id);
-      const userid = currentUser.data.data.id;
-      console.log("logged in");
       const body = {
-        checkin: "2020-05-15",
-        checkout: "2020-05-29",
+        roomid: id,
+        checkin: datein.date,
+        checkout: dateout.date,
       };
 
-      dispatch(dopostBook(userid, id, hotelid, body)).then((res) => {});
+      dispatch(dopostBook(body)).then((res) => {});
       const status = {
         status: "NOT_AVAILABLE",
       };
       dispatch(changeRoomStatus(roomid, status));
-      Notficiation.Error({
+      Notficiation.Success({
         msg: "Booking Successfull",
       });
       navigate("/browse");
     } else {
-      console.log("not");
-      Notficiation.Success({
+      Notficiation.Error({
         msg: "Please login to confirm your booking",
       });
       navigate("/login");
@@ -71,8 +75,33 @@ export default function ViewRoom({ id }) {
             />
           </div>
           <div className="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
-            <h2 className="text-3xl text-gray-800 font-bold">{hdetail.name}</h2>
-            <p className="mt-4 text-gray-600">{hdetail.description}</p>
+            <form>
+              <label className="text-lg leading-6 font-medium text-gray-900">
+                Checkin date
+              </label>
+              <div className="relative">
+                <DatePicker
+                  className="appearance-none block w-half bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
+                  format="yyyy-MM-dd"
+                  value={datein.date}
+                  onChange={(newdate) => onDateChange(newdate)}
+                  minDate={new Date()}
+                />
+              </div>
+
+              <label className="text-lg leading-6 font-medium text-gray-900">
+                Checkout date
+              </label>
+              <div className="relative">
+                <DatePicker
+                  className="appearance-none block w-half bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
+                  format="yyyy-MM-dd"
+                  value={dateout.date}
+                  onChange={(newdateout) => onDateChange1(newdateout)}
+                  minDate={new Date()}
+                />
+              </div>
+            </form>
             <div className="mt-8">
               <button
                 onClick={confirm}
@@ -109,14 +138,14 @@ export default function ViewRoom({ id }) {
                 {detail.beds}
               </dd>
             </div>
-            <div className="sm:col-span-2">
+            {/* <div className="sm:col-span-2">
               <dt className="text-sm leading-5 font-medium text-gray-500">
                 Address
               </dt>
               <dd className="mt-1 text-sm leading-5 text-gray-900">
                 {hdetail.address}
               </dd>
-            </div>
+            </div> */}
             <div className="sm:col-span-1">
               <dt className="text-sm leading-5 font-medium text-gray-500">
                 Cost

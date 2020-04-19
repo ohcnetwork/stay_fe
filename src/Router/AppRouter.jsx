@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useRoutes,useRedirect } from 'hookrouter';
-import NavBar from '../components/Navbars/NavBar';
+import UserNavBar from '../components/Navbars/UserNavBar';
 
 import UserDashboard from "../components/Dashboard/Userdashboard/UserDashboard";
 import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
@@ -27,7 +27,7 @@ const AppRouter = () => {
 
   return (
     <div className="bg-white">
-      <NavBar />
+      <UserNavBar />
       {pages}
       {!pages && (
         <div className="h-screen flex justify-center py-16">

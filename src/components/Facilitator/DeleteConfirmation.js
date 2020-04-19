@@ -43,7 +43,7 @@ export default function DeleteConfirmation({ show, booked, name, toggle, id, roo
                             </div>
                         </div>
                         <div className="flex text-white">
-                            <A href="#" className="flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 bg-indigo-600 hover:bg-indigo-800 cursor-pointer">
+                            <A href={`/hotel/${id}/edit`} className="flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 bg-indigo-600 hover:bg-indigo-800 cursor-pointer">
                                 Edit
                             </A>
                             <div onClick={del} className="flex items-center justify-center rounded p-2 px-3 md:px-6 bg-red-700 hover:bg-red-800 cursor-pointer">
