@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { A } from "hookrouter";
 
 import { getUserHotelList, getHotelRoomList } from "../../Redux/actions";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 export default function FacilitatorViewHotel({ id }) {
+
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     const state = useSelector(state => state);
     const { currentUser: temp } = state;
@@ -15,8 +18,7 @@ export default function FacilitatorViewHotel({ id }) {
     const { hotelRoomList } = state;
 
     useEffect(() => {
-            dispatch(getUserHotelList(currentUser.id));
-    
+        dispatch(getUserHotelList(currentUser.id));
         dispatch(getHotelRoomList(id));
     }, [dispatch, currentUser.id, id]);
 
@@ -34,7 +36,7 @@ export default function FacilitatorViewHotel({ id }) {
             return (
                 rooms.map(room => {
                     const r = room[0];
-                    return ( 
+                    return (
                         <div key={r.title} className="md:w-1/2 lg:w-1/3">
                             <div key={r.title} className="mx-5 my-5 flex flex-col shadow-lg bg-indigo-100 rounded">
                                 <div className="">
@@ -105,8 +107,16 @@ export default function FacilitatorViewHotel({ id }) {
         return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
     }
 
+    if (userHotelList.error || hotelRoomList.error) {
+        return (
+            <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
+                <div className="text-5xl text-gray-400">Some problem occured, please try again</div>
+            </div>
+        );
+    }
+
     const currentHotel = Object.values(userHotelList.data.data).find(el => el.hotelId === id);
-    
+
     // check if the hotel actually exists
     // and if this user is the owner
     if (!currentHotel || (currentHotel.ownerID !== currentUser.id)) {
@@ -120,12 +130,16 @@ export default function FacilitatorViewHotel({ id }) {
         );
     }
 
+    function toggleConfirmation() {
+        setShowConfirmation(!showConfirmation);
+    }
+
     const hotelRoomData = [...new Set(hotelRoomList.data.data
         .map(e => e.title))]
-            .map(e =>
-                hotelRoomList.data.data.filter(el => el.title === e) 
-            );
-    
+        .map(e =>
+            hotelRoomList.data.data.filter(el => el.title === e)
+        );
+
     const totalRoomData = [].concat(...hotelRoomData);
     const totalRoomBooked = totalRoomData.length - (totalRoomData).filter(e => e.status === "AVAILABLE").length;
     let styleWidth = parseInt((totalRoomBooked / totalRoomData.length) * 12);
@@ -143,7 +157,7 @@ export default function FacilitatorViewHotel({ id }) {
                                 {currentHotel.name}
                             </div>
                             <div className="flex">
-                                
+
                                 {Array.apply(null, { length: currentHotel.starCategory }).map((el, num) => star(num))}
                             </div>
                         </div>
@@ -199,12 +213,12 @@ export default function FacilitatorViewHotel({ id }) {
                             <A href={`/hotel/${currentHotel.hotelId}/room/add`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Add Rooms
                             </A>
-                            <A href="#" className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                            <A href={`/hotel/${currentHotel.hotelId}/edit`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Edit Hotel
                             </A>
-                            <A href="#" className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                            <div onClick={toggleConfirmation} className="cursor-pointer flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Delete Hotel
-                            </A>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,6 +242,14 @@ export default function FacilitatorViewHotel({ id }) {
                     </div>
                 </div>
             </div>
+            <DeleteConfirmation
+                show={showConfirmation}
+                toggle={toggleConfirmation}
+                booked={totalRoomBooked}
+                name={currentHotel.name}
+                id={currentHotel.hotelId}
+                rooms={totalRoomData.length}
+                />
         </div>
     );
 }

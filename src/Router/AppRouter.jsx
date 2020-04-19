@@ -12,8 +12,7 @@ import BrowseRooms from "../components/Browse/BrowseRooms";
 
 const routes = {
 
-  "/": () => <div className="h-screen flex justify-center py-16">Home</div>,
-  "/dash": () => <UserDashboard />,
+  "/": () => <UserDashboard />,
   "/edit": () => <UserEdit />,
   "/history": () => <History />,
   "/room/:id": ({ id }) => <ViewRoom id={id} />,
@@ -23,7 +22,7 @@ const routes = {
 };
 
 const AppRouter = () => {
-  useRedirect("/login", "/dash");
+  useRedirect("/login", "/");
   const pages = useRoutes(routes);
 
   return (
