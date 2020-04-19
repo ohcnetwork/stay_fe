@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch , useSelector} from "react-redux";
 import { changePassword  } from "../../../Redux/actions"
 import * as Notficiation from "../../../util/Notifications";
+import {  validatePassword } from "../../../util/validation";
+
 
 export default function EditPassword(){
     const dispatch = useDispatch();
@@ -39,7 +41,7 @@ export default function EditPassword(){
     function validInputs() {
         let formValid = true;
         let err = Object.assign({}, initError);
-        const { currentPassword,password, confirm } = form;
+        const { password, confirm } = form;
 
         Object.keys(form).forEach(key => {
             if (form[key] === "") {
@@ -51,15 +53,21 @@ export default function EditPassword(){
             err["confirm"] = "Passwords do not match";
             formValid = false;
         }
-        else if(password === currentPassword){
-            err["password"] = "Cannot be old password";
+        if (password.length < 8) {
+            err["password"] = "Must be atleast 8 characters";
+            formValid = false;
+        } else if (password.length > 49) {
+            err["password"] = "Maximum 49 characters";
+            formValid = false;
+        } else if (!validatePassword(password)) {
+            err["password"] = <div className="flex md:block"><div>Should contain one uppercase,&nbsp;</div><div>lowercase digit and a symbol</div></div>;
             formValid = false;
         }
+
 
         setError(err);
         return formValid;
     }
-
         const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -75,6 +83,11 @@ export default function EditPassword(){
                         msg: "Password Changed"
                     });
                     setForm(initForm);
+                }
+                else{
+                    Notficiation.Error({
+                        msg: "Wrong Password !"
+                    });
                 }
 
                 let formErr = "Some problem occurred";
@@ -92,8 +105,6 @@ export default function EditPassword(){
                     });
                     setError(err);
                 }
-
-                        //setFormError(formErr);
                 setFormLoading(false);
             });
         }
@@ -103,7 +114,7 @@ export default function EditPassword(){
 
         
 
-        <div className="max-w-md lg:ml-3 w-full">
+        <div className="max-w-md sm:m-auto sm:m-0 lg:ml-3 w-full">
         <div>
             <h2 className="mt-3 m-3 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
                 Change Password
@@ -120,9 +131,9 @@ export default function EditPassword(){
                         type="password"
                         value={form.currentPassword}
                         onChange={handleChange}
-                        className={`shadow appearance-none border ${error.password ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                        className={`shadow appearance-none border ${error.currentpassword ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                         placeholder="******************" />
-                    <div className="text-xs italic text-red-500">{error.password}</div>
+                    <div className="text-xs italic text-red-500">{error.currentpassword}</div>
                 </div>
 
 
