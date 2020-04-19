@@ -1,19 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { A } from "hookrouter";
 
 import { getHotelBookingList } from "../../Redux/actions";
+import UpdateBooking from "./UpdateBooking";
 
 export default function ViewBooking({ id }) {
 
     const state = useSelector(state => state);
     const { hotelBookingList } = state;
     const dispatch = useDispatch();
+    const [ showUpdation, setShowUpdation ] = useState({ shown: false, data: "" });
 
     const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
     useEffect(() => {
         dispatch(getHotelBookingList(id));
     }, [dispatch, id]);
+
+    function toggle(id) {
+        setShowUpdation({ shown: !showUpdation.shown, data: bookings.find(b => b.bookingId === id) });
+    }
 
     function dateString(date) {
         const tme = new Date(date);
@@ -38,7 +45,11 @@ export default function ViewBooking({ id }) {
         if (bookings.length > 0) {
             return (
                 bookings.map(booking => 
-                    <div className="flex pt-5 pb-5 border-b pl-3 pr-3">
+                    <div 
+                        key={booking.bookingId.toString()} 
+                        className="flex pt-5 pb-5 border-b pl-3 pr-3 bg-white hover:bg-gray-200 cursor-pointer"
+                        onClick={() => {toggle(booking.bookingId)}}
+                        >
                         <div className="w-1/12 text-gray-700 text-sm md:text-base">
                             {booking.bookingId}
                         </div>
@@ -50,10 +61,10 @@ export default function ViewBooking({ id }) {
                             {booking.category}
                         </div>
                         <div className="w-3/12 text-gray-700 text-sm md:text-base">
-                            {dateString(booking.checkinDate)}
+                            {booking.checkin}
                         </div>
                         <div className="w-3/12 text-gray-700 text-sm md:text-base">
-                            {dateString(booking.bookingDate)}
+                            {booking.booking}
                         </div>
                     </div> 
                 )
@@ -69,10 +80,26 @@ export default function ViewBooking({ id }) {
         return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
     }
 
-    // check if hotel exists
-    console.log(hotelBookingList);
+    if (hotelBookingList.error) {
+        return (
+            <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
+                <div className="text-5xl text-gray-400">Some problem occured</div>
+                <A href="/" className="flex items-center text-xl m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                    Home
+                </A>
+            </div>
+        );
+    }
 
-    const bookings = hotelBookingList.data.data;
+    // TODO: check if hotel exists
+    console.log(hotelBookingList);
+    
+    let bookings = hotelBookingList.data.data;
+    bookings.forEach((b, i) => {
+        bookings[i].checkin = dateString(b.checkinDate);
+        bookings[i].booking = dateString(b.bookingDate);
+        bookings[i].roomno = "";
+    });
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
@@ -103,6 +130,7 @@ export default function ViewBooking({ id }) {
                     }
                 </div>      
             </div>
+            { showUpdation.shown && <UpdateBooking toggle={toggle} shown={showUpdation.shown} data={showUpdation.data}/> }
         </div>
     );
 }
