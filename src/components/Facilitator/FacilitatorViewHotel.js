@@ -11,7 +11,7 @@ export default function FacilitatorViewHotel({ id }) {
 
     const state = useSelector(state => state);
     const { currentUser: temp } = state;
-    const currentUser = temp.data.data;
+    const currentUser = temp && temp.data && temp.data.data;
 
     const dispatch = useDispatch();
     const { userHotelList } = state;
@@ -115,7 +115,7 @@ export default function FacilitatorViewHotel({ id }) {
         );
     }
 
-    const currentHotel = Object.values(userHotelList.data.data).find(el => el.hotelId === id);
+    const currentHotel = userHotelList.data && Object.values(userHotelList.data.data).find(el => el.hotelId === id);
 
     // check if the hotel actually exists
     // and if this user is the owner
@@ -134,7 +134,7 @@ export default function FacilitatorViewHotel({ id }) {
         setShowConfirmation(!showConfirmation);
     }
 
-    const hotelRoomData = [...new Set(hotelRoomList.data.data
+    const hotelRoomData = hotelRoomList.data && [...new Set(hotelRoomList.data.data
         .map(e => e.title))]
         .map(e =>
             hotelRoomList.data.data.filter(el => el.title === e)

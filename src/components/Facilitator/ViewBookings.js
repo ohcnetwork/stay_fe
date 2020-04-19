@@ -100,7 +100,7 @@ export default function ViewBooking({ id }) {
     // TODO: check if hotel exists
     console.log(hotelBookingList);
     
-    let bookings = hotelBookingList.data.data;
+    let bookings = hotelBookingList.data && hotelBookingList.data.data || [];
     bookings.forEach((b, i) => {
         bookings[i].checkin = dateString(b.checkinDate);
         bookings[i].booking = dateString(b.bookingDate);

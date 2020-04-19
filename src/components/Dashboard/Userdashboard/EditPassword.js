@@ -64,7 +64,7 @@ export default function EditPassword(){
         e.preventDefault();
 
         if (validInputs() && !formLoading) {
-
+            console.log(form);
             setFormLoading(true);
             dispatch(changePassword(form)).then(resp => {
                 const { status: statusCode } = resp;
