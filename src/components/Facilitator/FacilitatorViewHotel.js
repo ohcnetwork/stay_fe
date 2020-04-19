@@ -107,6 +107,14 @@ export default function FacilitatorViewHotel({ id }) {
         return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
     }
 
+    if (userHotelList.error || hotelRoomList.error) {
+        return (
+            <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
+                <div className="text-5xl text-gray-400">Some problem occured, please try again</div>
+            </div>
+        );
+    }
+
     const currentHotel = Object.values(userHotelList.data.data).find(el => el.hotelId === id);
 
     // check if the hotel actually exists
@@ -205,7 +213,7 @@ export default function FacilitatorViewHotel({ id }) {
                             <A href={`/hotel/${currentHotel.hotelId}/room/add`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Add Rooms
                             </A>
-                            <A href="#" className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                            <A href={`/hotel/${currentHotel.hotelId}/edit`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Edit Hotel
                             </A>
                             <div onClick={toggleConfirmation} className="cursor-pointer flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
