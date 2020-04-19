@@ -4,13 +4,18 @@ import { useDispatch } from 'react-redux';
 import HotelList from "./HotelList";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import ErrorComponent from './ErrorComponent'
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 
 function Hotel() {
-
+    // for bad response
+    const [errFlag, seterrFlag] = useState(false)
+    // for catch error
+    const [errFlagCatch, seterrFlagCatch] = useState(false)
     const dispatch = useDispatch()
+
     const [price, setprice] = useState([])
     const [form, setform] = useState({
         category: "All",
@@ -18,9 +23,9 @@ function Hotel() {
     })
     const [optionlist, setoptionlist] = useState({
         category: ["All"],
-        location: ["All"],
-        // minPrice: 0,
-        // maxPrice: 1000
+        location: ["ALL"],
+        minPrice: 0,
+        maxPrice: 1000
     })
     const [hotels, sethotels] = useState([])
 
@@ -32,9 +37,16 @@ function Hotel() {
         }
         dispatch(getHotelList(formdata))
             .then(res => {
-                console.log("dispatch hotels", res)
-                sethotels(res.data)
+                if (res) {
+                    sethotels(res.data)
+                }
+                else {
+                    seterrFlag(true)
+                }
+                // console.log("dispatch hotels", res)
+
             })
+            .catch(err => seterrFlagCatch(true))
 
     }, [])
 
@@ -61,40 +73,58 @@ function Hotel() {
         console.log(formdata)
         dispatch(getHotelList(formdata))
             .then(res => {
-                console.log("dispatch", res)
-                sethotels(res.data)
+                if (res) {
+                    console.log("dispatch", res)
+                    sethotels(res.data)
+                }
+                else {
+                    seterrFlag(true)
+                }
             })
+            .catch(err => seterrFlagCatch(true))
     }
     const getOptions = () => {
         dispatch(getOptionlist()).then(res => {
-
-            const category = []
-            for (var i = 0; i < res.data[0].length; i++) {
-                category[i] = res.data[0][i].category
-            }
-            const minimum = parseInt(res.data[1][0].minimum) - 50
-            const maximum = parseInt(res.data[1][0].maximum) + 50
-            console.log("Minimum", minimum, maximum, 500)
-
-            dispatch(getDistricts()).then(res => {
-                console.log(res)
-                const array = []
-                for (var i = 0; i < res.data.length; i++) {
-                    array[i] = res.data[i].district
+            if (res) {
+                const category = []
+                for (var i = 0; i < res.data[0].length; i++) {
+                    category[i] = res.data[0][i].category
                 }
-                console.log(array)
-                setoptionlist({
-                    ...optionlist,
-                    location: ["All", ...array],
-                    category: ["All", ...category],
-                    minPrice: minimum,
-                    maxPrice: maximum,
-                })
-                setprice([minimum, maximum])
+                const minimum = parseInt(res.data[1][0].minimum) - 50
+                const maximum = parseInt(res.data[1][0].maximum) + 50
 
-            })
+                dispatch(getDistricts())
+                    .then(res => {
+                        if (res.data) {
+                            console.log(res)
+                            const array = []
+                            for (var i = 0; i < res.data.length; i++) {
+                                array[i] = res.data[i].district
+                            }
+                            console.log(array)
+                            setoptionlist({
+                                ...optionlist,
+                                location: ["All", ...array],
+                                category: ["All", ...category],
+                                minPrice: minimum,
+                                maxPrice: maximum,
+                            })
+                            setprice([minimum, maximum])
+                        }
+                        else {
+                            seterrFlag(true)
+                        }
+
+                    })
+                    .catch(err => seterrFlagCatch(true))
+            }
+            else {
+                seterrFlag(true)
+            }
+
         })
 
+            .catch(err => seterrFlagCatch(true))
 
     }
     const onSliderChange = (value) => {
@@ -102,7 +132,7 @@ function Hotel() {
         setprice(value);
     }
     return (
-        <>
+        <div>
             <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8 max-w-6xl mx-auto">
                 <div className="absolute inset-0">
                     <div className="bg-white h-1/3 sm:h-2/3"></div>
@@ -181,10 +211,11 @@ function Hotel() {
                     </div>
                 </div>
 
+                {errFlag ?
+                    <ErrorComponent /> : <HotelList hotels={hotels} />}
 
-                <HotelList hotels={hotels} />
             </div>
-        </>
+        </div>
     )
 }
 
