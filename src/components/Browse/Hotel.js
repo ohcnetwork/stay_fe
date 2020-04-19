@@ -59,6 +59,7 @@ function Hotel() {
         dispatch(getHotelList(formdata))
             .then(res => {
                 if (res) {
+                    res.data = res.data.filter(e => e);
                     sethotels(res.data)
                     setloading(false)
                 }
@@ -108,6 +109,7 @@ function Hotel() {
             .then(res => {
                 if (res) {
                     console.log("dispatch", res)
+                    res.data = res.data.filter(e => e);
                     sethotels(res.data)
                     setloading(false)
                 }
