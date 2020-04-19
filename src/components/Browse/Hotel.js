@@ -1,21 +1,39 @@
 import React, { useState, useEffect } from 'react'
-import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
+import DatePicker from "react-date-picker";
 import { useDispatch } from 'react-redux';
-import HotelList from "./HotelList";
 import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+
+import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
+import HotelList from "./HotelList";
 import ErrorComponent from './ErrorComponent'
+import 'rc-slider/assets/index.css';
+
+
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 
 function Hotel() {
+    const dispatch = useDispatch()
+
     // for bad response
     const [errFlag, seterrFlag] = useState(false)
     // for catch error
     const [errFlagCatch, seterrFlagCatch] = useState(false)
-    const dispatch = useDispatch()
+    // for loading
+    const [loading, setloading] = useState(false)
 
+    // for date
+    const [startdate, setstartdate] = useState(
+        {
+            date: ""
+        }
+    )
+    const [enddate, setenddate] = useState(
+        {
+            date: ""
+        }
+    )
     const [price, setprice] = useState([])
     const [form, setform] = useState({
         category: "All",
@@ -25,12 +43,15 @@ function Hotel() {
         category: ["All"],
         location: ["ALL"],
         minPrice: 0,
-        maxPrice: 1000
+        maxPrice: 1000,
+        startdate: "",
+        enddate: ""
     })
     const [hotels, sethotels] = useState([])
 
 
     useEffect(() => {
+        setloading(true)
         getOptions()
         const formdata = {
             search: "AVAILABLE"
@@ -39,9 +60,11 @@ function Hotel() {
             .then(res => {
                 if (res) {
                     sethotels(res.data)
+                    setloading(false)
                 }
                 else {
                     seterrFlag(true)
+                    setloading(false)
                 }
                 // console.log("dispatch hotels", res)
 
@@ -49,11 +72,15 @@ function Hotel() {
             .catch(err => seterrFlagCatch(true))
 
     }, [])
-
+    const [submitdate, setsubmitdate] = useState({
+        checkin: false,
+        checkout: false
+    })
     const handleChange = (e) => {
         setform({ ...form, [e.target.name]: e.target.value })
     }
     const onSubmit = () => {
+        setloading(true)
         var category = form.category;
         var location = form.location;
         if (category === "All") {
@@ -68,20 +95,31 @@ function Hotel() {
             district: location,
             // price
             minimum: price[0],
-            maximum: price[1]
+            maximum: price[1],
+            startdate: startdate,
+            enddate: enddate
         }
+        setsubmitdate({
+            checkin: startdate,
+            checkout: enddate
+        })
         console.log(formdata)
         dispatch(getHotelList(formdata))
             .then(res => {
                 if (res) {
                     console.log("dispatch", res)
                     sethotels(res.data)
+                    setloading(false)
                 }
                 else {
                     seterrFlag(true)
+                    setloading(false)
                 }
             })
-            .catch(err => seterrFlagCatch(true))
+            .catch(err => {
+                seterrFlagCatch(true)
+                setloading(false)
+            })
     }
     const getOptions = () => {
         dispatch(getOptionlist()).then(res => {
@@ -131,6 +169,12 @@ function Hotel() {
         console.log(value);
         setprice(value);
     }
+    const onstartDateChange = newdate => {
+        setstartdate({ date: newdate })
+    }
+    const onendDateChange = newdate => {
+        setenddate({ date: newdate })
+    }
     return (
         <div>
             <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8 max-w-6xl mx-auto">
@@ -147,7 +191,7 @@ function Hotel() {
                 <br />
                 <div className="bg-white shadow rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="type">
                                 Category
                             </label>
@@ -167,7 +211,7 @@ function Hotel() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="location">
                                 Location
                             </label>
@@ -189,16 +233,41 @@ function Hotel() {
                         </div>
 
 
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 Price Rs. {price[0]}-{price[1]}
                             </label>
                             <div className="relative">
-                                <Range min={optionlist.minPrice} max={optionlist.maxPrice} allowCross={false} value={price} onChange={onSliderChange} step={50} />
+                                <Range style={{ paddingTop: "20px" }} min={optionlist.minPrice} max={optionlist.maxPrice} allowCross={false} value={price} onChange={onSliderChange} step={50} />
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                        <div style={{ paddingTop: "20px" }} className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                Start Date
+                            </label>
+                            <div className="relative">
+                                <DatePicker
+                                    value={startdate.date}
+                                    onChange={(newdate) => onstartDateChange(newdate)}
+                                    minDate={new Date()}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ paddingTop: "20px" }} className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                End Date
+                            </label>
+                            <div className="relative">
+                                <DatePicker
+                                    value={enddate.date}
+                                    onChange={(newdate) => onendDateChange(newdate)}
+                                    minDate={new Date()}
+                                />
+                            </div>
+                        </div>
+
+                        <div style={{ paddingTop: "20px" }} className="w-full md:w-1/3  px-3 mb-6 md:mb-0">
                             <div style={{ paddingTop: "30px" }} className="relative">
                                 <button onClick={onSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                                     Apply
@@ -208,8 +277,10 @@ function Hotel() {
                     </div>
                 </div>
 
-                {errFlag ?
-                    <ErrorComponent /> : <HotelList hotels={hotels} />}
+                {loading ?
+                    <div>Loading ...</div> :
+                    errFlag ?
+                        <ErrorComponent /> : <HotelList hotels={hotels} startdate={submitdate.checkin} enddate={submitdate.checkout} />}
 
             </div>
         </div>

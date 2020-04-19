@@ -1,6 +1,6 @@
 import React from "react";
 import { A } from "hookrouter";
-const HotelList = ({ hotels }) => {
+const HotelList = ({ hotels, startdate, enddate }) => {
   if (hotels.length === 0) {
     return (
       <div>
@@ -33,7 +33,7 @@ const HotelList = ({ hotels }) => {
                     alt={`${item.name} imgage`}
                   />
                 </div>
-                <A href={`/roomlist/${item.hotelId}`} className="block">
+                <A href={`/roomlist/${item.hotelId}/${startdate}/${enddate}`} className="block">
                   <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                     <div className="flex-1">
                       <p className="text-sm leading-5 font-medium text-indigo-600">
