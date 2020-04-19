@@ -7,26 +7,18 @@ export const postLogin = (form) => {
   return fireRequest("login", [], form);
 };
 
-export const postAddHotel = (id,form) => {
-    return fireRequest('addFacility', [], form);
+export const postAddHotel = (id, form) => {
+  return fireRequest("addFacility", [], form);
 };
 export const changePassword = (form) => {
   return fireRequest("changepassword", [], form);
 };
 
-
-export const postAddHotel = (form) => {
-  return fireRequest("addFacility", [], form);
-};
-
-
 export const getBookingHistory = (form) => {
-    return fireRequest('bookingHistory',[form.id]);
-
+  return fireRequest("bookingHistory", [form.id]);
 };
 export const postAddRooms = (id, form) => {
-    return fireRequest('addRooms', [id], form);
-
+  return fireRequest("addRooms", [id], form);
 };
 export const getCurrentUser = () => {
   return fireRequest("currentUser");
