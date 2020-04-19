@@ -16,7 +16,7 @@ const dispatch = useDispatch();
 
 const [form, setForm] = useState({});
 
-var defimg="https://www.galeriemagazine.com/wp-content/uploads/2018/07/Bulgari-Shanghai-Room-1366x768-2.jpg";
+//var defimg="https://www.galeriemagazine.com/wp-content/uploads/2018/07/Bulgari-Shanghai-Room-1366x768-2.jpg";
 var i=0;
 
 useEffect(() => {
@@ -31,11 +31,7 @@ useEffect(() => {
 
 var count = form.length;
 for(i=0;i<count;i++){
-    if(form[i].image === null){
-      form[i].image=defimg;
-    }
     item=item.concat(form[count-1-i]);
-
 }
 console.log(item);
         if(count===0){
