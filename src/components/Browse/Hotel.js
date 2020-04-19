@@ -26,12 +26,12 @@ function Hotel() {
     // for date
     const [startdate, setstartdate] = useState(
         {
-            date: ""
+            date: null
         }
     )
     const [enddate, setenddate] = useState(
         {
-            date: ""
+            date: null
         }
     )
     const [price, setprice] = useState([])
@@ -73,8 +73,8 @@ function Hotel() {
 
     }, [])
     const [submitdate, setsubmitdate] = useState({
-        checkin: false,
-        checkout: false
+        checkin: {},
+        checkout: {}
     })
     const handleChange = (e) => {
         setform({ ...form, [e.target.name]: e.target.value })

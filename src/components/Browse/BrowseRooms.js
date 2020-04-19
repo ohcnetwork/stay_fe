@@ -3,7 +3,12 @@ import { useDispatch } from "react-redux";
 import { getRoomByHotelid } from "../../Redux/actions";
 import { A } from "hookrouter";
 
-function BrowseRooms({ id }) {
+function BrowseRooms({ id, startdate, enddate }) {
+  // for dates
+  const [dates, setdates] = useState({
+    checkin: startdate,
+    checkout: enddate
+  })
   const [sortedrooms, setsortedrooms] = useState(false);
   const [hname, sethname] = useState(false);
   const dispatch = useDispatch();
@@ -30,6 +35,11 @@ function BrowseRooms({ id }) {
   console.log("new data:", sortedrooms);
   return (
     <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8 max-w-6xl mx-auto">
+
+      {/* dates */}
+      Checkin date: {dates.checkin}
+      <br />
+      Checkout date: {dates.checkout}
       <div className="absolute inset-0">
         <div className="bg-white h-1/3 sm:h-2/3"></div>
       </div>
@@ -57,7 +67,7 @@ function BrowseRooms({ id }) {
                       alt=""
                     />
                   </div>
-                  <A href={`/room/${item.id}`} className="block">
+                  <A href={`/room/${item.id}/${dates.checkin}/${dates.checkout}`} className="block">
                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                       <div className="flex-1">
                         <p className="text-sm leading-5 font-medium text-indigo-600">
