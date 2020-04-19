@@ -104,4 +104,10 @@ export default {
     method: "DELETE",
     noAuth: false
   },
+
+  setCheckin: {
+    path: '/api/v1/booking/checkin/check',
+    method: "PUT",
+    noAuth: false
+  },
 };
