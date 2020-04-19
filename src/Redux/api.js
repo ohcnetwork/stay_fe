@@ -37,7 +37,7 @@ export default {
 
   userHotelList: {
     path: "/api/v1/facility",
-    noAuth: true,
+    noAuth: false,
   },
 
   hotelRoomList: {
@@ -47,7 +47,7 @@ export default {
 
   hotelBookingList: {
     path: "/api/v1/booking/HotelDetails",
-    noAuth: true,
+    noAuth: false,
   },
   getHotelDetails: {
     path: "/api/v1/rooms",
@@ -84,7 +84,7 @@ export default {
   postBook: {
     path: "/api/v1/booking",
     method: "POST",
-    noAuth: true,
+    noAuth: false,
   },
 
   changeRoomStatus: {
@@ -96,18 +96,18 @@ export default {
   deleteHotel: {
     path: '/api/v1/facility',
     method: "DELETE",
-    noAuth: true
+    noAuth: false
   },
 
   updateHotel: {
     path: '/api/v1/facility',
     method: "PATCH",
-    noAuth: true
+    noAuth: false
   },
 
   deleteBooking: {
     path: '/api/v1/booking',
     method: "DELETE",
-    noAuth: true
+    noAuth: false
   },
 }
