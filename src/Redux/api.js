@@ -98,4 +98,10 @@ export default {
     method: "DELETE",
     noAuth: true
   },
+
+  updateHotel: {
+    path: '/api/v1/facility',
+    method: "PATCH",
+    noAuth: true
+  },
 }

@@ -68,3 +68,6 @@ export const changeRoomStatus = (roomid, status) => {
 export const deleteHotel = (id) => {
     return fireRequest('deleteHotel', [id]);
 };
+export const updateHotel = (pathParam, body) => {
+    return fireRequest('updateHotel', pathParam, body);
+};
