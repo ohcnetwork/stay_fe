@@ -49,7 +49,7 @@ export default function AddHotelForm() {
   const [checkbox, setCheckbox] = useState({
     pool: false,
     wifi: false,
-    restaurant: false,
+    parking: false,
     cctv: false
   });
 
@@ -152,7 +152,7 @@ export default function AddHotelForm() {
   return (
 
     // class="p-3 bg-indigo-400 text-white w-full hover:bg-indigo-300"    
-    <div className="h-full  overflow-hidden flex items-center justify-center bg-gray-400 ">
+    <div className="h-full  overflow-x-hidden flex items-center justify-center bg-gray-400 ">
       <div className="leading-loose">
         <form
           onSubmit={handleSubmit}
@@ -364,18 +364,18 @@ export default function AddHotelForm() {
               </div>
               <div className="w-1/4 px-5 flex items-center">
                 <input
-                  id="restaurant"
+                  id="parking"
                   type="checkbox"
-                  name="restaurant"
-                  checked={checkbox.restaurant}
+                  name="parking"
+                  checked={checkbox.parking}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleCheckbox}
                 />
                 <label
-                  htmlFor="restaurant"
+                  htmlFor="parking"
                   className="ml-2 block text-sm leading-5 text-gray-700"
                 >
-                  Restaurant
+                  Parking
                 </label>
               </div>
             </div>

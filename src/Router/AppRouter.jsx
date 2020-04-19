@@ -13,6 +13,10 @@ const routes = {
   "/": () => <UserDashboard />,
   "/edit": () => <UserEdit />,
   "/history": () => <History />,
+
+  "/room/:id": ({ id }) => <ViewRoom id={id} />,
+  "/roomlist/:id": ({ id }) => <BrowseRooms id={id} />,
+ 
   "/room/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
     <ViewRoom id={id} startdate={startdate} enddate={enddate} />
   ),
