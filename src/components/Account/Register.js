@@ -4,6 +4,7 @@ import { postRegister } from "../../Redux/actions"
 import { navigate, A } from "hookrouter";
 import { USER_TYPES } from "../../Common/constants";
 import * as Notficiation from "../../util/Notifications";
+import { validateEmailAddress, validatePassword } from "../../util/validation";
 
 export default function Register() {
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ export default function Register() {
     function validInputs() {
         let formValid = true;
         let err = Object.assign({}, initError);
-        const { password, confirm } = form;
+        const { password, confirm, email } = form;
 
         Object.keys(form).forEach(key => {
             if (form[key] === "") {
@@ -55,6 +56,21 @@ export default function Register() {
             err["confirm"] = "Passwords do not match";
             formValid = false;
         }
+        if (!validateEmailAddress(email)) {
+            err["email"] = "Enter a valid email";
+            formValid = false;
+        }
+        if (password.length < 8) {
+            err["password"] = "Must be atleast 8 characters";
+            formValid = false;
+        } else if (password.length > 49) {
+            err["password"] = "Maximum 49 characters";
+            formValid = false;
+        } else if (!validatePassword(password)) {
+            err["password"] = <div className="flex md:block"><div>Should contain one uppercase,&nbsp;</div><div>lowercase digit and a symbol</div></div>;
+            formValid = false;
+        }
+
 
         setError(err);
         return formValid;
@@ -124,7 +140,7 @@ export default function Register() {
                         <div className="text-xs italic text-red-500">{error.name}</div>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                             Email
                         </label>
                         <input aria-label="Email"
