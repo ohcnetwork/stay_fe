@@ -9,7 +9,7 @@ import { navigate } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
-export default function ViewRoom({ id }) {
+export default function ViewRoom({ id, startdate, enddate }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
@@ -17,6 +17,7 @@ export default function ViewRoom({ id }) {
   const [detail, setDetail] = useState(false);
   // const [hdetail, sethDetail] = useState(false);
   useEffect(() => {
+
     dispatch(getRoomByRoomid(id)).then((res) => {
       setDetail(res.data);
     });
@@ -25,10 +26,10 @@ export default function ViewRoom({ id }) {
   console.log("room id", roomid);
 
   const [datein, setdatein] = useState({
-    date: new Date(),
+    date: startdate,
   });
   const [dateout, setdateout] = useState({
-    date: new Date(),
+    date: enddate,
   });
   const onDateChange = (newdate) => {
     setdatein({ date: newdate });
@@ -45,7 +46,7 @@ export default function ViewRoom({ id }) {
         checkout: dateout.date,
       };
 
-      dispatch(dopostBook(body)).then((res) => {});
+      dispatch(dopostBook(body)).then((res) => { });
       const status = {
         status: "NOT_AVAILABLE",
       };
