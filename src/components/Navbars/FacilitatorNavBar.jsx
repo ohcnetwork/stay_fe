@@ -1,7 +1,7 @@
 import React from "react";
 import { A, navigate } from "hookrouter";
 
-export default function UserNavBar() {
+export default function NavBar() {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-indigo-700 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -32,26 +32,32 @@ export default function UserNavBar() {
         <div className="text-sm lg:flex-grow">
         {[
           {
-            link: '/login',
-            title: 'Login'
-          },
-          {
-            link: '/register',
-            title: 'Register'
-          },
-          {
-            link: '/browse',
-            title: 'Browse'
-          },
+            link: "/",
+            title: "Home",
+          },  
         ].map((route) => (
           <A
             className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             href={route.link}
-            key={route.link}
           >
             {route.title}
           </A>
         ))}
+        </div>
+        <div>
+          <A
+            href="/logout"
+            className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+            onClick={(e) => {
+            e.preventDefault();
+            localStorage.setItem("stay_access_token", "");
+            navigate("/");
+            window.location.reload();
+          }}
+         
+          >
+            Logout
+          </A>
         </div>
       </div>
     </nav>
