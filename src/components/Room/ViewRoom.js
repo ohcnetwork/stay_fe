@@ -45,13 +45,13 @@ export default function ViewRoom({ id }) {
         status: "NOT_AVAILABLE",
       };
       dispatch(changeRoomStatus(roomid, status));
-      Notficiation.Error({
+      Notficiation.Success({
         msg: "Booking Successfull",
       });
       navigate("/browse");
     } else {
       console.log("not");
-      Notficiation.Success({
+      Notficiation.Error({
         msg: "Please login to confirm your booking",
       });
       navigate("/login");

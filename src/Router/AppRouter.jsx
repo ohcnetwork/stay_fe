@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useRoutes,useRedirect } from 'hookrouter';
-import NavBar from '../components/Navbars/NavBar';
+import UserNavBar from '../components/Navbars/UserNavBar';
 
 import UserDashboard from "../components/Dashboard/Userdashboard/UserDashboard";
 import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
@@ -12,8 +12,7 @@ import BrowseRooms from "../components/Browse/BrowseRooms";
 
 const routes = {
 
-  "/": () => <div className="h-screen flex justify-center py-16">Home</div>,
-  "/dash": () => <UserDashboard />,
+  "/": () => <UserDashboard />,
   "/edit": () => <UserEdit />,
   "/history": () => <History />,
   "/room/:id": ({ id }) => <ViewRoom id={id} />,
@@ -23,12 +22,12 @@ const routes = {
 };
 
 const AppRouter = () => {
-  useRedirect("/login", "/dash");
+  useRedirect("/login", "/");
   const pages = useRoutes(routes);
 
   return (
     <div className="bg-white">
-      <NavBar />
+      <UserNavBar />
       {pages}
       {!pages && (
         <div className="h-screen flex justify-center py-16">
