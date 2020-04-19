@@ -45,15 +45,16 @@ export default function ViewRoom({ id }) {
         checkout: dateout.date,
       };
 
-      dispatch(dopostBook(body)).then((res) => {});
-      const status = {
-        status: "NOT_AVAILABLE",
-      };
-      dispatch(changeRoomStatus(roomid, status));
-      Notficiation.Success({
-        msg: "Booking Successfull",
+      dispatch(dopostBook(body)).then((resp) => {
+        const { data: res } = resp;
+        const { status: statusCode } = resp;
+        if (res && statusCode === 201) {
+          Notficiation.Success({
+            msg: "Booking Successfull",
+          });
+          navigate("/browse");
+        }
       });
-      navigate("/browse");
     } else {
       Notficiation.Error({
         msg: "Please login to confirm your booking",
