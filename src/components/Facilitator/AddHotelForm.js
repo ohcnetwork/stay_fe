@@ -47,9 +47,9 @@ export default function AddHotelForm() {
   const [formError, setFormError] = useState(false);
   const [star, setStar] = useState("");
   const [checkbox, setCheckbox] = useState({
-    geyser: false,
+    pool: false,
     wifi: false,
-    ac: false,
+    restaurant: false,
     cctv: false
   });
 
@@ -316,18 +316,18 @@ export default function AddHotelForm() {
             <div className="flex mb-4 bg-gray-200">
               <div className="w-1/4 px-5 py-1 flex items-center">
                 <input
-                  id="AC"
+                  id="pool"
                   type="checkbox"
-                  name="ac"
-                  checked={checkbox.ac}
+                  name="pool"
+                  checked={checkbox.pool}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onClick={handleCheckbox}
                 />
                 <label
-                  htmlFor="AC"
+                  htmlFor="pool"
                   className="ml-2 block text-sm leading-5 text-gray-700"
                 >
-                  AC
+                  Pool
                 </label>
               </div>
               <div className="w-1/4 px-5 flex items-center">
@@ -364,18 +364,18 @@ export default function AddHotelForm() {
               </div>
               <div className="w-1/4 px-5 flex items-center">
                 <input
-                  id="geyser"
+                  id="restaurant"
                   type="checkbox"
-                  name="geyser"
-                  checked={checkbox.geyser}
+                  name="restaurant"
+                  checked={checkbox.restaurant}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleCheckbox}
                 />
                 <label
-                  htmlFor="geyser"
+                  htmlFor="restaurant"
                   className="ml-2 block text-sm leading-5 text-gray-700"
                 >
-                  Geyser
+                  Restaurant
                 </label>
               </div>
             </div>
@@ -417,7 +417,7 @@ export default function AddHotelForm() {
               placeholder="Enter Contact Number"
               aria-label="Name"
             />
-                                    <div className="text-xs italic text-red-500">{error.contact}</div>
+            <div className="text-xs italic text-red-500">{error.contact}</div>
 
           </div>
 
