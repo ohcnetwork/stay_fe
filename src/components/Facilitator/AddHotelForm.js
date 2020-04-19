@@ -152,7 +152,7 @@ export default function AddHotelForm() {
   return (
 
     // class="p-3 bg-indigo-400 text-white w-full hover:bg-indigo-300"    
-    <div className="h-full  overflow-hidden flex items-center justify-center bg-gray-400 ">
+    <div className="h-full  overflow-x-hidden flex items-center justify-center bg-gray-400 ">
       <div className="leading-loose">
         <form
           onSubmit={handleSubmit}
