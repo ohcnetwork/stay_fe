@@ -5,11 +5,11 @@ import { A } from "hookrouter";
 
 function BrowseRooms({ id }) {
   const [sortedrooms, setsortedrooms] = useState(false);
-  const [hname, sethname] = useState(false);
+  // const [hname, sethname] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRoomByHotelid(id)).then((res) => {
-      sethname(res.data);
+      // sethname(res.data);
       let sortedlist = Array.from(
         new Set(res.data.data.map((details) => details.category))
       ).map((category) => {
