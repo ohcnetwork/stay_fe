@@ -76,8 +76,7 @@ export default function Facilitator() {
             </div>
         );
     }
-
-    const hotelList = userHotelList.data && userHotelList.data.data.filter(e => e);
+    const hotelList = userHotelList.data && userHotelList.data.data && Object.values(userHotelList.data.data).filter(e => e);
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
@@ -100,7 +99,7 @@ export default function Facilitator() {
                         <div className="md:w-1/3 text-center py-8">
                             <div className="border-r">
                                 <div className="text-gray-800 mb-2">
-                                    <span className="text-5xl">{ hotelList && Object.values(hotelList.data.data).length}</span>
+                                    <span className="text-5xl">{ hotelList && Object.values(hotelList).length}</span>
                                 </div>
                                 <div className="text-sm uppercase text-gray-600 tracking-wide">
                                     Hotels
@@ -158,7 +157,7 @@ export default function Facilitator() {
                                 </div>
                             </div>
                             {
-                                hotelList.data && showHotels(hotelList.data.data)
+                                hotelList && showHotels(hotelList)
                             }
                         </div>
                     </div>

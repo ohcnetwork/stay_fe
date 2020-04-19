@@ -177,7 +177,7 @@ export default function EditHotel({ id }) {
         );
     }
 
-    const currentHotel = userHotelList.data && Object.values(userHotelList.data.data).find(el => el.hotelId === id);
+    const currentHotel = userHotelList.data && userHotelList.data.data && Object.values(userHotelList.data.data).find(el => el.hotelId === id);
 
     // check if the hotel actually exists
     // and if this user is the owner
