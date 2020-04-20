@@ -1,58 +1,86 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { dopostBook, getHotelList } from "../../Redux/actions";
 import { navigate, useQueryParams, usePath } from "hookrouter";
-import { getRoomByRoomid, dopostBook } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
-export default function ViewRoom({ id, startdate, enddate }) {
+export default function ViewRoom({ category, startdate, enddate }) {
+  console.log("category", category)
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
   const [queryParams, setQueryParams] = useQueryParams();
-  
-  const [detail, setDetail] = useState(false);
-  // const [hdetail, sethDetail] = useState(false);
-  useEffect(() => {
-    
-    dispatch(getRoomByRoomid(id)).then((res) => {
-      setDetail(res.data);
-    });
-  }, []);
-  const roomid = id;
-  console.log("room id", roomid);
-  
+
   const [datein, setdatein] = useState({
     date: new Date(startdate),
   });
   const [dateout, setdateout] = useState({
     date: new Date(enddate),
   });
+
+  const [detail, setDetail] = useState(false);
+  // const [hdetail, sethDetail] = useState(false);
+  useEffect(() => {
+    var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = new Date(datein.date - startdates)
+      .toISOString()
+      .slice(0, -14);
+
+    var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = new Date(dateout.date - enddates)
+      .toISOString()
+      .slice(0, -14);
+    const form = {
+      category: category,
+      checkin: checkin,
+      checkout: checkout,
+      type: "room",
+    }
+    dispatch(getHotelList(form)).then((res) => {
+      if (res) {
+        setDetail(res.data[0]);
+        setavail(true)
+      }
+      else {
+        setavail(false)
+      }
+
+    })
+      .catch(err => {
+        setavail(false)
+      })
+  }, []);
+
+
+
   const onDateChange = (newdate) => {
     setdatein({ date: newdate });
   };
   const onDateChange1 = (newdate1) => {
     setdateout({ date: newdate1 });
   };
+  const [avail, setavail] = useState(true);
   const currentURI = usePath();
 
+  // booking button handle
   const confirm = () => {
-    var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkin = new Date(startdate.date - startdates)
+    var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = new Date(datein.date - startdates)
       .toISOString()
       .slice(0, -14);
 
-    var enddates = enddate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkout = new Date(enddate.date - enddates)
+    var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = new Date(dateout.date - enddates)
       .toISOString()
       .slice(0, -14);
     if (currentUser && currentUser.data) {
       //logged in
 
       const body = {
-        roomid: id,
-        checkin: datein.date,
-        checkout: dateout.date,
+        roomid: detail.id,
+        checkin: checkin,
+        checkout: checkout,
       };
 
       dispatch(dopostBook(body)).then((resp) => {
@@ -70,12 +98,42 @@ export default function ViewRoom({ id, startdate, enddate }) {
       Notficiation.Error({
         msg: "Please login to confirm your booking",
       });
-  
-      setQueryParams({redirect: currentURI})
+
+      setQueryParams({ redirect: currentURI })
       navigate(`/login?${queryParams}`);
       //not logged in
     }
   };
+
+  const onDateApply = () => {
+    setavail(false)
+    var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = new Date(datein.date - startdates)
+      .toISOString()
+      .slice(0, -14);
+
+    var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = new Date(dateout.date - enddates)
+      .toISOString()
+      .slice(0, -14);
+    const formdata = {
+      category: category,
+      checkin: checkin,
+      checkout: checkout,
+      type: "room",
+    }
+    dispatch(getHotelList(formdata))
+      .then(res => {
+        if (res) {
+          setDetail(res.data[0]);
+          setavail(true)
+        }
+        else {
+          setavail(false)
+        }
+      })
+  }
+
   console.log("date", datein.date);
   return (
     <div className="py-10 bg-gray-300 h-full">
@@ -118,16 +176,21 @@ export default function ViewRoom({ id, startdate, enddate }) {
             </form>
             <div className="mt-8">
               <button
-                // onClick={}
+                onClick={onDateApply}
                 className="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
               >
                 Apply
               </button>
               <button
                 onClick={confirm}
+                disabled={!avail}
                 className="bg-gray-900 text-gray-100 px-8 py-3 font-semibold rounded float-right"
               >
-                Book Now
+                {
+                  avail ?
+                    <div>Book Now</div> :
+                    <div>Not Available</div>
+                }
               </button>
             </div>
           </div>

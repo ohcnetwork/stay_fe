@@ -88,7 +88,7 @@ export const APIRequest = (key, path = [], params = {}, urlParam) => {
 
   // set authorization header in the request header
   const config = {
-    baseURL: "http://localhost:4009/",
+    baseURL: "https://api.stay.coronsafe.in/",
     headers: {},
   };
   if (!request.noAuth && localStorage.getItem("stay_access_token")) {
