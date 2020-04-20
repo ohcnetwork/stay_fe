@@ -13,7 +13,6 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
 
     const dispatch = useDispatch();
     
@@ -25,16 +24,13 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
         setRoomError(false);
         if (roomno && !loading) {
             setError(false);
-            setSuccess(false);
             setLoading(true);
             dispatch(setCheckinStatus(data.bookingId, { status })).then(res => {
                 if (res.status === 200) {
-                    data.roomno = roomno;
                     Notification.Success({
                         msg: `${BOOKING_CHECKIN_STATUS[status].string} #${data.bookingId}`
                     });
                     dispatch(getHotelBookingList(hotelId));
-                    // no need since component gets unmounted on dispatch
                     toggle(data.bookingId);;
                 } else {
                     setError(true);
@@ -51,7 +47,6 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
         navigate("");
         if (confirmDelete && !loading) {
             setLoading(true);
-            setSuccess(false);
             dispatch(deleteBooking(data.bookingId)).then(res => {
                 if (res.status === 200) {
                     Notification.Success({
@@ -134,7 +129,6 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                         </div>
                         </div>
                     </div>
-                    {success && <div className="text-sm text-green-700 text-center mb-5 font-medium">Successfully updated</div>}
                     {error && <div className="text-sm text-red-700 text-center mb-5 font-medium">Something went wrong please. Try again.</div>}
                     <div className="flex justify-between font-bold tracking-wide">
                         <div className="flex" onClick={back}>
@@ -142,33 +136,26 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                                 Back
                             </div>
                         </div>
-                        <div className="flex text-white">
-                        {
-                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.PENDING.string) &&
-                                <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
-                                    {
-                                        confirmDelete
-                                        ? 
-                                            "Sure ?"
-                                        :
-                                            "Delete"
-                                    }
+                        <div className="flex text-white">   
+                            {
+                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].type === BOOKING_CHECKIN_STATUS.PENDING.type) &&
+                                <div className="flex">
+                                    <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                        {
+                                            confirmDelete
+                                            ? 
+                                                "Sure ?"
+                                            :
+                                                "Delete"
+                                        }
+                                    </div>  
+                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
+                                        Check In
+                                    </div> 
                                 </div>
                             }
                             {
-                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.CHECKEDOUT.string) &&
-                                <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
-                                    Undo
-                                </div>   
-                            }
-                            {
-                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.PENDING.string) &&
-                                <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
-                                    Check In
-                                </div>
-                            }
-                            {
-                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.CHECKEDIN.string) &&
+                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].type === BOOKING_CHECKIN_STATUS.CHECKEDIN.type) &&
                                 <div className="flex">
                                     <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.PENDING.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
                                         Undo
@@ -176,6 +163,14 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                                     <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDOUT.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
                                         Check Out
                                     </div>   
+                                </div>
+                            }
+                            {
+                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].type === BOOKING_CHECKIN_STATUS.CHECKEDOUT.type) &&
+                                <div className="flex">
+                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                        Undo
+                                    </div> 
                                 </div>
                             }
                         </div>
