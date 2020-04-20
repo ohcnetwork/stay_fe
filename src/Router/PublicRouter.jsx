@@ -10,27 +10,15 @@ import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import AddRoom from "../components/Facilitator/AddRoom";
 
 const routes = {
+
   "/login": () => <Login />,
   "/register": () => <Register />,
-  "/room/:id/:category/:startdate/:enddate": ({
-    id,
-    category,
-    startdate,
-    enddate,
-  }) => (
-    <ViewRoom
-      id={id}
-      category={category}
-      startdate={startdate}
-      enddate={enddate}
-    />
-  ),
-  "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
-    <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
-  ),
+  "/room/:category/:startdate/:enddate": ({ category, startdate, enddate }) => <ViewRoom category={category} startdate={startdate} enddate={enddate} />,
+  "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => <BrowseRooms id={id} startdate={startdate} enddate={enddate} />,
   "/browse": () => <Hotel />,
   "/facilitator": () => <AddHotelForm />,
   "/add-room": () => <AddRoom />,
+
 };
 
 const PublicRouter = () => {
