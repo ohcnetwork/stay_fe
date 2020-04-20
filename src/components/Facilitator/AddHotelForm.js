@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { postAddHotel } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
-import  {phonePreg} from "../../util/validation"
+import  {phonePreg} from "../../util/validation";
+import { DISTRICT_CHOICES } from "../../Common/constants";
 export default function AddHotelForm() {
 
 
@@ -19,7 +20,7 @@ export default function AddHotelForm() {
     ownerID: currentUser.id,
     address: "",
     panchayath: "",
-    district: "",
+    district: DISTRICT_CHOICES[0].text,
     starCategory: "",
     latitude: "11.1",
     longitude: "2.1",
@@ -28,6 +29,9 @@ export default function AddHotelForm() {
     contact: "",
     policy: "",
   };
+
+  const optionalValues = ["panchayath"];
+
   const initError = {
     name: "",
     address: "",
@@ -69,7 +73,10 @@ export default function AddHotelForm() {
   const handleCheckbox = (e) => {
     const { name } = e.target;
     const prevState = checkbox[name];
-    setCheckbox({...checkbox, [name]: !prevState});
+    const newState = {...checkbox, [name]: !prevState};
+    setCheckbox(newState);
+
+    setForm({ ...form, facilities: Object.keys(newState).filter(el => newState[el]).join(",")});
   }
 
   function validInputs() {
@@ -79,7 +86,7 @@ export default function AddHotelForm() {
 
 
     Object.keys(form).forEach((key) => {
-      if (form[key] === "") {
+      if (form[key] === "" && !optionalValues.includes(key)) {
         formValid = false;
         err[key] = "This field is required";
       }
@@ -89,7 +96,6 @@ export default function AddHotelForm() {
       formValid = false;
        err["contact"]="Enter Valid phone number"
     };
-
  
 
     setError(err);
@@ -99,15 +105,13 @@ export default function AddHotelForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
   console.log(validInputs(),"hey",formLoading);
-
-    let submitData = form;
-    submitData.facilities = Object.keys(checkbox).filter(el => checkbox[el]).join(",");
-    console.log(submitData);
+    
+    console.log(form);
 
      if (validInputs() && !formLoading) {
        console.log("AddHotelForm.js: ", "creating a new hotel", form);
        setFormLoading(true);
-       dispatch(postAddHotel(currentUser.id,submitData)).then((resp) => {
+       dispatch(postAddHotel(currentUser.id, form)).then((resp) => {
          const { status: statusCode } = resp;
          const { data: res } = resp;
          console.log(res);
@@ -151,7 +155,7 @@ export default function AddHotelForm() {
 
   return (
 
-    // class="p-3 bg-indigo-400 text-white w-full hover:bg-indigo-300"    
+    // className="p-3 bg-indigo-400 text-white w-full hover:bg-indigo-300"    
     <div className="h-full  overflow-x-hidden flex items-center justify-center bg-gray-400 ">
       <div className="leading-loose">
         <form
@@ -193,7 +197,7 @@ export default function AddHotelForm() {
               placeholder="Enter Hotel Address"
               aria-label="Name"
             />
-                        <div className="text-xs italic full-width text-red-500">{error.address}</div>
+            <div className="text-xs italic full-width text-red-500">{error.address}</div>
 
           </div>
           <div className="inline-block mt-2 w-1/2 pr-1">
@@ -217,20 +221,22 @@ export default function AddHotelForm() {
 
           </div>
           <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
-            <label className="block text-sm text-gray-600 " htmlFor="district">
+            <label className="block text-sm text-gray-600" htmlFor="district">
               District
             </label>
-            <input
-              className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              id="district"
+            <select className="w-full py-3 px-5 py-1 text-gray-700 bg-gray-200 rounded"
               name="district"
               value={form.district}
               onChange={handleChange}
-              type="text"
-              required=""
-              placeholder="Enter District"
-              aria-label="Name"
-            />
+              aria-label="Enter District"
+            >
+              {
+                DISTRICT_CHOICES.map(el => (
+                  <option value={el.text} key={el.text}>{el.text}</option>
+                ))
+              
+              }
+            </select>
 
           </div>
 
@@ -304,6 +310,7 @@ export default function AddHotelForm() {
                 <span className="ml-2  text-gray-600">5 star</span>
               </label>
             </div>
+            <div className="text-xs italic full-width text-red-500">{error.starCategory}</div>
           </div>
 
           <div className="mt-2  ">
@@ -321,7 +328,7 @@ export default function AddHotelForm() {
                   name="pool"
                   checked={checkbox.pool}
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                  onClick={handleCheckbox}
+                  onChange={handleCheckbox}
                 />
                 <label
                   htmlFor="pool"
@@ -379,6 +386,7 @@ export default function AddHotelForm() {
                 </label>
               </div>
             </div>
+            <div className="text-xs italic full-width text-red-500">{error.facilities}</div>
           </div>
 
           {/* File upload */}
@@ -387,18 +395,18 @@ export default function AddHotelForm() {
               Upload photos
             </label>
 
-            <div class="flex w-full items-center px-5 bg-grey-lighter">
-              <label class="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
+            <div className="flex w-full items-center px-5 bg-grey-lighter">
+              <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
                 <svg
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                 >
                   <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                 </svg>
-                <span class="mt-2 text-xs leading-normal">Select a file</span>
-                <input type="file" class="hidden" />
+                <span className="mt-2 text-xs leading-normal">Select a file</span>
+                <input type="file" className="hidden" />
               </label>
             </div>
           </div>
@@ -436,6 +444,7 @@ export default function AddHotelForm() {
               placeholder="Enter Hotel Policies"
               aria-label="Name"
             />
+            <div className="text-xs italic full-width text-red-500">{error.policy}</div>
           </div>
           <div className="h-10">
             <p className="text-red-500 text-xs italic bold text-center mt-2">
