@@ -156,6 +156,12 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                                 </div>
                             }
                             {
+                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.CHECKEDOUT.string) &&
+                                <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                    Undo
+                                </div>   
+                            }
+                            {
                                 (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.PENDING.string) &&
                                 <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
                                     Check In
