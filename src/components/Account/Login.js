@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../Redux/actions";
-import { navigate, A } from "hookrouter";
+import { navigate, A, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 
 export default function Login() {
     const dispatch = useDispatch();
     const [formLoading, setFormLoading] = useState(false);
     const [formError, setFormError] = useState(false);
+    const [queryParams, setQueryParams] = useQueryParams();
+
     const initForm = {
         email: "",
         password: "",
     };
     const [form, setForm] = useState(initForm);
+
+    useEffect(() => {
+        setQueryParams(queryParams);
+    }, [])
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -53,7 +59,11 @@ export default function Login() {
                 // TODO: change status code to 200 (backend was sending 201 on login)
                 if (res && statusCode === 201) {
                     localStorage.setItem("stay_access_token", res.access_token);
-                    navigate("/");
+                    if (queryParams && queryParams.redirect) {
+                        navigate(queryParams.redirect)
+                    } else {
+                        navigate("/");
+                    }
                     window.location.reload();
                 } else {
                     setFormError("Check your email and password");

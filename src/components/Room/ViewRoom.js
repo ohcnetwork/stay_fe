@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { navigate, useQueryParams, usePath } from "hookrouter";
 import { getRoomByRoomid, dopostBook } from "../../Redux/actions";
-import { navigate } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
@@ -9,17 +9,19 @@ export default function ViewRoom({ id, startdate, enddate }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
-
+  const [queryParams, setQueryParams] = useQueryParams();
+  
   const [detail, setDetail] = useState(false);
   // const [hdetail, sethDetail] = useState(false);
   useEffect(() => {
+    
     dispatch(getRoomByRoomid(id)).then((res) => {
       setDetail(res.data);
     });
   }, []);
   const roomid = id;
   console.log("room id", roomid);
-
+  
   const [datein, setdatein] = useState({
     date: new Date(startdate),
   });
@@ -32,6 +34,7 @@ export default function ViewRoom({ id, startdate, enddate }) {
   const onDateChange1 = (newdate1) => {
     setdateout({ date: newdate1 });
   };
+  const currentURI = usePath();
 
   const confirm = () => {
     var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
@@ -67,7 +70,10 @@ export default function ViewRoom({ id, startdate, enddate }) {
       Notficiation.Error({
         msg: "Please login to confirm your booking",
       });
-      navigate(`/login`);
+  
+      setQueryParams({redirect: currentURI})
+      navigate(`/login?${queryParams}`);
+      //not logged in
     }
   };
   console.log("date", datein.date);
