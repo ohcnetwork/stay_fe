@@ -5,7 +5,7 @@ import { navigate, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
-export default function ViewRoom({ id, category, startdate, enddate }) {
+export default function ViewRoom({ category, startdate, enddate }) {
   console.log("category", category);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -32,7 +32,6 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
       .toISOString()
       .slice(0, -14);
     const form = {
-      hoteid: id,
       category: category,
       checkin: checkin,
       checkout: checkout,
@@ -76,7 +75,6 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
       //logged in
 
       const body = {
-        hotelid: id,
         roomid: detail.id,
         checkin: checkin,
         checkout: checkout,
@@ -90,17 +88,17 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
             msg: "Booking Successfull",
           });
           navigate("/browse");
+        } else {
+          //not logged in
+          Notficiation.Error({
+            msg: "Please login to confirm your booking",
+          });
+
+          setQueryParams({ redirect: currentURI });
+          navigate(`/login?${queryParams}`);
+          //not logged in
         }
       });
-    } else {
-      //not logged in
-      Notficiation.Error({
-        msg: "Please login to confirm your booking",
-      });
-
-      setQueryParams({ redirect: currentURI });
-      navigate(`/login?${queryParams}`);
-      //not logged in
     }
   };
 
@@ -116,7 +114,6 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
       .toISOString()
       .slice(0, -14);
     const formdata = {
-      hotelid: id,
       category: category,
       checkin: checkin,
       checkout: checkout,

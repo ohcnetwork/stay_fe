@@ -112,9 +112,6 @@ function Hotel() {
         if (location === "All") {
             location = ""
         }
-        var checkins = startdate.date
-        var checkouts = enddate.date
-        console.log(checkins)
 
         var tempstartdate = (startdate.date).getTimezoneOffset() * 60000; //offset in milliseconds
         var checkinsubmit = (new Date(startdate.date - tempstartdate)).toISOString().slice(0, -14);
@@ -132,10 +129,9 @@ function Hotel() {
             type: "hotel"
         }
         setsubmitdate({
-            checkin: checkins,
-            checkout: checkouts
+            checkin: checkinsubmit,
+            checkout: checkoutsubmit
         })
-        console.log(checkins)
         dispatch(getHotelList(formdata))
             .then(res => {
                 if (res) {
