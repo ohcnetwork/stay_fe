@@ -58,10 +58,17 @@ function Hotel() {
 
 
     useEffect(() => {
+        var startdates = (startdate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkins = (new Date(startdate.date - startdates)).toISOString().slice(0, -14);
+
+        var enddates = (enddate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkouts = (new Date(enddate.date - enddates)).toISOString().slice(0, -14);
         setloading(true)
         getOptions()
         const formdata = {
-            search: "AVAILABLE"
+            checkin: checkins,
+            checkout: checkouts,
+            type: "hotel"
         }
         dispatch(getHotelList(formdata))
             .then(res => {
@@ -109,20 +116,20 @@ function Hotel() {
         var checkouts = enddate.date
         console.log(checkins)
 
-        var tempstartdates = (startdate.date).getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkins = (new Date(startdate.date - tempstartdates)).toISOString().slice(0, -14);
+        var tempstartdate = (startdate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkinsubmit = (new Date(startdate.date - tempstartdate)).toISOString().slice(0, -14);
 
-        var tempenddates = (enddate.date).getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkouts = (new Date(enddate.date - tempenddates)).toISOString().slice(0, -14);
+        var tempenddate = (enddate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkoutsubmit = (new Date(enddate.date - tempenddate)).toISOString().slice(0, -14);
         const formdata = {
-            search: "AVAILABLE",
             category: category,
             district: location,
             // price
             minimum: price[0],
             maximum: price[1],
-            startdate: checkins,
-            enddate: checkouts
+            checkin: checkinsubmit,
+            checkout: checkoutsubmit,
+            type: "hotel"
         }
         setsubmitdate({
             checkin: checkins,
@@ -307,10 +314,12 @@ function Hotel() {
                     </div>
                 </div>
 
-                {loading ?
-                    <div>Loading ...</div> :
-                    errFlag ?
-                        <ErrorComponent /> : <HotelList hotels={hotels} startdate={submitdate.checkin} enddate={submitdate.checkout} />}
+                {errFlagCatch ?
+                    <ErrorComponent /> :
+                    loading ?
+                        <div>Loading ...</div> :
+                        errFlag ?
+                            <ErrorComponent /> : <HotelList hotels={hotels} startdate={submitdate.checkin} enddate={submitdate.checkout} />}
 
             </div>
         </div>
