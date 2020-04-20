@@ -1,7 +1,8 @@
 import React , {useEffect , useState } from "react";
 import {  useSelector , useDispatch } from 'react-redux';
+import * as Notficiation from "../../util/Notifications";
 
-import {getBookingHistory} from "../../Redux/actions";
+import {getBookingHistory , deleteBooking } from "../../Redux/actions";
 
 export default function ViewRoom() {
 
@@ -18,19 +19,36 @@ const [form, setForm] = useState({});
 //var defimg="https://www.galeriemagazine.com/wp-content/uploads/2018/07/Bulgari-Shanghai-Room-1366x768-2.jpg";
 var i=0;
 
-useEffect(() => {
-    dispatch(getBookingHistory()).then(resp => 
-      { 
-       // const { status: statusCode } = resp;
-        const { data: res } = resp;
-        setForm(res.data);
-      }  )
-      
-}, [dispatch, user]);
 
+const Cancel = (e) =>{
+  if(window.confirm("Cancel")){
+    
+      dispatch(deleteBooking(e.target.name)).then(resp => 
+        { 
+          const { data: res } = resp;
+          const {status : statusCode} =resp;
+          if(statusCode === 200){
+            Notficiation.Success({
+              msg : "Booking Cancelled"
+            });
+            window.location.reload(false);
+          }
+        });
+  }
+} 
+useEffect(() => {
+  dispatch(getBookingHistory()).then(resp => 
+  { 
+    const { data: res } = resp;
+    setForm(res.data);
+    console.log(res.data);  
+  }  );
+
+}, [dispatch, user  ]);
 var count = form.length;
 for(i=0;i<count;i++){
-    item=item.concat(form[count-1-i]);
+item=item.concat(form[count-1-i]);
+
 }
         if(count===0){
           return(
@@ -59,15 +77,26 @@ for(i=0;i<count;i++){
         <div className="relative  content-center  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
             {item.map((value,index) =>  {
                 return (
-                    <div  className="w-6/12 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
+                    <div  className="sm:w-full lg:w-1/2 md:w-3/4 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
                         <img className="w-full  h-30" src={value.image} alt="Room Picture"/>
-                            <div className="px-6 py-4">
-                                <div className="font-bold text-xl mb-2">{value.name}</div>
+                            <div className="px-3 py-4">
+                                <div className="font-bold flex text-xl mb-2">
+                                <div className="w-1/2">{value.name}</div>
+                                <div class="m-0 m-auto">{
+                                  value.bookingStatus === "BOOKED" &&
+                                  <button onClick={Cancel} value={value.bookingStatus} name={value.bookingId} class="bg-white hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded">
+                                  Cancel 
+                                  </button>
+                                }
+                                </div>
+                                </div>
                                 <p className="text-gray-700 text-base">
                                     <ul>
                                     <li>Room Type : {value.category}</li>
+                                    <li>Booking Date : {new Date(value.bookingDate).toLocaleString() }</li>
                                     <li>Checkin : {new Date(value.checkinDate).toLocaleString()}</li>
                                     <li>Checkout : {new Date(value.checkoutDate).toLocaleString()}</li>
+                                    <li>Staus : {value.bookingStatus}</li>
                                     <li>Paid : Rs {value.cost}</li>
                                     </ul>
                                 </p>
