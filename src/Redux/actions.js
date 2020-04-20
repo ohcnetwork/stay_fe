@@ -66,6 +66,6 @@ export const updateHotel = (pathParam, body) => {
 export const deleteBooking = (id) => {
     return fireRequest('deleteBooking', [id]);
 };
-export const setCheckin = (id) => {
-    return fireRequest('setCheckin', [id]);
+export const setCheckinStatus = (id, status) => {
+    return fireRequest('setCheckinStatus', [id], status);
 };

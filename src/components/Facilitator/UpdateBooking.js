@@ -4,7 +4,7 @@ import { navigate } from "hookrouter";
 
 import { BOOKING_CHECKIN_STATUS } from "../../Common/constants";
 import * as Notification from "../../util/Notifications";
-import { deleteBooking, setCheckin, getHotelBookingList } from "../../Redux/actions";
+import { deleteBooking, setCheckinStatus, getHotelBookingList } from "../../Redux/actions";
 
 export default function UpdateBooking({ toggle, data, shown, hotelId }) {
 
@@ -21,17 +21,17 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
         setRoomno(data.roomno);
     }, [data.roomno]);
     
-    function updateRoomno() {
+    function updateRoomno(status) {
         setRoomError(false);
         if (roomno && !loading) {
             setError(false);
             setSuccess(false);
             setLoading(true);
-            dispatch(setCheckin(data.bookingId)).then(res => {
+            dispatch(setCheckinStatus(data.bookingId, { status })).then(res => {
                 if (res.status === 200) {
                     data.roomno = roomno;
                     Notification.Success({
-                        msg: `Checked in #${data.bookingId}`
+                        msg: `${BOOKING_CHECKIN_STATUS[status].string} #${data.bookingId}`
                     });
                     dispatch(getHotelBookingList(hotelId));
                     // no need since component gets unmounted on dispatch
@@ -143,19 +143,35 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                             </div>
                         </div>
                         <div className="flex text-white">
-                            <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
-                                {
-                                    confirmDelete
+                        {
+                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.PENDING.string) &&
+                                <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                    {
+                                        confirmDelete
+                                        ? 
                                     ? 
-                                        "Sure ?"
-                                    :
-                                        "Delete"
-                                }
-                            </div>
+                                        ? 
+                                            "Sure ?"
+                                        :
+                                            "Delete"
+                                    }
+                                </div>
+                            }
                             {
-                                (data.statusCheckin !== BOOKING_CHECKIN_STATUS.CHECKEDIN.string) &&
-                                <div onClick={updateRoomno} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
+                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.PENDING.string) &&
+                                <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
                                     Check In
+                                </div>
+                            }
+                            {
+                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].string === BOOKING_CHECKIN_STATUS.CHECKEDIN.string) &&
+                                <div className="flex">
+                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.PENDING.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                        Undo
+                                    </div>   
+                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDOUT.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
+                                        Check Out
+                                    </div>   
                                 </div>
                             }
                         </div>

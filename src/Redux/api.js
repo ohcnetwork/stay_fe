@@ -105,8 +105,8 @@ export default {
     noAuth: false
   },
 
-  setCheckin: {
-    path: '/api/v1/booking/checkin/check',
+  setCheckinStatus: {
+    path: '/api/v1/booking/checkin',
     method: "PUT",
     noAuth: false
   },
