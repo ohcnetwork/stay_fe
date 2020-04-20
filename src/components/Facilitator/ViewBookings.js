@@ -65,7 +65,7 @@ export default function ViewBooking({ id }) {
                             {booking.checkin}
                         </div>
                         <div className="w-4/12 md:w-3/12 text-gray-900 text-sm md:text-base flex items-center text-xs">
-                                <div className={`font-bold uppercase px-1 text-white rounded bg-${BOOKING_CHECKIN_STATUS[booking.statusCheckin].color}`}>
+                                <div className={`font-bold uppercase px-1 text-white bg-${BOOKING_CHECKIN_STATUS[booking.statusCheckin].color}`}>
                                     {BOOKING_CHECKIN_STATUS[booking.statusCheckin].string}
                                 </div>
                         </div>
