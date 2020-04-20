@@ -6,7 +6,7 @@ import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
 export default function ViewRoom({ category, startdate, enddate }) {
-  console.log("category", category)
+  console.log("category", category);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
@@ -36,23 +36,20 @@ export default function ViewRoom({ category, startdate, enddate }) {
       checkin: checkin,
       checkout: checkout,
       type: "room",
-    }
-    dispatch(getHotelList(form)).then((res) => {
-      if (res) {
-        setDetail(res.data[0]);
-        setavail(true)
-      }
-      else {
-        setavail(false)
-      }
-
-    })
-      .catch(err => {
-        setavail(false)
+    };
+    dispatch(getHotelList(form))
+      .then((res) => {
+        if (res) {
+          setDetail(res.data[0]);
+          setavail(true);
+        } else {
+          setavail(false);
+        }
       })
+      .catch((err) => {
+        setavail(false);
+      });
   }, []);
-
-
 
   const onDateChange = (newdate) => {
     setdatein({ date: newdate });
@@ -91,22 +88,22 @@ export default function ViewRoom({ category, startdate, enddate }) {
             msg: "Booking Successfull",
           });
           navigate("/browse");
+        } else {
+          //not logged in
+          Notficiation.Error({
+            msg: "Please login to confirm your booking",
+          });
+
+          setQueryParams({ redirect: currentURI });
+          navigate(`/login?${queryParams}`);
+          //not logged in
         }
       });
-    } else {
-      //not logged in
-      Notficiation.Error({
-        msg: "Please login to confirm your booking",
-      });
-
-      setQueryParams({ redirect: currentURI })
-      navigate(`/login?${queryParams}`);
-      //not logged in
     }
   };
 
   const onDateApply = () => {
-    setavail(false)
+    setavail(false);
     var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
     var checkin = new Date(datein.date - startdates)
       .toISOString()
@@ -121,18 +118,16 @@ export default function ViewRoom({ category, startdate, enddate }) {
       checkin: checkin,
       checkout: checkout,
       type: "room",
-    }
-    dispatch(getHotelList(formdata))
-      .then(res => {
-        if (res) {
-          setDetail(res.data[0]);
-          setavail(true)
-        }
-        else {
-          setavail(false)
-        }
-      })
-  }
+    };
+    dispatch(getHotelList(formdata)).then((res) => {
+      if (res) {
+        setDetail(res.data[0]);
+        setavail(true);
+      } else {
+        setavail(false);
+      }
+    });
+  };
 
   console.log("date", datein.date);
   return (
@@ -186,11 +181,7 @@ export default function ViewRoom({ category, startdate, enddate }) {
                 disabled={!avail}
                 className="bg-gray-900 text-gray-100 px-8 py-3 font-semibold rounded float-right"
               >
-                {
-                  avail ?
-                    <div>Book Now</div> :
-                    <div>Not Available</div>
-                }
+                {avail ? <div>Book Now</div> : <div>Not Available</div>}
               </button>
             </div>
           </div>
