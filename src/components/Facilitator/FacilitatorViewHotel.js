@@ -135,9 +135,9 @@ export default function FacilitatorViewHotel({ id }) {
     }
 
     const hotelRoomData = hotelRoomList.data && [...new Set(hotelRoomList.data.data
-        .map(e => e.title))]
+        .map(e => e.category))]
         .map(e =>
-            hotelRoomList.data.data.filter(el => el.title === e)
+            hotelRoomList.data.data.filter(el => el.category === e)
         );
 
     const totalRoomData = [].concat(...hotelRoomData);
