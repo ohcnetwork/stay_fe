@@ -36,7 +36,7 @@ export default {
   },
 
   userHotelList: {
-    path: "/api/v1/facility",
+    path: "/api/v1/facility/userFacilities",
     noAuth: false,
   },
 
@@ -102,6 +102,12 @@ export default {
   deleteBooking: {
     path: '/api/v1/booking',
     method: "DELETE",
+    noAuth: false
+  },
+
+  setCheckin: {
+    path: '/api/v1/booking/checkin/check',
+    method: "PUT",
     noAuth: false
   },
 };

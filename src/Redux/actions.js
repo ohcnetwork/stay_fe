@@ -24,7 +24,7 @@ export const getCurrentUser = () => {
   return fireRequest("currentUser");
 };
 export const getUserHotelList = (id) => {
-  return fireRequest("userHotelList", [id]);
+  return fireRequest("userHotelList");
 };
 export const getHotelRoomList = (id) => {
   return fireRequest("hotelRoomList", [id]);
@@ -65,4 +65,7 @@ export const updateHotel = (pathParam, body) => {
 };
 export const deleteBooking = (id) => {
     return fireRequest('deleteBooking', [id]);
+};
+export const setCheckin = (id) => {
+    return fireRequest('setCheckin', [id]);
 };

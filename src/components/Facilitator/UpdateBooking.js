@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { navigate, A } from "hookrouter";
+import { navigate } from "hookrouter";
 
+import { BOOKING_CHECKIN_STATUS } from "../../Common/constants";
 import * as Notification from "../../util/Notifications";
-import { deleteBooking } from "../../Redux/actions";
+import { deleteBooking, setCheckin, getHotelBookingList } from "../../Redux/actions";
 
-export default function UpdateBooking({ toggle, data, shown, triggerer }) {
+export default function UpdateBooking({ toggle, data, shown, hotelId }) {
 
     const [roomError, setRoomError] = useState(false);
     const [roomno, setRoomno] = useState("");
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const dispatch = useDispatch();
     
@@ -22,6 +24,23 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
     function updateRoomno() {
         setRoomError(false);
         if (roomno && !loading) {
+            setError(false);
+            setSuccess(false);
+            setLoading(true);
+            dispatch(setCheckin(data.bookingId)).then(res => {
+                if (res.status === 200) {
+                    data.roomno = roomno;
+                    Notification.Success({
+                        msg: `Checked in #${data.bookingId}`
+                    });
+                    dispatch(getHotelBookingList(hotelId));
+                    // no need since component gets unmounted on dispatch
+                    toggle(data.bookingId);;
+                } else {
+                    setError(true);
+                    setLoading(false);
+                }
+            });
             console.log("update room no to", roomno);
         } else {
             setRoomError(true);
@@ -32,12 +51,14 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
         navigate("");
         if (confirmDelete && !loading) {
             setLoading(true);
+            setSuccess(false);
             dispatch(deleteBooking(data.bookingId)).then(res => {
                 if (res.status === 200) {
                     Notification.Success({
                         msg: `Deleted booking #${data.bookingId}`
                     });
-                    triggerer();
+                    
+                    dispatch(getHotelBookingList(hotelId));
                     toggle(data.bookingId);
                 } else {
                     setError(true);
@@ -61,6 +82,7 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
             <div className="pb-8 px-0 md:w-1/2 w-full bg-white shadow-lg mx-5 rounded">
                 <div className="uppercase bg-indigo-600 pt-3 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
                     Booking ID: {data.bookingId}
+                    
                 </div>
                 <div className="px-5">
                     <div className="pb-8 pt-3 px-0 text-gray-800">
@@ -83,6 +105,12 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
                         </div>
 
                         <div className="flex flex-col px-12">
+
+                            <div className="flex justify-center mb-4">
+                                <div className={`text-lg font-bold uppercase px-2 py-1 text-white rounded bg-${BOOKING_CHECKIN_STATUS[data.statusCheckin].color}`}>
+                                    {BOOKING_CHECKIN_STATUS[data.statusCheckin].string}
+                                </div>
+                            </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Name</div>
                                 <div className="">{data.name}</div>
@@ -106,7 +134,8 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
                         </div>
                         </div>
                     </div>
-                    {error && <div className="text-sm text-red-700 font-medium">Something went wrong please. Try again.</div>}
+                    {success && <div className="text-sm text-green-700 text-center mb-5 font-medium">Successfully updated</div>}
+                    {error && <div className="text-sm text-red-700 text-center mb-5 font-medium">Something went wrong please. Try again.</div>}
                     <div className="flex justify-between font-bold tracking-wide">
                         <div className="flex" onClick={back}>
                             <div className={`flex items-center justify-center p-2 px-3 md:px-6 rounded ${loading? "bg-gray-600" :"bg-gray-300  hover:bg-gray-400"} cursor-pointer`}>
@@ -123,9 +152,12 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
                                         "Delete"
                                 }
                             </div>
-                            <div onClick={updateRoomno} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
-                                Check In
-                            </div>
+                            {
+                                (data.statusCheckin !== BOOKING_CHECKIN_STATUS.CHECKEDIN.string) &&
+                                <div onClick={updateRoomno} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
+                                    Check In
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

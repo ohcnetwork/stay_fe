@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { A } from "hookrouter";
 
+import { BOOKING_CHECKIN_STATUS } from "../../Common/constants";
 import { getHotelBookingList } from "../../Redux/actions";
 import UpdateBooking from "./UpdateBooking";
 
@@ -14,18 +15,12 @@ export default function ViewBooking({ id }) {
 
     const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
-    const [trigger, setTrigger] = useState(0);
-
     useEffect(() => {
         dispatch(getHotelBookingList(id));
-    }, [dispatch, id, trigger]);
+    }, [dispatch, id]);
 
     function toggle(id) {
         setShowUpdation({ shown: !showUpdation.shown, data: bookings.find(b => b.bookingId === id) });
-    }
-
-    function triggerer() {
-        setTrigger(trigger + 1);
     }
 
     function dateString(date) {
@@ -59,18 +54,20 @@ export default function ViewBooking({ id }) {
                         <div className="w-1/12 text-gray-700 text-sm md:text-base">
                             {booking.bookingId}
                         </div>
-                        <div className="w-3/12 text-gray-700 text-sm md:text-base">
+                        <div className="w-4/12 md:w-3/12 text-gray-700 text-sm md:text-base">
                             <div>{booking.name}</div>
                             <div className="text-gray-600 md:text-sm text-xs truncate">{booking.email}</div>
                         </div>
-                        <div className="w-2/12 text-gray-700 text-sm md:text-base">
+                        <div className="w-2/12 text-gray-700 text-sm md:text-base uppercase md:block hidden">
                             {booking.category}
                         </div>
                         <div className="w-3/12 text-gray-700 text-sm md:text-base">
                             {booking.checkin}
                         </div>
-                        <div className="w-3/12 text-gray-700 text-sm md:text-base">
-                            {booking.booking}
+                        <div className="w-4/12 md:w-3/12 text-gray-900 text-sm md:text-base flex items-center text-xs">
+                                <div className={`font-bold uppercase px-1 text-white rounded bg-${BOOKING_CHECKIN_STATUS[booking.statusCheckin].color}`}>
+                                    {BOOKING_CHECKIN_STATUS[booking.statusCheckin].string}
+                                </div>
                         </div>
                     </div> 
                 )
@@ -100,7 +97,7 @@ export default function ViewBooking({ id }) {
     // TODO: check if hotel exists
     console.log(hotelBookingList);
     
-    let bookings = hotelBookingList.data.data;
+    let bookings = hotelBookingList.data && hotelBookingList.data.data.filter(e => e) || [];
     bookings.forEach((b, i) => {
         bookings[i].checkin = dateString(b.checkinDate);
         bookings[i].booking = dateString(b.bookingDate);
@@ -118,17 +115,17 @@ export default function ViewBooking({ id }) {
                         <div className="w-1/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
                             ID
                         </div>
-                        <div className="w-3/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
+                        <div className="w-4/12 md:w-3/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
                             User
                         </div>
-                        <div className="w-2/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
+                        <div className="hidden md:block w-2/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
                             Category
                         </div>
                         <div className="w-3/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
                             Checkin
                         </div>
-                        <div className="w-3/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
-                            Booked on
+                        <div className="w-4/12 md:w-3/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
+                            Status
                         </div>
                     </div>
                     {
@@ -136,7 +133,7 @@ export default function ViewBooking({ id }) {
                     }
                 </div>      
             </div>
-            { showUpdation.shown && <UpdateBooking toggle={toggle} shown={showUpdation.shown} data={showUpdation.data} triggerer={triggerer} /> }
+            { showUpdation.shown && <UpdateBooking toggle={toggle} shown={showUpdation.shown} data={showUpdation.data} hotelId={id} /> }
         </div>
     );
 }

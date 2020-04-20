@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dopostBook, getHotelList } from "../../Redux/actions";
-import { navigate } from "hookrouter";
+import { navigate, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
@@ -9,6 +9,7 @@ export default function ViewRoom({ category, startdate, enddate }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
+  const [queryParams, setQueryParams] = useQueryParams();
 
   const [detail, setDetail] = useState(false);
   // const [hdetail, sethDetail] = useState(false);
@@ -51,6 +52,7 @@ export default function ViewRoom({ category, startdate, enddate }) {
     setdateout({ date: newdate1 });
   };
   const [avail, setavail] = useState(true);
+  const currentURI = usePath();
 
   // booking button handle
   const confirm = () => {
@@ -87,7 +89,10 @@ export default function ViewRoom({ category, startdate, enddate }) {
       Notficiation.Error({
         msg: "Please login to confirm your booking",
       });
-      navigate(`/login`);
+
+      setQueryParams({ redirect: currentURI })
+      navigate(`/login?${queryParams}`);
+      //not logged in
     }
   };
 
