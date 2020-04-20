@@ -52,7 +52,6 @@ export default function ViewRoom({ category, startdate, enddate }) {
   };
   const [avail, setavail] = useState(true);
 
-
   // booking button handle
   const confirm = () => {
     var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
