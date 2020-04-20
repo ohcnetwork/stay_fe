@@ -107,7 +107,7 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                         <div className="flex flex-col px-12">
 
                             <div className="flex justify-center mb-4">
-                                <div className={`text-lg font-bold uppercase px-2 py-1 text-white rounded bg-${BOOKING_CHECKIN_STATUS[data.statusCheckin].color}`}>
+                                <div className={`text-lg font-bold uppercase px-2 py-1 text-white bg-${BOOKING_CHECKIN_STATUS[data.statusCheckin].color}`}>
                                     {BOOKING_CHECKIN_STATUS[data.statusCheckin].string}
                                 </div>
                             </div>
@@ -148,8 +148,6 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                                 <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
                                     {
                                         confirmDelete
-                                        ? 
-                                    ? 
                                         ? 
                                             "Sure ?"
                                         :

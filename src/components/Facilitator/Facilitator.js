@@ -53,7 +53,7 @@ export default function Facilitator() {
                         </div>
                         <div className="w-1/4 px-1 flex flex-col justify-around items-center">
                             <div className="flex">
-                                <div className="text-sm py-1 px-2 bg-green-600 text-white rounded font-bold uppercase tracking-wide text-center">{hotel.status}</div>
+                                <div className="text-sm py-1 px-2 bg-green-600 text-white font-bold uppercase tracking-wide text-center">{hotel.status}</div>
                             </div>
                         </div>
                     </A>
@@ -90,7 +90,7 @@ export default function Facilitator() {
                             </div>
                             <div className="flex items-center justify-center md:pt-0 pt-5">
                                 <div className="flex items-center ">
-                                    <div className="items-center text-sm py-1 px-2 bg-green-600 text-white rounded font-bold uppercase tracking-wide">{currentUser.type}</div>
+                                    <div className="items-center text-sm py-1 px-2 bg-green-600 text-white font-bold uppercase tracking-wide">{currentUser.type}</div>
                                 </div>
                             </div>
                         </div>
