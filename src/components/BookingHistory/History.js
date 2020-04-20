@@ -1,5 +1,4 @@
 import React , {useEffect , useState } from "react";
-import StarRatingComponent from 'react-star-rating-component';
 import {  useSelector , useDispatch } from 'react-redux';
 
 import {getBookingHistory} from "../../Redux/actions";
@@ -33,7 +32,6 @@ var count = form.length;
 for(i=0;i<count;i++){
     item=item.concat(form[count-1-i]);
 }
-console.log(item);
         if(count===0){
           return(
             <div className="py-10 bg-white min-h-full">
@@ -67,13 +65,7 @@ console.log(item);
                                 <div className="font-bold text-xl mb-2">{value.name}</div>
                                 <p className="text-gray-700 text-base">
                                     <ul>
-                                    <li>Room Type :  <span>
-                                    <StarRatingComponent 
-                                        className="text-lg"
-                                        name="rate1" 
-                                        starCount={5}
-                                        value={value.category}
-                                    /></span></li>
+                                    <li>Room Type : {value.category}</li>
                                     <li>Checkin : {new Date(value.checkinDate).toLocaleString()}</li>
                                     <li>Checkout : {new Date(value.checkoutDate).toLocaleString()}</li>
                                     <li>Paid : Rs {value.cost}</li>
