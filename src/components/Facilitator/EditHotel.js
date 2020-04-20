@@ -5,7 +5,7 @@ import { updateHotel, getUserHotelList } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate, A } from "hookrouter";
 import { phonePreg } from "../../util/validation";
-
+import { DISTRICT_CHOICES } from "../../Common/constants";
 
 export default function EditHotel({ id }) {
 
@@ -29,6 +29,9 @@ export default function EditHotel({ id }) {
         contact: "",
         policy: "",
     };
+
+    const optionalValues = ["panchayath"];
+
     const initError = {
         name: "",
         address: "",
@@ -92,7 +95,7 @@ export default function EditHotel({ id }) {
         const prevState = checkbox[name];
         const newState = { ...checkbox, [name]: !prevState };
         setCheckbox(newState);
-        setForm({...form, facilities:  Object.keys(checkbox).filter(el => newState[el]).join(",")})
+        setForm({...form, facilities:  Object.keys(checkbox).filter(el => newState[el]).join(",")});
     };
 
     function validInputs() {
@@ -101,7 +104,7 @@ export default function EditHotel({ id }) {
         const { contact } = form;
 
         Object.keys(form).forEach((key) => {
-            if (form[key] === "") {
+            if (form[key] === "" && !optionalValues.includes(key)) {
                 formValid = false;
                 err[key] = "This field is required";
             }
@@ -258,20 +261,21 @@ export default function EditHotel({ id }) {
                         <div className="text-xs italic text-red-500 h-3">{error.panchayath}</div>
                     </div>
                     <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
-                        <label className="block text-sm text-gray-600 " htmlFor="district">
+                        <label className="block text-sm text-gray-600" htmlFor="district">
                             District
                         </label>
-                        <input
-                            className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                            id="district"
+                        <select className="w-full py-3 px-5 py-1 text-gray-700 bg-gray-200 rounded"
                             name="district"
                             value={form.district}
                             onChange={handleChange}
-                            type="text"
-                            required=""
-                            placeholder="Enter District"
-                            aria-label="Name"
-                        />
+                            aria-label="Enter District"
+                            >
+                            {
+                                DISTRICT_CHOICES.map(el => (
+                                <option value={el.text} key={el.text}>{el.text}</option>
+                                ))
+                            }
+                        </select>
                         <div className="text-xs italic text-red-500 h-3">{error.district}</div>
                     </div>
 
@@ -345,6 +349,7 @@ export default function EditHotel({ id }) {
                                 <span className="ml-2  text-gray-600">5 star</span>
                             </label>
                         </div>
+                        <div className="text-xs italic text-red-500 h-3">{error.starCategory}</div>
                     </div>
 
                     <div className="mt-2">

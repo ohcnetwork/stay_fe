@@ -53,7 +53,9 @@ export default function AddRoom({ id }) {
   const handleCheckbox = (e) => {
     const { name } = e.target;
     const prevState = checkbox[name];
-    setCheckbox({ ...checkbox, [name]: !prevState });
+    const newState = { ...checkbox, [name]: !prevState };
+    setCheckbox(newState);
+    setForm({ ...form, features: Object.keys(newState).filter((el) => newState[el]).join(",")})
   };
 
   function validInputs() {
@@ -88,16 +90,10 @@ export default function AddRoom({ id }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let submitData = form;
-    submitData.features = Object.keys(checkbox)
-      .filter((el) => checkbox[el])
-      .join(",");
-    console.log(submitData);
-
     if (validInputs() && !formLoading) {
       console.log("AddHotelForm.js: ", "creating a new hotel", form);
       setFormLoading(true);
-      dispatch(postAddRooms(id, submitData)).then((resp) => {
+      dispatch(postAddRooms(id, form)).then((resp) => {
         const { status: statusCode } = resp;
         const { data: res } = resp;
         console.log(resp);
@@ -183,7 +179,7 @@ export default function AddRoom({ id }) {
                     name="ac"
                     checked={checkbox.ac}
                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                    onClick={handleCheckbox}
+                    onChange={handleCheckbox}
                   />
                   <label
                     htmlFor="AC"
@@ -240,6 +236,9 @@ export default function AddRoom({ id }) {
                     Geyser
                   </label>
                 </div>
+              </div>
+              <div className="text-xs italic text-red-500">
+                {error.features}
               </div>
             </div>
 
@@ -301,6 +300,9 @@ export default function AddRoom({ id }) {
                   <span className="ml-2  text-gray-600">Premium</span>
                 </label>
               </div>
+              <div className="text-xs italic text-red-500">
+                {error.category}
+              </div>
             </div>
 
             <div className="inline-block mt-2 w-1/2 pr-1">
@@ -322,7 +324,7 @@ export default function AddRoom({ id }) {
                 aria-label="Name"
               />
               <div className="text-xs italic text-red-500">
-                {error.noOfRooms}
+                {error.noOfRooms}&nbsp;
               </div>
             </div>
             <div className="inline-block mt-2 w-1/2 pr-1">
@@ -340,7 +342,7 @@ export default function AddRoom({ id }) {
                 placeholder="Capacity"
                 aria-label="Name"
               />
-              <div className="text-xs italic text-red-500">{error.beds}</div>
+              <div className="text-xs italic text-red-500">{error.beds}&nbsp;</div>
             </div>
             <div className="inline-block mt-2  pr-1">
               <label className="block text-sm text-gray-600 " htmlFor="cost">
@@ -369,18 +371,18 @@ export default function AddRoom({ id }) {
                 Upload photos
               </label>
 
-              <div class="flex w-full items-center px-5 bg-grey-lighter">
-                <label class="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
+              <div className="flex w-full items-center px-5 bg-grey-lighter">
+                <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
                   <svg
-                    class="w-5 h-5"
+                    className="w-5 h-5"
                     fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                   </svg>
-                  <span class="mt-2 text-xs leading-normal">Select a file</span>
-                  <input type="file" class="hidden" />
+                  <span className="mt-2 text-xs leading-normal">Select a file</span>
+                  <input type="file" className="hidden" />
                 </label>
               </div>
             </div>
