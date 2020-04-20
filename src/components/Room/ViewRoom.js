@@ -149,6 +149,7 @@ export default function ViewRoom({ category, startdate, enddate }) {
               <div className="relative">
                 <DatePicker
                   className="appearance-none block w-half bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
+                  clearIcon={null}
                   format="yyyy-MM-dd"
                   value={datein.date}
                   onChange={(newdate) => onDateChange(newdate)}
@@ -162,6 +163,7 @@ export default function ViewRoom({ category, startdate, enddate }) {
               <div className="relative">
                 <DatePicker
                   className="appearance-none block w-half bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
+                  clearIcon={null}
                   format="yyyy-MM-dd"
                   value={dateout.date}
                   onChange={(newdateout) => onDateChange1(newdateout)}
