@@ -67,7 +67,7 @@ function BrowseRooms({ id, startdate, enddate }) {
                     />
                   </div>
                   <A
-                    href={`/room/${item.id}/${item.category}/${dates.checkin}/${dates.checkout}`}
+                    href={`/room/${item.category}/${dates.checkin}/${dates.checkout}`}
                     className="block"
                   >
                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">

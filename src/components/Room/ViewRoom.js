@@ -5,8 +5,8 @@ import { navigate, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
-export default function ViewRoom({ id, category, startdate, enddate }) {
-  console.log("category", category);
+export default function ViewRoom({ category, startdate, enddate }) {
+  console.log("category", category)
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
@@ -32,25 +32,27 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
       .toISOString()
       .slice(0, -14);
     const form = {
-      hoteid: id,
       category: category,
       checkin: checkin,
       checkout: checkout,
       type: "room",
-    };
-    dispatch(getHotelList(form))
-      .then((res) => {
-        if (res) {
-          setDetail(res.data[0]);
-          setavail(true);
-        } else {
-          setavail(false);
-        }
+    }
+    dispatch(getHotelList(form)).then((res) => {
+      if (res) {
+        setDetail(res.data[0]);
+        setavail(true)
+      }
+      else {
+        setavail(false)
+      }
+
+    })
+      .catch(err => {
+        setavail(false)
       })
-      .catch((err) => {
-        setavail(false);
-      });
   }, []);
+
+
 
   const onDateChange = (newdate) => {
     setdatein({ date: newdate });
@@ -76,7 +78,6 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
       //logged in
 
       const body = {
-        hotelid: id,
         roomid: detail.id,
         checkin: checkin,
         checkout: checkout,
@@ -98,14 +99,14 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
         msg: "Please login to confirm your booking",
       });
 
-      setQueryParams({ redirect: currentURI });
+      setQueryParams({ redirect: currentURI })
       navigate(`/login?${queryParams}`);
       //not logged in
     }
   };
 
   const onDateApply = () => {
-    setavail(false);
+    setavail(false)
     var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
     var checkin = new Date(datein.date - startdates)
       .toISOString()
@@ -116,21 +117,22 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
       .toISOString()
       .slice(0, -14);
     const formdata = {
-      hotelid: id,
       category: category,
       checkin: checkin,
       checkout: checkout,
       type: "room",
-    };
-    dispatch(getHotelList(formdata)).then((res) => {
-      if (res) {
-        setDetail(res.data[0]);
-        setavail(true);
-      } else {
-        setavail(false);
-      }
-    });
-  };
+    }
+    dispatch(getHotelList(formdata))
+      .then(res => {
+        if (res) {
+          setDetail(res.data[0]);
+          setavail(true)
+        }
+        else {
+          setavail(false)
+        }
+      })
+  }
 
   console.log("date", datein.date);
   return (
@@ -184,7 +186,11 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                 disabled={!avail}
                 className="bg-gray-900 text-gray-100 px-8 py-3 font-semibold rounded float-right"
               >
-                {avail ? <div>Book Now</div> : <div>Not Available</div>}
+                {
+                  avail ?
+                    <div>Book Now</div> :
+                    <div>Not Available</div>
+                }
               </button>
             </div>
           </div>
