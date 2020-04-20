@@ -280,7 +280,7 @@ function Hotel() {
                                     value={startdate.date}
                                     onChange={(newdate) => onstartDateChange(newdate)}
                                     minDate={new Date()}
-                                    clearIcon={false}
+                                    clearIcon={null}
                                     format="y-MM-dd"
                                 />
                             </div>
@@ -294,7 +294,7 @@ function Hotel() {
                                     value={enddate.date}
                                     onChange={(newdate) => onendDateChange(newdate)}
                                     minDate={new Date()}
-                                    clearIcon={false}
+                                    clearIcon={null}
                                     format="y-MM-dd"
                                 />
                             </div>

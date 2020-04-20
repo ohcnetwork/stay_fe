@@ -83,19 +83,18 @@ export default function ViewBooking({ id }) {
         return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
     }
 
-    if (hotelBookingList.error) {
+    // check if hotel exists
+    if (hotelBookingList.error || !hotelBookingList.data) {
+        let msg = (hotelBookingList.error)? "Some problem occurred": "Hotel was not found";
         return (
             <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
-                <div className="text-5xl text-gray-400">Some problem occured</div>
+                <div className="text-5xl text-gray-400">{msg}</div>
                 <A href="/" className="flex items-center text-xl m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                     Home
                 </A>
             </div>
         );
-    }
-
-    // TODO: check if hotel exists
-    console.log(hotelBookingList);
+    } 
     
     let bookings = hotelBookingList.data && hotelBookingList.data.data.filter(e => e) || [];
     bookings.forEach((b, i) => {
