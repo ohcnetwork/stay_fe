@@ -20,7 +20,7 @@ const [form, setForm] = useState({});
 var i=0;
 
 useEffect(() => {
-    dispatch(getBookingHistory(user)).then(resp => 
+    dispatch(getBookingHistory()).then(resp => 
       { 
        // const { status: statusCode } = resp;
         const { data: res } = resp;

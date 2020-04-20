@@ -14,8 +14,8 @@ export const changePassword = (form) => {
   return fireRequest("changepassword", [], form);
 };
 
-export const getBookingHistory = (form) => {
-  return fireRequest("bookingHistory", [form.id]);
+export const getBookingHistory = () => {
+  return fireRequest("bookingHistory");
 };
 export const postAddRooms = (id, form) => {
   return fireRequest("addRooms", [id], form);
@@ -65,4 +65,7 @@ export const updateHotel = (pathParam, body) => {
 };
 export const deleteBooking = (id) => {
     return fireRequest('deleteBooking', [id]);
+};
+export const setCheckin = (id) => {
+    return fireRequest('setCheckin', [id]);
 };

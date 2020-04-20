@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from "react-date-picker";
-import { useDispatch } from 'react-redux';
+import { useDispatch, connectAdvanced } from 'react-redux';
 import Slider from 'rc-slider';
 
 import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
@@ -24,14 +24,23 @@ function Hotel() {
     const [loading, setloading] = useState(false)
 
     // for date
+    // var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    // var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+    // console.log("today", todays)
+    // console.log("formatted", localISOTime)
+
+
+
+    var today = new Date();
+    today.setDate(today.getDate() + 15);
     const [startdate, setstartdate] = useState(
         {
-            date: null
+            date: new Date()
         }
     )
     const [enddate, setenddate] = useState(
         {
-            date: null
+            date: today
         }
     )
     const [price, setprice] = useState([])
@@ -44,8 +53,6 @@ function Hotel() {
         location: ["ALL"],
         minPrice: 0,
         maxPrice: 1000,
-        startdate: "",
-        enddate: ""
     })
     const [hotels, sethotels] = useState([])
 
@@ -59,6 +66,7 @@ function Hotel() {
         dispatch(getHotelList(formdata))
             .then(res => {
                 if (res) {
+                    res.data = res.data.filter(e => e);
                     sethotels(res.data)
                     setloading(false)
                 }
@@ -72,9 +80,17 @@ function Hotel() {
             .catch(err => seterrFlagCatch(true))
 
     }, [])
+
+    var startdates = (startdate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = (new Date(startdate.date - startdates)).toISOString().slice(0, -14);
+
+    var enddates = (enddate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = (new Date(enddate.date - enddates)).toISOString().slice(0, -14);
+
+
     const [submitdate, setsubmitdate] = useState({
-        checkin: {},
-        checkout: {}
+        checkin: checkin,
+        checkout: checkout
     })
     const handleChange = (e) => {
         setform({ ...form, [e.target.name]: e.target.value })
@@ -89,6 +105,15 @@ function Hotel() {
         if (location === "All") {
             location = ""
         }
+        var checkins = startdate.date
+        var checkouts = enddate.date
+        console.log(checkins)
+
+        var tempstartdates = (startdate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkins = (new Date(startdate.date - tempstartdates)).toISOString().slice(0, -14);
+
+        var tempenddates = (enddate.date).getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkouts = (new Date(enddate.date - tempenddates)).toISOString().slice(0, -14);
         const formdata = {
             search: "AVAILABLE",
             category: category,
@@ -96,18 +121,19 @@ function Hotel() {
             // price
             minimum: price[0],
             maximum: price[1],
-            startdate: startdate,
-            enddate: enddate
+            startdate: checkins,
+            enddate: checkouts
         }
         setsubmitdate({
-            checkin: startdate,
-            checkout: enddate
+            checkin: checkins,
+            checkout: checkouts
         })
-        console.log(formdata)
+        console.log(checkins)
         dispatch(getHotelList(formdata))
             .then(res => {
                 if (res) {
                     console.log("dispatch", res)
+                    res.data = res.data.filter(e => e);
                     sethotels(res.data)
                     setloading(false)
                 }
@@ -251,6 +277,8 @@ function Hotel() {
                                     value={startdate.date}
                                     onChange={(newdate) => onstartDateChange(newdate)}
                                     minDate={new Date()}
+                                    clearIcon={false}
+                                    format="y-MM-dd"
                                 />
                             </div>
                         </div>
@@ -263,6 +291,8 @@ function Hotel() {
                                     value={enddate.date}
                                     onChange={(newdate) => onendDateChange(newdate)}
                                     minDate={new Date()}
+                                    clearIcon={false}
+                                    format="y-MM-dd"
                                 />
                             </div>
                         </div>

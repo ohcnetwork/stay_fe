@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getRoomByRoomid,
-  dopostBook,
-  changeRoomStatus,
-} from "../../Redux/actions";
-import { navigate } from "hookrouter";
+import { navigate, useQueryParams, usePath } from "hookrouter";
+import { getRoomByRoomid, dopostBook } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 
-export default function ViewRoom({ id }) {
+export default function ViewRoom({ id, startdate, enddate }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
-
+  const [queryParams, setQueryParams] = useQueryParams();
+  
   const [detail, setDetail] = useState(false);
   // const [hdetail, sethDetail] = useState(false);
   useEffect(() => {
+    
     dispatch(getRoomByRoomid(id)).then((res) => {
       setDetail(res.data);
     });
   }, []);
   const roomid = id;
   console.log("room id", roomid);
-
+  
   const [datein, setdatein] = useState({
-    date: new Date(),
+    date: new Date(startdate),
   });
   const [dateout, setdateout] = useState({
-    date: new Date(),
+    date: new Date(enddate),
   });
   const onDateChange = (newdate) => {
     setdatein({ date: newdate });
@@ -36,33 +34,49 @@ export default function ViewRoom({ id }) {
   const onDateChange1 = (newdate1) => {
     setdateout({ date: newdate1 });
   };
+  const currentURI = usePath();
 
   const confirm = () => {
+    var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = new Date(startdate.date - startdates)
+      .toISOString()
+      .slice(0, -14);
+
+    var enddates = enddate.date.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = new Date(enddate.date - enddates)
+      .toISOString()
+      .slice(0, -14);
     if (currentUser && currentUser.data) {
+      //logged in
+
       const body = {
         roomid: id,
         checkin: datein.date,
         checkout: dateout.date,
       };
 
-      dispatch(dopostBook(body)).then((res) => {});
-      const status = {
-        status: "NOT_AVAILABLE",
-      };
-      dispatch(changeRoomStatus(roomid, status));
-      Notficiation.Success({
-        msg: "Booking Successfull",
+      dispatch(dopostBook(body)).then((resp) => {
+        const { data: res } = resp;
+        const { status: statusCode } = resp;
+        if (res && statusCode === 201) {
+          Notficiation.Success({
+            msg: "Booking Successfull",
+          });
+          navigate("/browse");
+        }
       });
-      navigate("/browse");
     } else {
+      //not logged in
       Notficiation.Error({
         msg: "Please login to confirm your booking",
       });
-      navigate("/login");
+  
+      setQueryParams({redirect: currentURI})
+      navigate(`/login?${queryParams}`);
       //not logged in
     }
   };
-
+  console.log("date", datein.date);
   return (
     <div className="py-10 bg-gray-300 h-full">
       <div className="max-w-5xl mx-auto bg-white shadow overflow-hidden  sm:rounded-lg">
@@ -104,8 +118,14 @@ export default function ViewRoom({ id }) {
             </form>
             <div className="mt-8">
               <button
-                onClick={confirm}
+                // onClick={}
                 className="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
+              >
+                Apply
+              </button>
+              <button
+                onClick={confirm}
+                className="bg-gray-900 text-gray-100 px-8 py-3 font-semibold rounded float-right"
               >
                 Book Now
               </button>

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { navigate, A } from "hookrouter";
+import { navigate } from "hookrouter";
 
 import * as Notification from "../../util/Notifications";
-import { deleteBooking } from "../../Redux/actions";
+import { deleteBooking, setCheckin, getHotelBookingList } from "../../Redux/actions";
 
-export default function UpdateBooking({ toggle, data, shown, triggerer }) {
+export default function UpdateBooking({ toggle, data, shown, hotelId }) {
 
     const [roomError, setRoomError] = useState(false);
     const [roomno, setRoomno] = useState("");
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const dispatch = useDispatch();
     
@@ -22,6 +23,23 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
     function updateRoomno() {
         setRoomError(false);
         if (roomno && !loading) {
+            setError(false);
+            setSuccess(false);
+            setLoading(true);
+            dispatch(setCheckin(data.bookingId)).then(res => {
+                if (res.status === 200) {
+                    data.roomno = roomno;
+                    Notification.Success({
+                        msg: `Checked in #${data.bookingId}`
+                    });
+                    dispatch(getHotelBookingList(hotelId));
+                    setSuccess(true);
+                    setLoading(false);
+                } else {
+                    setError(true);
+                    setLoading(false);
+                }
+            });
             console.log("update room no to", roomno);
         } else {
             setRoomError(true);
@@ -32,12 +50,14 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
         navigate("");
         if (confirmDelete && !loading) {
             setLoading(true);
+            setSuccess(false);
             dispatch(deleteBooking(data.bookingId)).then(res => {
                 if (res.status === 200) {
                     Notification.Success({
                         msg: `Deleted booking #${data.bookingId}`
                     });
-                    triggerer();
+                    
+                    dispatch(getHotelBookingList(hotelId));
                     toggle(data.bookingId);
                 } else {
                     setError(true);
@@ -106,7 +126,8 @@ export default function UpdateBooking({ toggle, data, shown, triggerer }) {
                         </div>
                         </div>
                     </div>
-                    {error && <div className="text-sm text-red-700 font-medium">Something went wrong please. Try again.</div>}
+                    {success && <div className="text-sm text-green-700 text-center mb-5 font-medium">Successfully updated</div>}
+                    {error && <div className="text-sm text-red-700 text-center mb-5 font-medium">Something went wrong please. Try again.</div>}
                     <div className="flex justify-between font-bold tracking-wide">
                         <div className="flex" onClick={back}>
                             <div className={`flex items-center justify-center p-2 px-3 md:px-6 rounded ${loading? "bg-gray-600" :"bg-gray-300  hover:bg-gray-400"} cursor-pointer`}>
