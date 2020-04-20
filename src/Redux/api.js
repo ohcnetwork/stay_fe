@@ -36,7 +36,7 @@ export default {
   },
 
   userHotelList: {
-    path: "/api/v1/facility",
+    path: "/api/v1/facility/userFacilities",
     noAuth: false,
   },
 

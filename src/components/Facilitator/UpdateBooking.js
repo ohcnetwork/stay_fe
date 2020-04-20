@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { navigate } from "hookrouter";
 
+import { BOOKING_CHECKIN_STATUS } from "../../Common/constants";
 import * as Notification from "../../util/Notifications";
 import { deleteBooking, setCheckin, getHotelBookingList } from "../../Redux/actions";
 
@@ -33,8 +34,8 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                         msg: `Checked in #${data.bookingId}`
                     });
                     dispatch(getHotelBookingList(hotelId));
-                    setSuccess(true);
-                    setLoading(false);
+                    // no need since component gets unmounted on dispatch
+                    toggle(data.bookingId);;
                 } else {
                     setError(true);
                     setLoading(false);
@@ -81,6 +82,7 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
             <div className="pb-8 px-0 md:w-1/2 w-full bg-white shadow-lg mx-5 rounded">
                 <div className="uppercase bg-indigo-600 pt-3 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
                     Booking ID: {data.bookingId}
+                    
                 </div>
                 <div className="px-5">
                     <div className="pb-8 pt-3 px-0 text-gray-800">
@@ -103,6 +105,12 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                         </div>
 
                         <div className="flex flex-col px-12">
+
+                            <div className="flex justify-center mb-4">
+                                <div className={`text-lg font-bold uppercase px-2 py-1 text-white rounded bg-${BOOKING_CHECKIN_STATUS[data.statusCheckin].color}`}>
+                                    {BOOKING_CHECKIN_STATUS[data.statusCheckin].string}
+                                </div>
+                            </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Name</div>
                                 <div className="">{data.name}</div>
@@ -144,9 +152,12 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                                         "Delete"
                                 }
                             </div>
-                            <div onClick={updateRoomno} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
-                                Check In
-                            </div>
+                            {
+                                (data.statusCheckin !== BOOKING_CHECKIN_STATUS.CHECKEDIN.string) &&
+                                <div onClick={updateRoomno} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
+                                    Check In
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
