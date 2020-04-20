@@ -4,6 +4,7 @@ export const USER_TYPES = [
 ];
 
 export const BOOKING_CHECKIN_STATUS = {
-  PENDING: {string: "Pending", color: "orange-600"},
-  CHECKEDIN: {string: "Checked In", color: "green-600"},
+  PENDING: {type:"PENDING", string: "Pending", color: "orange-600"},
+  CHECKEDIN: {type:"CHECKEDIN", string: "Checked In", color: "green-600"},
+  CHECKEDOUT: {type:"CHECKEDOUT", string: "Checked Out", color: "gray-600"},
 };
