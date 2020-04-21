@@ -7,12 +7,7 @@ import DatePicker from "react-date-picker";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function ViewRoom({ id, category, startdate, enddate }) {
-  if (!Date.parse(new Date(startdate)) || !Date.parse(new Date(enddate))) {
-    Notficiation.Error({
-      msg: "Sorry, the URL seems to have some problem",
-    });
-    navigate("/browse");
-  }
+
   const hotelid = id;
   console.log("id", id);
   console.log("category", category);
@@ -31,34 +26,43 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
   const [detail, setDetail] = useState(false);
   // const [hdetail, sethDetail] = useState(false);
   useEffect(() => {
-    var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkin = new Date(datein.date - startdates)
-      .toISOString()
-      .slice(0, -14);
-
-    var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkout = new Date(dateout.date - enddates)
-      .toISOString()
-      .slice(0, -14);
-    const form = {
-      hotelid: hotelid,
-      category: category,
-      checkin: checkin,
-      checkout: checkout,
-      type: "room",
-    };
-    dispatch(getHotelList(form))
-      .then((res) => {
-        if (res) {
-          setDetail(res.data[0]);
-          setavail(true);
-        } else {
-          setavail(false);
-        }
-      })
-      .catch((err) => {
-        setavail(false);
+    if (isNaN(new Date(startdate).getTime()) || isNaN(new Date(enddate).getTime()) || isNaN(id)) {
+      Notficiation.Error({
+        msg: "Sorry, the URL seems to have some problem",
       });
+      navigate('/browse')
+    }
+    else {
+      var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
+      var checkin = new Date(datein.date - startdates)
+        .toISOString()
+        .slice(0, -14);
+
+      var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
+      var checkout = new Date(dateout.date - enddates)
+        .toISOString()
+        .slice(0, -14);
+      const form = {
+        hotelid: hotelid,
+        category: category,
+        checkin: checkin,
+        checkout: checkout,
+        type: "room",
+      };
+      dispatch(getHotelList(form))
+        .then((res) => {
+          if (res) {
+            setDetail(res.data[0]);
+            setavail(true);
+          } else {
+            setavail(false);
+          }
+        })
+        .catch((err) => {
+          setavail(false);
+        });
+    }
+
   }, []);
 
   const onDateChange = (newdate) => {
