@@ -24,7 +24,7 @@ function Home() {
 
 
 <div className="mt-10 " >
-  <div class="bg-gray-200 py-3 lg:w-1/2 w-3/4 m-0 m-auto sm:max-w-full max-w-md rounded overflow-hidden shadow-lg"> 
+  <div class="bg-gray-200 py-4 px-3 lg:w-1/2 w-3/4 m-0 m-auto sm:max-w-full max-w-md rounded overflow-hidden shadow-lg"> 
   <A href="/edit" class="bg-blue-500  hover:bg-blue-700 px-5 py-2 text-white font-bold h-2 w-full rounded-full">
   Edit data
 </A>
