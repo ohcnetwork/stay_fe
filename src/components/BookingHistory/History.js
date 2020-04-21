@@ -16,6 +16,7 @@ const user=currentUser.data.data;
 const dispatch = useDispatch();
 
 const [form, setForm] = useState({});
+const [form2, setForm2] = useState({});
 
 var i=0;
 
@@ -31,25 +32,26 @@ const Cancel = (e) =>{
             Notficiation.Success({
               msg : "Booking Cancelled"
             });
-            window.location.reload(false);
           }
         });
   }
+  setForm2();
 } 
+
 useEffect(() => {
   dispatch(getBookingHistory()).then(resp => 
   { 
     const { data: res } = resp;
     setForm(res.data);
-    console.log(res.data);  
   }  );
 
-}, [dispatch, user  ]);
+}, [dispatch, user , form2 ]);
 var count = form.length;
 for(i=0;i<count;i++){
 item=item.concat(form[count-1-i]);
 
 }
+
         if(count===0){
           return(
             <div className="py-10 bg-white min-h-full">
@@ -73,6 +75,13 @@ item=item.concat(form[count-1-i]);
           <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
             Booking History
           </h2>
+          <div class="flex flex-row bg-gray-200">
+            <div class="text-gray-700 text-center w-1/3 bg-gray-400 px-4 py-2 m-2">
+              <button onClick={setForm2}>click</button>
+            </div>
+            <div class="text-gray-700 text-center w-1/3 bg-gray-400 px-4 py-2 m-2">2</div>
+            <div class="text-gray-700 text-center w-1/2 bg-gray-400 px-4 py-2 m-2">3</div>
+          </div>
         </div>
         <div className="relative  content-center  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
             {item.map((value,index) =>  {
@@ -96,7 +105,7 @@ item=item.concat(form[count-1-i]);
                                     <li>Booking Date : {new Date(value.bookingDate).toLocaleString() }</li>
                                     <li>Checkin : {new Date(value.checkinDate).toLocaleString()}</li>
                                     <li>Checkout : {new Date(value.checkoutDate).toLocaleString()}</li>
-                                    <li>Staus : {value.bookingStatus}</li>
+                                    <li>Status : {value.bookingStatus}</li>
                                     <li>Paid : Rs {value.cost}</li>
                                     </ul>
                                 </p>
