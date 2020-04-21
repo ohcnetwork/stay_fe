@@ -252,9 +252,15 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                 <ul className="border border-gray-200 rounded-md">
                   <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
                     <div className="w-0 flex-1 flex items-center">
-                      <span className="ml-2 flex-1 w-0 truncate">
-                        {detail.features}
-                      </span>
+                      <div className="ml-2 flex flex-wrap">
+                        {
+                          detail.features && detail.features.split(",").map(el => 
+                            <div className="m-2 px-2 bg-gray-400 rounded">
+                              {el.replace("_", " ")}
+                            </div>
+                          )
+                        }
+                      </div>
                     </div>
                     <div className="ml-4 flex-shrink-0">
                       <a
