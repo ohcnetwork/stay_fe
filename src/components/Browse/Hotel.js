@@ -157,8 +157,8 @@ function Hotel() {
                 for (var i = 0; i < res.data[0].length; i++) {
                     category[i] = res.data[0][i].category
                 }
-                const minimum = parseInt(res.data[1][0].minimum) - 50
-                const maximum = parseInt(res.data[1][0].maximum) + 50
+                const minimum = Math.max(0, (parseInt(res.data[1][0].minimum) - ((parseInt(res.data[1][0].minimum) % 100))))
+                const maximum = Math.max(0, (parseInt(res.data[1][0].maximum) + (100 - ((parseInt(res.data[1][0].maximum) % 100)))))
 
                 dispatch(getDistricts())
                     .then(res => {
