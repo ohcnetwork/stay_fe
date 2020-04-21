@@ -81,9 +81,9 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
       //logged in
 
       const body = {
-        // roomid: detail.id,
-        hotelid: hotelid,
-        category: category,
+        roomid: detail.id,
+        // hotelid: hotelid,
+        // category: category,
         checkin: checkin,
         checkout: checkout,
       };
@@ -97,16 +97,20 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
           });
           navigate("/browse");
         } else {
-          //not logged in
           Notficiation.Error({
-            msg: "Please login to confirm your booking",
+            msg: "Sorry room of that category is not available",
           });
-
-          setQueryParams({ redirect: currentURI });
-          navigate(`/login?${queryParams}`);
-          //not logged in
         }
       });
+    } else {
+      //not logged in
+      Notficiation.Error({
+        msg: "Please login to confirm your booking",
+      });
+
+      setQueryParams({ redirect: currentURI });
+      navigate(`/login?${queryParams}`);
+      //not logged in
     }
   };
 
