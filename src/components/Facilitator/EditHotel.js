@@ -63,7 +63,7 @@ export default function EditHotel({ id }) {
     useEffect(() => {
         dispatch(getUserHotelList()).then(res => {
             if (res && res.data && res.status === 200 && res.data.data) {
-                const currentHotel = Object.values(res.data.data).find(el => el.hotelId === id);
+                const currentHotel = Object.values(res.data.data).find(el => el.id === id);
                 if (currentHotel) {
                     let currentForm = Object.assign({}, initForm);
                     Object.keys(currentForm).forEach(el => {
@@ -180,7 +180,7 @@ export default function EditHotel({ id }) {
         );
     }
 
-    const currentHotel = userHotelList.data && userHotelList.data.data && Object.values(userHotelList.data.data).find(el => el.hotelId === id);
+    const currentHotel = userHotelList.data && userHotelList.data.data && Object.values(userHotelList.data.data).find(el => el.id === id);
 
     // check if the hotel actually exists
     // and if this user is the owner

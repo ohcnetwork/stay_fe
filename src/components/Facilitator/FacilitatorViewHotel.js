@@ -116,7 +116,7 @@ export default function FacilitatorViewHotel({ id }) {
         );
     }
 
-    const currentHotel = userHotelList.data && userHotelList.data.data && Object.values(userHotelList.data.data).find(el => el.hotelId === id);
+    const currentHotel = userHotelList.data && userHotelList.data.data && Object.values(userHotelList.data.data).find(el => el.id === id);
 
     // check if the hotel actually exists
     // and if this user is the owner
@@ -208,13 +208,13 @@ export default function FacilitatorViewHotel({ id }) {
                             </div>
                         </div>
                         <div className="flex flex-wrap justify-evenly">
-                            <A href={`/hotel/${currentHotel.hotelId}/bookings`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                            <A href={`/hotel/${currentHotel.id}/bookings`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 View Bookings
                             </A>
-                            <A href={`/hotel/${currentHotel.hotelId}/room/add`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                            <A href={`/hotel/${currentHotel.id}/room/add`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Add Rooms
                             </A>
-                            <A href={`/hotel/${currentHotel.hotelId}/edit`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                            <A href={`/hotel/${currentHotel.id}/edit`} className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                                 Edit Hotel
                             </A>
                             <div onClick={toggleConfirmation} className="cursor-pointer flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
@@ -247,7 +247,7 @@ export default function FacilitatorViewHotel({ id }) {
                 show={showConfirmation}
                 toggle={toggleConfirmation}
                 name={currentHotel.name}
-                id={currentHotel.hotelId}
+                id={currentHotel.id}
                 rooms={totalRoomData.length}
                 />
         </div>

@@ -6,7 +6,7 @@ import { BOOKING_CHECKIN_STATUS } from "../../Common/constants";
 import * as Notification from "../../util/Notifications";
 import { deleteBooking, setCheckinStatus, getHotelBookingList } from "../../Redux/actions";
 
-export default function UpdateBooking({ toggle, data, shown, hotelId }) {
+export default function UpdateBooking({ toggle, data, shown, id }) {
 
     const [roomError, setRoomError] = useState(false);
     const [roomno, setRoomno] = useState("");
@@ -30,7 +30,7 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                     Notification.Success({
                         msg: `${BOOKING_CHECKIN_STATUS[status].string} #${data.bookingId}`
                     });
-                    dispatch(getHotelBookingList(hotelId));
+                    dispatch(getHotelBookingList(id));
                     toggle(data.bookingId);;
                 } else {
                     setError(true);
@@ -53,7 +53,7 @@ export default function UpdateBooking({ toggle, data, shown, hotelId }) {
                         msg: `Deleted booking #${data.bookingId}`
                     });
                     
-                    dispatch(getHotelBookingList(hotelId));
+                    dispatch(getHotelBookingList(id));
                     toggle(data.bookingId);
                 } else {
                     setError(true);
