@@ -28,9 +28,7 @@ const routes = {
   "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
     <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
   ),
-  "/browse": () => <Hotel />,
-  "/facilitator": () => <AddHotelForm />,
-  "/add-room": () => <AddRoom />,
+  "/browse": () => <Hotel />
 };
 
 const PublicRouter = () => {

@@ -3,6 +3,7 @@ import {  useSelector , useDispatch } from 'react-redux';
 import * as Notficiation from "../../util/Notifications";
 
 import {getBookingHistory , deleteBooking } from "../../Redux/actions";
+import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function ViewRoom() {
 
@@ -16,7 +17,6 @@ const dispatch = useDispatch();
 
 const [form, setForm] = useState({});
 
-//var defimg="https://www.galeriemagazine.com/wp-content/uploads/2018/07/Bulgari-Shanghai-Room-1366x768-2.jpg";
 var i=0;
 
 
@@ -78,7 +78,7 @@ item=item.concat(form[count-1-i]);
             {item.map((value,index) =>  {
                 return (
                     <div  className="sm:w-full lg:w-1/2 md:w-3/4 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
-                        <img className="w-full  h-30" src={value.image} alt="Room Picture"/>
+                        <img className="w-full  h-30" src={DEFAULT_IMAGE.HOTEL} alt={value.name}/>
                             <div className="px-3 py-4">
                                 <div className="font-bold flex text-xl mb-2">
                                 <div className="w-1/2">{value.name}</div>

@@ -1,5 +1,7 @@
 import React from "react";
 import { A } from "hookrouter";
+import { DEFAULT_IMAGE } from "../../Common/constants";
+
 const HotelList = ({ hotels, startdate, enddate }) => {
   if (hotels.length === 0) {
     return (
@@ -29,8 +31,8 @@ const HotelList = ({ hotels, startdate, enddate }) => {
                 <div className="flex-shrink-0">
                   <img
                     className="h-48 w-full object-cover"
-                    src={item.photos}
-                    alt={`${item.name} imgage`}
+                    src={DEFAULT_IMAGE.HOTEL}
+                    alt={item.name}
                   />
                 </div>
                 <A href={`/roomlist/${item.hotelId}/${startdate}/${enddate}`} className="block">

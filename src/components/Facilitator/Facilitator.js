@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { A } from "hookrouter";
 
 import { getUserHotelList } from "../../Redux/actions";
+import { HOTEL_STATUS } from "../../Common/constants";
 
 export default function Facilitator() {
 
@@ -17,7 +18,6 @@ export default function Facilitator() {
     const { userHotelList } = state;
 
     useEffect(() => {
-        console.log("fetch_hotel data")
         dispatch(getUserHotelList(currentUser.id));
     }, [dispatch, currentUser.id]);
 
@@ -42,18 +42,20 @@ export default function Facilitator() {
                         </div>
                         <div className="w-1/4 lg:w-1/5 text-left text-gray-600 truncate">
                             {hotel.district}
-                            </div>
+                        </div>
                         <div className="hidden lg:flex w-1/5 px-1 text-left text-gray-600">
                             <div className="w-1/2 text-left truncate">
                                 {hotel.panchayath}
-                                </div>
+                            </div>
                             <div className="w-1/2 text-left truncate">
                                 {hotel.starCategory} Star
-                                </div>
+                            </div>
                         </div>
                         <div className="w-1/4 px-1 flex flex-col justify-around items-center">
                             <div className="flex">
-                                <div className="text-sm py-1 px-2 bg-green-600 text-white font-bold uppercase tracking-wide text-center">{hotel.status}</div>
+                                <div className={`text-sm py-1 px-2 bg-${HOTEL_STATUS[hotel.status].color} text-white font-bold uppercase tracking-wide text-center`}>
+                                    {HOTEL_STATUS[hotel.status].string}
+                                </div>
                             </div>
                         </div>
                     </A>
@@ -103,7 +105,7 @@ export default function Facilitator() {
                                 </div>
                                 <div className="text-sm uppercase text-gray-600 tracking-wide">
                                     Hotels
-                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="md:w-1/3 text-center py-8">
@@ -113,7 +115,7 @@ export default function Facilitator() {
                                 </div>
                                 <div className="text-sm uppercase text-gray-600 tracking-wide">
                                     Account Status
-                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="md:w-1/3 text-center py-8">
@@ -124,7 +126,7 @@ export default function Facilitator() {
                                 </div>
                                 <div className="text-sm uppercase text-gray-600 tracking-wide">
                                     Created On
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
