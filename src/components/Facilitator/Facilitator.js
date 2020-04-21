@@ -36,7 +36,7 @@ export default function Facilitator() {
         if (hotels.length > 0) {
             return (
                 hotels.map(hotel => 
-                    <A key={hotel.hotelId.toString()} href={`/hotel/${hotel.hotelId}`} className="flex px-6 py-6 text-gray-800 items-center border-b -mx-4 hover:bg-gray-200 cursor-pointer">
+                    <A key={hotel.id.toString()} href={`/hotel/${hotel.id}`} className="flex px-6 py-6 text-gray-800 items-center border-b -mx-4 hover:bg-gray-200 cursor-pointer">
                         <div className="w-1/2 lg:w-2/5 px-2 capitalize text-left font-semibold">
                         <span className="text-md md:text-lg">{hotel.name}</span>
                         </div>

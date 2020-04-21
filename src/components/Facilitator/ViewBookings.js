@@ -96,7 +96,7 @@ export default function ViewBooking({ id }) {
         );
     } 
     
-    let bookings = hotelBookingList.data && hotelBookingList.data.data.filter(e => e) || [];
+    let bookings = (hotelBookingList.data && hotelBookingList.data.data && hotelBookingList.data.data.filter(e => e))|| [];
     bookings.forEach((b, i) => {
         bookings[i].checkin = dateString(b.checkinDate);
         bookings[i].booking = dateString(b.bookingDate);
@@ -132,7 +132,7 @@ export default function ViewBooking({ id }) {
                     }
                 </div>      
             </div>
-            { showUpdation.shown && <UpdateBooking toggle={toggle} shown={showUpdation.shown} data={showUpdation.data} hotelId={id} /> }
+            { showUpdation.shown && <UpdateBooking toggle={toggle} shown={showUpdation.shown} data={showUpdation.data} id={id} /> }
         </div>
     );
 }
