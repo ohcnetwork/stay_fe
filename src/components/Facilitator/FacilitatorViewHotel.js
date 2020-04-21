@@ -163,7 +163,7 @@ export default function FacilitatorViewHotel({ id }) {
                             </div>
                         </div>
                         <div className="text-gray-600">
-                            {currentHotel.address}, {currentHotel.panchayath && <span>currentHotel.panchayath,</span>} {currentHotel.district}
+                            {currentHotel.address}, {currentHotel.panchayath && <span>{currentHotel.panchayath},</span>} {currentHotel.district}
                         </div>
                         <div className="flex flex-wrap py-2">
                             {
