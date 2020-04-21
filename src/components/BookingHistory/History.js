@@ -16,6 +16,7 @@ const user=currentUser.data.data;
 const dispatch = useDispatch();
 
 const [form, setForm] = useState({});
+const [form2, setForm2] = useState({});
 
 var i=0;
 
@@ -31,24 +32,25 @@ const Cancel = (e) =>{
             Notficiation.Success({
               msg : "Booking Cancelled"
             });
-            window.location.reload(false);
           }
         });
   }
+  setForm2();
 } 
+
 useEffect(() => {
   dispatch(getBookingHistory()).then(resp => 
   { 
     const { data: res } = resp;
     setForm(res.data);
-    console.log(res.data);  
   }  );
 
-}, [dispatch, user  ]);
+}, [dispatch, user , form2 ]);
 var count = form.length;
 for(i=0;i<count;i++){
 item=item.concat(form[count-1-i]);
 }
+
         if(count===0){
           return(
             <div className="py-10 bg-white min-h-full">
