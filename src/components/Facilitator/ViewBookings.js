@@ -12,12 +12,22 @@ export default function ViewBooking({ id }) {
     const { hotelBookingList } = state;
     const dispatch = useDispatch();
     const [ showUpdation, setShowUpdation ] = useState({ shown: false, data: "" });
+    const availableFilters = {
+        STATUS_CHECKIN: (el, status) => el.filter(e => e.statusCheckin === status)
+    }
+    const [ filters, setFilters ] = useState({
+        STATUS_CHECKIN: BOOKING_CHECKIN_STATUS.PENDING.type
+    });
 
     const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
     useEffect(() => {
         dispatch(getHotelBookingList(id));
     }, [dispatch, id]);
+
+    function setFilter (type, value) {
+        setFilters({...filters, [type]: value});
+    }
 
     function toggle(id) {
         setShowUpdation({ shown: !showUpdation.shown, data: bookings.find(b => b.bookingId === id) });
@@ -44,8 +54,11 @@ export default function ViewBooking({ id }) {
 
     function showBookingList(bookings) {
         if (bookings.length > 0) {
+            const filteredBookings = Object.keys(filters).reduce((prev, fil, i) => {
+                return availableFilters[fil](prev, filters[fil])
+            }, bookings);
             return (
-                bookings.map(booking => 
+                filteredBookings.map(booking => 
                     <div 
                         key={booking.bookingId.toString()} 
                         className="flex pt-5 pb-5 border-b pl-3 pr-3 bg-white hover:bg-gray-200 cursor-pointer"
@@ -107,9 +120,22 @@ export default function ViewBooking({ id }) {
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 <div className="bg-white border-t border-b sm:rounded shadow mb-6 mx-0 mx-2">
-                    <h2 className="pt-5 pb-10 pl-5 md:pl-10 flex flex-wrap items-center md:text-4xl text-2xl text-gray-800 uppercase border-b bg-gray-100">
-                        booking details
-                    </h2>
+                    <div className="pt-5 border-b bg-gray-100">
+                        <h2 className="flex px-5 md:pl-10 flex-wrap items-center md:text-4xl text-2xl text-gray-800 uppercase">Booking Details</h2>
+                        <div className="flex items-center justify-end">
+                            <div className="flex py-2 px-2">
+                                {
+                                    Object.values(BOOKING_CHECKIN_STATUS).map(status => 
+                                        <div 
+                                            className={`text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${filters.STATUS_CHECKIN === status.type? "bg-indigo-600 text-white": "bg-gray-100"}`}
+                                            onClick={() => setFilter("STATUS_CHECKIN", status.type)}>
+                                            {status.string}
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        </div>
+                    </div>
                     <div className="flex pt-5 pb-5 border-b bg-gray-100 pl-3 pr-3">
                         <div className="w-1/12 text-gray-800 uppercase font-medium text-sm md:text-base truncate">
                             ID

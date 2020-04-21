@@ -7,109 +7,84 @@ import DatePicker from "react-date-picker";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function ViewRoom({ id, category, startdate, enddate }) {
-
   const hotelid = id;
-  console.log("id", id);
-  console.log("category", category);
+  
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
+  
+  const [datein, setdatein] = useState(new Date(startdate));
+  const [dateout, setdateout] = useState(new Date(enddate));
+  const [avail, setavail] = useState(true);
+  const [detail, setDetail] = useState({ isFetching: true });
+  const [applied, setApplied] = useState(false);
+  
   const [queryParams, setQueryParams] = useQueryParams();
-  const [avail, setavail] = useState(false);
-  const [datein, setdatein] = useState({
-    date: new Date(startdate),
-  });
-  const [dateout, setdateout] = useState({
-    date: new Date(enddate),
-  });
-  // const type = "room";
-  const [detail, setDetail] = useState(false);
-  // const [hdetail, sethDetail] = useState(false);
-  useEffect(() => {
-    if (isNaN(new Date(startdate).getTime()) || isNaN(new Date(enddate).getTime()) || isNaN(id)) {
-      Notficiation.Error({
-        msg: "Sorry, the URL seems to have some problem",
-      });
-      navigate('/browse')
-    }
-    else {
-      var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
-      var checkin = new Date(datein.date - startdates)
-        .toISOString()
-        .slice(0, -14);
-
-      var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
-      var checkout = new Date(dateout.date - enddates)
-        .toISOString()
-        .slice(0, -14);
-      const form = {
-        hotelid: hotelid,
-        category: category,
-        checkin: checkin,
-        checkout: checkout,
-        type: "room",
-      };
-      dispatch(getHotelList(form))
-        .then((res) => {
-          if (res) {
-            setDetail(res.data[0]);
-            setavail(true);
-          } else {
-            setavail(false);
-          }
-        })
-        .catch((err) => {
-          setavail(false);
-        });
-    }
-
-  }, []);
-
-  const onDateChange = (newdate) => {
-    if (newdate.getTime() > dateout.date.getTime()) {
-      Notficiation.Error({
-        msg: "Sorry, Your checkin date is far ahead of checkin date!!!",
-      });
-      navigate(`/room/${id}/${category}/${startdate}/${enddate}`);
-    } else {
-      setdatein({ date: newdate });
-      setavail(false);
-    }
-  };
-  const onDateChange1 = (newdate1) => {
-    if (datein.date.getTime() > newdate1.getTime()) {
-      Notficiation.Error({
-        msg: "Sorry, Your checkout date is far behind checkin date!!!",
-      });
-      navigate(`/room/${id}/${category}/${startdate}/${enddate}`);
-    } else {
-      setdateout({ date: newdate1 });
-      setavail(false);
-    }
-  };
-  // const [avail, setavail] = useState(true);
   const currentURI = usePath();
+
+  useEffect(() => {
+    updateRoomGetDetail();
+  }, []);
+  
+  
+  const updateRoomGetDetail = () => {
+    setDetail({ ...detail, isFetching: true });
+    const form = getUpdatedDetails();
+    if (form) {
+      dispatch(getHotelList(form)).then(res => {
+        let newDetail = detail;
+        setApplied(true);
+        if (res && res.data) {
+          newDetail = res.data[0];
+          setavail(true);
+        } else {
+          setavail(false);
+        }
+        setDetail({ ...newDetail, isFetching: false });
+      })
+    }
+  }
+
+  const onDateChangeIn = (newdatein) => {
+    if (checkValidDate(newdatein, dateout)) {
+      setdatein(newdatein);
+      setApplied(false);
+    }
+  };
+  const onDateChangeOut = (newdateout) => {
+    if (checkValidDate(datein, newdateout)) {
+      setdateout(newdateout);
+      setApplied(false);
+    }
+  };
+
+  const checkValidDate = (a, b) => {
+    if (a.getTime() > b.getTime()) {
+      Notficiation.Error({
+        msg: "Sorry, Your checkout date is far behind checkin date!",
+      });
+      return false;
+    }
+    return true;
+  } 
+  
+  // on apply
+  const onDateApply = () => {
+    !applied && updateRoomGetDetail();
+  };
 
   // booking button handle
   const confirm = () => {
-    var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkin = new Date(datein.date - startdates)
-      .toISOString()
-      .slice(0, -14);
+    if (!avail || !applied) return;
 
-    var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkout = new Date(dateout.date - enddates)
-      .toISOString()
-      .slice(0, -14);
     if (currentUser && currentUser.data) {
+      console.log(avail && applied)
       //logged in
-
+      const formData = getUpdatedDetails();
       const body = {
         roomid: detail.id,
-        // hotelid: hotelid,
-        // category: category,
-        checkin: checkin,
-        checkout: checkout,
+        checkin: formData.checkin,
+        checkout: formData.checkout,
       };
 
       dispatch(dopostBook(body)).then((resp) => {
@@ -139,35 +114,35 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
     }
   };
 
-  const onDateApply = () => {
-    setavail(false);
-    var startdates = datein.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkin = new Date(datein.date - startdates)
+  function getUpdatedDetails() {
+    if (!Date.parse(startdate) || !Date.parse(enddate)) {
+      navigate("/browse");
+      return false;
+    }
+    var startdates = datein.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = new Date(datein - startdates)
       .toISOString()
       .slice(0, -14);
 
-    var enddates = dateout.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkout = new Date(dateout.date - enddates)
+    var enddates = dateout.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = new Date(dateout - enddates)
       .toISOString()
       .slice(0, -14);
     const formdata = {
-      hotelid: hotelid,
-      category: category,
-      checkin: checkin,
-      checkout: checkout,
+      hotelid,
+      category,
+      checkin,
+      checkout,
       type: "room",
     };
-    dispatch(getHotelList(formdata)).then((res) => {
-      if (res) {
-        setDetail(res.data[0]);
-        setavail(true);
-      } else {
-        setavail(false);
-      }
-    });
-  };
 
-  console.log("date", datein.date);
+    return formdata;
+  }
+
+  if (detail.isFetching) {
+    return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>;
+  }
+  
   return (
     <div className="py-10 bg-gray-300 h-full">
       <div className="max-w-5xl mx-auto bg-white shadow overflow-hidden  sm:rounded-lg">
@@ -189,8 +164,9 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                   className="appearance-none block w-half bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
                   clearIcon={null}
                   format="yyyy-MM-dd"
-                  value={datein.date}
-                  onChange={(newdate) => onDateChange(newdate)}
+                  name="datein"
+                  value={datein}
+                  onChange={onDateChangeIn}
                   minDate={new Date()}
                 />
               </div>
@@ -203,8 +179,9 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                   className="appearance-none block w-half bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
                   clearIcon={null}
                   format="yyyy-MM-dd"
-                  value={dateout.date}
-                  onChange={(newdateout) => onDateChange1(newdateout)}
+                  name="dateout"
+                  value={dateout}
+                  onChange={onDateChangeOut}
                   minDate={new Date()}
                 />
               </div>
@@ -212,16 +189,16 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
             <div className="mt-8">
               <button
                 onClick={onDateApply}
-                className="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
+                className={`${applied? "bg-gray-500 cursor-default": "bg-gray-900"} text-gray-100 px-5 py-3 font-semibold rounded`}
               >
                 Apply
               </button>
               <button
                 onClick={confirm}
                 disabled={!avail}
-                className="bg-gray-900 text-gray-100 px-8 py-3 font-semibold rounded float-right"
+                className={`text-gray-100 cursor-default ${!avail? "text-red-700":applied? "bg-gray-900 cursor-pointer": "bg-gray-500"} px-8 py-3 font-semibold rounded float-right`}
               >
-                {avail ? <div>Book Now</div> : <div>Not Available</div>}
+                {(avail) ? <div>Book Now</div> : <div>Not Available</div>}
               </button>
             </div>
           </div>
@@ -282,7 +259,7 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                           detail.features
                             .split(",")
                             .map((el) => (
-                              <div className="m-2 px-2 bg-gray-400 rounded">
+                              <div className="m-2 px-2 bg-gray-400 rounded" key={el}>
                                 {el.replace("_", " ")}
                               </div>
                             ))}
