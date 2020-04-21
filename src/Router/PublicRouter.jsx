@@ -15,10 +15,7 @@ const routes = {
   "/register": () => <Register />,
   "/room/:category/:startdate/:enddate": ({ category, startdate, enddate }) => <ViewRoom category={category} startdate={startdate} enddate={enddate} />,
   "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => <BrowseRooms id={id} startdate={startdate} enddate={enddate} />,
-  "/browse": () => <Hotel />,
-  "/facilitator": () => <AddHotelForm />,
-  "/add-room": () => <AddRoom />,
-
+  "/browse": () => <Hotel />
 };
 
 const PublicRouter = () => {
