@@ -4,7 +4,7 @@ import { A } from "hookrouter";
 
 import { getUserHotelList, getHotelRoomList } from "../../Redux/actions";
 import DeleteConfirmation from "./DeleteConfirmation";
-import { HOTEL_STATUS } from "../../Common/constants";
+import { HOTEL_STATUS, DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function FacilitatorViewHotel({ id }) {
 
@@ -41,7 +41,7 @@ export default function FacilitatorViewHotel({ id }) {
                         <div key={r.title} className="md:w-1/2 lg:w-1/3">
                             <div key={r.title} className="mx-5 my-5 flex flex-col shadow-lg bg-indigo-100 rounded">
                                 <div className="">
-                                    <img alt={r.title} className="w-full rounded" src="https://images.unsplash.com/photo-1515362778563-6a8d0e44bc0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=350&q=80" />
+                                    <img alt={r.title} className="w-full rounded" src={DEFAULT_IMAGE.ROOM} />
                                 </div>
                                 <div className="py-3 px-3">
                                     <div className="flex flex-wrap items-center justify-between">
@@ -150,7 +150,7 @@ export default function FacilitatorViewHotel({ id }) {
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 <div className="bg-white border-t border-b rounded shadow mb-6 md:mx-0 mx-2 flex flex-wrap">
                     <div className="w-full lg:w-2/5">
-                        <img alt={currentHotel.name} className="w-full h-full rounded" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=450&q=100" />
+                        <img alt={currentHotel.name} className="w-full h-full rounded" src={DEFAULT_IMAGE.HOTEL} />
                     </div>
                     <div className="flex flex-col w-full lg:w-3/5 md:pl-10 px-5 py-5">
                         <div className="flex flex-wrap items-center text-4xl text-gray-800 uppercase">

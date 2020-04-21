@@ -4,6 +4,7 @@ import { dopostBook, getHotelList } from "../../Redux/actions";
 import { navigate, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
+import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function ViewRoom({ category, startdate, enddate }) {
   console.log("category", category);
@@ -136,9 +137,9 @@ export default function ViewRoom({ category, startdate, enddate }) {
         <div className="bg-white lg:mx-8 lg:my-4 lg:flex lg:max-w-5xl">
           <div className="lg:w-1/2">
             <img
-              className="h-64 bg-cover lg:rounded-lg "
-              src="https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
-              alt=""
+              className="h-64 bg-cover lg:rounded-lg"
+              src={DEFAULT_IMAGE.ROOM}
+              alt={detail.title}
             />
           </div>
           <div className="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
