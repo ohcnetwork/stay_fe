@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getRoomByHotelid } from "../../Redux/actions";
-import { A } from "hookrouter";
+import { A, navigate } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
 function BrowseRooms({ id, startdate, enddate }) {
@@ -14,16 +14,22 @@ function BrowseRooms({ id, startdate, enddate }) {
   // const [hname, sethname] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRoomByHotelid(id)).then((res) => {
-      // sethname(res.data);
-      let sortedlist = Array.from(
-        new Set(res.data.data.map((details) => details.category))
-      ).map((category) => {
-        return res.data.data.find((details) => details.category === category);
+    if (isNaN(new Date(startdate).getTime()) || isNaN(new Date(enddate).getTime()) || isNaN(id)) {
+      navigate('/browse')
+    }
+    else {
+      dispatch(getRoomByHotelid(id)).then((res) => {
+        // sethname(res.data);
+        let sortedlist = Array.from(
+          new Set(res.data.data.map((details) => details.category))
+        ).map((category) => {
+          return res.data.data.find((details) => details.category === category);
+        });
+        setsortedrooms(sortedlist);
+        console.log(sortedlist);
       });
-      setsortedrooms(sortedlist);
-      console.log(sortedlist);
-    });
+    }
+
   }, []);
 
   if (sortedrooms && { sortedrooms } === null) {
