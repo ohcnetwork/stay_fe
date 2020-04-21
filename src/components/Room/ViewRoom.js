@@ -7,12 +7,7 @@ import DatePicker from "react-date-picker";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function ViewRoom({ id, category, startdate, enddate }) {
-  if (!Date.parse(new Date(startdate)) || !Date.parse(new Date(enddate))) {
-    Notficiation.Error({
-      msg: "Sorry, the URL seems to have some problem",
-    });
-    navigate("/browse");
-  }
+
   const hotelid = id;
   console.log("id", id);
   console.log("category", category);
@@ -32,6 +27,9 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
   // const [hdetail, sethDetail] = useState(false);
   useEffect(() => {
     if (isNaN(new Date(startdate).getTime()) || isNaN(new Date(enddate).getTime()) || isNaN(id)) {
+      Notficiation.Error({
+        msg: "Sorry, the URL seems to have some problem",
+      });
       navigate('/browse')
     }
     else {
