@@ -57,7 +57,7 @@ export default function FacilitatorViewHotel({ id }) {
                                     <div className="flex flex-wrap pb-3">
                                         {
                                             r.features.split(",").map(el => (
-                                                <div key={el} className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">{el}</div>
+                                                <div key={el} className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">{el.replace("_", " ")}</div>
                                             ))
                                         }
                                     </div>
@@ -168,7 +168,7 @@ export default function FacilitatorViewHotel({ id }) {
                         <div className="flex flex-wrap py-2">
                             {
                                 currentHotel.facilities.split(",").map(el => (
-                                    <div key={el} className="text-sm text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">{el}</div>
+                                    <div key={el} className="text-sm text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">{el.replace("_", " ")}</div>
                                 ))
                             }
                         </div>
