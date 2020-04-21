@@ -22,7 +22,7 @@ export default function EditHotel({ id }) {
         panchayath: "",
         district: "",
         starCategory: "",
-        latitude: "11.1",
+        latitude: "11.1",   
         longitude: "2.1",
         facilities: "",
         photos: "photo",

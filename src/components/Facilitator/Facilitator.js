@@ -83,7 +83,7 @@ export default function Facilitator() {
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
-                <div className="bg-white border-t border-b sm:rounded shadow mb-6 md:mx-0 mx-2">
+                <div className="bg-gray-400 border-t border-b sm:rounded shadow mb-6 md:mx-0 mx-2">
                     <div className="border-b px-6 py-2">
                         <div className="flex md:justify-between justify-around -mb-px py-1 flex-col md:flex-row">
                             <div className="flex flex-col">
@@ -133,7 +133,7 @@ export default function Facilitator() {
                 </div>
 
                 <div className="w-full mb-6">
-                    <div className="bg-white rounded sm:border shadow md:mx-0 mx-2 pb-1">
+                    <div className="bg-gray-400 rounded sm:border shadow md:mx-0 mx-2 pb-1">
                         <div className="border-b">
                             <div className="flex justify-between px-6 -mb-px">
                                 <h3 className="text-blue-dark py-4 font-normal text-lg">Actions</h3>
@@ -149,7 +149,7 @@ export default function Facilitator() {
 
                 <div className="flex flex-wrap -mx-4">
                     <div className="w-full mb-6 px-4 flex flex-col">
-                        <div className="flex-grow flex flex-col bg-white md:mx-0 mx-2 rounded shadow overflow-x-hidden overflow-y-auto">
+                        <div className="flex-grow flex flex-col bg-gray-400 md:mx-0 mx-2 rounded shadow overflow-x-hidden overflow-y-auto">
                             <div className="border-b">
                                 <div className="flex justify-between px-6 -mb-px">
                                     <h3 className="text-indigo-900 py-4 font-normal text-lg">

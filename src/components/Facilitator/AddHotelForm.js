@@ -155,17 +155,17 @@ export default function AddHotelForm() {
   return (
 
     // className="p-3 bg-indigo-400 text-white w-full hover:bg-indigo-300"    
-    <div className="h-full  overflow-x-hidden flex items-center justify-center bg-gray-400 ">
+    <div className="h-full  overflow-x-hidden flex items-center justify-center bg-white ">
       <div className="leading-loose">
         <form
           onSubmit={handleSubmit}
-          className="max-w-xl  m-4 p-10 bg-white rounded shadow-xl"
+          className="max-w-xl  m-4 p-10 bg-gray-400 rounded shadow-xl"
         >
-          <p className="text-gray-800 font-medium text-center">
+          <p className="text-gray-800 text-lg text-center">
             Hotel information
           </p>
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="name">
+            <label className="block text-sm text-black" htmlFor="name">
               Hotel Name
             </label>
             <input
@@ -182,7 +182,7 @@ export default function AddHotelForm() {
             <div className="text-xs italic text-red-500">{error.name}</div>
           </div>
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="address">
+            <label className="block text-sm text-black" htmlFor="address">
               Address
             </label>
             <textarea
@@ -201,7 +201,7 @@ export default function AddHotelForm() {
           </div>
           <div className="inline-block mt-2 w-1/2 pr-1">
             <label
-              className="block text-sm text-gray-600 "
+              className="block text-sm text-black "
               htmlFor="panchayath"
             >
               Panchayath
@@ -220,7 +220,7 @@ export default function AddHotelForm() {
 
           </div>
           <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
-            <label className="block text-sm text-gray-600" htmlFor="district">
+            <label className="block text-sm text-black" htmlFor="district">
               District
             </label>
             <select className="w-full py-3 px-5 py-1 text-gray-700 bg-gray-200 rounded"
@@ -241,7 +241,7 @@ export default function AddHotelForm() {
 
           <div className="mt-2">
             <label
-              className="block text-sm text-gray-600 "
+              className="block text-sm text-black "
               htmlFor="starCategory"
             >
               Star Category
@@ -314,7 +314,7 @@ export default function AddHotelForm() {
 
           <div className="mt-2  ">
             <label
-              className="block text-sm text-gray-600 "
+              className="block text-sm text-black "
               htmlFor="facilities"
             >
               Facilities
@@ -390,12 +390,12 @@ export default function AddHotelForm() {
 
           {/* File upload */}
           <div className="mt-2">
-            <label className="block text-sm text-gray-600 " htmlFor="photos">
+            <label className="block text-sm text-black " htmlFor="photos">
               Upload photos
             </label>
 
             <div className="flex w-full items-center px-5 bg-grey-lighter">
-              <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
+              <label className="w-20 flex flex-col items-center px-1 py-1 bg-gray-400 text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
                 <svg
                   className="w-5 h-5"
                   fill="currentColor"
@@ -410,7 +410,7 @@ export default function AddHotelForm() {
             </div>
           </div>
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="contact">
+            <label className="block text-sm text-black" htmlFor="contact">
               Contact Number
             </label>
             <input
@@ -429,7 +429,7 @@ export default function AddHotelForm() {
           </div>
 
           <div className="mt-2">
-            <label className="block text-sm text-gray-600" htmlFor="policy">
+            <label className="block text-sm text-policy" htmlFor="policy">
               Policy
             </label>
             <textarea
@@ -453,7 +453,7 @@ export default function AddHotelForm() {
 
           <div className="mt-2">
             <button
-              className="px-4 py-1 text-white w-full font-light tracking-wider bg-indigo-600 hover:bg-indigo-300 rounded "
+              className="px-4 py-1 text-white w-full font-light tracking-wider bg-indigo-600 hover:bg-indigo-500 hover:text-white rounded "
               type="submit" 
             >
               Submit

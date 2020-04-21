@@ -7,6 +7,10 @@ export default function FacilitatorNavBar() {
             link: "/",
             title: "Home",
         },
+        {
+            link:"/edit",
+            title:"Edit Profile"
+        }
     ];
     return <NavBar links={links} logout={true} />
 }

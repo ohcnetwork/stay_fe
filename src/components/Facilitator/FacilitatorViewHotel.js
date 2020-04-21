@@ -148,7 +148,7 @@ export default function FacilitatorViewHotel({ id }) {
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
-                <div className="bg-white border-t border-b rounded shadow mb-6 md:mx-0 mx-2 flex flex-wrap">
+                <div className="bg-gray-400 border-t border-b rounded shadow mb-6 md:mx-0 mx-2 flex flex-wrap">
                     <div className="w-full lg:w-2/5">
                         <img alt={currentHotel.name} className="w-full h-full rounded" src={DEFAULT_IMAGE.HOTEL} />
                     </div>
@@ -195,7 +195,7 @@ export default function FacilitatorViewHotel({ id }) {
                 </div>
 
                 <div className="w-full mb-6">
-                    <div className="bg-white rounded sm:border shadow md:mx-0 mx-2 pb-1">
+                    <div className="bg-gray-400 rounded sm:border shadow md:mx-0 mx-2 pb-1">
                         <div className="border-b">
                             <div className="flex px-6 -mb-px items-center">
                                 <h3 className="text-blue-dark py-4 font-normal text-lg">Actions</h3>
@@ -226,7 +226,7 @@ export default function FacilitatorViewHotel({ id }) {
 
                 <div className="flex flex-wrap -mx-4">
                     <div className="w-full mb-6 px-4 flex flex-col">
-                        <div className="flex-grow flex flex-col bg-white md:mx-0 mx-2 rounded shadow overflow-x-hidden">
+                        <div className="flex-grow flex flex-col bg-gray-400 md:mx-0 mx-2 rounded shadow overflow-x-hidden">
                             <div className="border-b">
                                 <div className="flex justify-between px-6 -mb-px">
                                     <h3 className="text-indigo-900 py-4 font-normal text-lg">

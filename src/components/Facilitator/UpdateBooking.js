@@ -74,7 +74,7 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
     
     return (
         <div className={`${shown? "flex": "hidden"} fixed top-0 left-0 bg-gray-200 h-screen w-full items-center justify-center`}>
-            <div className="pb-8 px-0 md:w-1/2 w-full bg-white shadow-lg mx-5 rounded">
+            <div className="pb-8 px-0 md:w-1/2 w-full bg-gray-400 shadow-lg mx-5 rounded">
                 <div className="uppercase bg-indigo-600 pt-3 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
                     Booking ID: {data.bookingId}
                     

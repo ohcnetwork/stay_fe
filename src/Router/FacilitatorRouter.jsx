@@ -8,6 +8,7 @@ import ViewBookings from "../components/Facilitator/ViewBookings";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import EditHotel from "../components/Facilitator/EditHotel";
 import AddRoom from "../components/Facilitator/AddRoom";
+import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
 
 const routes = {
 	"/": () => <Facilitator />,
@@ -16,6 +17,7 @@ const routes = {
 	"/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
 	"/hotel/:id/edit": ({ id }) => <EditHotel id={id} />,
 	"/hotel/:id/bookings": ({ id }) => <ViewBookings id={id} />,
+	"/edit" : () => <UserEdit/>
 };
 
 const FacilitatorRouter = () => {
@@ -23,7 +25,7 @@ const FacilitatorRouter = () => {
 	const pages = useRoutes(routes);
 	
 	return (
-		<div className="bg-gray-200">
+		<div className="bg-white">
 			<FacilitatorNavBar />
 			{pages}
 			{!pages && (
