@@ -25,3 +25,8 @@ export const DISTRICT_CHOICES = [
   { id: 13, text: "Kannur" },
   { id: 14, text: "Kasaragod" }
 ];
+
+export const HOTEL_STATUS = {
+  ACTIVE: {type:"ACTIVE", string: "Active", color: "green-600"},
+  NOT_AVAILABLE: {type:"NOT_AVAILABLE", string: "Not Available", color: "red-700"},
+}

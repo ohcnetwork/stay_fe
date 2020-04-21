@@ -4,6 +4,7 @@ import { A } from "hookrouter";
 
 import { getUserHotelList, getHotelRoomList } from "../../Redux/actions";
 import DeleteConfirmation from "./DeleteConfirmation";
+import { HOTEL_STATUS } from "../../Common/constants";
 
 export default function FacilitatorViewHotel({ id }) {
 
@@ -162,7 +163,7 @@ export default function FacilitatorViewHotel({ id }) {
                             </div>
                         </div>
                         <div className="text-gray-600">
-                            {currentHotel.address}, {currentHotel.panchayath}, {currentHotel.district}
+                            {currentHotel.address}, {currentHotel.panchayath && <span>currentHotel.panchayath,</span>} {currentHotel.district}
                         </div>
                         <div className="flex flex-wrap py-2">
                             {
@@ -172,8 +173,8 @@ export default function FacilitatorViewHotel({ id }) {
                             }
                         </div>
                         <div className="text-white flex py-5">
-                            <div className="text-sm py-1 px-2 bg-green-600 text-white font-bold uppercase tracking-wide text-center">
-                                {currentHotel.status}
+                            <div className={`text-sm py-1 px-2 bg-${HOTEL_STATUS[currentHotel.status].color} text-white font-bold uppercase tracking-wide text-center`}>
+                                {HOTEL_STATUS[currentHotel.status].string}
                             </div>
                         </div>
                         <div className="text-gray-600 text-sm">
