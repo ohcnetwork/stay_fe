@@ -77,7 +77,7 @@ export default function FacilitatorViewHotel({ id }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex flex-wrap items-center justify-between py-2">
+                                    {/* <div className="flex flex-wrap items-center justify-between py-2">
                                         <div className="text-gray-800 font-medium py-2">
                                             AVAILABLE: {room.filter(r => r.status === "AVAILABLE").length}/{room.length}
                                         </div>
@@ -89,7 +89,7 @@ export default function FacilitatorViewHotel({ id }) {
                                                 Delete
                                             </A>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -178,19 +178,19 @@ export default function FacilitatorViewHotel({ id }) {
                             </div>
                         </div>
                         <div className="text-gray-600 text-sm">
-                            {currentHotel.policy}
+                            Policy: {currentHotel.policy}
                         </div>
                         <div className="text-gray-600 text-sm">
-                            {currentHotel.contact}
+                            Contact: {currentHotel.contact}
                         </div>
-                        <div className="flex-grow flex flex-col justify-center items-end py-50">
+                        {/* <div className="flex-grow flex flex-col justify-center items-end py-50">
                             <div className="text-xs font-bold text-gray-800">
                                 {totalRoomBooked}/{totalRoomData.length} booked
                             </div>
                             <div className="bg-indigo-200 w-full rounded-full">
                                 <div className={`w-0 w-${styleWidth}/12 bg-indigo-600 h-2 rounded-full`}></div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -246,7 +246,6 @@ export default function FacilitatorViewHotel({ id }) {
             <DeleteConfirmation
                 show={showConfirmation}
                 toggle={toggleConfirmation}
-                booked={totalRoomBooked}
                 name={currentHotel.name}
                 id={currentHotel.hotelId}
                 rooms={totalRoomData.length}

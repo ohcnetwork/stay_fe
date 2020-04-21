@@ -5,7 +5,7 @@ import { navigate, A } from "hookrouter";
 import * as Notification from "../../util/Notifications";
 import { deleteHotel } from "../../Redux/actions";
 
-export default function DeleteConfirmation({ show, booked, name, toggle, id, rooms }) {
+export default function DeleteConfirmation({ show, name, toggle, id, rooms }) {
 
     const dispatch = useDispatch();
     const [error, setError] = useState(false);
@@ -32,7 +32,7 @@ export default function DeleteConfirmation({ show, booked, name, toggle, id, roo
                 <div className="uppercase bg-red-700 pt-3 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">Delete Hotel</div>
                 <div className="px-5">
                     <div className="pb-8 pt-3 px-0 text-gray-800">
-                        You are about to delete the hotel <span className="font-medium">{name}</span> with <span className="font-medium">{booked} booking{booked === 1? "": "s"}</span> and <span className="font-medium">{rooms} room{rooms === 1? "": "s"}</span>. If you just want to change information, go to edit.
+                        You are about to delete the hotel <span className="font-medium">{name}</span> with <span className="font-medium">{rooms} room{rooms === 1? "": "s"}</span>. If you just want to change information, go to edit.
                         If you are sure then click delete.
                     </div>
                     {error && <div className="text-sm text-red-700 font-medium">Something went wrong please. Try again.</div>}
