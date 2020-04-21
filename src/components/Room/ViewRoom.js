@@ -6,20 +6,22 @@ import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
-export default function ViewRoom({ category, startdate, enddate }) {
+export default function ViewRoom({ id, category, startdate, enddate }) {
+  const hotelid = id;
+  console.log("id", id);
   console.log("category", category);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { currentUser } = state;
   const [queryParams, setQueryParams] = useQueryParams();
-
+  const [avail, setavail] = useState(false);
   const [datein, setdatein] = useState({
     date: new Date(startdate),
   });
   const [dateout, setdateout] = useState({
     date: new Date(enddate),
   });
-
+  // const type = "room";
   const [detail, setDetail] = useState(false);
   // const [hdetail, sethDetail] = useState(false);
   useEffect(() => {
@@ -33,6 +35,7 @@ export default function ViewRoom({ category, startdate, enddate }) {
       .toISOString()
       .slice(0, -14);
     const form = {
+      hotelid: hotelid,
       category: category,
       checkin: checkin,
       checkout: checkout,
@@ -54,11 +57,13 @@ export default function ViewRoom({ category, startdate, enddate }) {
 
   const onDateChange = (newdate) => {
     setdatein({ date: newdate });
+    setavail(false);
   };
   const onDateChange1 = (newdate1) => {
     setdateout({ date: newdate1 });
+    setavail(false);
   };
-  const [avail, setavail] = useState(true);
+  // const [avail, setavail] = useState(true);
   const currentURI = usePath();
 
   // booking button handle
@@ -76,7 +81,9 @@ export default function ViewRoom({ category, startdate, enddate }) {
       //logged in
 
       const body = {
-        roomid: detail.id,
+        // roomid: detail.id,
+        hotelid: hotelid,
+        category: category,
         checkin: checkin,
         checkout: checkout,
       };
@@ -115,6 +122,7 @@ export default function ViewRoom({ category, startdate, enddate }) {
       .toISOString()
       .slice(0, -14);
     const formdata = {
+      hotelid: hotelid,
       category: category,
       checkin: checkin,
       checkout: checkout,
