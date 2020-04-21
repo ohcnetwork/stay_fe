@@ -1,6 +1,8 @@
 import React from "react";
 import { A } from "hookrouter";
 import {  useSelector } from 'react-redux';
+import { DEFAULT_IMAGE } from "../../../Common/constants";
+
 
 
 
@@ -15,7 +17,7 @@ function Home() {
     //console.log(user);
     console.log(user.image);
     if(user.image==null){
-        user.image=defimage;
+        user.image=DEFAULT_IMAGE.USER;
     }
   return (
 
