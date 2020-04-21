@@ -48,7 +48,6 @@ useEffect(() => {
 var count = form.length;
 for(i=0;i<count;i++){
 item=item.concat(form[count-1-i]);
-
 }
         if(count===0){
           return(
@@ -96,7 +95,7 @@ item=item.concat(form[count-1-i]);
                                     <li>Booking Date : {new Date(value.bookingDate).toLocaleString() }</li>
                                     <li>Checkin : {new Date(value.checkinDate).toLocaleString()}</li>
                                     <li>Checkout : {new Date(value.checkoutDate).toLocaleString()}</li>
-                                    <li>Staus : {value.bookingStatus}</li>
+                                    <li>Status : {value.bookingStatus}</li>
                                     <li>Paid : Rs {value.cost}</li>
                                     </ul>
                                 </p>
