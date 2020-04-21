@@ -7,6 +7,12 @@ import DatePicker from "react-date-picker";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function ViewRoom({ id, category, startdate, enddate }) {
+  if (!Date.parse(new Date(startdate)) || !Date.parse(new Date(enddate))) {
+    Notficiation.Error({
+      msg: "Sorry, the URL seems to have some problem",
+    });
+    navigate("/browse");
+  }
   const hotelid = id;
   console.log("id", id);
   console.log("category", category);
@@ -56,12 +62,26 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
   }, []);
 
   const onDateChange = (newdate) => {
-    setdatein({ date: newdate });
-    setavail(false);
+    if (newdate.getTime() > dateout.date.getTime()) {
+      Notficiation.Error({
+        msg: "Sorry, Your checkin date is far ahead of checkin date!!!",
+      });
+      navigate(`/room/${id}/${category}/${startdate}/${enddate}`);
+    } else {
+      setdatein({ date: newdate });
+      setavail(false);
+    }
   };
   const onDateChange1 = (newdate1) => {
-    setdateout({ date: newdate1 });
-    setavail(false);
+    if (datein.date.getTime() > newdate1.getTime()) {
+      Notficiation.Error({
+        msg: "Sorry, Your checkout date is far behind checkin date!!!",
+      });
+      navigate(`/room/${id}/${category}/${startdate}/${enddate}`);
+    } else {
+      setdateout({ date: newdate1 });
+      setavail(false);
+    }
   };
   // const [avail, setavail] = useState(true);
   const currentURI = usePath();
@@ -95,10 +115,11 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
           Notficiation.Success({
             msg: "Booking Successfull",
           });
-          navigate("/browse");
+          navigate("/history");
         } else {
           Notficiation.Error({
-            msg: "Sorry room of that category is not available",
+            msg:
+              "Sorry! some error encountered... Please reload the page to continue.",
           });
         }
       });
@@ -253,13 +274,14 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                   <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
                     <div className="w-0 flex-1 flex items-center">
                       <div className="ml-2 flex flex-wrap">
-                        {
-                          detail.features && detail.features.split(",").map(el => 
-                            <div className="m-2 px-2 bg-gray-400 rounded">
-                              {el.replace("_", " ")}
-                            </div>
-                          )
-                        }
+                        {detail.features &&
+                          detail.features
+                            .split(",")
+                            .map((el) => (
+                              <div className="m-2 px-2 bg-gray-400 rounded">
+                                {el.replace("_", " ")}
+                              </div>
+                            ))}
                       </div>
                     </div>
                     <div className="ml-4 flex-shrink-0">
