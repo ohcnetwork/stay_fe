@@ -8,14 +8,9 @@ import { DEFAULT_IMAGE } from "../../../Common/constants";
 
 function Home() {
 
-    const defimage="https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg"
-     
-     //user=user[0];
     const state = useSelector(state => state);
     const { currentUser } = state;
     const user=currentUser.data.data;
-    //console.log(user);
-    console.log(user.image);
     if(user.image==null){
         user.image=DEFAULT_IMAGE.USER;
     }

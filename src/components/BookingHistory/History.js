@@ -27,7 +27,6 @@ const Cancel = (e) =>{
     
       dispatch(deleteBooking(e.target.name)).then(resp => 
         { 
-          const { data: res } = resp;
           const {status : statusCode} =resp;
           if(statusCode === 200){
             Notficiation.Success({
@@ -40,7 +39,6 @@ const Cancel = (e) =>{
 } 
 
 useEffect(() => {
-  console.log("here");
   dispatch(getBookingHistory()).then(resp => 
   { 
     const { data: res } = resp;
@@ -97,16 +95,15 @@ item=item.concat(form[count-1-i]);
                             <div className="px-3 py-4">
                                 <div className="font-bold flex text-xl mb-2">
                                 <div className="w-1/2">{value.name}</div>
-                                <div class="m-0 m-auto">{
+                                <div className="m-0 m-auto">{
                                   value.bookingStatus === "BOOKED" &&
-                                  <button onClick={Cancel} value={value.bookingStatus} name={value.bookingId} class="bg-white hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded">
+                                  <button onClick={Cancel} value={value.bookingStatus} name={value.bookingId} className="bg-white hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded">
                                   Cancel 
                                   </button>
                                 }
                                 </div>
                                 </div>
-                                <p className="text-gray-700 text-base">
-                                    <ul>
+\                                    <ul className="text-gray-700 text-base">
                                     <li>Room Type : {value.category}</li>
                                     <li>Booking Date : {new Date(value.bookingDate).toLocaleString() }</li>
                                     <li>Checkin : {new Date(value.checkinDate).toLocaleString()}</li>
@@ -114,7 +111,6 @@ item=item.concat(form[count-1-i]);
                                     <li>Status : {value.bookingStatus}</li>
                                     <li>Paid : Rs {value.cost}</li>
                                     </ul>
-                                </p>
                             </div>
                     </div>
                         )})}
