@@ -64,8 +64,15 @@ export const updateHotel = (pathParam, body) => {
   return fireRequest("updateHotel", pathParam, body);
 };
 export const deleteBooking = (id) => {
-    return fireRequest('deleteBooking', [id]);
+  return fireRequest('deleteBooking', [id]);
 };
 export const setCheckinStatus = (id, status) => {
-    return fireRequest('setCheckinStatus', [id], status);
+  return fireRequest('setCheckinStatus', [id], status);
+};
+export const sendEmail = (form) => {
+  return fireRequest('sendEmail', [], form);
+}
+export const resetPassword = (form) => {
+  return fireRequest('resetPassword', [], form);
+
 };
