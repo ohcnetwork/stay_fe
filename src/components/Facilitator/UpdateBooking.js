@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { navigate } from "hookrouter";
 
-import { BOOKING_CHECKIN_STATUS } from "../../Common/constants";
+import { BOOKING_CHECKIN_STATUS, BOOKING_STATUS } from "../../Common/constants";
 import * as Notification from "../../util/Notifications";
 import { deleteBooking, setCheckinStatus, getHotelBookingList } from "../../Redux/actions";
 
@@ -102,9 +102,18 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
                         <div className="flex flex-col px-5 md:px-12 text-sm md:text-base">
 
                             <div className="flex justify-center mb-4">
-                                <div className={`text-lg font-bold uppercase px-2 py-1 text-white bg-${BOOKING_CHECKIN_STATUS[data.statusCheckin].color}`}>
-                                    {BOOKING_CHECKIN_STATUS[data.statusCheckin].string}
-                                </div>
+                                {
+                                    data.statusBooking === BOOKING_STATUS.CANCELLED.type
+                                ?
+                                    <div className={`text-lg font-bold uppercase px-2 py-1 text-white bg-${BOOKING_STATUS[data.statusBooking].color}`}>
+                                        {BOOKING_STATUS[data.statusBooking].string}
+                                    </div>
+                                :
+                                    <div className={`text-lg font-bold uppercase px-2 py-1 text-white bg-${BOOKING_CHECKIN_STATUS[data.statusCheckin].color}`}>
+                                        {BOOKING_CHECKIN_STATUS[data.statusCheckin].string}
+                                    </div>
+
+                                }
                             </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Name</div>
@@ -145,44 +154,52 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
                                 Back
                             </div>
                         </div>
-                        <div className="flex text-white">   
-                            {
-                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].type === BOOKING_CHECKIN_STATUS.PENDING.type) &&
-                                <div className="flex">
-                                    <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
-                                        {
-                                            confirmDelete
-                                            ? 
-                                                "Sure ?"
-                                            :
-                                                "Delete"
-                                        }
-                                    </div>  
-                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
-                                        Check In
-                                    </div> 
-                                </div>
-                            }
-                            {
-                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].type === BOOKING_CHECKIN_STATUS.CHECKEDIN.type) &&
-                                <div className="flex">
-                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.PENDING.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
-                                        Undo
-                                    </div>   
-                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDOUT.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
-                                        Check Out
-                                    </div>   
-                                </div>
-                            }
-                            {
-                                (BOOKING_CHECKIN_STATUS[data.statusCheckin].type === BOOKING_CHECKIN_STATUS.CHECKEDOUT.type) &&
-                                <div className="flex">
-                                    <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
-                                        Undo
-                                    </div> 
-                                </div>
-                            }
-                        </div>
+                        {
+                            data.statusBooking === BOOKING_STATUS.CANCELLED.type
+                        ?
+                            <div className="flex text-white">   
+                                
+                            </div>
+                        :
+                            <div className="flex text-white">   
+                                {
+                                    (data.statusCheckin === BOOKING_CHECKIN_STATUS.PENDING.type) &&
+                                    <div className="flex">
+                                        <div onClick={del} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                            {
+                                                confirmDelete
+                                                ? 
+                                                    "Sure ?"
+                                                :
+                                                    "Delete"
+                                            }
+                                        </div>  
+                                        <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
+                                            Check In
+                                        </div> 
+                                    </div>
+                                }
+                                {
+                                    (data.statusCheckin === BOOKING_CHECKIN_STATUS.CHECKEDIN.type) &&
+                                    <div className="flex">
+                                        <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.PENDING.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                            Undo
+                                        </div>   
+                                        <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDOUT.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-indigo-600 hover:bg-indigo-800"} cursor-pointer`}>
+                                            Check Out
+                                        </div>   
+                                    </div>
+                                }
+                                {
+                                    (data.statusCheckin === BOOKING_CHECKIN_STATUS.CHECKEDOUT.type) &&
+                                    <div className="flex">
+                                        <div onClick={() => updateRoomno(BOOKING_CHECKIN_STATUS.CHECKEDIN.type)} className={`flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 ${loading? "bg-gray-600" :"bg-red-700 hover:bg-red-800"} cursor-pointer`}>
+                                            Undo
+                                        </div> 
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
