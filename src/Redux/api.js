@@ -110,4 +110,14 @@ export default {
     method: "PUT",
     noAuth: false
   },
+  sendEmail: {
+    path: '/api/v1/auth/forgot-passeord',
+    method: "POST",
+    noAuth: true
+  },
+  resetPassword: {
+    path: '/api/v1/auth/reset-password',
+    method: "POST",
+    noAuth: true
+  }
 };
