@@ -38,7 +38,7 @@ export default function EditDetails(){
   
         setForm2(fieldValue2)
     };
-
+    console.log(currentUser);
     const handleSubmit2 =(e) =>{
         e.preventDefault();
         console.log("submit")
@@ -51,7 +51,7 @@ export default function EditDetails(){
                         Change Details
                     </h2>
                 </div>
-                <form onSubmit={handleSubmit2} className="bg-white shadow-lg mt-4 rounded px-8 pt-6 pb-8 my-20 bg-gray-200">
+                <form onSubmit={handleSubmit2} className={`bg-white shadow-lg mt-4 rounded px-8 pt-6 pb-8 my-20 ${ currentUser.data.data.type==="customer" ? "bg-gray-400" : "bg-white"}`}>
                 <div className="mb-4 md:mr-2 md:mb-0">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                                Full Name

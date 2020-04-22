@@ -26,7 +26,7 @@ const HotelList = ({ hotels, startdate, enddate }) => {
       <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
         {hotels.map((item) => {
           return (
-            <div key={item.hotelId}>
+            <div key={item.id}>
               <div className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                 <div className="flex-shrink-0">
                   <img
@@ -35,7 +35,7 @@ const HotelList = ({ hotels, startdate, enddate }) => {
                     alt={item.name}
                   />
                 </div>
-                <A href={`/roomlist/${item.hotelId}/${startdate}/${enddate}`} className="block">
+                <A href={`/roomlist/${item.id}/${startdate}/${enddate}`} className="block">
                   <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                     <div className="flex-1">
                       <p className="text-sm leading-5 font-medium text-indigo-600">

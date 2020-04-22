@@ -24,7 +24,6 @@ export default function ViewRoom() {
 
   const Cancel = (e) => {
     if (window.confirm("Cancel")) {
-
       dispatch(deleteBooking(e.target.name)).then(resp => {
         const { status: statusCode } = resp;
         if (statusCode === 200) {
@@ -34,20 +33,25 @@ export default function ViewRoom() {
         }
       });
     }
-    setForm2();
+    setForm2(Math.random() * 10);
   }
 
   useEffect(() => {
     dispatch(getBookingHistory()).then(resp => {
       const { data: res } = resp;
-      setForm(res.data);
+      setForm(res);
     });
 
-  }, [dispatch, user, form2]);
-  var count = form.length;
+  }, [dispatch, user, form2 ]);
+  var count = 0 ;
+  if(form !== undefined){
+  count = form.length;
   for (i = 0; i < count; i++) {
     item = item.concat(form[count - 1 - i]);
   }
+}
+  
+
 
   if (count === 0) {
     return (
@@ -86,28 +90,37 @@ export default function ViewRoom() {
         </div>
         <div className="relative  content-center  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
           {item.map((value, index) => {
-            if (value.bookingStatus === form3 || form3 === "ALL")
+            if (value.statusBooking === form3 || form3 === "ALL")
               return (
                 <div id={index} className="sm:w-full lg:w-1/2 md:w-3/4 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
                   <img className="w-full  h-30" src={DEFAULT_IMAGE.HOTEL} alt={value.name} />
                   <div className="px-3 py-4">
                     <div className="font-bold flex text-xl mb-2">
-                      <div className="w-1/2">{value.name}</div>
+                      <div className="w-1/2">{value.room.facility.name}</div>
                       <div className="m-0 m-auto">{
-                        value.bookingStatus === "BOOKED" &&
-                        <button onClick={Cancel} value={value.bookingStatus} name={value.bookingId} className="bg-white hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded">
+                        value.statusBooking === "BOOKED" &&
+                        <button onClick={Cancel} value={value.statusBooking} name={value.book_id} className="bg-white hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded">
                           Cancel
-                                  </button>
+                         </button>
                       }
                       </div>
                     </div>
                     <ul className="text-gray-700 text-base">
-                      <li>Room Type : {value.category}</li>
-                      <li>Booking Date : {new Date(value.bookingDate).toLocaleString()}</li>
-                      <li>Checkin : {new Date(value.checkinDate).toLocaleString()}</li>
-                      <li>Checkout : {new Date(value.checkoutDate).toLocaleString()}</li>
-                      <li>Status : {value.bookingStatus}</li>
-                      <li>Paid : Rs {value.cost}</li>
+                      <li>Room Type : {value.room.category}</li>
+                      <li>Booking Date : {new Date(value.createdAt).toLocaleString()}</li>
+                      <li>Checkin : {new Date(value.checkin).toLocaleString()}</li>
+                      <li>Checkout : {new Date(value.checkout).toLocaleString()}</li>
+                      <li>
+                      <div className="flex w-full   flex-row  ">
+                      <div className=" w-1/2  ">
+                      Booking status : {value.statusBooking}
+                      </div>
+                      <div className="w-1/2 ">
+                      Checkin status : {value.statusCheckin}
+                      </div>
+                      </div>
+                      </li>
+                      <li>Cost : Rs {value.room.cost}</li>
                     </ul>
                   </div>
                 </div>
