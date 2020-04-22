@@ -374,7 +374,6 @@ export default function AddRoom({ id }) {
               />
               <div className="text-xs italic text-red-500">{error.cost}</div>
             </div>
-
             {/* File upload */}
             <div className="mt-2">
               <label
@@ -383,7 +382,6 @@ export default function AddRoom({ id }) {
               >
                 Upload photos
               </label>
-
               <div className="flex w-full items-center px-5 bg-grey-lighter">
                 <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
                   <svg
@@ -404,7 +402,6 @@ export default function AddRoom({ id }) {
                 {formError}
               </p>
             </div>
-
             <div className="mt-2">
               <button
                 className="px-4 py-1 text-white w-full font-light tracking-wider bg-indigo-600 hover:bg-indigo-300 rounded "
