@@ -283,7 +283,6 @@ export default function AddRoom({ id }) {
             <div>
             <div className=" w-full flex  mb-4 bg-gray-200">
             <div className="w-1/2 ">
-
                 <label className="inline-flex items-center px-5 ml-2">
                   <input
                     type="radio"
@@ -298,7 +297,6 @@ export default function AddRoom({ id }) {
                 </label>
               </div>
               <div className="w-1/2 ">
-
                 <label className="inline-flex items-center  ">
                   <input
                     type="radio"
@@ -311,8 +309,8 @@ export default function AddRoom({ id }) {
                   />
                   <span className="ml-2  text-gray-600">Premium</span>
                 </label>
-                </div>
               </div>
+            </div>
               <div className="text-xs italic text-red-500">
                 {error.category}
               </div>
