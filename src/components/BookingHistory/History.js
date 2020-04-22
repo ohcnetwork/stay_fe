@@ -51,7 +51,7 @@ export default function ViewRoom() {
   }
 }
   
-
+console.log(item);
 
   if (count === 0) {
     return (
@@ -90,7 +90,7 @@ export default function ViewRoom() {
         </div>
         <div className="relative  content-center  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
           {item.map((value, index) => {
-            if (value.statusBooking === form3 || form3 === "ALL")
+            if ( ( value.statusBooking === form3 && value.statusCheckin === "PENDING")  || form3 === "ALL")
               return (
                 <div id={index} className="sm:w-full lg:w-1/2 md:w-3/4 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
                   <img className="w-full  h-30" src={DEFAULT_IMAGE.HOTEL} alt={value.name} />
@@ -98,7 +98,7 @@ export default function ViewRoom() {
                     <div className="font-bold flex text-xl mb-2">
                       <div className="w-1/2">{value.room.facility.name}</div>
                       <div className="m-0 m-auto">{
-                        value.statusBooking === "BOOKED" &&
+                        value.statusBooking === "BOOKED" && value.statusCheckin === "PENDING" &&
                         <button onClick={Cancel} value={value.statusBooking} name={value.book_id} className="bg-white hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded">
                           Cancel
                          </button>
