@@ -55,7 +55,7 @@ export default function ForgotPassword() {
                 if (res && statusCode === 200) {
 
                     Notficiation.Error({
-                        msg: 'Please check your mail'
+                        msg: 'Please check your mail to reset the password!'
                     });
 
 
