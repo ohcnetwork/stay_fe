@@ -120,7 +120,7 @@ export default function EditPassword(){
                 Change Password
             </h2>
         </div>
-        <form onSubmit={handleSubmit} className="bg-white mt-4 shadow-lg rounded px-8 pt-6 pb-8 my-20 bg-gray-200">
+        <form onSubmit={handleSubmit} className={`bg-white shadow-lg mt-4 rounded px-8 pt-6 pb-8 my-20 ${ currentUser.data.data.type==="customer" ? "bg-gray-400" : "bg-white"}`}>
         <div className="mb-4 md:mr-2 md:mb-0">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                         Password

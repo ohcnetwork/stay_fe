@@ -1,7 +1,7 @@
 import React from "react";
 import { useRoutes, useRedirect } from "hookrouter";
 import FacilitatorNavBar from "../components/Navbars/FacilitatorNavBar";
-
+import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
 import Facilitator from "../components/Facilitator/Facilitator";
 import FacilitatorViewHotel from "../components/Facilitator/FacilitatorViewHotel";
 import ViewBookings from "../components/Facilitator/ViewBookings";
@@ -16,6 +16,7 @@ const routes = {
 	"/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
 	"/hotel/:id/edit": ({ id }) => <EditHotel id={id} />,
 	"/hotel/:id/bookings": ({ id }) => <ViewBookings id={id} />,
+	"/edit" : () => <UserEdit/>
 };
 
 const FacilitatorRouter = () => {
