@@ -8,6 +8,7 @@ PNotify.defaults.styling = "material";
 /** Success message handler */
 export const Success = ({msg}) => {
     PNotify.success({
+        delay:2000,
         text: msg,
         modules: {
             Desktop: {
@@ -15,11 +16,13 @@ export const Success = ({msg}) => {
             }
         }
     });
+    
 };
 
 /** Error message handler */
 export const Error = ({msg}) => {
     PNotify.error({
+        delay : 2000,
         text: msg,
         modules: {
             Desktop: {

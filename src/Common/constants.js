@@ -8,6 +8,11 @@ export const BOOKING_CHECKIN_STATUS = {
   CHECKEDIN: {type:"CHECKEDIN", string: "Checked In", color: "green-600"},
   CHECKEDOUT: {type:"CHECKEDOUT", string: "Checked Out", color: "gray-600"},
 };
+export const BOOKING_STATUS = {
+  CANCELLED: {type:"CANCELLED", string: "Cancelled", color: "red-700"},
+  BOOKED: {type:"BOOKED", string: "Booked", color: "green-600"},
+}
+  
 
 export const DISTRICT_CHOICES = [
   { id: 1, text: "Thiruvananthapuram" },
