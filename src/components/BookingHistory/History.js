@@ -51,7 +51,6 @@ export default function ViewRoom() {
   }
 }
   
-console.log(item);
 
   if (count === 0) {
     return (
