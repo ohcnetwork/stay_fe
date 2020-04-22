@@ -123,7 +123,7 @@ export default function EditPassword(){
         <form onSubmit={handleSubmit} className={`bg-white shadow-lg mt-4 rounded px-8 pt-6 pb-8 my-20 ${ currentUser.data.data.type==="customer" ? "bg-gray-400" : "bg-white"}`}>
         <div className="mb-4 md:mr-2 md:mb-0">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        Password
+                       Current Password
                     </label>
                     <input
                         aria-label="Password"
@@ -139,9 +139,9 @@ export default function EditPassword(){
 
 
             <div className="mb-4 md:flex md:justify-between">
-                <div className="mb-4 md:mr-2 md:mb-0">
+                <div className="mb-4 md:mr-2 md:mb-0 pt-3">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        Password
+                        New Password
                     </label>
                     <input
                         aria-label="Password"
@@ -153,9 +153,9 @@ export default function EditPassword(){
                         placeholder="******************" />
                     <div className="text-xs italic text-red-500">{error.password}</div>
                 </div>
-                <div className="md:ml-2">
+                <div className="md:ml-2 pt-3">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirm">
-                        Confirm Password
+                        Confirm New Password
                     </label>
                     <input
                         aria-label="Confirm Password"
