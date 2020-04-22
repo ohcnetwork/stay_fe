@@ -78,13 +78,13 @@ export default function ViewRoom() {
           </h2>
           <div className="flex mt-3  lg:text-md text-sm w-5/6 flex-row bg-gray-200 lg:w-1/2 m-0 m-auto ">
             <div className="text-center w-1/3  px-3 py-2 m-1">
-              <button className="bg-white w-full hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded" onClick={() => setForm3("ALL")}>ALL</button>
+            <button className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${form3 === "ALL" ? "bg-blue-500 text-white": "text-blue-500"} border-blue-500 hover:border-transparent rounded`} onClick={() => setForm3("ALL")}>ALL</button>
             </div>
             <div className=" text-center w-1/3  px-3 py-2 m-1">
-              <button className="bg-white w-full hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded" onClick={() => setForm3("BOOKED")}>BOOKED</button>
+              <button className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${form3 === "BOOKED" ? "bg-blue-500 text-white": "text-blue-500"} border-blue-500 hover:border-transparent rounded`} onClick={() => setForm3("BOOKED")}>BOOKED</button>
             </div>
             <div className=" text-center w-1/3 px-3 py-2 m-1">
-              <button className="bg-white w-full hover:bg-blue-500 text-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded" onClick={() => setForm3("CANCELLED")}>CANCELLED</button>
+            <button className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${form3 === "CANCELLED" ? "bg-blue-500 text-white": "text-blue-500"} border-blue-500 hover:border-transparent rounded`} onClick={() => setForm3("CANCELLED")}>CANCELLED</button>
             </div>
           </div>
         </div>
