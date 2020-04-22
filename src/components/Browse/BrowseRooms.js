@@ -64,44 +64,59 @@ function BrowseRooms({ id, startdate, enddate }) {
             Select a room that fits your needs and your budget
           </p>
         </div>
-        <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
+        <div className="p-5 flex flex-wrap justify-center md:justify-start">
           {sortedrooms &&
-            sortedrooms.map((item) => {
+            sortedrooms.map((r) => {
               return (
-                <div
-                  key={item.id}
-                  className="flex flex-col rounded-lg shadow-lg overflow-hidden"
-                >
-                  <div className="flex-shrink-0">
-                    <img
-                      className="h-48 w-full object-cover"
-                      src={DEFAULT_IMAGE.ROOM}
-                      alt={item.title}
-                    />
-                  </div>
-                  <A
-                    href={`/room/${id}/${item.category}/${dates.checkin}/${dates.checkout}`}
-                    className="block"
-                  >
-                    <div className="flex-1 bg-white p-6 flex flex-col justify-between">
-                      <div className="flex-1">
-                        <p className="text-sm leading-5 font-medium text-indigo-600">
-                          <span>
-                            {item.category}
-                            {/* {item.id} */}
-                          </span>
-                        </p>
-
-                        <h3 className="mt-2 text-base leading-7 font-semibold text-gray-900">
-                          {item.title}
-                        </h3>
-                        <p className="mt-3 text-xl leading-6 text-gray-500">
-                          Rs. {item.cost}
-                        </p>
+                <div key={r.id} className="md:w-1/2 lg:w-1/3">
+                  <div key={r.title} className="mx-5 my-5 flex flex-col shadow-lg rounded">
+                    <A
+                      href={`/room/${id}/${r.category}/${dates.checkin}/${dates.checkout}`}
+                      className="block"
+                    >
+                      <div className="">
+                        <img alt={r.title} className="w-full rounded" src={DEFAULT_IMAGE.ROOM} />
                       </div>
-                    </div>
-                  </A>
+                      <div className="py-3 px-3">
+                        <div className="flex flex-wrap items-center justify-between">
+                          <div className="text-gray-800 text-lg uppercase font-medium">
+                            {r.title}
+                          </div>
+                          <div className="flex items-center">
+                            <div className="text-xs px-2 bg-black text-white rounded font-bold uppercase tracking-wide text-center">
+                              {r.category}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap pb-3">
+                          {
+                            r.features.split(",").map(el => (
+                              <div key={el} className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">{el.replace("_", " ")}</div>
+                            ))
+                          }
+                        </div>
+                        <div className="text-gray-600 pb">
+                          {r.description}
+                        </div>
+                        <div className="flex flex-wrap items-center justify-between border-b pb-3">
+                          <div className="text-gray-800">
+                            Beds: {r.beds}
+                          </div>
+                          <div className="flex items-center ml-2">
+                            <div className="text-2xl text-gray-900 font-bold tracking-wide flex">
+                              <svg className="w-4 h-4 mt-2 fill-current" viewBox="39.5 -0.5 169.756 250">
+                                <path d="M152.511,23.119h41.031L209.256-0.5H55.214L39.5,23.119h26.739c27.086,0,52.084,2.092,62.081,24.743H55.214 L39.5,71.482h91.769c-0.002,0.053-0.002,0.102-0.002,0.155c0,16.974-14.106,43.01-60.685,43.01l-22.537-0.026l0.025,22.068 L138.329,249.5h40.195l-93.42-116.709c38.456-2.074,74.523-23.563,79.722-61.309h28.716l15.714-23.62h-44.84 C162.606,38.761,158.674,29.958,152.511,23.119z" />
+                              </svg>
+                              {r.cost}
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </A>
+                  </div>
                 </div>
+
               );
             })}
         </div>
