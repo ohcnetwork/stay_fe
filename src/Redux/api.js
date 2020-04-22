@@ -111,7 +111,7 @@ export default {
     noAuth: false
   },
   sendEmail: {
-    path: '/api/v1/auth/forgot-passeord',
+    path: '/api/v1/auth/forget-password',
     method: "POST",
     noAuth: true
   },

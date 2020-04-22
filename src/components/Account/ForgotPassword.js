@@ -54,10 +54,13 @@ export default function ForgotPassword() {
                 // TODO: change status code to 200 (backend was sending 201 on login)
                 if (res && statusCode === 200) {
 
-                    navigate("/reset-paswword");
+                    Notficiation.Error({
+                        msg: 'Please check your mail to reset the password!'
+                    });
+
 
                 } else {
-                    setFormError("Check your email");
+                    setFormError("No such account exist. Check your email");
                     setFormLoading(false);
                 }
             }).catch(err => {

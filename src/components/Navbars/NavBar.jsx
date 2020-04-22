@@ -22,7 +22,7 @@ export default function NavBar({ links, logout }) {
           focusable="false"
           data-prefix="fas"
           data-icon="house-user"
-          class="svg-inline--fa fa-house-user h-8 w-8 mr-2"
+          className="svg-inline--fa fa-house-user h-8 w-8 mr-2"
           role="img"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 576 512"
@@ -54,7 +54,7 @@ export default function NavBar({ links, logout }) {
       <div
         className={`w-full ${
           shown ? "block" : "hidden"
-        } flex-grow lg:flex lg:items-center lg:w-auto lg:justify-center lg:bg-indigo-700 bg-indigo-600 pb-6 lg:p-6`}
+          } flex-grow lg:flex lg:items-center lg:w-auto lg:justify-center lg:bg-indigo-700 bg-indigo-600 pb-6 lg:p-6`}
       >
         <div className="text-sm lg:flex-grow flex flex-col lg:flex-row">
           {links &&
