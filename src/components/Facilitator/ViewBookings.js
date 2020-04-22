@@ -11,7 +11,8 @@ export default function ViewBooking({ id }) {
     const state = useSelector(state => state);
     const { hotelBookingList } = state;
     const dispatch = useDispatch();
-    const [ showUpdation, setShowUpdation ] = useState({ shown: false, data: "" });
+    const [showUpdation, setShowUpdation] = useState({ shown: false, data: "" });
+    
     const availableFilters = {
         STATUS_CHECKIN: (el, status) => el.filter(e => e.statusCheckin === status),
         SHOW_DELETED: (el, status) => el.filter(e => status? (true): (e.statusBooking === BOOKING_STATUS.BOOKED.type)),
@@ -116,7 +117,7 @@ export default function ViewBooking({ id }) {
     }
 
     // check if hotel exists
-    if (hotelBookingList.error || !hotelBookingList.data) {
+    if (hotelBookingList.error) {
         let msg = (hotelBookingList.error)? "Some problem occurred": "Hotel was not found";
         return (
             <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
