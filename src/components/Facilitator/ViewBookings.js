@@ -62,54 +62,59 @@ export default function ViewBooking({ id }) {
     }
 
     function showBookingList(bookings) {
+        let msg = "This hotel has no bookings";
         if (bookings.length > 0) {
             const filteredBookings = Object.keys(filters).reduce((prev, fil, i) => {
                 return availableFilters[fil](prev, filters[fil])
             }, bookings);
-            return (
-                filteredBookings.map(booking => 
-                    <div 
-                        key={booking.book_id.toString()} 
-                        className={`flex pt-5 pb-5 border-b pl-3 pr-3 ${booking.statusBooking === BOOKING_STATUS.CANCELLED.type? "bg-gray-300": "bg-white hover:bg-gray-200"} cursor-pointer`}
-                        onClick={() => {toggle(booking.book_id)}}
-                        >
-                        <div className="w-1/12 text-gray-700 text-sm md:text-base">
-                            {booking.book_id}
-                        </div>
-                        <div className="w-4/12 md:w-3/12 text-gray-700 text-sm md:text-base">
-                            <div>{booking.user.name}</div>
-                            <div className="text-gray-600 md:text-sm text-xs truncate">{booking.user.email}</div>
-                        </div>
-                        <div className="w-2/12 text-gray-700 text-sm md:text-base uppercase md:block hidden">
-                            {booking.room.category}
-                        </div>
-                        <div className="w-3/12 text-gray-700 text-sm md:text-base">
-                            {booking.checkinString}
-                        </div>
-                        {
-                            booking.statusBooking === BOOKING_STATUS.CANCELLED.type
-                        ?
-                            <div className="w-4/12 md:w-3/12 text-gray-900 text-sm md:text-base flex items-center text-xs">
-                                    <div className={`font-bold uppercase px-1 text-white bg-${BOOKING_STATUS[booking.statusBooking].color}`}>
-                                        {BOOKING_STATUS[booking.statusBooking].string}
-                                    </div>
-                            </div>
-                        :
-                            <div className="w-4/12 md:w-3/12 text-gray-900 text-sm md:text-base flex items-center text-xs">
-                                    <div className={`font-bold uppercase px-1 text-white bg-${BOOKING_CHECKIN_STATUS[booking.statusCheckin].color}`}>
-                                        {BOOKING_CHECKIN_STATUS[booking.statusCheckin].string}
-                                    </div>
-                            </div>
+            if (filteredBookings.length > 0) {
 
-                        }
-                    </div> 
-                )
-            );
-        } else {
-            return (
-                <div className="text-gray-500 py-8 text-center text-xl w-full">This hotel has no bookings</div>
-            );
+                return (
+                    filteredBookings.map(booking => 
+                        <div 
+                            key={booking.book_id.toString()} 
+                            className={`flex pt-5 pb-5 border-b pl-3 pr-3 ${booking.statusBooking === BOOKING_STATUS.CANCELLED.type? "bg-gray-300": "bg-white hover:bg-gray-200"} cursor-pointer`}
+                            onClick={() => {toggle(booking.book_id)}}
+                            >
+                            <div className="w-1/12 text-gray-700 text-sm md:text-base">
+                                {booking.book_id}
+                            </div>
+                            <div className="w-4/12 md:w-3/12 text-gray-700 text-sm md:text-base">
+                                <div>{booking.user.name}</div>
+                                <div className="text-gray-600 md:text-sm text-xs truncate">{booking.user.email}</div>
+                            </div>
+                            <div className="w-2/12 text-gray-700 text-sm md:text-base uppercase md:block hidden">
+                                {booking.room.category}
+                            </div>
+                            <div className="w-3/12 text-gray-700 text-sm md:text-base">
+                                {booking.checkinString}
+                            </div>
+                            {
+                                booking.statusBooking === BOOKING_STATUS.CANCELLED.type
+                            ?
+                                <div className="w-4/12 md:w-3/12 text-gray-900 text-sm md:text-base flex items-center text-xs">
+                                        <div className={`font-bold uppercase px-1 text-white bg-${BOOKING_STATUS[booking.statusBooking].color}`}>
+                                            {BOOKING_STATUS[booking.statusBooking].string}
+                                        </div>
+                                </div>
+                            :
+                                <div className="w-4/12 md:w-3/12 text-gray-900 text-sm md:text-base flex items-center text-xs">
+                                        <div className={`font-bold uppercase px-1 text-white bg-${BOOKING_CHECKIN_STATUS[booking.statusCheckin].color}`}>
+                                            {BOOKING_CHECKIN_STATUS[booking.statusCheckin].string}
+                                        </div>
+                                </div>
+    
+                            }
+                        </div> 
+                    )
+                );
+            } else {
+                msg = "Nothing matches filters";
+            }
         }
+        return (
+            <div className="text-gray-500 py-8 text-center text-xl w-full">{msg}</div>
+        );
     }
 
     if (!hotelBookingList || hotelBookingList.isFetching) {
@@ -143,28 +148,35 @@ export default function ViewBooking({ id }) {
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 <div className="bg-white border-t border-b sm:rounded shadow mb-6 mx-0 mx-2">
                     <div className="pt-5 border-b bg-gray-100">
-                        <h2 className="flex px-5 md:pl-10 flex-wrap items-center md:text-4xl text-2xl text-gray-800 uppercase">Booking Details</h2>
+                        <div className="flex items-center text-gray-800">
+                            <h2 className="flex px-5 md:pl-10 flex-wrap items-center md:text-4xl text-2xl uppercase">
+                                Booking Details
+                            </h2>
+                            <div className="text-gray-600">
+                                Total {bookings.length} bookings
+                            </div>
+                        </div>
                         <div className="flex items-center justify-between flex-wrap">
                             <div className="flex py-2 px-2">
                                 <div 
-                                    className={`text-xs md:text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${filters.SHOW_UPCOMING? "bg-indigo-600 text-white": "bg-gray-100"}`}
+                                    className={`text-xs md:text-sm py-1 border border-gray-400 mx-1 cursor-pointer px-2 rounded-full ${filters.SHOW_UPCOMING? "bg-indigo-600 text-white": "bg-gray-100"}`}
                                     onClick={() => setFilter("SHOW_UPCOMING", !filters.SHOW_UPCOMING)}>
                                     Upcoming
                                 </div>
                                 <div 
-                                    className={`text-xs md:text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${!filters.SHOW_UPCOMING? "bg-indigo-600 text-white": "bg-gray-100"}`}
+                                    className={`text-xs md:text-sm py-1 border border-gray-400 mx-1 cursor-pointer px-2 rounded-full ${!filters.SHOW_UPCOMING? "bg-indigo-600 text-white": "bg-gray-100"}`}
                                     onClick={() => setFilter("SHOW_UPCOMING", !filters.SHOW_UPCOMING)}>
                                     Previous
                                 </div>
                             </div>
                             <div className="flex py-2 px-2">
                                 <div 
-                                    className={`text-xs md:text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${filters.SORT_CHECKIN_ASCENDING? "bg-indigo-600 text-white": "bg-gray-100"}`}
+                                    className={`text-xs md:text-sm py-1 border border-gray-400 mx-1 cursor-pointer px-2 rounded-full ${filters.SORT_CHECKIN_ASCENDING? "bg-indigo-600 text-white": "bg-gray-100"}`}
                                     onClick={() => setFilter("SORT_CHECKIN_ASCENDING", !filters.SORT_CHECKIN_ASCENDING)}>
                                     Ascending
                                 </div>
                                 <div 
-                                    className={`text-xs md:text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${!filters.SORT_CHECKIN_ASCENDING? "bg-indigo-600 text-white": "bg-gray-100"}`}
+                                    className={`text-xs md:text-sm py-1 border border-gray-400 mx-1 cursor-pointer px-2 rounded-full ${!filters.SORT_CHECKIN_ASCENDING? "bg-indigo-600 text-white": "bg-gray-100"}`}
                                     onClick={() => setFilter("SORT_CHECKIN_ASCENDING", !filters.SORT_CHECKIN_ASCENDING)}>
                                     Descending
                                 </div>
@@ -173,7 +185,7 @@ export default function ViewBooking({ id }) {
                         <div className="flex items-center justify-between flex-wrap">
                             <div className="flex py-2 px-2">
                                 <div 
-                                    className={`text-xs md:text-sm py-1 border border-red-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${filters.SHOW_DELETED? "bg-red-600 text-white": "bg-gray-100"}`}
+                                    className={`text-xs md:text-sm py-1 border border-gray-400 mx-1 cursor-pointer px-2 rounded-full ${filters.SHOW_DELETED? "bg-red-600 text-white": "bg-gray-100"}`}
                                     onClick={() => setFilter("SHOW_DELETED", !filters.SHOW_DELETED)}>
                                     Show Deleted
                                 </div>
@@ -183,7 +195,7 @@ export default function ViewBooking({ id }) {
                                     Object.values(BOOKING_CHECKIN_STATUS).map(status => 
                                         <div 
                                             key={status.type}
-                                            className={`flex items-center text-xs md:text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${filters.STATUS_CHECKIN === status.type? "bg-indigo-600 text-white": "bg-gray-100"}`}
+                                            className={`flex items-center text-xs md:text-sm py-1 border border-gray-400 mx-1 cursor-pointer px-2 rounded-full ${filters.STATUS_CHECKIN === status.type? "bg-indigo-600 text-white": "bg-gray-100"}`}
                                             onClick={() => setFilter("STATUS_CHECKIN", status.type)}>
                                             {status.string}
                                         </div>
