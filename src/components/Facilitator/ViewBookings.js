@@ -30,24 +30,22 @@ export default function ViewBooking({ id }) {
     }
 
     function toggle(id) {
-        setShowUpdation({ shown: !showUpdation.shown, data: bookings.find(b => b.bookingId === id) });
+        setShowUpdation({ shown: !showUpdation.shown, data: bookings.find(b => b.book_id === id) });
     }
 
-    function dateString(date) {
+    function dateString(date, extended = false) {
         const tme = new Date(date);
-        const mnt = months[tme.getMonth()].toUpperCase();
-        const dat = tme.getDate();
-        const year = tme.getFullYear();
-        let hours = tme.getHours() % 12;
+        const mnt = months[tme.getUTCMonth()].toUpperCase();
+        const dat = tme.getUTCDate();
+        const year = tme.getUTCFullYear();
+        let hours = tme.getHours();
         hours = ((hours < 10)? "0": "") + hours;
         let minutes = tme.getMinutes();
         minutes = ((minutes < 10)? "0": "") + minutes;
-        const suffix = (hours % 12 < 1)? "AM": "PM";
-
         return (
             <div className="">
-                <div className="">{dat} {mnt} {year}</div>
-                <div>{hours}:{minutes} {suffix}</div>
+                {dat} {mnt} {year}
+                { extended && <span> {hours}:{minutes}</span>}
             </div>
         );
     }
@@ -60,22 +58,22 @@ export default function ViewBooking({ id }) {
             return (
                 filteredBookings.map(booking => 
                     <div 
-                        key={booking.bookingId.toString()} 
+                        key={booking.book_id.toString()} 
                         className="flex pt-5 pb-5 border-b pl-3 pr-3 bg-white hover:bg-gray-200 cursor-pointer"
-                        onClick={() => {toggle(booking.bookingId)}}
+                        onClick={() => {toggle(booking.book_id)}}
                         >
                         <div className="w-1/12 text-gray-700 text-sm md:text-base">
-                            {booking.bookingId}
+                            {booking.book_id}
                         </div>
                         <div className="w-4/12 md:w-3/12 text-gray-700 text-sm md:text-base">
-                            <div>{booking.name}</div>
-                            <div className="text-gray-600 md:text-sm text-xs truncate">{booking.email}</div>
+                            <div>{booking.user.name}</div>
+                            <div className="text-gray-600 md:text-sm text-xs truncate">{booking.user.email}</div>
                         </div>
                         <div className="w-2/12 text-gray-700 text-sm md:text-base uppercase md:block hidden">
-                            {booking.category}
+                            {booking.room.category}
                         </div>
                         <div className="w-3/12 text-gray-700 text-sm md:text-base">
-                            {booking.checkin}
+                            {booking.checkinString}
                         </div>
                         <div className="w-4/12 md:w-3/12 text-gray-900 text-sm md:text-base flex items-center text-xs">
                                 <div className={`font-bold uppercase px-1 text-white bg-${BOOKING_CHECKIN_STATUS[booking.statusCheckin].color}`}>
@@ -109,12 +107,15 @@ export default function ViewBooking({ id }) {
         );
     } 
     
-    let bookings = (hotelBookingList.data && hotelBookingList.data.data && hotelBookingList.data.data.filter(e => e))|| [];
+    let bookings = (hotelBookingList.data && hotelBookingList.data.filter(e => e))|| [];
     bookings.forEach((b, i) => {
-        bookings[i].checkin = dateString(b.checkinDate);
-        bookings[i].booking = dateString(b.bookingDate);
+        bookings[i].checkinString = dateString(b.checkin);
+        bookings[i].checkoutString = dateString(b.checkout);
+        bookings[i].createdAtString = dateString(b.createdAt, true);
         bookings[i].roomno = "";
     });
+    console.log(bookings);
+
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
@@ -127,7 +128,7 @@ export default function ViewBooking({ id }) {
                                 {
                                     Object.values(BOOKING_CHECKIN_STATUS).map(status => 
                                         <div 
-                                            className={`text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${filters.STATUS_CHECKIN === status.type? "bg-indigo-600 text-white": "bg-gray-100"}`}
+                                            className={`text-xs md:text-sm py-1 border border-indigo-200 mx-1 cursor-pointer px-2 rounded-full font-medium ${filters.STATUS_CHECKIN === status.type? "bg-indigo-600 text-white": "bg-gray-100"}`}
                                             onClick={() => setFilter("STATUS_CHECKIN", status.type)}>
                                             {status.string}
                                         </div>

@@ -25,13 +25,13 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
         if (roomno && !loading) {
             setError(false);
             setLoading(true);
-            dispatch(setCheckinStatus(data.bookingId, { status })).then(res => {
+            dispatch(setCheckinStatus(data.book_id, { status })).then(res => {
                 if (res.status === 200) {
                     Notification.Success({
-                        msg: `${BOOKING_CHECKIN_STATUS[status].string} #${data.bookingId}`
+                        msg: `${BOOKING_CHECKIN_STATUS[status].string} #${data.book_id}`
                     });
                     dispatch(getHotelBookingList(id));
-                    toggle(data.bookingId);;
+                    toggle(data.book_id);;
                 } else {
                     setError(true);
                     setLoading(false);
@@ -47,14 +47,14 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
         navigate("");
         if (confirmDelete && !loading) {
             setLoading(true);
-            dispatch(deleteBooking(data.bookingId)).then(res => {
+            dispatch(deleteBooking(data.book_id)).then(res => {
                 if (res.status === 200) {
                     Notification.Success({
-                        msg: `Deleted booking #${data.bookingId}`
+                        msg: `Deleted booking #${data.book_id}`
                     });
                     
                     dispatch(getHotelBookingList(id));
-                    toggle(data.bookingId);
+                    toggle(data.book_id);
                 } else {
                     setError(true);
                     setLoading(false);
@@ -68,7 +68,7 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
     function back() {
         if (!loading) {
             setConfirmDelete(false);
-            toggle(data.bookingId)
+            toggle(data.book_id)
         }
     }
     
@@ -76,7 +76,7 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
         <div className={`${shown? "flex": "hidden"} fixed top-0 left-0 bg-gray-200 h-screen w-full items-center justify-center`}>
             <div className="pb-8 px-0 md:w-1/2 w-full bg-white shadow-lg mx-5 rounded">
                 <div className="uppercase bg-indigo-600 pt-3 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
-                    Booking ID: {data.bookingId}
+                    Booking ID: {data.book_id}
                     
                 </div>
                 <div className="px-5">
@@ -99,7 +99,7 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
                             </div>
                         </div>
 
-                        <div className="flex flex-col px-12">
+                        <div className="flex flex-col px-5 md:px-12 text-sm md:text-base">
 
                             <div className="flex justify-center mb-4">
                                 <div className={`text-lg font-bold uppercase px-2 py-1 text-white bg-${BOOKING_CHECKIN_STATUS[data.statusCheckin].color}`}>
@@ -108,23 +108,32 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
                             </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Name</div>
-                                <div className="">{data.name}</div>
+                                <div className="">{data.user.name}</div>
                             </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Email</div>
-                                <div className="">{data.email}</div>
+                                <div className="">{data.user.email}</div>
                             </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Category</div>
-                                <div className="">{data.category}</div>
+                                <div className="">{data.room.category}</div>
+                            </div>
+                            
+                            <div className="flex">
+                                <div className="font-bold w-24">Cost</div>
+                                <div className="">{data.room.cost}</div>
                             </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Check In</div>
-                                <div className="">{data.checkin}</div>
+                                <div className="">{data.checkinString}</div>
+                            </div>
+                            <div className="flex">
+                                <div className="font-bold w-24">Checkout</div>
+                                <div className="">{data.checkoutString}</div>
                             </div>
                             <div className="flex">
                                 <div className="font-bold w-24">Booked</div>
-                                <div className="">{data.booking}</div>
+                                <div className="">{data.createdAtString}</div>
                             </div>
                         </div>
                         </div>
