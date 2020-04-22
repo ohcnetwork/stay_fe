@@ -116,17 +116,17 @@ export default function AddRoom({ id }) {
 
   return (
     <div>
-      <div className="h-full overflow-x-hidden flex items-center justify-center bg-gray-400 ">
+      <div className="h-full  m-0 m-auto  overflow-x-hidden flex items-center justify-center">
         <div className="leading-loose">
           <form
             onSubmit={handleSubmit}
-            className="max-w-xl  m-4 p-10 bg-white rounded shadow-xl"
+            className="max-w-xl sm:w-md lg:w-xl m-0 m-auto p-10 bg-white rounded shadow-xl"
           >
             <p className="text-gray-800 font-medium text-center">
               Room Details
             </p>
             <div className="mt-2">
-              <label className="block text-sm text-gray-600" htmlFor="title">
+              <label className="block  m-0 m-auto text-sm text-gray-600" htmlFor="title">
                 Title
               </label>
               <input
@@ -183,7 +183,7 @@ export default function AddRoom({ id }) {
                   />
                   <label
                     htmlFor="AC"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
+                    className="ml-1 block text-sm leading-5 text-gray-700"
                   >
                     AC
                   </label>
@@ -199,7 +199,7 @@ export default function AddRoom({ id }) {
                   />
                   <label
                     htmlFor="wifi"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
+                    className="ml-1 block text-sm leading-5 text-gray-700"
                   >
                     Wifi
                   </label>
@@ -215,7 +215,7 @@ export default function AddRoom({ id }) {
                   />
                   <label
                     htmlFor="mini-fridge"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
+                    className="ml-1 block text-sm leading-5 text-gray-700"
                   >
                     Mini Fridge
                   </label>
@@ -231,7 +231,7 @@ export default function AddRoom({ id }) {
                   />
                   <label
                     htmlFor="geyser"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
+                    className="ml-1 block text-sm leading-5 text-gray-700"
                   >
                     Geyser
                   </label>
@@ -249,33 +249,42 @@ export default function AddRoom({ id }) {
               >
                 Category
               </label>
+              <div className="flex w-full  mb-4 bg-gray-200">
+                <div className="w-1/2 ">
+                  <label className="inline-flex px-5 ml-2 items-center">
+                    <input
+                      type="radio"
+                      className="form-radio"
+                      name="category"
+                      checked={category === "economy"}
+                      value="economy"
+                      onChange={handleChange}
+                      onClick={() => setCategory("economy")}
+                    />
+                    <span className="ml-2 text-sm text-gray-600">Economy</span>
+                  </label>
+                </div>
+                <div className="w-1/2 ">
+                  <label className="inline-flex items-center ">
+                    <input
+                      type="radio"
+                      className="form-radio"
+                      name="category"
+                      checked={category === "standard"}
+                      value="standard"
+                      onChange={handleChange}
+                      onClick={() => setCategory("standard")}
+                    />
+                    <span className="ml-2  text-gray-600">Standard</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+            <div className=" w-full flex  mb-4 bg-gray-200">
+            <div className="w-1/2 ">
 
-              <div className="flex mb-4 bg-gray-200">
-                <label className="inline-flex px-5 items-center">
-                  <input
-                    type="radio"
-                    className="form-radio"
-                    name="category"
-                    checked={category === "economy"}
-                    value="economy"
-                    onChange={handleChange}
-                    onClick={() => setCategory("economy")}
-                  />
-                  <span className="ml-2 text-gray-600">Economy</span>
-                </label>
-                <label className="inline-flex items-center ml-6">
-                  <input
-                    type="radio"
-                    className="form-radio"
-                    name="category"
-                    checked={category === "standard"}
-                    value="standard"
-                    onChange={handleChange}
-                    onClick={() => setCategory("standard")}
-                  />
-                  <span className="ml-2  text-gray-600">Standard</span>
-                </label>
-                <label className="inline-flex items-center ml-6">
+                <label className="inline-flex items-center px-5 ml-2">
                   <input
                     type="radio"
                     className="form-radio"
@@ -287,7 +296,10 @@ export default function AddRoom({ id }) {
                   />
                   <span className="ml-2  text-gray-600">Deluxe</span>
                 </label>
-                <label className="inline-flex items-center ml-6">
+              </div>
+              <div className="w-1/2 ">
+
+                <label className="inline-flex items-center  ">
                   <input
                     type="radio"
                     className="form-radio"
@@ -299,6 +311,7 @@ export default function AddRoom({ id }) {
                   />
                   <span className="ml-2  text-gray-600">Premium</span>
                 </label>
+                </div>
               </div>
               <div className="text-xs italic text-red-500">
                 {error.category}
