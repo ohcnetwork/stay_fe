@@ -59,7 +59,7 @@ export default function EditHotel({ id }) {
     const [formError, setFormError] = useState(false);
     const [star, setStar] = useState("");
     const [checkbox, setCheckbox] = useState(initFacilities);
-    
+
     useEffect(() => {
         dispatch(getUserHotelList()).then(res => {
             if (res && res.data && res.status === 200 && res.data.data) {
@@ -95,7 +95,7 @@ export default function EditHotel({ id }) {
         const prevState = checkbox[name];
         const newState = { ...checkbox, [name]: !prevState };
         setCheckbox(newState);
-        setForm({...form, facilities:  Object.keys(checkbox).filter(el => newState[el]).join(",")});
+        setForm({ ...form, facilities: Object.keys(checkbox).filter(el => newState[el]).join(",") });
     };
 
     function validInputs() {
@@ -127,7 +127,7 @@ export default function EditHotel({ id }) {
             if (form[el] !== currentHotel[el]) {
                 submitData[el] = form[el];
             }
-        });  
+        });
 
         if (validInputs() && !formLoading) {
             setFormLoading(true);
@@ -195,13 +195,13 @@ export default function EditHotel({ id }) {
         );
     }
 
-    return (  
+    return (
         <div className="overflow-x-hidden flex items-center justify-center">
             <div className="leading-loose">
                 <form
                     onSubmit={handleSubmit}
                     className="max-w-xl  m-4 p-10 bg-white rounded shadow-xl"
-                    >
+                >
                     <p className="text-gray-800 font-medium text-center">
                         Edit Hotel
                     </p>
@@ -240,11 +240,11 @@ export default function EditHotel({ id }) {
                         <div className="text-xs italic full-width text-red-500">{error.address}</div>
 
                     </div>
-                    <div className="inline-block mt-2 w-1/2 pr-1">
+                    <div className="inline-block mt-2 pr-1">
                         <label
                             className="block text-sm text-gray-600 "
                             htmlFor="panchayath"
-                            >
+                        >
                             Panchayath
                         </label>
                         <input
@@ -260,7 +260,7 @@ export default function EditHotel({ id }) {
                         />
                         <div className="text-xs italic text-red-500 h-3">{error.panchayath}</div>
                     </div>
-                    <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
+                    <div className="inline-block mt-2 pl-1">
                         <label className="block text-sm text-gray-600" htmlFor="district">
                             District
                         </label>
@@ -269,10 +269,10 @@ export default function EditHotel({ id }) {
                             value={form.district}
                             onChange={handleChange}
                             aria-label="Enter District"
-                            >
+                        >
                             {
                                 DISTRICT_CHOICES.map(el => (
-                                <option value={el.text} key={el.text}>{el.text}</option>
+                                    <option value={el.text} key={el.text}>{el.text}</option>
                                 ))
                             }
                         </select>
@@ -283,15 +283,15 @@ export default function EditHotel({ id }) {
                         <label
                             className="block text-sm text-gray-600 "
                             htmlFor="starCategory"
-                            >
+                        >
                             Star Category
-                        </label>
+            </label>
 
-                        <div className="flex mb-4 bg-gray-200">
-                            <label className="inline-flex px-5 items-center">
+                        <div className="mt-2 bg-gray-200">
+                            <label className="inline-flex items-center ml-6">
                                 <input
                                     type="radio"
-                                    className="form-radio"
+                                    className="form-radio h-3 w-3"
                                     name="starCategory"
                                     checked={star === "1"}
                                     value="1"
@@ -303,7 +303,7 @@ export default function EditHotel({ id }) {
                             <label className="inline-flex items-center ml-6">
                                 <input
                                     type="radio"
-                                    className="form-radio"
+                                    className="form-radio h-3 w-3"
                                     name="starCategory"
                                     checked={star === "2"}
                                     value="2"
@@ -315,7 +315,7 @@ export default function EditHotel({ id }) {
                             <label className="inline-flex items-center ml-6">
                                 <input
                                     type="radio"
-                                    className="form-radio"
+                                    className="form-radio h-3 w-3"
                                     name="starCategory"
                                     checked={star === "3"}
                                     value="3"
@@ -327,7 +327,7 @@ export default function EditHotel({ id }) {
                             <label className="inline-flex items-center ml-6">
                                 <input
                                     type="radio"
-                                    className="form-radio"
+                                    className="form-radio h-3 w-3"
                                     name="starCategory"
                                     checked={star === "4"}
                                     value="4"
@@ -339,7 +339,7 @@ export default function EditHotel({ id }) {
                             <label className="inline-flex items-center ml-6">
                                 <input
                                     type="radio"
-                                    className="form-radio"
+                                    className="form-radio h-3 w-3"
                                     name="starCategory"
                                     checked={star === "5"}
                                     value="5"
@@ -349,18 +349,19 @@ export default function EditHotel({ id }) {
                                 <span className="ml-2  text-gray-600">5 star</span>
                             </label>
                         </div>
-                        <div className="text-xs italic text-red-500 h-3">{error.starCategory}</div>
+                        <div className="text-xs italic full-width text-red-500">{error.starCategory}</div>
                     </div>
 
                     <div className="mt-2">
                         <label
                             className="block text-sm text-gray-600 "
-                            htmlFor="facilities"
-                            >
-                            Facilities
+                            htmlFor="starCategory"
+                        >
+                            Hotel Features
                         </label>
-                        <div className="flex mb-4 bg-gray-200">
-                            <div className="w-1/4 px-5 py-1 flex items-center">
+
+                        <div className="mt-2 bg-gray-200">
+                            <label className="inline-flex items-center ml-6">
                                 <input
                                     id="pool"
                                     type="checkbox"
@@ -369,14 +370,9 @@ export default function EditHotel({ id }) {
                                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     onChange={handleCheckbox}
                                 />
-                                <label
-                                    htmlFor="pool"
-                                    className="ml-2 block text-sm leading-5 text-gray-700"
-                                    >
-                                    Pool
-                                </label>
-                            </div>
-                            <div className="w-1/4 px-5 flex items-center">
+                                <span className="ml-2 text-gray-600">Pool</span>
+                            </label>
+                            <label className="inline-flex items-center ml-6">
                                 <input
                                     id="wifi"
                                     type="checkbox"
@@ -385,14 +381,9 @@ export default function EditHotel({ id }) {
                                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     onChange={handleCheckbox}
                                 />
-                                <label
-                                    htmlFor="wifi"
-                                    className="ml-2 block text-sm leading-5 text-gray-700"
-                                    >
-                                    Wifi
-                                </label>
-                            </div>
-                            <div className="w-1/4 px-5 flex items-center">
+                                <span className="ml-2  text-gray-600">Wifi</span>
+                            </label>
+                            <label className="inline-flex items-center ml-6">
                                 <input
                                     id="CCTV"
                                     type="checkbox"
@@ -401,14 +392,9 @@ export default function EditHotel({ id }) {
                                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     onChange={handleCheckbox}
                                 />
-                                <label
-                                    htmlFor="CCTV"
-                                    className="ml-2 block text-sm leading-5 text-gray-700"
-                                    >
-                                    CCTV
-                                </label>
-                            </div>
-                            <div className="w-1/4 px-5 flex items-center">
+                                <span className="ml-2  text-gray-600">CCTV</span>
+                            </label>
+                            <label className="inline-flex items-center ml-6">
                                 <input
                                     id="parking"
                                     type="checkbox"
@@ -417,15 +403,10 @@ export default function EditHotel({ id }) {
                                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     onChange={handleCheckbox}
                                 />
-                                <label
-                                    htmlFor="parking"
-                                    className="ml-2 block text-sm leading-5 text-gray-700"
-                                    >
-                                    Parking
-                                </label>
-                            </div>
+                                <span className="ml-2  text-gray-600">Parking</span>
+                            </label>
                         </div>
-                        <div className="text-xs italic text-red-500 h-3">{error.facilities}</div>
+                        <div className="text-xs italic full-width text-red-500">{error.starCategory}</div>
                     </div>
 
                     {/* File upload */}
@@ -435,13 +416,13 @@ export default function EditHotel({ id }) {
                         </label>
 
                         <div className="flex w-full items-center px-5 bg-grey-lighter">
-                            <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                            <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-indigo-600 hover:text-white">
                                 <svg
                                     className="w-5 h-5"
                                     fill="currentColor"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20"
-                                    >
+                                >
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                                 </svg>
                                 <span className="mt-2 text-xs leading-normal">Select a file</span>
@@ -495,7 +476,7 @@ export default function EditHotel({ id }) {
                         <button
                             className={`px-4 py-1 text-white w-full tracking-wider ${formLoading ? "bg-gray-600" : "bg-indigo-600 hover:bg-indigo-800"} rounded`}
                             type="submit"
-                            >
+                        >
                             Submit
                         </button>
                     </div>
