@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { postAddRooms } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
-import  {isNumber} from "../../util/validation"
+import { isNumber } from "../../util/validation"
 
 export default function AddRoom({ id }) {
   const dispatch = useDispatch();
@@ -55,13 +55,13 @@ export default function AddRoom({ id }) {
     const prevState = checkbox[name];
     const newState = { ...checkbox, [name]: !prevState };
     setCheckbox(newState);
-    setForm({ ...form, features: Object.keys(newState).filter((el) => newState[el]).join(",")})
+    setForm({ ...form, features: Object.keys(newState).filter((el) => newState[el]).join(",") })
   };
 
   function validInputs() {
     let formValid = true;
     let err = Object.assign({}, initError);
-    const { beds,noOfRooms,cost } = form;
+    const { beds, noOfRooms, cost } = form;
 
 
     Object.keys(form).forEach((key) => {
@@ -70,17 +70,17 @@ export default function AddRoom({ id }) {
         err[key] = "This field is required";
       }
     });
-    if(!isNumber(beds)){
+    if (!isNumber(beds)) {
       formValid = false;
-       err["beds"]="Enter Valid number"
+      err["beds"] = "Enter Valid number"
     };
-    if(!isNumber(noOfRooms)){
+    if (!isNumber(noOfRooms)) {
       formValid = false;
-       err["noOfRooms"]="Enter Valid number"
+      err["noOfRooms"] = "Enter Valid number"
     };
-    if(!isNumber(cost)){
+    if (!isNumber(cost)) {
       formValid = false;
-       err["cost"]="Enter Valid number"
+      err["cost"] = "Enter Valid number"
     };
 
     setError(err);
@@ -164,15 +164,16 @@ export default function AddRoom({ id }) {
                 {error.description}
               </div>
             </div>
-            <div className="mt-2  ">
+
+            <div className="mt-2">
               <label
                 className="block text-sm text-gray-600 "
-                htmlFor="features"
-              >
+                htmlFor="features">
                 Room Features
               </label>
-              <div className="flex mb-4 bg-gray-200">
-                <div className="w-1/4 px-5 py-1 flex items-center">
+
+              <div className="mt-2 bg-gray-200">
+                <label className="inline-flex  items-center ml-6">
                   <input
                     id="AC"
                     type="checkbox"
@@ -181,14 +182,9 @@ export default function AddRoom({ id }) {
                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                     onChange={handleCheckbox}
                   />
-                  <label
-                    htmlFor="AC"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
-                  >
-                    AC
-                  </label>
-                </div>
-                <div className="w-1/4 px-5 flex items-center">
+                  <span className="ml-2 text-gray-600">AC</span>
+                </label>
+                <label className="inline-flex items-center ml-6">
                   <input
                     id="wifi"
                     type="checkbox"
@@ -197,14 +193,9 @@ export default function AddRoom({ id }) {
                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                     onChange={handleCheckbox}
                   />
-                  <label
-                    htmlFor="wifi"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
-                  >
-                    Wifi
-                  </label>
-                </div>
-                <div className="w-1/4 px-5 flex items-center">
+                  <span className="ml-2  text-gray-600">Wifi</span>
+                </label>
+                <label className="inline-flex items-center ml-6">
                   <input
                     id="mini-fridge"
                     type="checkbox"
@@ -213,14 +204,9 @@ export default function AddRoom({ id }) {
                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                     onChange={handleCheckbox}
                   />
-                  <label
-                    htmlFor="mini-fridge"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
-                  >
-                    Mini Fridge
-                  </label>
-                </div>
-                <div className="w-1/4 px-5 flex items-center">
+                  <span className="ml-2  text-gray-600">Mini Fridge</span>
+                </label>
+                <label className="inline-flex items-center ml-6">
                   <input
                     id="geyser"
                     type="checkbox"
@@ -229,13 +215,8 @@ export default function AddRoom({ id }) {
                     className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                     onChange={handleCheckbox}
                   />
-                  <label
-                    htmlFor="geyser"
-                    className="ml-2 block text-sm leading-5 text-gray-700"
-                  >
-                    Geyser
-                  </label>
-                </div>
+                  <span className="ml-2  text-gray-600">Geyser</span>
+                </label>
               </div>
               <div className="text-xs italic text-red-500">
                 {error.features}
@@ -250,11 +231,11 @@ export default function AddRoom({ id }) {
                 Category
               </label>
 
-              <div className="flex mb-4 bg-gray-200">
-                <label className="inline-flex px-5 items-center">
+              <div className="mt-2 bg-gray-200">
+                <label className="inline-flex items-center ml-6">
                   <input
                     type="radio"
-                    className="form-radio"
+                    className="form-radio h-4 w-4"
                     name="category"
                     checked={category === "economy"}
                     value="economy"
@@ -266,7 +247,7 @@ export default function AddRoom({ id }) {
                 <label className="inline-flex items-center ml-6">
                   <input
                     type="radio"
-                    className="form-radio"
+                    className="form-radio h-4 w-4"
                     name="category"
                     checked={category === "standard"}
                     value="standard"
@@ -278,7 +259,7 @@ export default function AddRoom({ id }) {
                 <label className="inline-flex items-center ml-6">
                   <input
                     type="radio"
-                    className="form-radio"
+                    className="form-radio h-4 w-4"
                     name="category"
                     checked={category === "deluxe"}
                     value="deluxe"
@@ -290,7 +271,7 @@ export default function AddRoom({ id }) {
                 <label className="inline-flex items-center ml-6">
                   <input
                     type="radio"
-                    className="form-radio"
+                    className="form-radio h-4 w-4"
                     name="category"
                     checked={category === "premium"}
                     value="premium"
@@ -372,7 +353,7 @@ export default function AddRoom({ id }) {
               </label>
 
               <div className="flex w-full items-center px-5 bg-grey-lighter">
-                <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-indigo-600 hover:text-white">
                   <svg
                     className="w-5 h-5"
                     fill="currentColor"
