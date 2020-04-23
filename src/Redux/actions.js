@@ -7,8 +7,8 @@ export const postLogin = (form) => {
   return fireRequest("login", [], form);
 };
 
-export const postAddHotel = (id, form) => {
-  return fireRequest("addFacility", [], form);
+export const postAddHotel = (form) => {
+  return fireRequest("addFacility", [], form, "", true);
 };
 export const changePassword = (form) => {
   return fireRequest("changepassword", [], form);

@@ -5,6 +5,8 @@ import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
 import { phonePreg } from "../../util/validation";
 import { DISTRICT_CHOICES } from "../../Common/constants";
+import UploadImage from "./UploadImage";
+
 export default function AddHotelForm() {
 
 
@@ -13,7 +15,6 @@ export default function AddHotelForm() {
   const state = useSelector(state => state);
   const { currentUser: temp } = state;
   const currentUser = temp.data.data;
-  console.log("I am", currentUser.id);
 
   const initForm = {
     name: "",
@@ -25,7 +26,7 @@ export default function AddHotelForm() {
     latitude: "11.1",
     longitude: "2.1",
     facilities: "",
-    photos: "photo",
+    file: [],
     contact: "",
     policy: "",
   };
@@ -41,7 +42,7 @@ export default function AddHotelForm() {
     latitude: "11.1",
     longitude: "2.1",
     facilities: "",
-    photos: "",
+    file: "",
     contact: "",
     policy: "",
   };
@@ -102,52 +103,42 @@ export default function AddHotelForm() {
     return formValid;
   }
 
+  const setFiles = (files) => {
+    setForm({ ...form, file: files });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(validInputs(), "hey", formLoading);
-
-    console.log(form);
-
+    
     if (validInputs() && !formLoading) {
-      console.log("AddHotelForm.js: ", "creating a new hotel", form);
+      const formData = new FormData()
+  
+      Object.keys(form).forEach(key => {
+        if (key === "file"){
+          form[key].forEach(el => {
+            formData.append(key, el);  
+          });
+        } else {
+          formData.append(key, form[key]);  
+        } 
+      });
       setFormLoading(true);
-      dispatch(postAddHotel(currentUser.id, form)).then((resp) => {
+      dispatch(postAddHotel(formData)).then((resp) => {
         const { status: statusCode } = resp;
         const { data: res } = resp;
-        console.log(res);
-
 
         // set captha logic needed
-        if (res && statusCode === 201 && res.success === true) {
+        if (res && statusCode === 201) {
           Notficiation.Success({
             msg: "Hotel Created, Add Room Details",
           });
-          // navigate(`add-room/${res.data.hotelId}`);
-          navigate(`${res.data.id}/room/add `);
+          navigate(`${res.id}/room/add `);
 
+        } else {
+          setFormError("Some problem occurred");
+          setFormLoading(false);
         }
-
-        let formErr = "Some problem occurred";
-        // error exists show error
-        if (res && res.success === false && res.data) {
-          formErr = Object.values(res.data)[0];
-        }
-        const errorMessages = resp.response
-          ? resp.response.data
-            ? resp.response.data.message
-            : null
-          : null;
-        if (errorMessages) {
-          let err = initError;
-          errorMessages.forEach((msgObj) => {
-            err[msgObj.property] = Object.values(
-              msgObj.constraints
-            ).map((val, i) => <p key={i.toString()}>{val}</p>);
-          });
-          setError(err);
-        }
-        setFormError(formErr);
-        setFormLoading(false);
       });
     }
   };
@@ -199,7 +190,7 @@ export default function AddHotelForm() {
             <div className="text-xs italic full-width text-red-500">{error.address}</div>
 
           </div>
-          <div className="inline-block mt-2 pr-1">
+          <div className="w-full md:w-1/2 inline-block mt-2 pr-1">
             <label
               className="block text-sm text-gray-600 "
               htmlFor="panchayath"
@@ -219,23 +210,28 @@ export default function AddHotelForm() {
             />
 
           </div>
-          <div className="inline-block mt-2 -mx-1 pl-1">
+          <div className="w-full md:w-1/2 inline-block mt-2 -mx-1 pl-1">
             <label className="block text-sm text-gray-600" htmlFor="district">
               District
             </label>
-            <select className="w-full py-3 px-5 py-1 text-gray-700 bg-gray-200 rounded"
-              name="district"
-              value={form.district}
-              onChange={handleChange}
-              aria-label="Enter District"
-            >
-              {
-                DISTRICT_CHOICES.map(el => (
-                  <option value={el.text} key={el.text}>{el.text}</option>
-                ))
+            <div className="relative">
+              <select className="appearance-none w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                name="district"
+                value={form.district}
+                onChange={handleChange}
+                aria-label="Enter District"
+              >
+                {
+                  DISTRICT_CHOICES.map(el => (
+                    <option value={el.text} key={el.text}>{el.text}</option>
+                  ))
 
-              }
-            </select>
+                }
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+              </div>
+            </div>
           </div>
 
           <div className="mt-2">
@@ -246,8 +242,8 @@ export default function AddHotelForm() {
               Star Category
             </label>
 
-            <div className="mt-2 bg-gray-200">
-              <label className="inline-flex items-center ml-6">
+            <div className="mt-2 bg-gray-200 flex justify-center flex-wrap">
+              <label className="inline-flex items-center mx-3">
                 <input
                   type="radio"
                   className="form-radio h-3 w-3"
@@ -257,9 +253,9 @@ export default function AddHotelForm() {
                   onChange={handleChange}
                   onClick={() => setStar("1")}
                 />
-                <span className="ml-2 text-gray-600">1 star</span>
+                <span className="text-gray-600 ml-2">1 star</span>
               </label>
-              <label className="inline-flex items-center ml-6">
+              <label className="inline-flex items-center mx-3">
                 <input
                   type="radio"
                   className="form-radio h-3 w-3"
@@ -269,9 +265,9 @@ export default function AddHotelForm() {
                   onChange={handleChange}
                   onClick={() => setStar("2")}
                 />
-                <span className="ml-2  text-gray-600">2 star</span>
+                <span className="ml-2 text-gray-600">2 star</span>
               </label>
-              <label className="inline-flex items-center ml-6">
+              <label className="inline-flex items-center mx-3">
                 <input
                   type="radio"
                   className="form-radio h-3 w-3"
@@ -281,9 +277,9 @@ export default function AddHotelForm() {
                   onChange={handleChange}
                   onClick={() => setStar("3")}
                 />
-                <span className="ml-2  text-gray-600">3 star</span>
+                <span className="ml-2 text-gray-600">3 star</span>
               </label>
-              <label className="inline-flex items-center ml-6">
+              <label className="inline-flex items-center mx-3">
                 <input
                   type="radio"
                   className="form-radio h-3 w-3"
@@ -293,9 +289,9 @@ export default function AddHotelForm() {
                   onChange={handleChange}
                   onClick={() => setStar("4")}
                 />
-                <span className="ml-2  text-gray-600">4 star</span>
+                <span className="ml-2 text-gray-600">4 star</span>
               </label>
-              <label className="inline-flex items-center ml-6">
+              <label className="inline-flex items-center mx-3">
                 <input
                   type="radio"
                   className="form-radio h-3 w-3"
@@ -305,7 +301,7 @@ export default function AddHotelForm() {
                   onChange={handleChange}
                   onClick={() => setStar("5")}
                 />
-                <span className="ml-2  text-gray-600">5 star</span>
+                <span className="ml-1 text-gray-600">5 star</span>
               </label>
             </div>
             <div className="text-xs italic full-width text-red-500">{error.starCategory}</div>
@@ -319,8 +315,8 @@ export default function AddHotelForm() {
               Hotel Features
             </label>
 
-            <div className="mt-2 bg-gray-200">
-              <label className="inline-flex items-center ml-6">
+            <div className="mt-2 bg-gray-200 flex flex-wrap sm:justify-around justify-center">
+              <label className="inline-flex items-center mx-3">
                 <input
                   id="pool"
                   type="checkbox"
@@ -329,9 +325,9 @@ export default function AddHotelForm() {
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleCheckbox}
                 />
-                <span className="ml-2 text-gray-600">Pool</span>
+                <span className="ml-1 text-gray-600">Pool</span>
               </label>
-              <label className="inline-flex items-center ml-6">
+              <label className="inline-flex items-center mx-3">
                 <input
                   id="wifi"
                   type="checkbox"
@@ -340,9 +336,9 @@ export default function AddHotelForm() {
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleCheckbox}
                 />
-                <span className="ml-2  text-gray-600">Wifi</span>
+                <span className="ml-1 text-gray-600">Wifi</span>
               </label>
-              <label className="inline-flex items-center ml-6">
+              <label className="inline-flex items-center mx-3">
                 <input
                   id="CCTV"
                   type="checkbox"
@@ -351,9 +347,9 @@ export default function AddHotelForm() {
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleCheckbox}
                 />
-                <span className="ml-2  text-gray-600">CCTV</span>
+                <span className="ml-1 text-gray-600">CCTV</span>
               </label>
-              <label className="inline-flex items-center ml-6">
+              <label className="inline-flex items-center mx-3">
                 <input
                   id="parking"
                   type="checkbox"
@@ -362,33 +358,20 @@ export default function AddHotelForm() {
                   className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                   onChange={handleCheckbox}
                 />
-                <span className="ml-2  text-gray-600">Parking</span>
+                <span className="ml-1 text-gray-600">Parking</span>
               </label>
             </div>
-            <div className="text-xs italic full-width text-red-500">{error.starCategory}</div>
+            <div className="text-xs italic full-width text-red-500">{error.facilities}</div>
           </div>
 
 
           {/* File upload */}
           <div className="mt-2">
             <label className="block text-sm text-gray-600 " htmlFor="photos">
-              Upload photos
+              Upload photos (maximum 5)
             </label>
 
-            <div className="flex w-full items-center px-5 bg-grey-lighter">
-              <label className="w-20 flex flex-col items-center px-1 py-1 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-indigo-600 hover:text-white">
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                </svg>
-                <span className="mt-2 text-xs leading-normal">Select a file</span>
-                <input type="file" className="hidden" />
-              </label>
-            </div>
+            <UploadImage setFiles={setFiles} formLoading={formLoading} />
           </div>
           <div className="mt-2">
             <label className="block text-sm text-gray-600" htmlFor="contact">
@@ -432,13 +415,16 @@ export default function AddHotelForm() {
             </p>
           </div>
 
-          <div className="mt-2">
+          <div className="mt-2 flex items-center">
             <button
-              className="px-4 py-1 text-white w-full font-light tracking-wider bg-indigo-600 hover:bg-indigo-300 rounded "
+                className={`px-4 py-1 text-white font-bold tracking-wider ${formLoading ? "bg-gray-600 cursor-default" : "bg-indigo-600 hover:bg-indigo-800"} rounded`}
               type="submit"
             >
               Submit
             </button>
+            {
+              formLoading && <div className="ml-3 text-gray-700 text-sm">Uploading images and submitting data...</div>
+            }
           </div>
         </form>
       </div>

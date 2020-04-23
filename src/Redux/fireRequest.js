@@ -42,10 +42,10 @@ export const fetchResponseSuccess = (key, data) => {
   };
 };
 
-export const fireRequest = (key, path = [], params = {}, urlParam) => {
+export const fireRequest = (key, path = [], params = {}, urlParam, multipart = false) => {
   return (dispatch) => {
     dispatch(fetchDataRequest(key));
-    return APIRequest(key, path, params, urlParam)
+    return APIRequest(key, path, params, urlParam, multipart)
       .then((response) => {
         dispatch(fetchResponseSuccess(key, response.data));
         return response;
@@ -56,7 +56,7 @@ export const fireRequest = (key, path = [], params = {}, urlParam) => {
   };
 };
 
-export const APIRequest = (key, path = [], params = {}, urlParam) => {
+export const APIRequest = (key, path = [], params = {}, urlParam, multipart) => {
   // cancel previous api call
   if (isRunning[key]) {
     isRunning[key].cancel();
@@ -95,12 +95,20 @@ export const APIRequest = (key, path = [], params = {}, urlParam) => {
     config.headers["Authorization"] =
       "Bearer " + localStorage.getItem("stay_access_token");
   }
+
+  if (multipart) {
+    config.headers["Content-Type"] = `multipart/form-data; boundary=${params._boundary}`;
+    // couldn't set cancel token as it is an object
+    // params = params.set("cancelToken", isRunning[key].token);
+  } else {
+    params = {
+      ...params,
+      cancelToken: isRunning[key].token,  
+    }
+  }
   const axiosApiCall = axios.create(config);
 
-  return axiosApiCall[request.method.toLowerCase()](request.path, {
-    ...params,
-    cancelToken: isRunning[key].token,
-  })
+  return axiosApiCall[request.method.toLowerCase()](request.path, params)
     .then((response) => {
       return response;
     })
