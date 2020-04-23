@@ -1,7 +1,7 @@
-version: "3.7"
+version: "3"
 services:
-  coronasafe-stay-production:
-    container_name: coronasafe-stay-production
+  stay_fe:
+    container_name: stay_fe
     build:
       context: .
       dockerfile: Dockerfile
