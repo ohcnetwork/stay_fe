@@ -27,13 +27,14 @@ export default function ViewRoom() {
       dispatch(deleteBooking(e.target.name)).then(resp => {
         const { status: statusCode } = resp;
         if (statusCode === 200) {
+          setForm2(Math.random() * 10 + Math.random());
           Notficiation.Success({
             msg: "Booking Cancelled"
           });
         }
       });
+
     }
-    setForm2(Math.random() * 10 + Math.random());
   }
 
   useEffect(() => {
@@ -88,7 +89,7 @@ for(i=0;i<count;i++){
           </h2>
           <div className="flex mt-3  lg:text-md text-sm w-5/6 flex-row bg-gray-200 lg:w-1/2 m-0 m-auto ">
             <div className="text-center w-1/3  px-3 py-2 m-1">
-            <button className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${form3 === "CHECKEDIN" ? "bg-blue-500 text-white": "text-blue-500"} border-blue-500 hover:border-transparent rounded`} onClick={() => setForm3("CHECKEDIN")}>CHECKED IN</button>
+            <button className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${form3 === "CHECKED" ? "bg-blue-500 text-white": "text-blue-500"} border-blue-500 hover:border-transparent rounded`} onClick={() => setForm3("CHECKED")}>CHECKED</button>
             </div>
             <div className=" text-center w-1/3  px-3 py-2 m-1">
               <button className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${form3 === "BOOKED" ? "bg-blue-500 text-white": "text-blue-500"} border-blue-500 hover:border-transparent rounded`} onClick={() => setForm3("BOOKED")}>BOOKED</button>
@@ -100,7 +101,7 @@ for(i=0;i<count;i++){
         </div>
         <div className="relative  content-center  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
           {item.map((value, index) => {
-            if ( ( value.statusBooking === form3 && value.statusCheckin === "PENDING")  || (form3 === "CHECKEDIN" && value.statusCheckin === "CHECKEDIN" ) )
+            if ( ( value.statusBooking === form3 && value.statusCheckin === "PENDING")  || (form3 === "CHECKED" && ( value.statusCheckin === "CHECKEDIN" || value.statusCheckin === "CHECKEDOUT") ) )
               return (
                 <div id={index} className="sm:w-full lg:w-1/2 md:w-3/4 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
                   <img className="w-full  h-30" src={DEFAULT_IMAGE.HOTEL} alt={value.name} />
