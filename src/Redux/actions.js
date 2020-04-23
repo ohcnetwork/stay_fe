@@ -18,7 +18,7 @@ export const getBookingHistory = () => {
   return fireRequest("bookingHistory");
 };
 export const postAddRooms = (id, form) => {
-  return fireRequest("addRooms", [id], form);
+  return fireRequest("addRooms", [id], form, "", true);
 };
 export const getCurrentUser = () => {
   return fireRequest("currentUser");
