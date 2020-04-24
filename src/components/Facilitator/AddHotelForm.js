@@ -6,6 +6,7 @@ import { navigate } from "hookrouter";
 import { phonePreg } from "../../util/validation";
 import { DISTRICT_CHOICES } from "../../Common/constants";
 import UploadImage from "./UploadImage";
+import axios from "axios";
 
 export default function AddHotelForm() {
 
@@ -124,22 +125,49 @@ export default function AddHotelForm() {
         } 
       });
       setFormLoading(true);
-      dispatch(postAddHotel(formData)).then((resp) => {
-        const { status: statusCode } = resp;
-        const { data: res } = resp;
+      /**********************************************
+       * 
+       *  NOT USING FIREREQUEST FOR THE TIME BEING 
+       * 
+       **********************************************/
+      // dispatch(postAddHotel(formData)).then((resp) => {
+      //   const { status: statusCode } = resp;
+      //   const { data: res } = resp;
 
-        // set captha logic needed
-        if (res && statusCode === 201) {
-          Notficiation.Success({
-            msg: "Hotel Created, Add Room Details",
-          });
-          navigate(`${res.id}/room/add `);
+      //   // set captha logic needed
+      //   if (res && statusCode === 201) {
+      //     Notficiation.Success({
+      //       msg: "Hotel Created, Add Room Details",
+      //     });
+      //     navigate(`${res.id}/room/add `);
 
-        } else {
-          setFormError("Some problem occurred");
-          setFormLoading(false);
+      //   } else {
+      //     setFormError("Some problem occurred");
+      //     setFormLoading(false);
+      //   }
+      // });
+
+      const URL = "https://api.stay.coronasafe.in/api/v1/facility/add-facility";
+      const token = localStorage.getItem("stay_access_token");
+      const config = {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
         }
-      });
+      }
+
+      axios.post(URL, formData, config).then(res => {
+        console.log("This request was a success");
+        console.log(res);
+        Notficiation.Success({
+          msg: "Hotel Created, Add Room Details",
+        });
+        navigate(`${res.id}/room/add `);
+      }).catch(err => {
+        console.log(err);
+        setFormError("Some problem occurred");
+        setFormLoading(false);
+      })
     }
   };
 
