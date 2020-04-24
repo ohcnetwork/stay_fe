@@ -67,20 +67,20 @@ export default function HotelForm({ initForm, initFacilities, formLoading, formE
         e.preventDefault();
 
         if (validInputs() && !formLoading) {
-            const formData = new FormData();
+            // const formData = new FormData();
 
-            Object.keys(form).forEach(key => {
-                if (key === "file") {
-                    form[key].forEach(el => {
-                        formData.append(key, el);
-                    });
-                } else {
-                    formData.append(key, form[key]);
-                }
-            });
+            // Object.keys(form).forEach(key => {
+            //     if (key === "file") {
+            //         form[key].forEach(el => {
+            //             formData.append(key, el);
+            //         });
+            //     } else {
+            //         formData.append(key, form[key]);
+            //     }
+            // });
 
             // pass the value for submission
-            submit(formData);
+            submit(form);
         }
     };
 
@@ -296,7 +296,7 @@ export default function HotelForm({ initForm, initFacilities, formLoading, formE
                     </div>
                     <div className="text-xs italic full-width text-red-500">{error.facilities}</div>
                 </div>
-                {
+                {/* {
                     !uploadOff &&
                     <div className="mt-2">
                         <label className="block text-sm text-gray-600 " htmlFor="photos">
@@ -305,7 +305,7 @@ export default function HotelForm({ initForm, initFacilities, formLoading, formE
 
                         <UploadImage setFiles={setFiles} formLoading={formLoading} />
                     </div>
-                }
+                } */}
                 <div className="mt-2">
                     <label className="block text-sm text-gray-600" htmlFor="contact">
                         Contact Number
