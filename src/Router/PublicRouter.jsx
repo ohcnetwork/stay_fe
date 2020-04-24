@@ -11,7 +11,8 @@ import ResetPassword from "../components/Account/ResetPassword";
 
 const routes = {
   "/login": () => <Login />,
-  "/register": () => <Register />,
+  "/register/:id": ({ id }) => <Register id={id}/>,
+
   "/room/:id/:category/:startdate/:enddate": ({
     id,
     category,

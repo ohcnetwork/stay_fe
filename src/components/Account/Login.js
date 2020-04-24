@@ -122,8 +122,11 @@ export default function Login() {
                             Sign In
                          </button>
                         <div className="flex flex-col items-center">
-                            <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1" href="/register">
-                                Register Account
+                            <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1" href="/register/user">
+                                Register as Customer
+                            </A>
+                            <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1" href="/register/facilityowner">
+                                Register as Hotel Owner
                             </A>
                             <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800" href="/forgot-password">
                                 Forgot Password?
