@@ -18,7 +18,7 @@ export default function AddHotelForm() {
         latitude: "11.1",
         longitude: "2.1",
         facilities: "",
-        photos: "photos",
+        file: [],
         contact: "",
         policy: "",
     };

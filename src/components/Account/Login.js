@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { postLogin } from "../../Redux/actions";
 import { navigate, A, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
+//import 
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -122,8 +123,11 @@ export default function Login() {
                             Sign In
                          </button>
                         <div className="flex flex-col items-center">
-                            <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1" href="/register">
-                                Register Account
+                            <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1" href="/userregister">
+                                Register as Customer
+                            </A>
+                            <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1" href="/facilitatorregister">
+                                Register as Hotel Owner
                             </A>
                             <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800" href="/forgot-password">
                                 Forgot Password?

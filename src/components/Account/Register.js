@@ -2,25 +2,25 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postRegister } from "../../Redux/actions"
 import { navigate, A } from "hookrouter";
-import { USER_TYPES } from "../../Common/constants";
 import * as Notficiation from "../../util/Notifications";
 import { validateEmailAddress, validatePassword } from "../../util/validation";
 
-export default function Register() {
+export default function Register(user) {
+
     const dispatch = useDispatch();
     const initForm = {
         name: "",
         email: "",
         password: "",
         confirm: "",
-        type: USER_TYPES[0].type
+        type: user.type
     }
     const initError = {
         name: "",
         email: "",
         password: "",
         confirm: "",
-        type: ""
+        type: user.type
     }
 
     const [formLoading, setFormLoading] = useState(false);
@@ -122,7 +122,7 @@ export default function Register() {
             <div className="max-w-md w-full">
                 <div>
                     <h2 className="mt-6 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
-                        Create an account
+                        {user.label}
                     </h2>
                 </div>
                 <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded px-8 pt-6 pb-8 my-20 bg-gray-200">
@@ -181,27 +181,6 @@ export default function Register() {
                                 placeholder="******************" />
                             <div className="text-xs italic text-red-500">{error.confirm}</div>
                         </div>
-                    </div>
-                    <div className="-mt-px">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
-                            User Type
-                        </label>
-                        <div className="relative">
-                            <select
-                                value={form.type}
-                                name="type"
-                                onChange={handleChange}
-                                className={`shadow appearance-none border ${error.type ? "border-red-500" : ""} bg-white rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-                            >
-                                {
-                                    USER_TYPES.map(type => <option key={type.type} value={type.type}>{type.string}</option>)
-                                }
-                            </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                            </div>
-                        </div>
-                        <div className="text-xs italic text-red-500">{error.type}</div>
                     </div>
                     <div className="h-10">
                         <p className="text-red-500 text-xs italic bold text-center mt-2">{formError}</p>
