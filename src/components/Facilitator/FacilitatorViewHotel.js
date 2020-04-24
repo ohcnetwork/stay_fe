@@ -38,18 +38,18 @@ export default function FacilitatorViewHotel({ id }) {
                 rooms.map(room => {
                     const r = room[0];
                     return (
-                        <div key={r.title} className="md:w-1/2 lg:w-1/3">
+                        <div key={r.title} className="md:w-1/2 lg:w-1/3 w-full">
                             <div key={r.title} className="mx-5 my-5 flex flex-col shadow-lg bg-indigo-100 rounded">
                                 <div className="">
                                     <img alt={r.title} className="w-full rounded" src={DEFAULT_IMAGE.ROOM} />
                                 </div>
                                 <div className="py-3 px-3">
-                                    <div className="flex flex-wrap items-center justify-between">
-                                        <div className="text-gray-800 text-lg uppercase font-medium">
+                                    <div className="flex flex-wrap items-center justify-between py-1">
+                                        <div className="text-gray-800 text-lg uppercase font-medium py-1">
                                             {r.title}
                                         </div>
                                         <div className="flex items-center">
-                                            <div className="text-xs px-2 bg-black text-white rounded font-bold uppercase tracking-wide text-center">
+                                            <div className="text-xs px-2 bg-black text-white font-bold uppercase tracking-wide text-center">
                                                 {r.category}
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@ export default function FacilitatorViewHotel({ id }) {
                                             ))
                                         }
                                     </div>
-                                    <div className="text-gray-600 pb">
+                                    <div className="text-gray-600 pb h-32 overflow-hidden text-sm">
                                         {r.description}
                                     </div>
                                     <div className="flex flex-wrap items-center justify-between border-b pb-3">
@@ -77,19 +77,19 @@ export default function FacilitatorViewHotel({ id }) {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div className="flex flex-wrap items-center justify-between py-2">
+                                     <div className="flex flex-wrap items-center justify-between py-2">
                                         <div className="text-gray-800 font-medium py-2">
-                                            AVAILABLE: {room.filter(r => r.status === "AVAILABLE").length}/{room.length}
+                                            Rooms: {room.length}
                                         </div>
-                                        <div className="flex py-2">
+                                        {/* <div className="flex py-2">
                                             <A href="#" className="bg-indigo-600 hover:bg-indigo-800 rounded px-3 py-1 mx-1 font-medium text-white">
                                                 Edit
                                             </A>
                                             <A href="#" className="bg-red-700 hover:bg-red-800 rounded px-3 py-1 mx-1 font-medium text-white">
                                                 Delete
                                             </A>
-                                        </div>
-                                    </div> */}
+                                        </div> */}
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -135,15 +135,15 @@ export default function FacilitatorViewHotel({ id }) {
         setShowConfirmation(!showConfirmation);
     }
 
-    const hotelRoomData = hotelRoomList.data && [...new Set(hotelRoomList.data.data
-        .map(e => e.category))]
-        .map(e =>
-            hotelRoomList.data.data.filter(el => el.category === e)
-        );
+    const hotelRoomData = hotelRoomList.data && [...new Set(hotelRoomList.data.data.map(e => 
+        JSON.stringify({...e, id: ""})
+    ))].map(e => hotelRoomList.data.data.filter(el => 
+        JSON.stringify({...el, id: ""}) === e
+    ));
 
     const totalRoomData = [].concat(...hotelRoomData);
-    const totalRoomBooked = totalRoomData.length - (totalRoomData).filter(e => e.status === "AVAILABLE").length;
-    let styleWidth = parseInt((totalRoomBooked / totalRoomData.length) * 12);
+    // const totalRoomBooked = totalRoomData.length - (totalRoomData).filter(e => e.status === "AVAILABLE").length;
+    // let styleWidth = parseInt((totalRoomBooked / totalRoomData.length) * 12);
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">

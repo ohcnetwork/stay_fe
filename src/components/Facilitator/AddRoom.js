@@ -14,6 +14,7 @@ export default function AddRoom({ id }) {
     description: "",
     category: "",
     beds: "",
+    file: [],
     photos: "photo",
     noOfRooms: "",
     cost: "",
@@ -24,6 +25,7 @@ export default function AddRoom({ id }) {
     description: "",
     category: "",
     beds: "",
+    file: "",
     photos: "",
     noOfRooms: "",
     cost: "",
@@ -97,8 +99,19 @@ export default function AddRoom({ id }) {
 
     if (validInputs() && !formLoading) {
       console.log("AddHotelForm.js: ", "creating a new hotel", form);
+      const formData = new FormData()
+  
+      Object.keys(form).forEach(key => {
+        if (key === "file"){
+          form[key].forEach(el => {
+            formData.append(key, el);  
+          });
+        } else {
+          formData.append(key, form[key]);  
+        } 
+      });
       setFormLoading(true);
-      dispatch(postAddRooms(id, form)).then((resp) => {
+      dispatch(postAddRooms(id, formData)).then((resp) => {
         const { status: statusCode } = resp;
         const { data: res } = resp;
         console.log(resp);
@@ -113,8 +126,8 @@ export default function AddRoom({ id }) {
           let formErr = "Some problem occurred";
 
           setFormError(formErr);
+          setFormLoading(false);
         }
-        setFormLoading(false);
       });
     }
   };
@@ -177,8 +190,8 @@ export default function AddRoom({ id }) {
                 Room Features
               </label>
 
-              <div className="mt-2 bg-gray-200">
-                <label className="inline-flex  items-center ml-6">
+              <div className="mt-2 bg-gray-200 flex flex-wrap sm:justify-around justify-center">
+                <label className="inline-flex  items-center mx-3">
                   <input
                     id="AC"
                     type="checkbox"
@@ -189,7 +202,7 @@ export default function AddRoom({ id }) {
                   />
                   <span className="ml-2 text-gray-600">AC</span>
                 </label>
-                <label className="inline-flex items-center ml-6">
+                <label className="inline-flex items-center mx-3">
                   <input
                     id="wifi"
                     type="checkbox"
@@ -200,7 +213,7 @@ export default function AddRoom({ id }) {
                   />
                   <span className="ml-2  text-gray-600">Wifi</span>
                 </label>
-                <label className="inline-flex items-center ml-6">
+                <label className="inline-flex items-center mx-3">
                   <input
                     id="mini-fridge"
                     type="checkbox"
@@ -211,7 +224,7 @@ export default function AddRoom({ id }) {
                   />
                   <span className="ml-2  text-gray-600">Mini Fridge</span>
                 </label>
-                <label className="inline-flex items-center ml-6">
+                <label className="inline-flex items-center mx-3">
                   <input
                     id="geyser"
                     type="checkbox"
