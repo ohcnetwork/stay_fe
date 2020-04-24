@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import DatePicker from "react-date-picker";
 import { useDispatch, connectAdvanced } from 'react-redux';
 import Slider from 'rc-slider';
+import { Loading } from "../common/Loader";
 
 import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
 import HotelList from "./HotelList";
@@ -21,7 +22,7 @@ function Hotel() {
     // for catch error
     const [errFlagCatch, seterrFlagCatch] = useState(false)
     // for loading
-    const [loading, setloading] = useState(false)
+    const [loading, setloading] = useState(true)
 
     // for date
     // var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
@@ -84,7 +85,10 @@ function Hotel() {
                 // console.log("dispatch hotels", res)
 
             })
-            .catch(err => seterrFlagCatch(true))
+            .catch(err => {
+                seterrFlagCatch(true)
+                setloading(false)
+            })
 
     }, [])
 
@@ -310,10 +314,10 @@ function Hotel() {
                     </div>
                 </div>
 
-                {errFlagCatch ?
-                    <ErrorComponent /> :
-                    loading ?
-                        <div>Loading ...</div> :
+                {loading ?
+                    <Loading /> :
+                    errFlagCatch ?
+                        <ErrorComponent /> :
                         errFlag ?
                             <ErrorComponent /> : <HotelList hotels={hotels} startdate={submitdate.checkin} enddate={submitdate.checkout} />}
 
