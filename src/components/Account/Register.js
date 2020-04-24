@@ -40,6 +40,7 @@ export default function Register(user) {
 
         setForm(fieldValue)
     }
+    const links =["userregister" ,"facilitatorregister"];
 
     function validInputs() {
         let formValid = true;
@@ -185,16 +186,21 @@ export default function Register(user) {
                     <div className="h-10">
                         <p className="text-red-500 text-xs italic bold text-center mt-2">{formError}</p>
                     </div>
-                    <div className="flex items-center justify-between sm:flex-row">
-                        <button type="submit" className={`flex items-center ${formLoading ? "bg-gray-600" : "bg-indigo-600 hover:bg-indigo-800"} text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline`}>
+                    <div className="flex items-center justify-between sm:flex-row ">
+                        <button type="submit" className={`flex  mr-2 items-center ${formLoading ? "bg-gray-600" : "bg-indigo-600 hover:bg-indigo-800"} text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline`}>
                             <svg className={`h-5 w-5 ${formLoading ? "text-gray-400" : "text-indigo-500"} transition ease-in-out duration-150 mr-1`} fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                             </svg>
                             Register
                          </button>
-                        <A className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800" href="/login">
+                         <div className="flex-row  ml-2 ">
+                         <A className="inline-block align-baseline text-center  font-bold text-sm text-indigo-600 hover:text-indigo-800" href={'/'+links[user.other]}>
+                            Register as {user.othertype} 
+                        </A>
+                        <A className="inline-block align-baseline font-bold text-center text-sm text-indigo-600 hover:text-indigo-800" href="/login">
                             Already have an account?
                         </A>
+                        </div>
                     </div>
                 </form>
             </div>
