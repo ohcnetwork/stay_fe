@@ -19,7 +19,7 @@ export default function Register() {
         email: "",
         password: "",
         confirm: "",
-        type: ""
+        type: "facilityowner"
     }
 
     const [formLoading, setFormLoading] = useState(false);
