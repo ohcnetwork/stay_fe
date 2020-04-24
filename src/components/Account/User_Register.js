@@ -5,7 +5,7 @@ import { navigate, A } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import { validateEmailAddress, validatePassword } from "../../util/validation";
 
-export default function Register() {
+export default function UserRegister() {
     const dispatch = useDispatch();
     const initForm = {
         name: "",
