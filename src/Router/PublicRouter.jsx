@@ -51,5 +51,4 @@ const PublicRouter = () => {
     </div>
   );
 };
-
 export default PublicRouter;
