@@ -14,7 +14,7 @@ export default function AddRoom({ id }) {
     description: "",
     category: "",
     beds: "",
-    file: [],
+    // file: [],
     photos: "photo",
     noOfRooms: "",
     cost: "",
@@ -25,7 +25,7 @@ export default function AddRoom({ id }) {
     description: "",
     category: "",
     beds: "",
-    file: "",
+    // file: "",
     photos: "",
     noOfRooms: "",
     cost: "",
@@ -101,17 +101,17 @@ export default function AddRoom({ id }) {
       console.log("AddHotelForm.js: ", "creating a new hotel", form);
       const formData = new FormData()
   
-      Object.keys(form).forEach(key => {
-        if (key === "file"){
-          form[key].forEach(el => {
-            formData.append(key, el);  
-          });
-        } else {
-          formData.append(key, form[key]);  
-        } 
-      });
+      // Object.keys(form).forEach(key => {
+      //   if (key === "file"){
+      //     form[key].forEach(el => {
+      //       formData.append(key, el);  
+      //     });
+      //   } else {
+      //     formData.append(key, form[key]);  
+      //   } 
+      // });
       setFormLoading(true);
-      dispatch(postAddRooms(id, formData)).then((resp) => {
+      dispatch(postAddRooms(id, form)).then((resp) => {
         const { status: statusCode } = resp;
         const { data: res } = resp;
         console.log(resp);
@@ -362,13 +362,13 @@ export default function AddRoom({ id }) {
             </div>
 
             {/* File upload */}
-            <div className="mt-2">
+            {/* <div className="mt-2">
             <label className="block text-sm text-gray-600 " htmlFor="photos">
               Upload photos (maximum 5)
             </label>
 
             <UploadImage setFiles={setFiles} formLoading={formLoading} />
-          </div>
+          </div> */}
             <div className="h-10">
               <p className="text-red-500 text-xs italic bold text-center mt-2">
                 {formError}
