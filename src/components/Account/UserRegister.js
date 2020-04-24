@@ -3,7 +3,7 @@ import Register from "./Register";
 
 function UserRegister() {
   return (
-    <Register type={"user"} label={"REGSITER AS CUSTOMER"} othertype={"Hotel Owner"} other={"1"}/>
+    <Register type={"user"} label={"REGISTER AS CUSTOMER"} othertype={"Hotel Owner"} other={"1"}/>
   )
 }
 
