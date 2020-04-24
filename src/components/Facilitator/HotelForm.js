@@ -18,7 +18,7 @@ export default function HotelForm({ initForm, initFacilities, formLoading, formE
             setForm(initForm);
             setCheckbox(initFacilities);
         }
-    }, [initFacilities, initForm]);
+    }, [initFacilities, initForm, uploadOff]);
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -53,7 +53,7 @@ export default function HotelForm({ initForm, initFacilities, formLoading, formE
         if (!phonePreg(contact)) {
             formValid = false;
             err["contact"] = "Enter Valid phone number";
-        };
+        }
 
         setError(err);
         return formValid;

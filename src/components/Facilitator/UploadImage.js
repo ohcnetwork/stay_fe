@@ -56,7 +56,7 @@ export default function UploadImage({ setFiles, limit = 5, prevImages = [], form
     function previewImage(image, i, cancel = true) {
         return (
             <div key={i.toString()} className="flex flex-col items-center my-2">
-                <img src={image} className="bg-gray-400 w-16 h-12 mx-1 rounded border border-gray-800" />
+                <img src={image} alt={`hotel-${i}`} className="bg-gray-400 w-16 h-12 mx-1 rounded border border-gray-800" />
                 <div className={`text-white font-bold flex items-center justify-center text-xs rounded w-12 h-4 mt-1 cursor-pointer ${formLoading? "bg-gray-600 cursor-default": "bg-red-600 hover:bg-red-800"}`} onClick={() => cancelImage(i)}>cancel</div>
             </div>
         );
