@@ -2,16 +2,19 @@ import React from "react";
 import { useRedirect, useRoutes, navigate } from "hookrouter";
 import PublicNavBar from "../components/Navbars/PublicNavBar";
 import Login from "../components/Account/Login";
-import Register from "../components/Account/Register";
 import Hotel from "../components/Browse/Hotel";
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import ForgotPassword from "../components/Account/ForgotPassword";
 import ResetPassword from "../components/Account/ResetPassword";
+import UserRegister from "../components/Account/UserRegister";
+import FacilitatorRegister from "../components/Account/FacilitatorRegister";
 
 const routes = {
   "/login": () => <Login />,
-  "/register": () => <Register />,
+  "/userregister": () => <UserRegister />,
+  "/facilitatorregister" : () => <FacilitatorRegister/>,
+
   "/room/:id/:category/:startdate/:enddate": ({
     id,
     category,
