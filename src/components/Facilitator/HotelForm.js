@@ -296,7 +296,7 @@ export default function HotelForm({
                         {error.facilities}
                     </div>
                 </div>
-                {!uploadOff && (
+                {/* {!uploadOff && (
                     <div className="mt-2">
                         <label
                             className="block text-sm text-gray-600 "
@@ -309,7 +309,7 @@ export default function HotelForm({
                             formLoading={formLoading}
                         />
                     </div>
-                )}
+                )} */}
                 <div className="mt-2">
                     <label
                         className="block text-sm text-gray-600"

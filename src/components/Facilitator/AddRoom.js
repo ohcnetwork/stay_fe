@@ -136,7 +136,7 @@ export default function AddRoom({ id }) {
 
     return (
         <div>
-            <div className="h-full overflow-x-hidden flex items-center justify-center bg-gray-400 ">
+            <div className="min-h-screen overflow-x-hidden flex items-center justify-center bg-gray-400 ">
                 <div className="leading-loose">
                     <form
                         onSubmit={handleSubmit}
@@ -388,7 +388,7 @@ export default function AddRoom({ id }) {
                         </div>
 
                         {/* File upload */}
-                        <div className="mt-2">
+                        {/* <div className="mt-2">
                             <label
                                 className="block text-sm text-gray-600 "
                                 htmlFor="photos">
@@ -399,7 +399,7 @@ export default function AddRoom({ id }) {
                                 setFiles={setFiles}
                                 formLoading={formLoading}
                             />
-                        </div>
+                        </div> */}
                         <div className="h-10">
                             <p className="text-red-500 text-xs italic bold text-center mt-2">
                                 {formError}
