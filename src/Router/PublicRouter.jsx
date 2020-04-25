@@ -8,8 +8,10 @@ import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import ForgotPassword from "../components/Account/ForgotPassword";
 import ResetPassword from "../components/Account/ResetPassword";
+import LandingPage from "../components/Common/LandingPage";
 
 const routes = {
+  "/": () => <LandingPage />,
   "/login": () => <Login />,
   "/register": () => <Register />,
   "/room/:id/:category/:startdate/:enddate": ({
@@ -34,7 +36,7 @@ const routes = {
 };
 
 const PublicRouter = () => {
-  useRedirect("/", "/login");
+  // useRedirect("/", "/login");
   const pages = useRoutes(routes);
   !pages && navigate("/");
   return (

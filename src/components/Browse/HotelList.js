@@ -22,8 +22,8 @@ const HotelList = ({ hotels, startdate, enddate }) => {
     );
   }
   return (
-    <div className="hotelslist-center">
-      <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
+    <div className="hotelslist-center max-w-6xl mx-auto">
+      <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-4 lg:max-w-none">
         {hotels.map((item) => {
           return (
             <div key={item.id}>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import DatePicker from "react-date-picker";
 import { useDispatch, connectAdvanced } from 'react-redux';
 import Slider from 'rc-slider';
-import { Loading } from "../common/Loader";
+import { Loading } from "../Common/Loader";
 
 import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
 import HotelList from "./HotelList";
@@ -210,13 +210,13 @@ function Hotel() {
     }
     return (
         <div>
-            <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8 max-w-6xl mx-auto">
+            <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
                 <div className="relative max-w-7xl mx-auto">
-                    <div className="text-center">
-                        <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+                    <div className="">
+                        {/* <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                             Accomodation
-                        </h2>
-                        <p className="mt-3 max-w-2xl mx-auto text-xl leading-7 text-gray-500 sm:mt-4">
+                        </h2> */}
+                        <p className="mt-3  text-xl leading-7 text-indigo-500 sm:mt-4">
                             Select an accomodation that fits your needs and your budget
                         </p>
                     </div>
@@ -229,7 +229,7 @@ function Hotel() {
                                 Category
                             </label>
                             <div className="relative">
-                                <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="category"
+                                <select className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="category"
                                     id="category"
                                     onChange={handleChange}
                                     value={form.category}
@@ -249,7 +249,7 @@ function Hotel() {
                                 Location
                             </label>
                             <div className="relative">
-                                <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="location"
+                                <select className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="location"
                                     id="location"
                                     onChange={handleChange}
                                     value={form.location}

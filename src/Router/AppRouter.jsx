@@ -2,6 +2,7 @@ import React from "react";
 import { useRoutes, useRedirect } from "hookrouter";
 import UserNavBar from "../components/Navbars/UserNavBar";
 
+import LandingPage from "../components/Common/LandingPage";
 import UserDashboard from "../components/Dashboard/Userdashboard/UserDashboard";
 import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
 import History from "../components/BookingHistory/History";
@@ -10,7 +11,8 @@ import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 
 const routes = {
-  "/": () => <UserDashboard />,
+  "/": () => < LandingPage />,
+  "/profile": () => <UserDashboard />,
   "/edit": () => <UserEdit />,
   "/history": () => <History />,
 
@@ -20,13 +22,13 @@ const routes = {
     startdate,
     enddate,
   }) => (
-    <ViewRoom
-      id={id}
-      category={category}
-      startdate={startdate}
-      enddate={enddate}
-    />
-  ),
+      <ViewRoom
+        id={id}
+        category={category}
+        startdate={startdate}
+        enddate={enddate}
+      />
+    ),
   "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
     <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
   ),
