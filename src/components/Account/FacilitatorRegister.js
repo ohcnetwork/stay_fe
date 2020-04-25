@@ -7,4 +7,4 @@ function FacilitatorRegister() {
     )
 }
 
-export default FacilitatorRegister
+export default FacilitatorRegister;
