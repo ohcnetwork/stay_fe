@@ -156,7 +156,7 @@ export default function Login() {
                             </svg>
                             Sign In
                         </button>
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col ">
                             <A
                                 className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1"
                                 href="/user-register">
