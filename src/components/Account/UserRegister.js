@@ -7,4 +7,4 @@ function UserRegister() {
   )
 }
 
-export default UserRegister
+export default UserRegister;
