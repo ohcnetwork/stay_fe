@@ -11,45 +11,45 @@ import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 
 const routes = {
-  "/": () => < LandingPage />,
-  "/profile": () => <UserDashboard />,
-  "/edit": () => <UserEdit />,
-  "/history": () => <History />,
+    "/": () => < LandingPage />,
+    "/profile": () => <UserDashboard />,
+    "/edit": () => <UserEdit />,
+    "/history": () => <History />,
 
-  "/room/:id/:category/:startdate/:enddate": ({
-    id,
-    category,
-    startdate,
-    enddate,
-  }) => (
-      <ViewRoom
-        id={id}
-        category={category}
-        startdate={startdate}
-        enddate={enddate}
-      />
+    "/room/:id/:category/:startdate/:enddate": ({
+        id,
+        category,
+        startdate,
+        enddate,
+    }) => (
+            <ViewRoom
+                id={id}
+                category={category}
+                startdate={startdate}
+                enddate={enddate}
+            />
+        ),
+    "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
+        <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
     ),
-  "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
-    <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
-  ),
-  "/browse": () => <Hotel />,
+    "/browse": () => <Hotel />,
 };
 
 const AppRouter = () => {
-  useRedirect("/login", "/");
-  const pages = useRoutes(routes);
+    useRedirect("/login", "/");
+    const pages = useRoutes(routes);
 
-  return (
-    <div className="bg-white">
-      <UserNavBar />
-      {pages}
-      {!pages && (
-        <div className="h-screen flex justify-center py-16">
-          Error 404: Page not found
+    return (
+        <div className="bg-white">
+            <UserNavBar />
+            {pages}
+            {!pages && (
+                <div className="h-screen flex justify-center py-16">
+                    Error 404: Page not found
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default AppRouter;

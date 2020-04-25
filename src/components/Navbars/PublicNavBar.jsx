@@ -13,5 +13,5 @@ export default function UserNavBar() {
         },
 
     ];
-    return <NavBar links={links} />
+    return <NavBar links={links} />;
 }

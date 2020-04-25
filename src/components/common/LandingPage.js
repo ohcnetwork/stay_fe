@@ -2,6 +2,7 @@ import React from 'react'
 import { A } from "hookrouter"
 import { useSelector } from "react-redux"
 import Hotel from "../Browse/Hotel";
+import landingpageimage from "../../Common/images/landingpageimage.png";
 function LandingPage() {
     const state = useSelector((state) => state);
     const { currentUser } = state;
@@ -9,22 +10,24 @@ function LandingPage() {
 
     return (
         <div>
-            <div class="w-full ">
-                <div class="flex bg-white" style={{ height: "350px" }}>
-                    <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-2/3">
+            <div className="w-full ">
+                <div className="flex bg-white" style={{ height: "350px" }}>
+                    <div className="flex items-center text-left sm:text-center md:text-left px-8 md:pl-12 lg:w-2/3">
                         <div>
-                            <h2 class="text-3xl font-semibold text-gray-800 md:text-4xl">Stay <span class="text-indigo-600">Home</span>, Fight <span class="text-indigo-600">Corona</span></h2>
-                            <p class="mt-2 text-sm text-gray-500 md:text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit harum id necessitatibus odio quam quasi, quibusdam rem tempora voluptates. Cumque debitis dignissimos id quam vel!</p>
-                            {!currentUser && <div class="flex justify-center lg:justify-start mt-6">
-                                <A class="px-4 py-3 bg-gray-900 text-gray-200 text-xs font-semibold rounded hover:bg-gray-800" href="/login">SignIn</A>
-                                <A class="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="/register">SignUp as User</A>
-                                <A class="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="register">SignUp as Facilitator</A>
+                            <h2 className="text-3xl font-semibold text-gray-800 md:text-4xl">Stay <span className="text-indigo-600">Quarantined</span>, Fight <span className="text-indigo-600">Corona</span></h2>
+                            <p className="mt-2 text-sm text-gray-500 md:text-base">A platform to list and book quarantined hotels and corona care centers for 14 day isolation in Kerala with all required facilities provided to you. Choose from the best of the facilities we provide and enjoy the quarantine days! Stay Safe..Fight Corona!</p>
+                            {!currentUser && <div className="flex justify-center lg:justify-start mt-6">
+                                <A className="px-4 py-3 bg-gray-900 text-gray-200 text-xs font-semibold rounded hover:bg-gray-800" href="/login">SignIn</A>
+                                <A className="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="/user-register">SignUp as User</A>
+                                <A className="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="facilitator-register">SignUp as Facilitator</A>
                             </div>}
                         </div>
                     </div>
-                    <div class="hidden lg:block lg:w-1/3" >
-                        <div class="h-full object-cover" >
-                            <div class="h-full bg-gray-100"></div>
+                    <div className="hidden md:block lg:w-1/3 pr-8" >
+                        <div className="h-full object-cover" >
+                            <div className="h-full">
+                                <img src={landingpageimage} alt=""></img>
+                            </div>
                         </div>
                     </div>
                 </div>

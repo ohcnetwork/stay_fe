@@ -12,5 +12,5 @@ export default function UserNavBar() {
             title: "Profile",
         },
     ];
-    return <NavBar links={links} logout={true} />
+    return <NavBar links={links} logout={true} />;
 }
