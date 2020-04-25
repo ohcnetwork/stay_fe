@@ -7,10 +7,9 @@ import { navigate, A } from "hookrouter";
 import HotelForm from "./HotelForm";
 
 export default function EditHotel({ id }) {
-
     const dispatch = useDispatch();
 
-    const state = useSelector(state => state);
+    const state = useSelector((state) => state);
     const { currentUser: temp } = state;
     const currentUser = temp && temp.data && temp.data.data;
     const { userHotelList } = state;
@@ -32,7 +31,7 @@ export default function EditHotel({ id }) {
         parking: false,
         wifi: false,
         pool: false,
-        cctv: false
+        cctv: false,
     };
 
     const [formLoading, setFormLoading] = useState(false);
@@ -41,11 +40,15 @@ export default function EditHotel({ id }) {
         pool: false,
         wifi: false,
         parking: false,
-        cctv: false
+        cctv: false,
     });
     const [formError, setFormError] = useState(false);
 
-    const currentHotel = userHotelList && userHotelList.data && userHotelList.data.data && Object.values(userHotelList.data.data).find(el => el.id === id);
+    const currentHotel =
+        userHotelList &&
+        userHotelList.data &&
+        userHotelList.data.data &&
+        Object.values(userHotelList.data.data).find((el) => el.id === id);
 
     useEffect(() => {
         dispatch(getUserHotelList());
@@ -54,56 +57,65 @@ export default function EditHotel({ id }) {
     useEffect(() => {
         if (currentHotel) {
             let currentForm = Object.assign({}, initForm);
-            Object.keys(currentForm).forEach(el => {
+            Object.keys(currentForm).forEach((el) => {
                 currentForm[el] = currentHotel[el];
             });
             let currentFacilities = Object.assign({}, initFacilities);
-            currentHotel.facilities.split(",").forEach(el => {
+            currentHotel.facilities.split(",").forEach((el) => {
                 currentFacilities[el] = true;
             });
             setForm(currentForm);
             setFacilitites(currentFacilities);
         }
-    }, [currentHotel, initFacilities, initForm])
-
+    }, [currentHotel, initFacilities, initForm]);
 
     function handleSubmit(formData) {
         setFormLoading(true);
-        dispatch(updateHotel([id, "update-Facility"], formData)).then((resp) => {
-            const { status: statusCode } = resp;
-            const { data: res } = resp;
+        dispatch(updateHotel([id, "update-Facility"], formData)).then(
+            (resp) => {
+                const { status: statusCode } = resp;
+                const { data: res } = resp;
 
-            // set captha logic needed
-            if (res && statusCode === 200 && res.success === true) {
-                Notficiation.Success({
-                    msg: "Hotel Updated",
-                });
-                navigate(`/hotel/${id}`);
-            } else {
-                setFormError("Some problem occurred");
-                setFormLoading(false);
-            }            
-        });
+                // set captha logic needed
+                if (res && statusCode === 200 && res.success === true) {
+                    Notficiation.Success({
+                        msg: "Hotel Updated",
+                    });
+                    navigate(`/hotel/${id}`);
+                } else {
+                    setFormError("Some problem occurred");
+                    setFormLoading(false);
+                }
+            }
+        );
     }
 
     if (!userHotelList || userHotelList.isFetching) {
-        return <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
+        return (
+            <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
+        );
     }
     if (userHotelList.error) {
         return (
             <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
-                <div className="text-5xl text-gray-400">Some problem occured, please try again</div>
+                <div className="text-5xl text-gray-400">
+                    Some problem occured, please try again
+                </div>
             </div>
         );
     }
 
     // check if the hotel actually exists
     // and if this user is the owner
-    if (!currentHotel || (currentHotel.ownerID !== currentUser.id)) {
+    if (!currentHotel || currentHotel.ownerID !== currentUser.id) {
         return (
             <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
-                <div className="text-5xl text-gray-400">Hotel was not found</div>
-                <A href="/" className="flex items-center text-xl m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
+                <div className="text-5xl text-gray-400">
+                    Hotel was not found
+                </div>
+                <A
+                    href="/"
+                    className="flex items-center text-xl m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
                     Home
                 </A>
             </div>
@@ -118,7 +130,8 @@ export default function EditHotel({ id }) {
                 formLoading={formLoading}
                 formError={formError}
                 uploadOff={true}
-                submit={handleSubmit} />
+                submit={handleSubmit}
+            />
         </div>
     );
 }

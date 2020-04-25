@@ -6,11 +6,11 @@ export default function UserNavBar() {
         {
             link: "/",
             title: "Home",
-        },  
+        },
         {
             link: "/browse",
             title: "Browse",
         },
     ];
-    return <NavBar links={links} logout={true} />
+    return <NavBar links={links} logout={true} />;
 }

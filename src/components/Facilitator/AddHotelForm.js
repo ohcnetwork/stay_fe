@@ -27,7 +27,7 @@ export default function AddHotelForm() {
         pool: false,
         wifi: false,
         parking: false,
-        cctv: false
+        cctv: false,
     };
 
     const [formLoading, setFormLoading] = useState(false);
@@ -45,7 +45,6 @@ export default function AddHotelForm() {
                     msg: "Hotel Created, Add Room Details",
                 });
                 navigate(`${res.id}/room/add `);
-
             } else {
                 setFormError("Some problem occurred");
                 setFormLoading(false);
@@ -60,7 +59,8 @@ export default function AddHotelForm() {
                 initFacilities={initFacilities}
                 formLoading={formLoading}
                 formError={formError}
-                submit={handleSubmit} />
+                submit={handleSubmit}
+            />
         </div>
     );
 }
