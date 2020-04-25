@@ -8,10 +8,13 @@ import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import ForgotPassword from "../components/Account/ForgotPassword";
 import ResetPassword from "../components/Account/ResetPassword";
-
+import UserRegister from "../components/Account/UserRegister";
+import FacilitatorRegister from "../components/Account/FacilitatorRegister";
 const routes = {
     "/login": () => <Login />,
     "/register": () => <Register />,
+    "/facilitatorregister" : () => <FacilitatorRegister/>,
+    "/userregister" : () => <UserRegister />,
     "/room/:id/:category/:startdate/:enddate": ({
         id,
         category,

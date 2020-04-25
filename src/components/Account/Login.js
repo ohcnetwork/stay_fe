@@ -159,8 +159,13 @@ export default function Login() {
                         <div className="flex flex-col items-center">
                             <A
                                 className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1"
-                                href="/register">
-                                Register Account
+                                href="/userregister">
+                                Register as Customer
+                            </A>
+                            <A
+                                className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1"
+                                href="/facilitatorregister">
+                                Register as Hotel Owner
                             </A>
                             <A
                                 className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800"
