@@ -82,10 +82,10 @@ export default function ViewRoom() {
                         <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                             Booking History
                         </h2>
-                        <div className="flex mt-3  lg:text-md text-sm w-5/6 flex-row bg-gray-200 lg:w-1/2 m-0 m-auto ">
+                        <div className="flex mt-3 text-center lg:text-md text-sm w-5/6 flex-row bg-gray-200 lg:w-1/2 m-0 m-auto ">
                             <div className="text-center w-1/3  px-3 py-2 m-1">
                                 <button
-                                    className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
+                                    className={`bg-white text-xs ml-0 w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
                                         form3 === "CHECKED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
@@ -94,9 +94,9 @@ export default function ViewRoom() {
                                     CHECKED
                                 </button>
                             </div>
-                            <div className=" text-center w-1/3  px-3 py-2 m-1">
+                            <div className=" text-center w-1/3  px-1 py-2 m-1">
                                 <button
-                                    className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
+                                    className={`bg-white w-full text-xs ml-0 hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
                                         form3 === "BOOKED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
@@ -107,7 +107,7 @@ export default function ViewRoom() {
                             </div>
                             <div className=" text-center w-1/3 px-3 py-2 m-1">
                                 <button
-                                    className={`bg-white w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
+                                    className={`bg-white w-full text-xs ml-0 hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-0 lg:px-2 border ${
                                         form3 === "CANCELLED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
@@ -175,13 +175,13 @@ export default function ViewRoom() {
                                                     Checkin :{" "}
                                                     {new Date(
                                                         value.checkin
-                                                    ).toLocaleString()}
+                                                    ).toLocaleDateString()}
                                                 </li>
                                                 <li>
                                                     Checkout :{" "}
                                                     {new Date(
                                                         value.checkout
-                                                    ).toLocaleString()}
+                                                    ).toLocaleDateString()}
                                                 </li>
                                                 <li>
                                                     <div className="flex w-full   flex-row  ">
