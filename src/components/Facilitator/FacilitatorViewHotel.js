@@ -4,7 +4,9 @@ import { A } from "hookrouter";
 
 import { getUserHotelList, getHotelRoomList } from "../../Redux/actions";
 import DeleteConfirmation from "./DeleteConfirmation";
-import { HOTEL_STATUS, DEFAULT_IMAGE } from "../../Common/constants";
+import ActionsBox from "./ActionsBox";
+import HotelInfo from "../Hotel/HotelInfo";
+import RoomList from "../Room/RoomsList";
 
 export default function FacilitatorViewHotel({ id }) {
     const [showConfirmation, setShowConfirmation] = useState(false);
@@ -21,105 +23,6 @@ export default function FacilitatorViewHotel({ id }) {
         dispatch(getUserHotelList(currentUser.id));
         dispatch(getHotelRoomList(id));
     }, [dispatch, currentUser.id, id]);
-
-    function star(num) {
-        return (
-            <svg
-                key={num.toString()}
-                className="w-6 h-6 mr-1"
-                viewBox="0 0 300 275"
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1">
-                <polygon
-                    fill="#2D3748"
-                    stroke="#2D3748"
-                    strokeWidth="15"
-                    points="150,25  179,111 269,111 197,165 223,251  150,200 77,251  103,165 31,111 121,111"
-                />
-            </svg>
-        );
-    }
-
-    function listRooms(rooms) {
-        if (rooms.length > 0) {
-            return rooms.map((room) => {
-                const r = room[0];
-                return (
-                    <div key={r.title} className="md:w-1/2 lg:w-1/3 w-full">
-                        <div
-                            key={r.title}
-                            className="mx-5 my-5 flex flex-col shadow-lg bg-indigo-100 rounded">
-                            <div className="">
-                                <img
-                                    alt={r.title}
-                                    className="w-full rounded"
-                                    src={DEFAULT_IMAGE.ROOM}
-                                />
-                            </div>
-                            <div className="py-3 px-3">
-                                <div className="flex flex-wrap items-center justify-between py-1">
-                                    <div className="text-gray-800 text-lg uppercase font-medium py-1">
-                                        {r.title}
-                                    </div>
-                                    <div className="flex items-center">
-                                        <div className="text-xs px-2 bg-black text-white font-bold uppercase tracking-wide text-center">
-                                            {r.category}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap pb-3">
-                                    {r.features.split(",").map((el) => (
-                                        <div
-                                            key={el}
-                                            className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">
-                                            {el.replace("_", " ")}
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="text-gray-600 pb h-32 overflow-hidden text-sm">
-                                    {r.description}
-                                </div>
-                                <div className="flex flex-wrap items-center justify-between border-b pb-3">
-                                    <div className="text-gray-800">
-                                        Beds: {r.beds}
-                                    </div>
-                                    <div className="flex items-center ml-2">
-                                        <div className="text-2xl text-gray-900 font-bold tracking-wide flex">
-                                            <svg
-                                                className="w-4 h-4 mt-2 fill-current"
-                                                viewBox="39.5 -0.5 169.756 250">
-                                                <path d="M152.511,23.119h41.031L209.256-0.5H55.214L39.5,23.119h26.739c27.086,0,52.084,2.092,62.081,24.743H55.214 L39.5,71.482h91.769c-0.002,0.053-0.002,0.102-0.002,0.155c0,16.974-14.106,43.01-60.685,43.01l-22.537-0.026l0.025,22.068 L138.329,249.5h40.195l-93.42-116.709c38.456-2.074,74.523-23.563,79.722-61.309h28.716l15.714-23.62h-44.84 C162.606,38.761,158.674,29.958,152.511,23.119z" />
-                                            </svg>
-                                            {r.cost}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap items-center justify-between py-2">
-                                    <div className="text-gray-800 font-medium py-2">
-                                        Rooms: {room.length}
-                                    </div>
-                                    {/* <div className="flex py-2">
-                                            <A href="#" className="bg-indigo-600 hover:bg-indigo-800 rounded px-3 py-1 mx-1 font-medium text-white">
-                                                Edit
-                                            </A>
-                                            <A href="#" className="bg-red-700 hover:bg-red-800 rounded px-3 py-1 mx-1 font-medium text-white">
-                                                Delete
-                                            </A>
-                                        </div> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                );
-            });
-        } else {
-            return (
-                <div className="text-gray-500 py-8 text-center text-xl w-full">
-                    You currently have no rooms
-                </div>
-            );
-        }
-    }
 
     // check if loading
     if (
@@ -148,6 +51,13 @@ export default function FacilitatorViewHotel({ id }) {
         userHotelList.data.data &&
         Object.values(userHotelList.data.data).find((el) => el.id === id);
 
+    const buttons = [
+        { link: `/hotel/${currentHotel.id}/bookings`, text: "View Bookings" },
+        { link: `/hotel/${currentHotel.id}/room/add`, text: "Add Rooms" },
+        { link: `/hotel/${currentHotel.id}/edit`, text: "Edit Hotel" },
+        { action: toggleConfirmation, text: "Delete Hotel" },
+    ];
+
     // check if the hotel actually exists
     // and if this user is the owner
     if (!currentHotel || currentHotel.ownerID !== currentUser.id) {
@@ -169,141 +79,21 @@ export default function FacilitatorViewHotel({ id }) {
         setShowConfirmation(!showConfirmation);
     }
 
-    const hotelRoomData =
-        hotelRoomList.data &&
-        [
-            ...new Set(
-                hotelRoomList.data.data.map((e) =>
-                    JSON.stringify({ ...e, id: "" })
-                )
-            ),
-        ].map((e) =>
-            hotelRoomList.data.data.filter(
-                (el) => JSON.stringify({ ...el, id: "" }) === e
-            )
-        );
-
-    const totalRoomData = [].concat(...hotelRoomData);
-    // const totalRoomBooked = totalRoomData.length - (totalRoomData).filter(e => e.status === "AVAILABLE").length;
-    // let styleWidth = parseInt((totalRoomBooked / totalRoomData.length) * 12);
+    const hotelRoomData = (hotelRoomList.data && hotelRoomList.data.data) || [];
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
-                <div className="bg-white border-t border-b rounded shadow mb-6 md:mx-0 mx-2 flex flex-wrap">
-                    <div className="w-full lg:w-2/5">
-                        <img
-                            alt={currentHotel.name}
-                            className="w-full h-full rounded"
-                            src={DEFAULT_IMAGE.HOTEL}
-                        />
-                    </div>
-                    <div className="flex flex-col w-full lg:w-3/5 md:pl-10 px-5 py-5">
-                        <div className="flex flex-wrap items-center text-4xl text-gray-800 uppercase">
-                            <div className="mr-4">{currentHotel.name}</div>
-                            <div className="flex">
-                                {Array.apply(null, {
-                                    length: currentHotel.starCategory,
-                                }).map((el, num) => star(num))}
-                            </div>
-                        </div>
-                        <div className="text-gray-600">
-                            {currentHotel.address},{" "}
-                            {currentHotel.panchayath && (
-                                <span>{currentHotel.panchayath},</span>
-                            )}{" "}
-                            {currentHotel.district}
-                        </div>
-                        <div className="flex flex-wrap py-2">
-                            {currentHotel.facilities.split(",").map((el) => (
-                                <div
-                                    key={el}
-                                    className="text-sm text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">
-                                    {el.replace("_", " ")}
-                                </div>
-                            ))}
-                        </div>
-                        <div className="text-white flex py-5">
-                            <div
-                                className={`text-sm py-1 px-2 bg-${
-                                    HOTEL_STATUS[currentHotel.status].color
-                                } text-white font-bold uppercase tracking-wide text-center`}>
-                                {HOTEL_STATUS[currentHotel.status].string}
-                            </div>
-                        </div>
-                        <div className="text-gray-600 text-sm">
-                            Policy: {currentHotel.policy}
-                        </div>
-                        <div className="text-gray-600 text-sm">
-                            Contact: {currentHotel.contact}
-                        </div>
-                        {/* <div className="flex-grow flex flex-col justify-center items-end py-50">
-                            <div className="text-xs font-bold text-gray-800">
-                                {totalRoomBooked}/{totalRoomData.length} booked
-                            </div>
-                            <div className="bg-indigo-200 w-full rounded-full">
-                                <div className={`w-0 w-${styleWidth}/12 bg-indigo-600 h-2 rounded-full`}></div>
-                            </div>
-                        </div> */}
-                    </div>
+                <div className="mb-6 md:mx-0 mx-2">
+                    <HotelInfo data={currentHotel} />
                 </div>
 
                 <div className="w-full mb-6">
-                    <div className="bg-white rounded sm:border shadow md:mx-0 mx-2 pb-1">
-                        <div className="border-b">
-                            <div className="flex px-6 -mb-px items-center">
-                                <h3 className="text-blue-dark py-4 font-normal text-lg">
-                                    Actions
-                                </h3>
-                                {currentHotel.ownerID === currentUser.id && (
-                                    <div className="flex items-center ml-2">
-                                        <div className="text-sm py-1 px-2 bg-green-600 text-white font-bold uppercase tracking-wide text-center">
-                                            owner
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap justify-evenly">
-                            <A
-                                href={`/hotel/${currentHotel.id}/bookings`}
-                                className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
-                                View Bookings
-                            </A>
-                            <A
-                                href={`/hotel/${currentHotel.id}/room/add`}
-                                className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
-                                Add Rooms
-                            </A>
-                            <A
-                                href={`/hotel/${currentHotel.id}/edit`}
-                                className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
-                                Edit Hotel
-                            </A>
-                            <div
-                                onClick={toggleConfirmation}
-                                className="cursor-pointer flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
-                                Delete Hotel
-                            </div>
-                        </div>
-                    </div>
+                    <ActionsBox buttons={buttons} labels={["owner"]} />
                 </div>
 
-                <div className="flex flex-wrap -mx-4">
-                    <div className="w-full mb-6 px-4 flex flex-col">
-                        <div className="flex-grow flex flex-col bg-white md:mx-0 mx-2 rounded shadow overflow-x-hidden">
-                            <div className="border-b">
-                                <div className="flex justify-between px-6 -mb-px">
-                                    <h3 className="text-indigo-900 py-4 font-normal text-lg">
-                                        Rooms
-                                    </h3>
-                                </div>
-                            </div>
-                            <div className="p-5 flex flex-wrap justify-center md:justify-start">
-                                {listRooms(hotelRoomData)}
-                            </div>
-                        </div>
-                    </div>
+                <div className="w-full mb-6">
+                    <RoomList data={hotelRoomData} />
                 </div>
             </div>
             <DeleteConfirmation
@@ -311,7 +101,7 @@ export default function FacilitatorViewHotel({ id }) {
                 toggle={toggleConfirmation}
                 name={currentHotel.name}
                 id={currentHotel.id}
-                rooms={totalRoomData.length}
+                rooms={hotelRoomData.length}
             />
         </div>
     );

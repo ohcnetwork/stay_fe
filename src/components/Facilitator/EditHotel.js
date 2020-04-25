@@ -35,13 +35,6 @@ export default function EditHotel({ id }) {
     };
 
     const [formLoading, setFormLoading] = useState(false);
-    const [form, setForm] = useState(initForm);
-    const [facilities, setFacilitites] = useState({
-        pool: false,
-        wifi: false,
-        parking: false,
-        cctv: false,
-    });
     const [formError, setFormError] = useState(false);
 
     const currentHotel =
@@ -53,21 +46,6 @@ export default function EditHotel({ id }) {
     useEffect(() => {
         dispatch(getUserHotelList());
     }, [dispatch]);
-
-    useEffect(() => {
-        if (currentHotel) {
-            let currentForm = Object.assign({}, initForm);
-            Object.keys(currentForm).forEach((el) => {
-                currentForm[el] = currentHotel[el];
-            });
-            let currentFacilities = Object.assign({}, initFacilities);
-            currentHotel.facilities.split(",").forEach((el) => {
-                currentFacilities[el] = true;
-            });
-            setForm(currentForm);
-            setFacilitites(currentFacilities);
-        }
-    }, [currentHotel, initFacilities, initForm]);
 
     function handleSubmit(formData) {
         setFormLoading(true);
@@ -121,6 +99,17 @@ export default function EditHotel({ id }) {
             </div>
         );
     }
+
+    let currentForm = Object.assign({}, initForm);
+    Object.keys(currentForm).forEach((el) => {
+        currentForm[el] = currentHotel[el];
+    });
+    let currentFacilities = Object.assign({}, initFacilities);
+    currentHotel.facilities.split(",").forEach((el) => {
+        currentFacilities[el] = true;
+    });
+    const facilities = currentFacilities;
+    const form = currentForm;
 
     return (
         <div className="overflow-x-hidden flex items-center justify-center">

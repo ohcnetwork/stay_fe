@@ -20,19 +20,9 @@ export default function HotelForm({
     const [error, setError] = useState(initError);
     const [checkbox, setCheckbox] = useState(initFacilities);
 
-    useEffect(() => {
-        if (uploadOff) {
-            setForm(initForm);
-            setCheckbox(initFacilities);
-        }
-    }, [initFacilities, initForm, uploadOff]);
-
     const handleChange = (e) => {
         const { value, name } = e.target;
-        const fieldValue = { ...form };
-
-        fieldValue[name] = fieldValue[name] = value;
-        setForm(fieldValue);
+        setForm({ ...form, [name]: value });
     };
 
     const handleCheckbox = (e) => {
@@ -76,22 +66,9 @@ export default function HotelForm({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (validInputs() && !formLoading) {
-            const formData = new FormData();
-
-            Object.keys(form).forEach((key) => {
-                if (key === "file") {
-                    form[key].forEach((el) => {
-                        formData.append(key, el);
-                    });
-                } else {
-                    formData.append(key, form[key]);
-                }
-            });
-
             // pass the value for submission
-            submit(formData);
+            submit(form);
         }
     };
 

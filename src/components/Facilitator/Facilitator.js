@@ -4,6 +4,7 @@ import { A } from "hookrouter";
 
 import { getUserHotelList } from "../../Redux/actions";
 import { HOTEL_STATUS } from "../../Common/constants";
+import ActionsBox from "./ActionsBox";
 
 export default function Facilitator() {
     const state = useSelector((state) => state);
@@ -105,6 +106,8 @@ export default function Facilitator() {
         userHotelList.data.data &&
         Object.values(userHotelList.data.data).filter((e) => e);
 
+    const buttons = [{ link: "/hotel/add", text: "Add Hotel" }];
+
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
@@ -174,22 +177,7 @@ export default function Facilitator() {
                 </div>
 
                 <div className="w-full mb-6">
-                    <div className="bg-white rounded sm:border shadow md:mx-0 mx-2 pb-1">
-                        <div className="border-b">
-                            <div className="flex justify-between px-6 -mb-px">
-                                <h3 className="text-blue-dark py-4 font-normal text-lg">
-                                    Actions
-                                </h3>
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap justify-evenly">
-                            <A
-                                href="/hotel/add"
-                                className="flex items-center text-lg m-5 py-3 px-8 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline">
-                                Add Hotel
-                            </A>
-                        </div>
-                    </div>
+                    <ActionsBox buttons={buttons} />
                 </div>
 
                 <div className="flex flex-wrap -mx-4">
