@@ -1,56 +1,57 @@
 {
-  "name": "stay_fe",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.19.2",
-    "formik": "^2.1.4",
-    "hookrouter": "^1.2.3",
-    "pnotify": "^4.0.1",
-    "rc-slider": "^9.2.4",
-    "react": "^16.13.1",
-    "react-compound-slider": "^2.5.0",
-    "react-date-picker": "^8.0.1",
-    "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "react-star-rating-component": "^1.4.1",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "yup": "^0.28.3"
-  },
-  "scripts": {
-    "build:css": "postcss src/tailwind.css -o src/index.css",
-    "watch:css": "postcss src/tailwind.css -o src/index.css -w",
-    "start": "concurrently --kill-others \"npm run watch:css\" \"react-scripts start\"",
-    "build": "npm run build:css && react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "autoprefixer": "^9.7.6",
-    "bs-platform": "^7.2.2",
-    "concurrently": "^5.1.0",
-    "postcss-cli": "^7.1.0",
-    "tailwindcss": "^1.2.0"
-  }
+    "name": "stay_fe",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.5.0",
+        "@testing-library/user-event": "^7.2.1",
+        "axios": "^0.19.2",
+        "formik": "^2.1.4",
+        "hookrouter": "^1.2.3",
+        "pnotify": "^4.0.1",
+        "rc-slider": "^9.2.4",
+        "react": "^16.13.1",
+        "react-compound-slider": "^2.5.0",
+        "react-date-picker": "^8.0.1",
+        "react-dom": "^16.13.1",
+        "react-redux": "^7.2.0",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "3.4.1",
+        "react-star-rating-component": "^1.4.1",
+        "redux": "^4.0.5",
+        "redux-thunk": "^2.3.0",
+        "yup": "^0.28.3"
+    },
+    "scripts": {
+        "build:css": "postcss src/tailwind.css -o src/index.css",
+        "watch:css": "postcss src/tailwind.css -o src/index.css -w",
+        "start": "concurrently --kill-others \"npm run watch:css\" \"react-scripts start\"",
+        "build": "npm run build:css && react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "autoprefixer": "^9.7.6",
+        "bs-platform": "^7.2.2",
+        "concurrently": "^5.1.0",
+        "postcss-cli": "^7.1.0",
+        "prettier": "2.0.5",
+        "tailwindcss": "^1.2.0"
+    }
 }

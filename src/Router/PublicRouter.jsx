@@ -8,47 +8,50 @@ import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import ForgotPassword from "../components/Account/ForgotPassword";
 import ResetPassword from "../components/Account/ResetPassword";
-
+import UserRegister from "../components/Account/UserRegister";
+import FacilitatorRegister from "../components/Account/FacilitatorRegister";
 const routes = {
-  "/login": () => <Login />,
-  "/register": () => <Register />,
-  "/room/:id/:category/:startdate/:enddate": ({
-    id,
-    category,
-    startdate,
-    enddate,
-  }) => (
-      <ViewRoom
-        id={id}
-        category={category}
-        startdate={startdate}
-        enddate={enddate}
-      />
+    "/login": () => <Login />,
+    "/register": () => <Register />,
+    "/facilitatorregister": () => <FacilitatorRegister />,
+    "/userregister": () => <UserRegister />,
+    "/room/:id/:category/:startdate/:enddate": ({
+        id,
+        category,
+        startdate,
+        enddate,
+    }) => (
+        <ViewRoom
+            id={id}
+            category={category}
+            startdate={startdate}
+            enddate={enddate}
+        />
     ),
-  "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
-    <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
-  ),
-  "/browse": () => <Hotel />,
-  "/forgot-password": () => <ForgotPassword />,
-  "/reset-password/:token": ({ token }) => <ResetPassword token={token} />,
+    "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
+        <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
+    ),
+    "/browse": () => <Hotel />,
+    "/forgot-password": () => <ForgotPassword />,
+    "/reset-password/:token": ({ token }) => <ResetPassword token={token} />,
 };
 
 const PublicRouter = () => {
-  useRedirect("/", "/login");
-  const pages = useRoutes(routes);
-  !pages && navigate("/");
-  return (
-    <div>
-      {/* public navbar can go here */}
-      <PublicNavBar />
-      {pages}
-      {!pages && (
-        <div className="h-screen flex justify-center py-16">
-          Error 404: Page not found
+    useRedirect("/", "/login");
+    const pages = useRoutes(routes);
+    !pages && navigate("/");
+    return (
+        <div>
+            {/* public navbar can go here */}
+            <PublicNavBar />
+            {pages}
+            {!pages && (
+                <div className="h-screen flex justify-center py-16">
+                    Error 404: Page not found
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default PublicRouter;

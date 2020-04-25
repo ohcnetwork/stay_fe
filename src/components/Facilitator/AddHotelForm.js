@@ -27,7 +27,7 @@ export default function AddHotelForm() {
         pool: false,
         wifi: false,
         parking: false,
-        cctv: false
+        cctv: false,
     };
 
     const [formLoading, setFormLoading] = useState(false);
@@ -35,6 +35,18 @@ export default function AddHotelForm() {
 
     const handleSubmit = (formData) => {
         setFormLoading(true);
+
+        // const formData = new FormData();
+        // Object.keys(form).forEach((key) => {
+        //     if (key === "file") {
+        //         form[key].forEach((el) => {
+        //             formData.append(key, el);
+        //         });
+        //     } else {
+        //         formData.append(key, form[key]);
+        //     }
+        // });
+
         dispatch(postAddHotel(formData)).then((resp) => {
             const { status: statusCode } = resp;
             const { data: res } = resp;
@@ -44,8 +56,8 @@ export default function AddHotelForm() {
                 Notficiation.Success({
                     msg: "Hotel Created, Add Room Details",
                 });
-                navigate(`${res.id}/room/add `);
-
+                // navigate(`${res.id}/room/add `);
+                navigate(`${res.data.id}/room/add `);
             } else {
                 setFormError("Some problem occurred");
                 setFormLoading(false);
@@ -54,13 +66,14 @@ export default function AddHotelForm() {
     };
 
     return (
-        <div className="h-full  overflow-x-hidden flex items-center justify-center bg-gray-400 ">
+        <div className="h-full overflow-x-hidden flex items-center justify-center bg-gray-400">
             <HotelForm
                 initForm={initForm}
                 initFacilities={initFacilities}
                 formLoading={formLoading}
                 formError={formError}
-                submit={handleSubmit} />
+                submit={handleSubmit}
+            />
         </div>
     );
 }

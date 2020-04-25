@@ -10,30 +10,30 @@ import EditHotel from "../components/Facilitator/EditHotel";
 import AddRoom from "../components/Facilitator/AddRoom";
 
 const routes = {
-	"/": () => <Facilitator />,
-	"/hotel/add": () => <AddHotelForm />,
-	"/hotel/:id": ({ id }) => <FacilitatorViewHotel id={id} />,
-	"/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
-	"/hotel/:id/edit": ({ id }) => <EditHotel id={id} />,
-	"/hotel/:id/bookings": ({ id }) => <ViewBookings id={id} />,
-	"/edit" : () => <UserEdit/>
+    "/": () => <Facilitator />,
+    "/hotel/add": () => <AddHotelForm />,
+    "/hotel/:id": ({ id }) => <FacilitatorViewHotel id={id} />,
+    "/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
+    "/hotel/:id/edit": ({ id }) => <EditHotel id={id} />,
+    "/hotel/:id/bookings": ({ id }) => <ViewBookings id={id} />,
+    "/edit": () => <UserEdit />,
 };
 
 const FacilitatorRouter = () => {
-	useRedirect("/login", "/");
-	const pages = useRoutes(routes);
-	
-	return (
-		<div className="bg-gray-200">
-			<FacilitatorNavBar />
-			{pages}
-			{!pages && (
-				<div className="h-screen flex justify-center py-16">
-					Error 404: Page not found
-				</div>
-			)}
-		</div>
-	);
+    useRedirect("/login", "/");
+    const pages = useRoutes(routes);
+
+    return (
+        <div className="bg-gray-200">
+            <FacilitatorNavBar />
+            {pages}
+            {!pages && (
+                <div className="h-screen flex justify-center py-16">
+                    Error 404: Page not found
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default FacilitatorRouter;
