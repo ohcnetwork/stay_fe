@@ -20,13 +20,6 @@ export default function HotelForm({
     const [error, setError] = useState(initError);
     const [checkbox, setCheckbox] = useState(initFacilities);
 
-    useEffect(() => {
-        if (uploadOff) {
-            setForm(initForm);
-            setCheckbox(initFacilities);
-        }
-    }, [initFacilities, initForm, uploadOff]);
-
     const handleChange = (e) => {
         const { value, name } = e.target;
         const fieldValue = { ...form };

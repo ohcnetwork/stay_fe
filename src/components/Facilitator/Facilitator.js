@@ -106,9 +106,7 @@ export default function Facilitator() {
         userHotelList.data.data &&
         Object.values(userHotelList.data.data).filter((e) => e);
 
-    const buttons = [
-        { link:"/hotel/add", text:"Add Hotel" }
-    ];
+    const buttons = [{ link: "/hotel/add", text: "Add Hotel" }];
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
