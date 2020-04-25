@@ -18,8 +18,8 @@ function LandingPage() {
                             <p className="mt-2 text-sm text-black-300 md:text-base">A platform to list and book quarantined hotels and corona care centers for 14 day isolation in Kerala with all required facilities provided to you. Choose from the best of the facilities we provide and make your quarantine stay better and safe! <b>Together lets Fight Corona!</b></p>
                             {!currentUser && <div className="flex justify-center lg:justify-start mt-6">
                                 <A className="px-4 py-3 bg-gray-900 text-gray-200 text-xs font-semibold rounded hover:bg-gray-800" href="/login">SignIn</A>
-                                <A className="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="/user-register">SignUp as User</A>
-                                <A className="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="facilitator-register">SignUp as Facilitator</A>
+                                <A className="ml-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="/user-register">SignUp as User</A>
+                                <A className="ml-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="facilitator-register">SignUp as Facilitator</A>
                             </div>}
                         </div>
                     </div>
