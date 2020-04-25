@@ -50,14 +50,14 @@ export default function ForgotPassword() {
 
                     // set captha logic needed
 
-                    // TODO: change status code to 200 (backend was sending 201 on login)
+                    // TODO: change status code to 200 (backend was sending 201 on forgot-pswd)
                     if (res && statusCode === 201) {
-                        Notficiation.Error({
+                        Notficiation.Success({
                             msg:
                                 "Please check your mail to reset the password!",
                         });
                     } else {
-                        setFormError("No such account exist. Check your email");
+                        setFormError("No such account exist. Check your emailid");
                         setFormLoading(false);
                     }
                 })
