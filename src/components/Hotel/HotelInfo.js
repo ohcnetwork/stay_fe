@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HOTEL_STATUS, DEFAULT_IMAGE } from "../../Common/constants";
-import Star from "../Common/Star";
+import Star from "../common/Star";
 
 export default function HotelInfo({ data }) {
     const [hotel, setHotel] = useState(null);

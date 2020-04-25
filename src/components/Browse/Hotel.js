@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-date-picker";
 import { useDispatch, connectAdvanced } from 'react-redux';
 import Slider from 'rc-slider';
-import { Loading } from "../Common/Loader";
+import { Loading } from "../common/Loader";
 
 import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
 import HotelList from "./HotelList";
