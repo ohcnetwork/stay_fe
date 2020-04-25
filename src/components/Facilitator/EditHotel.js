@@ -24,6 +24,7 @@ export default function EditHotel({ id }) {
         latitude: "11.1",
         longitude: "2.1",
         facilities: "",
+        photos: "photos",
         contact: "",
         policy: "",
     };
