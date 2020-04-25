@@ -6,7 +6,7 @@ import { getUserHotelList, getHotelRoomList } from "../../Redux/actions";
 import DeleteConfirmation from "./DeleteConfirmation";
 import ActionsBox from "./ActionsBox";
 import HotelInfo from "../Hotel/HotelInfo";
-import RoomList from "../Room/RoomList";
+import RoomList from "../Room/RoomsList";
 
 export default function FacilitatorViewHotel({ id }) {
     const [showConfirmation, setShowConfirmation] = useState(false);
