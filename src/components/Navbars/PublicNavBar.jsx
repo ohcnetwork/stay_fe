@@ -8,6 +8,10 @@ export default function UserNavBar() {
             title: 'Login'
         },
         {
+            link: '/register',
+            title: 'Register'
+        },
+        {
             link: '/browse',
             title: 'Browse'
         },
