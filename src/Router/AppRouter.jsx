@@ -6,7 +6,6 @@ import LandingPage from "../components/Common/LandingPage";
 import UserDashboard from "../components/Dashboard/Userdashboard/UserDashboard";
 import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
 import History from "../components/BookingHistory/History";
-import Hotel from "../components/Browse/Hotel";
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 
@@ -31,8 +30,7 @@ const routes = {
         ),
     "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
         <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
-    ),
-    "/browse": () => <Hotel />,
+    )
 };
 
 const AppRouter = () => {

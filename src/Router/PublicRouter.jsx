@@ -2,7 +2,7 @@ import React from "react";
 import { useRedirect, useRoutes, navigate } from "hookrouter";
 import PublicNavBar from "../components/Navbars/PublicNavBar";
 import Login from "../components/Account/Login";
-import Hotel from "../components/Browse/Hotel";
+// import Hotel from "../components/Browse/Hotel";
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 import ForgotPassword from "../components/Account/ForgotPassword";
@@ -11,8 +11,8 @@ import UserRegister from "../components/Account/UserRegister";
 import FacilitatorRegister from "../components/Account/FacilitatorRegister";
 import LandingPage from "../components/Common/LandingPage";
 const routes = {
-  "/login": () => <Login />,
   "/": () => <LandingPage />,
+  "/login": () => <Login />,
   "/facilitator-register": () => <FacilitatorRegister />,
   "/user-register": () => <UserRegister />,
   "/room/:id/:category/:startdate/:enddate": ({
@@ -31,7 +31,6 @@ const routes = {
   "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
     <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
   ),
-  "/browse": () => <Hotel />,
   "/forgot-password": () => <ForgotPassword />,
   "/reset-password/:token": ({ token }) => <ResetPassword token={token} />,
 };
