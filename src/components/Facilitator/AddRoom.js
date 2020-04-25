@@ -14,7 +14,6 @@ export default function AddRoom({ id }) {
         description: "",
         category: "",
         beds: "",
-        file: [],
         photos: "photo",
         noOfRooms: "",
         cost: "",
@@ -25,7 +24,6 @@ export default function AddRoom({ id }) {
         description: "",
         category: "",
         beds: "",
-        file: "",
         photos: "",
         noOfRooms: "",
         cost: "",
@@ -103,19 +101,19 @@ export default function AddRoom({ id }) {
 
         if (validInputs() && !formLoading) {
             console.log("AddHotelForm.js: ", "creating a new hotel", form);
-            const formData = new FormData();
+            // const formData = new FormData();
 
-            Object.keys(form).forEach((key) => {
-                if (key === "file") {
-                    form[key].forEach((el) => {
-                        formData.append(key, el);
-                    });
-                } else {
-                    formData.append(key, form[key]);
-                }
-            });
+            // Object.keys(form).forEach((key) => {
+            //     if (key === "file") {
+            //         form[key].forEach((el) => {
+            //             formData.append(key, el);
+            //         });
+            //     } else {
+            //         formData.append(key, form[key]);
+            //     }
+            // });
             setFormLoading(true);
-            dispatch(postAddRooms(id, formData)).then((resp) => {
+            dispatch(postAddRooms(id, form)).then((resp) => {
                 const { status: statusCode } = resp;
                 const { data: res } = resp;
                 console.log(resp);
