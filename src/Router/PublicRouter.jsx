@@ -9,7 +9,7 @@ import ForgotPassword from "../components/Account/ForgotPassword";
 import ResetPassword from "../components/Account/ResetPassword";
 import UserRegister from "../components/Account/UserRegister";
 import FacilitatorRegister from "../components/Account/FacilitatorRegister";
-import LandingPage from "../components/Common/LandingPage";
+import LandingPage from "../components/common/LandingPage";
 const routes = {
   "/": () => <LandingPage />,
   "/login": () => <Login />,

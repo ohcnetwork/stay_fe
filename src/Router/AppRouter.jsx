@@ -2,7 +2,7 @@ import React from "react";
 import { useRoutes, useRedirect } from "hookrouter";
 import UserNavBar from "../components/Navbars/UserNavBar";
 
-import LandingPage from "../components/Common/LandingPage";
+import LandingPage from "../components/common/LandingPage";
 import UserDashboard from "../components/Dashboard/Userdashboard/UserDashboard";
 import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
 import History from "../components/BookingHistory/History";
