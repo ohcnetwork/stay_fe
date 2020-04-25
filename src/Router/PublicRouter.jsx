@@ -13,8 +13,8 @@ import FacilitatorRegister from "../components/Account/FacilitatorRegister";
 const routes = {
     "/login": () => <Login />,
     "/register": () => <Register />,
-    "/facilitatorregister" : () => <FacilitatorRegister/>,
-    "/userregister" : () => <UserRegister />,
+    "/facilitatorregister": () => <FacilitatorRegister />,
+    "/userregister": () => <UserRegister />,
     "/room/:id/:category/:startdate/:enddate": ({
         id,
         category,
