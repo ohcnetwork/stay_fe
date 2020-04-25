@@ -4,17 +4,17 @@ import NavBar from "./NavBar";
 export default function UserNavBar() {
     const links = [
         {
-            link: '/login',
-            title: 'Login'
+            link: "/login",
+            title: "Login",
         },
         {
-            link: '/register',
-            title: 'Register'
+            link: "/register",
+            title: "Register",
         },
         {
-            link: '/browse',
-            title: 'Browse'
+            link: "/browse",
+            title: "Browse",
         },
     ];
-    return <NavBar links={links} />
+    return <NavBar links={links} />;
 }
