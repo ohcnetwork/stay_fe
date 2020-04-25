@@ -4,13 +4,14 @@ import NavBar from "./NavBar";
 export default function UserNavBar() {
     const links = [
         {
-            link: "/login",
-            title: "Login",
+            link: '/',
+            title: 'Home'
         },
         {
-            link: "/browse",
-            title: "Browse",
+            link: '/login',
+            title: 'Login'
         },
+
     ];
     return <NavBar links={links} />;
 }

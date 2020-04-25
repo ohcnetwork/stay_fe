@@ -8,8 +8,8 @@ export default function UserNavBar() {
             title: "Home",
         },
         {
-            link: "/browse",
-            title: "Browse",
+            link: "/profile",
+            title: "Profile",
         },
     ];
     return <NavBar links={links} logout={true} />;

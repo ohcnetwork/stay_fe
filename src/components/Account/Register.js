@@ -37,7 +37,7 @@ export default function Register(user) {
 
         setForm(fieldValue);
     };
-    const links = ["userregister", "facilitatorregister"];
+    const links = ["user-register", "facilitator-register"];
 
     function validInputs() {
         let formValid = true;
@@ -152,7 +152,7 @@ export default function Register(user) {
                             onChange={handleChange}
                             className={`shadow appearance-none border ${
                                 error.name ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="Your name"
                         />
                         <div className="text-xs italic text-red-500">
@@ -173,7 +173,7 @@ export default function Register(user) {
                             onChange={handleChange}
                             className={`shadow appearance-none border ${
                                 error.email ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="Email address"
                         />
                         <div className="text-xs italic text-red-500">
@@ -195,7 +195,7 @@ export default function Register(user) {
                                 onChange={handleChange}
                                 className={`shadow appearance-none border ${
                                     error.password ? "border-red-500" : ""
-                                } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                    } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                                 placeholder="******************"
                             />
                             <div className="text-xs italic text-red-500">
@@ -216,7 +216,7 @@ export default function Register(user) {
                                 onChange={handleChange}
                                 className={`shadow appearance-none border ${
                                     error.confirm ? "border-red-500" : ""
-                                } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                    } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                                 placeholder="******************"
                             />
                             <div className="text-xs italic text-red-500">
@@ -236,13 +236,13 @@ export default function Register(user) {
                                 formLoading
                                     ? "bg-gray-600"
                                     : "bg-indigo-600 hover:bg-indigo-800"
-                            } text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline`}>
+                                } text-white font-bold py-2 px-4 sm:px-3 rounded focus:outline-none focus:shadow-outline`}>
                             <svg
                                 className={`h-5 w-5 ${
                                     formLoading
                                         ? "text-gray-400"
                                         : "text-indigo-500"
-                                } transition ease-in-out duration-150 mr-1`}
+                                    } transition ease-in-out duration-150 mr-1`}
                                 fill="currentColor"
                                 viewBox="0 0 20 20">
                                 <path
