@@ -3,7 +3,12 @@ import Register from './Register'
 
 function FacilitatorRegister() {
     return (
-        <Register type={"facilityowner" } label={"REGISTER AS HOTEL OWNER"}  othertype={"Customer"} otherlinkid={"0"}/>
+        <Register 
+            type={"facilityowner" }
+            label={"REGISTER AS HOTEL OWNER"}
+            othertype={"Customer"}
+            otherlinkid={"0"}
+        />
     )
 }
 

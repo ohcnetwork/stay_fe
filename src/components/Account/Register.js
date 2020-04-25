@@ -40,7 +40,7 @@ export default function Register(user) {
 
         setForm(fieldValue)
     }
-    const links =["userregister" ,"facilitatorregister"];
+    const links =[ "userregister" , "facilitatorregister" ];
 
     function validInputs() {
         let formValid = true;
