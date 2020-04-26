@@ -11,7 +11,7 @@ export default function HotelForm({
     submit,
     uploadOff = false,
 }) {
-    const optionalValues = ["panchayath","starCategory","facilities"];
+    const optionalValues = ["panchayath", "starCategory", "facilities"];
 
     let initError = {};
     Object.keys(initForm).forEach((formKey) => (initError[formKey] = ""));
@@ -23,7 +23,6 @@ export default function HotelForm({
     const handleChange = (e) => {
         const { value, name } = e.target;
         setForm({ ...form, [name]: value });
-        
     };
 
     const handleCheckbox = (e) => {

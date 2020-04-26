@@ -40,8 +40,8 @@ export default function HotelInfo({ data }) {
                             key={el}
                             className="text-sm text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">
                             {el.replace("_", " ")}
-                        </div> 
-                    )) }
+                        </div>
+                    ))}
                 </div>
                 <div className="text-white flex py-5">
                     <div
