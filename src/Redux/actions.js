@@ -77,4 +77,4 @@ export const resetPassword = (form) => {
 };
 export const getHotelByHotelId = (id) => {
     return fireRequest("getHotelByHotelId", [id]);
-}; 
+};
