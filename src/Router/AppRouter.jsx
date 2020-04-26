@@ -15,19 +15,19 @@ const routes = {
     "/edit": () => <UserEdit />,
     "/history": () => <History />,
 
-    "/room/:id/:category/:startdate/:enddate": ({
-        id,
+    "/room/:category/:id/:startdate/:enddate": ({
         category,
+        id,
         startdate,
         enddate,
     }) => (
-        <ViewRoom
-            id={id}
-            category={category}
-            startdate={startdate}
-            enddate={enddate}
-        />
-    ),
+            <ViewRoom
+                category={category}
+                id={id}
+                startdate={startdate}
+                enddate={enddate}
+            />
+        ),
     "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
         <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
     ),
