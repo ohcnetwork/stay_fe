@@ -118,7 +118,7 @@ export default function ViewRoom() {
                             </div>
                         </div>
                     </div>
-                    <div className="relative  content-center  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
+                    <div className="relative  content-center lg:grid-cols-2 grid  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
                         {item.map((value, index) => {
                             if (
                                 (value.statusBooking === form3 &&
@@ -130,7 +130,7 @@ export default function ViewRoom() {
                                 return (
                                     <div
                                         id={index}
-                                        className="sm:w-full lg:w-1/2 md:w-3/4 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
+                                        className="sm:w-full md:w-5/6 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
                                         <img
                                             className="w-full  h-30"
                                             src={DEFAULT_IMAGE.HOTEL}
