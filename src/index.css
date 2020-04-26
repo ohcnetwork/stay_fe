@@ -52335,3 +52335,11 @@ video {
     transition-duration: 1000ms !important;
   }
 }
+.beds-count::-webkit-inner-spin-button, .no-spin::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+.beds-count {
+    -moz-appearance:textfield !important;
+}
