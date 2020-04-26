@@ -6,7 +6,7 @@ import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
-export default function ViewRoom({ id, category, startdate, enddate }) {
+export default function ViewRoom({ category, id, startdate, enddate }) {
     const hotelid = id;
 
     const dispatch = useDispatch();
@@ -190,7 +190,7 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                                     applied
                                         ? "bg-gray-500 cursor-default"
                                         : "bg-gray-900"
-                                } text-gray-100 px-5 py-3 font-semibold rounded`}>
+                                    } text-gray-100 px-5 py-3 font-semibold rounded`}>
                                 Apply
                             </button>
                             <button
@@ -200,14 +200,14 @@ export default function ViewRoom({ id, category, startdate, enddate }) {
                                     !avail
                                         ? "text-red-700"
                                         : applied
-                                        ? "bg-gray-900 cursor-pointer"
-                                        : "bg-gray-500"
-                                } px-8 py-3 font-semibold rounded float-right`}>
+                                            ? "bg-gray-900 cursor-pointer"
+                                            : "bg-gray-500"
+                                    } px-8 py-3 font-semibold rounded float-right`}>
                                 {avail ? (
                                     <div>Book Now</div>
                                 ) : (
-                                    <div>Not Available</div>
-                                )}
+                                        <div>Not Available</div>
+                                    )}
                             </button>
                         </div>
                     </div>
