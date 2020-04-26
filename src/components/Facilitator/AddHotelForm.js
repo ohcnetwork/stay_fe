@@ -14,7 +14,7 @@ export default function AddHotelForm() {
         address: "",
         panchayath: "",
         district: DISTRICT_CHOICES[0].text,
-        starCategory: "",
+        starCategory: null,
         latitude: "11.1",
         longitude: "2.1",
         facilities: "",

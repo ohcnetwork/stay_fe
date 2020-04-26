@@ -11,7 +11,7 @@ export default function HotelForm({
     submit,
     uploadOff = false,
 }) {
-    const optionalValues = ["panchayath"];
+    const optionalValues = ["panchayath","starCategory"];
 
     let initError = {};
     Object.keys(initForm).forEach((formKey) => (initError[formKey] = ""));
@@ -234,9 +234,9 @@ export default function HotelForm({
                             <span className="ml-1 text-gray-600">5 star</span>
                         </label>
                     </div>
-                    <div className="text-xs italic full-width text-red-500">
+                    {/* <div className="text-xs italic full-width text-red-500">
                         {error.starCategory}
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="mt-2">
