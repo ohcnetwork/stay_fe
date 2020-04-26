@@ -11,46 +11,46 @@ import UserRegister from "../components/Account/UserRegister";
 import FacilitatorRegister from "../components/Account/FacilitatorRegister";
 import LandingPage from "../components/common/LandingPage";
 const routes = {
-  "/": () => <LandingPage />,
-  "/login": () => <Login />,
-  "/facilitator-register": () => <FacilitatorRegister />,
-  "/user-register": () => <UserRegister />,
-  "/room/:id/:category/:startdate/:enddate": ({
-    id,
-    category,
-    startdate,
-    enddate,
-  }) => (
-      <ViewRoom
-        id={id}
-        category={category}
-        startdate={startdate}
-        enddate={enddate}
-      />
+    "/": () => <LandingPage />,
+    "/login": () => <Login />,
+    "/facilitator-register": () => <FacilitatorRegister />,
+    "/user-register": () => <UserRegister />,
+    "/room/:id/:category/:startdate/:enddate": ({
+        id,
+        category,
+        startdate,
+        enddate,
+    }) => (
+        <ViewRoom
+            id={id}
+            category={category}
+            startdate={startdate}
+            enddate={enddate}
+        />
     ),
-  "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
-    <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
-  ),
-  "/forgot-password": () => <ForgotPassword />,
-  "/reset-password/:token": ({ token }) => <ResetPassword token={token} />,
+    "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
+        <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
+    ),
+    "/forgot-password": () => <ForgotPassword />,
+    "/reset-password/:token": ({ token }) => <ResetPassword token={token} />,
 };
 
 const PublicRouter = () => {
-  // useRedirect("/", "/login");
-  const pages = useRoutes(routes);
-  !pages && navigate("/");
-  return (
-    <div>
-      {/* public navbar can go here */}
-      <PublicNavBar />
-      {pages}
-      {!pages && (
-        <div className="h-screen flex justify-center py-16">
-          Error 404: Page not found
+    // useRedirect("/", "/login");
+    const pages = useRoutes(routes);
+    !pages && navigate("/");
+    return (
+        <div>
+            {/* public navbar can go here */}
+            <PublicNavBar />
+            {pages}
+            {!pages && (
+                <div className="h-screen flex justify-center py-16">
+                    Error 404: Page not found
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default PublicRouter;

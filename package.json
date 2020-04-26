@@ -29,6 +29,7 @@
         "start": "concurrently --kill-others \"npm run watch:css\" \"react-scripts start\"",
         "build": "npm run build:css && react-scripts build",
         "test": "react-scripts test --env=jsdom",
+        "pretty": "prettier --write .",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
