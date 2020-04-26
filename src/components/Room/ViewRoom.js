@@ -21,8 +21,10 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
 
     const [queryParams, setQueryParams] = useQueryParams();
     const currentURI = usePath();
-
+    const body = JSON.parse(localStorage.getItem("roomdetails"));
+    console.log("body", body);
     useEffect(() => {
+        // console.log(localStorage.getItem('room_desc'));
         updateRoomGetDetail();
     }, []);
 
@@ -34,8 +36,23 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                 let newDetail = detail;
                 setApplied(true);
                 if (res && res.data) {
-                    newDetail = res.data[0];
-                    setavail(true);
+                    console.log("res", res.data);
+                    console.log("body1", JSON.stringify({ ...body, id: "" }));
+                    console.log(
+                        "body1",
+                        JSON.stringify({ ...res.data[0], id: "" })
+                    );
+                    newDetail = res.data.find(
+                        (el) =>
+                            JSON.stringify({ ...el, id: "" }) ===
+                            JSON.stringify({ ...body, id: "" })
+                    );
+                    console.log("new", newDetail);
+                    if (newDetail == null) {
+                        setavail(false);
+                    } else {
+                        setavail(true);
+                    }
                 } else {
                     setavail(false);
                 }
