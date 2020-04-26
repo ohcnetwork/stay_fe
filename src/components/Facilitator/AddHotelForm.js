@@ -17,7 +17,7 @@ export default function AddHotelForm() {
         starCategory: null,
         latitude: "11.1",
         longitude: "2.1",
-        facilities: "",
+        facilities: null || "",
         photos: "photos",
         contact: "",
         policy: "",

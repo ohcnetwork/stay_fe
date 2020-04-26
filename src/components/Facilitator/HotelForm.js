@@ -11,7 +11,7 @@ export default function HotelForm({
     submit,
     uploadOff = false,
 }) {
-    const optionalValues = ["panchayath","starCategory"];
+    const optionalValues = ["panchayath","starCategory","facilities"];
 
     let initError = {};
     Object.keys(initForm).forEach((formKey) => (initError[formKey] = ""));
@@ -23,6 +23,7 @@ export default function HotelForm({
     const handleChange = (e) => {
         const { value, name } = e.target;
         setForm({ ...form, [name]: value });
+        
     };
 
     const handleCheckbox = (e) => {
@@ -242,7 +243,7 @@ export default function HotelForm({
                 <div className="mt-2">
                     <label
                         className="block text-sm text-gray-600 "
-                        htmlFor="starCategory">
+                        htmlFor="facilities">
                         Hotel Features
                     </label>
 
@@ -292,9 +293,9 @@ export default function HotelForm({
                             <span className="ml-1 text-gray-600">Parking</span>
                         </label>
                     </div>
-                    <div className="text-xs italic full-width text-red-500">
+                    {/* <div className="text-xs italic full-width text-red-500">
                         {error.facilities}
-                    </div>
+                    </div> */}
                 </div>
                 {/* {!uploadOff && (
                     <div className="mt-2">

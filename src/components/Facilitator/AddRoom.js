@@ -10,7 +10,7 @@ export default function AddRoom({ id }) {
     const dispatch = useDispatch();
     const initForm = {
         title: "",
-        features: "",
+        features: null,
         description: "",
         category: "",
         beds: "",
@@ -20,7 +20,6 @@ export default function AddRoom({ id }) {
     };
     const initError = {
         title: "",
-        features: "",
         description: "",
         category: "",
         beds: "",
@@ -28,6 +27,8 @@ export default function AddRoom({ id }) {
         noOfRooms: "",
         cost: "",
     };
+    const optionalValues = ["features"];
+
     const [formLoading, setFormLoading] = useState(false);
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
@@ -74,7 +75,7 @@ export default function AddRoom({ id }) {
         const { beds, noOfRooms, cost } = form;
 
         Object.keys(form).forEach((key) => {
-            if (form[key] === "") {
+            if (form[key] === "" && !optionalValues.includes(key)) {
                 formValid = false;
                 err[key] = "This field is required";
             }
@@ -248,9 +249,9 @@ export default function AddRoom({ id }) {
                                     </span>
                                 </label>
                             </div>
-                            <div className="text-xs italic text-red-500">
+                            {/* <div className="text-xs italic text-red-500">
                                 {error.features}
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="mt-2">

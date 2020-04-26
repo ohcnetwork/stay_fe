@@ -32,7 +32,7 @@ export default function RoomContainer({ r, count = null }) {
                         </div>
                     </div>
                     <div className="flex flex-wrap pb-3">
-                        {r.features.split(",").map((el) => (
+                        {(r.features || "").split(",").map((el) => (
                             <div
                                 key={el}
                                 className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">
