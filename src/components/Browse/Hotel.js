@@ -22,6 +22,12 @@ function Hotel() {
     // for loading
     const [loading, setloading] = useState(true);
 
+    // for date
+    // var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    // var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+    // console.log("today", todays)
+    // console.log("formatted", localISOTime)
+
     var today = new Date();
     today.setDate(today.getDate() + 15);
     const [startdate, setstartdate] = useState({
@@ -34,7 +40,6 @@ function Hotel() {
     const [form, setform] = useState({
         category: "All",
         location: "All",
-        beds: 1,
     });
     const [optionlist, setoptionlist] = useState({
         category: ["All"],
@@ -45,7 +50,6 @@ function Hotel() {
     const [hotels, sethotels] = useState([]);
 
     useEffect(() => {
-        setloading(true);
         var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
         var checkins = new Date(startdate.date - startdates)
             .toISOString()
@@ -55,13 +59,12 @@ function Hotel() {
         var checkouts = new Date(enddate.date - enddates)
             .toISOString()
             .slice(0, -14);
-
+        setloading(true);
         getOptions();
         const formdata = {
             checkin: checkins,
             checkout: checkouts,
             type: "hotel",
-            beds: form.beds,
         };
         dispatch(getHotelList(formdata))
             .then((res) => {
@@ -127,7 +130,6 @@ function Hotel() {
             checkin: checkinsubmit,
             checkout: checkoutsubmit,
             type: "hotel",
-            beds: form.beds,
         };
         setsubmitdate({
             checkin: checkinsubmit,
@@ -208,22 +210,6 @@ function Hotel() {
     const onendDateChange = (newdate) => {
         setenddate({ date: newdate });
     };
-    const bed_decrement = () => {
-        if (form.beds > 1) {
-            setform({
-                ...form,
-                beds: form.beds - 1,
-            });
-        }
-    };
-    const bed_increment = () => {
-        if (form.beds < 20) {
-            setform({
-                ...form,
-                beds: form.beds + 1,
-            });
-        }
-    };
     return (
         <div>
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
@@ -241,7 +227,7 @@ function Hotel() {
                 <br />
                 <div className="bg-white shadow rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label
                                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 htmlFor="type">
@@ -270,7 +256,7 @@ function Hotel() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label
                                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 htmlFor="location">
@@ -299,42 +285,8 @@ function Hotel() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                            <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                htmlFor="type">
-                                No. of Beds
-                            </label>
-                            <div className="relative">
-                                <div
-                                    style={{ maxWidth: "10rem" }}
-                                    className="custom-number-input h-10">
-                                    <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1 hover:text-black text-gray-700">
-                                        <button
-                                            onClick={bed_decrement}
-                                            className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
-                                            <span className="m-auto text-2xl font-thin">
-                                                −
-                                            </span>
-                                        </button>
-                                        <input
-                                            readOnly
-                                            type="number"
-                                            className="beds-count outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md focus:text-black  md:text-basecursor-default flex items-center   outline-none"
-                                            name="custom-input-number"
-                                            value={form.beds}></input>
-                                        <button
-                                            onClick={bed_increment}
-                                            className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer outline-none">
-                                            <span className="m-auto text-2xl font-thin">
-                                                +
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 Price Rs. {price[0]}-{price[1]}
                             </label>
@@ -396,7 +348,7 @@ function Hotel() {
                                 className="relative">
                                 <button
                                     onClick={onSubmit}
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     type="button">
                                     Apply
                                 </button>
