@@ -127,7 +127,7 @@ function Hotel() {
             checkin: checkinsubmit,
             checkout: checkoutsubmit,
             type: "hotel",
-            beds: form.beds
+            beds: form.beds,
         };
         setsubmitdate({
             checkin: checkinsubmit,
@@ -212,18 +212,18 @@ function Hotel() {
         if (form.beds > 1) {
             setform({
                 ...form,
-                beds: form.beds - 1
-            })
+                beds: form.beds - 1,
+            });
         }
-    }
+    };
     const bed_increment = () => {
         if (form.beds < 20) {
             setform({
                 ...form,
-                beds: form.beds + 1
-            })
+                beds: form.beds + 1,
+            });
         }
-    }
+    };
     return (
         <div>
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
@@ -306,14 +306,29 @@ function Hotel() {
                                 No. of Beds
                             </label>
                             <div className="relative">
-                                <div style={{ maxWidth: "10rem" }} className="custom-number-input h-10">
+                                <div
+                                    style={{ maxWidth: "10rem" }}
+                                    className="custom-number-input h-10">
                                     <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1 hover:text-black text-gray-700">
-                                        <button onClick={bed_decrement} className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
-                                            <span className="m-auto text-2xl font-thin">−</span>
+                                        <button
+                                            onClick={bed_decrement}
+                                            className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                            <span className="m-auto text-2xl font-thin">
+                                                −
+                                            </span>
                                         </button>
-                                        <input readOnly type="number" className="beds-count outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md focus:text-black  md:text-basecursor-default flex items-center   outline-none" name="custom-input-number" value={form.beds}></input>
-                                        <button onClick={bed_increment} className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer outline-none">
-                                            <span className="m-auto text-2xl font-thin">+</span>
+                                        <input
+                                            readOnly
+                                            type="number"
+                                            className="beds-count outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md focus:text-black  md:text-basecursor-default flex items-center   outline-none"
+                                            name="custom-input-number"
+                                            value={form.beds}></input>
+                                        <button
+                                            onClick={bed_increment}
+                                            className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer outline-none">
+                                            <span className="m-auto text-2xl font-thin">
+                                                +
+                                            </span>
                                         </button>
                                     </div>
                                 </div>
