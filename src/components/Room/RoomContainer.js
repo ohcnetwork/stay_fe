@@ -14,23 +14,21 @@ export default function RoomContainer({ r, count = null }) {
             photos: r.photos,
             cost: r.cost,
             status: r.status,
-        }
-        localStorage.setItem(
-            'roomdetails',
-            JSON.stringify(body)
-        );
+        };
+        localStorage.setItem("roomdetails", JSON.stringify(body));
     }
 
     return (
         <div className="md:w-1/2 lg:w-1/3 w-full">
-            <A onClick={storeRoomDetails}
+            <A
+                onClick={storeRoomDetails}
                 key={r.title}
                 href={r.link || "#"}
                 className={`mx-5 my-5 flex flex-col shadow-md ${
                     r.link
                         ? "hover:bg-gray-300 hover:shadow-lg"
                         : "cursor-default"
-                    } bg-gray-200 rounded`}>
+                } bg-gray-200 rounded`}>
                 <div className="">
                     <img
                         alt={r.title}
