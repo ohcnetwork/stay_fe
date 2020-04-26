@@ -51,13 +51,6 @@ export default function FacilitatorViewHotel({ id }) {
         userHotelList.data.data &&
         Object.values(userHotelList.data.data).find((el) => el.id === id);
 
-    const buttons = [
-        { link: `/hotel/${currentHotel.id}/bookings`, text: "View Bookings" },
-        { link: `/hotel/${currentHotel.id}/room/add`, text: "Add Rooms" },
-        { link: `/hotel/${currentHotel.id}/edit`, text: "Edit Hotel" },
-        { action: toggleConfirmation, text: "Delete Hotel" },
-    ];
-
     // check if the hotel actually exists
     // and if this user is the owner
     if (!currentHotel || currentHotel.ownerID !== currentUser.id) {
@@ -80,6 +73,13 @@ export default function FacilitatorViewHotel({ id }) {
     }
 
     const hotelRoomData = (hotelRoomList.data && hotelRoomList.data.data) || [];
+
+    const buttons = [
+        { link: `/hotel/${currentHotel.id}/bookings`, text: "View Bookings" },
+        { link: `/hotel/${currentHotel.id}/room/add`, text: "Add Rooms" },
+        { link: `/hotel/${currentHotel.id}/edit`, text: "Edit Hotel" },
+        { action: toggleConfirmation, text: "Delete Hotel" },
+    ];
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">

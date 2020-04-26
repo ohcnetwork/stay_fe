@@ -156,7 +156,12 @@ export const APIRequest = (
                     error.response.status > 400 &&
                     error.response.status < 500
                 ) {
-                    if (error.response.data && error.response.data.detail) {
+                    if (error.response.status === 404) {
+                        return error;
+                    } else if (
+                        error.response.data &&
+                        error.response.data.detail
+                    ) {
                         let err = {
                             msg: error.response.data.detail,
                         };
