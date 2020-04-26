@@ -120,4 +120,9 @@ export default {
         method: "POST",
         noAuth: true,
     },
+    getHotelByHotelId: {
+        path: "/api/v1/facility",
+        method: "GET",
+        noAuth: true,
+    },
 };
