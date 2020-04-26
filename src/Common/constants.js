@@ -51,3 +51,12 @@ export const DEFAULT_IMAGE = {
     USER:
         "https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg",
 };
+
+export const BOOKING_TERMS =
+    "Your are booking a room for staying in quarantine. So, you are oblidged to stay to there untill the end of the time period. This is for your safety and the safety of the people around you";
+
+export const GENDER = [
+    { type: "MALE", text: "Male" },
+    { type: "FEMALE", text: "Female" },
+    { type: "OTHER", text: "Other" },
+];

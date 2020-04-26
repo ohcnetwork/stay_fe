@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dopostBook, getHotelList } from "../../Redux/actions";
+import { getHotelList, dopostBook } from "../../Redux/actions";
 import { navigate, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
+import BookingConfirmation from "./BookingConfirmation";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function ViewRoom({ category, id, startdate, enddate }) {
@@ -18,6 +19,7 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
     const [avail, setavail] = useState(true);
     const [detail, setDetail] = useState({ isFetching: true });
     const [applied, setApplied] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     const [queryParams, setQueryParams] = useQueryParams();
     const currentURI = usePath();
@@ -103,6 +105,7 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                 checkout: formData.checkout,
             };
 
+            // setShowConfirmation(true);
             dispatch(dopostBook(body)).then((resp) => {
                 const { data: res } = resp;
                 const { status: statusCode } = resp;
@@ -149,6 +152,10 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
         };
 
         return formdata;
+    }
+
+    function toggleConfirmation() {
+        setShowConfirmation(!showConfirmation);
     }
 
     if (detail.isFetching) {
@@ -316,6 +323,13 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                     </dl>
                 </div>
             </div>
+            {
+                <BookingConfirmation
+                    shown={showConfirmation}
+                    toggle={toggleConfirmation}
+                    data={{ ...detail, startdate, enddate }}
+                />
+            }
         </div>
     );
 }
