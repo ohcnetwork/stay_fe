@@ -10,7 +10,7 @@ import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
 
 const routes = {
-    "/": () => < LandingPage />,
+    "/": () => <LandingPage />,
     "/profile": () => <UserDashboard />,
     "/edit": () => <UserEdit />,
     "/history": () => <History />,
@@ -21,16 +21,16 @@ const routes = {
         startdate,
         enddate,
     }) => (
-            <ViewRoom
-                id={id}
-                category={category}
-                startdate={startdate}
-                enddate={enddate}
-            />
-        ),
+        <ViewRoom
+            id={id}
+            category={category}
+            startdate={startdate}
+            enddate={enddate}
+        />
+    ),
     "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
         <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
-    )
+    ),
 };
 
 const AppRouter = () => {
