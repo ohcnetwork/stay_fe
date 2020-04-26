@@ -18,8 +18,7 @@ export default function RoomList({ data, linkSuffix = "" }) {
         if (rooms.length > 0) {
             return rooms.map((room) => {
                 const r = room[0];
-                r.link =
-                    linkSuffix && `/room/${r.category}${linkSuffix}`;
+                r.link = linkSuffix && `/room/${r.category}${linkSuffix}`;
                 return (
                     <RoomContainer key={r.title} r={r} count={room.length} />
                 );

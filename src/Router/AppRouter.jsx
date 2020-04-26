@@ -21,13 +21,13 @@ const routes = {
         startdate,
         enddate,
     }) => (
-            <ViewRoom
-                category={category}
-                id={id}
-                startdate={startdate}
-                enddate={enddate}
-            />
-        ),
+        <ViewRoom
+            category={category}
+            id={id}
+            startdate={startdate}
+            enddate={enddate}
+        />
+    ),
     "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
         <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
     ),

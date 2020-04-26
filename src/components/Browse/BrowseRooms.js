@@ -51,7 +51,6 @@ function BrowseRooms({ id, startdate, enddate }) {
         );
     }
     return (
-
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 {/* <div className="mb-6 md:mx-0 mx-2">
@@ -59,7 +58,10 @@ function BrowseRooms({ id, startdate, enddate }) {
                 </div> */}
 
                 <div className="w-full mb-6">
-                    <RoomsList data={sortedrooms} linkSuffix={`/${id}/${dates.checkin}/${dates.checkout}`} />
+                    <RoomsList
+                        data={sortedrooms}
+                        linkSuffix={`/${id}/${dates.checkin}/${dates.checkout}`}
+                    />
                 </div>
             </div>
         </div>

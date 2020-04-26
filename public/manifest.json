@@ -1,6 +1,6 @@
 {
-    "short_name": "Stay",
-    "name": "Coronasafe - Stay",
+    "name": "Quarantine Stay",
+    "description": "A platform to list and book quarantined hotels and corona care centers for 14 day isolation in Kerala with all required facilities provided to you",
     "icons": [
         {
             "src": "favicon.png",
@@ -8,18 +8,18 @@
             "type": "image/png"
         },
         {
-            "src": "favicon192.png",
+            "src": "logo192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "favicon512.png",
+            "src": "logo512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#4d4dff",
-    "background_color": "#ffffff"
+    "theme_color": "#4C51BF",
+    "background_color": "#4C51BF"
 }
