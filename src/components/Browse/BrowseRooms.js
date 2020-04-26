@@ -23,9 +23,9 @@ function BrowseRooms({ id, startdate, enddate }) {
         ) {
             navigate("/browse");
         } else {
-            // dispatch(getHotelByHotelId(id)).then((res) => {
-            //     setcurrenthotel(res.data);
-            // });
+            dispatch(getHotelByHotelId(id)).then((res) => {
+                setcurrenthotel(res.data);
+            });
             const body = {
                 hotelid: id,
                 checkin: dates.checkin,
@@ -53,9 +53,9 @@ function BrowseRooms({ id, startdate, enddate }) {
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
-                {/* <div className="mb-6 md:mx-0 mx-2">
+                <div className="mb-6 md:mx-0 mx-2">
                     <HotelInfo data={currenthotel} />
-                </div> */}
+                </div>
 
                 <div className="w-full mb-6">
                     <RoomsList
