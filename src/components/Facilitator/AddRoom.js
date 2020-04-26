@@ -266,6 +266,20 @@ export default function AddRoom({ id }) {
                                         type="radio"
                                         className="form-radio h-4 w-4"
                                         name="category"
+                                        checked={category === "hostel"}
+                                        value="hostel"
+                                        onChange={handleChange}
+                                        onClick={() => setCategory("hostel")}
+                                    />
+                                    <span className="ml-2  text-gray-600">
+                                        Hostel
+                                    </span>
+                                </label>
+                                <label className="inline-flex items-center ml-6">
+                                    <input
+                                        type="radio"
+                                        className="form-radio h-4 w-4"
+                                        name="category"
                                         checked={category === "economy"}
                                         value="economy"
                                         onChange={handleChange}
@@ -287,20 +301,6 @@ export default function AddRoom({ id }) {
                                     />
                                     <span className="ml-2  text-gray-600">
                                         Standard
-                                    </span>
-                                </label>
-                                <label className="inline-flex items-center ml-6">
-                                    <input
-                                        type="radio"
-                                        className="form-radio h-4 w-4"
-                                        name="category"
-                                        checked={category === "deluxe"}
-                                        value="deluxe"
-                                        onChange={handleChange}
-                                        onClick={() => setCategory("deluxe")}
-                                    />
-                                    <span className="ml-2  text-gray-600">
-                                        Deluxe
                                     </span>
                                 </label>
                                 <label className="inline-flex items-center ml-6">
