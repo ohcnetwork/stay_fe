@@ -3,16 +3,34 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function RoomContainer({ r, count = null }) {
+    function storeRoomDetails() {
+        const body = {
+            id: r.id,
+            title: r.title,
+            features: r.features,
+            description: r.description,
+            category: r.category,
+            beds: r.beds,
+            photos: r.photos,
+            cost: r.cost,
+            status: r.status,
+        }
+        localStorage.setItem(
+            'roomdetails',
+            JSON.stringify(body)
+        );
+    }
+
     return (
         <div className="md:w-1/2 lg:w-1/3 w-full">
-            <A
+            <A onClick={storeRoomDetails}
                 key={r.title}
                 href={r.link || "#"}
                 className={`mx-5 my-5 flex flex-col shadow-md ${
                     r.link
                         ? "hover:bg-gray-300 hover:shadow-lg"
                         : "cursor-default"
-                } bg-gray-200 rounded`}>
+                    } bg-gray-200 rounded`}>
                 <div className="">
                     <img
                         alt={r.title}

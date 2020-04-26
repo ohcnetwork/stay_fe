@@ -21,8 +21,10 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
 
     const [queryParams, setQueryParams] = useQueryParams();
     const currentURI = usePath();
-
+    const body = JSON.parse(localStorage.getItem('roomdetails'));
+    console.log("body", body);
     useEffect(() => {
+        // console.log(localStorage.getItem('room_desc'));
         updateRoomGetDetail();
     }, []);
 
@@ -34,8 +36,17 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                 let newDetail = detail;
                 setApplied(true);
                 if (res && res.data) {
-                    newDetail = res.data[0];
-                    setavail(true);
+                    console.log("res", res.data);
+                    console.log("body1", JSON.stringify({ ...body, id: "" }));
+                    console.log("body1", JSON.stringify({ ...res.data[0], id: "" }));
+                    newDetail = res.data.find(el => JSON.stringify({ ...el, id: "" }) === JSON.stringify({ ...body, id: "" }));
+                    console.log("new", newDetail);
+                    if (newDetail == null) {
+                        setavail(false);
+                    }
+                    else {
+                        setavail(true);
+                    }
                 } else {
                     setavail(false);
                 }
@@ -190,7 +201,7 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                                     applied
                                         ? "bg-gray-500 cursor-default"
                                         : "bg-gray-900"
-                                } text-gray-100 px-5 py-3 font-semibold rounded`}>
+                                    } text-gray-100 px-5 py-3 font-semibold rounded`}>
                                 Apply
                             </button>
                             <button
@@ -200,14 +211,14 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                                     !avail
                                         ? "text-red-700"
                                         : applied
-                                        ? "bg-gray-900 cursor-pointer"
-                                        : "bg-gray-500"
-                                } px-8 py-3 font-semibold rounded float-right`}>
+                                            ? "bg-gray-900 cursor-pointer"
+                                            : "bg-gray-500"
+                                    } px-8 py-3 font-semibold rounded float-right`}>
                                 {avail ? (
                                     <div>Book Now</div>
                                 ) : (
-                                    <div>Not Available</div>
-                                )}
+                                        <div>Not Available</div>
+                                    )}
                             </button>
                         </div>
                     </div>
