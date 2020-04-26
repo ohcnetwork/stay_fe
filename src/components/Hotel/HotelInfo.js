@@ -35,7 +35,7 @@ export default function HotelInfo({ data }) {
                     {hotel.district}
                 </div>
                 <div className="flex flex-wrap py-2">
-                    {hotel.facilities.split(",").map((el) => (
+                    {(hotel.facilities || "").split(",").map((el) => (
                         <div
                             key={el}
                             className="text-sm text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">
