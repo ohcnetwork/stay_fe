@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-date-picker";
-import { useDispatch, connectAdvanced } from 'react-redux';
-import Slider from 'rc-slider';
+import { useDispatch, connectAdvanced } from "react-redux";
+import Slider from "rc-slider";
 import { Loading } from "../common/Loader";
 
 import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
@@ -161,12 +161,12 @@ function Hotel() {
                     const minimum = Math.max(
                         0,
                         parseInt(res.data[1][0].minimum) -
-                        (parseInt(res.data[1][0].minimum) % 100)
+                            (parseInt(res.data[1][0].minimum) % 100)
                     );
                     const maximum = Math.max(
                         0,
                         parseInt(res.data[1][0].maximum) +
-                        (100 - (parseInt(res.data[1][0].maximum) % 100))
+                            (100 - (parseInt(res.data[1][0].maximum) % 100))
                     );
 
                     dispatch(getDistricts())
@@ -233,7 +233,8 @@ function Hotel() {
                             Accomodation
                         </h2> */}
                         <p className="mt-3  text-xl leading-7 text-indigo-500 sm:mt-4">
-                            Select an accomodation that fits your needs and your budget
+                            Select an accomodation that fits your needs and your
+                            budget
                         </p>
                     </div>
                 </div>
@@ -247,7 +248,9 @@ function Hotel() {
                                 Category
                             </label>
                             <div className="relative">
-                                <select className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="category"
+                                <select
+                                    className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="category"
                                     id="category"
                                     onChange={handleChange}
                                     value={form.category}>
@@ -274,7 +277,9 @@ function Hotel() {
                                 Location
                             </label>
                             <div className="relative">
-                                <select className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="location"
+                                <select
+                                    className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="location"
                                     id="location"
                                     onChange={handleChange}
                                     value={form.location}>
@@ -385,23 +390,21 @@ function Hotel() {
                     </div>
                 </div>
 
-                {
-                    loading ? (
-                        <Loading />
-                    ) : errFlagCatch ? (
-                        <ErrorComponent />
-                    ) : errFlag ? (
-                        <ErrorComponent />
-                    ) : (
-                                    <HotelList
-                                        hotels={hotels}
-                                        startdate={submitdate.checkin}
-                                        enddate={submitdate.checkout}
-                                    />
-                                )
-                }
-            </div >
-        </div >
+                {loading ? (
+                    <Loading />
+                ) : errFlagCatch ? (
+                    <ErrorComponent />
+                ) : errFlag ? (
+                    <ErrorComponent />
+                ) : (
+                    <HotelList
+                        hotels={hotels}
+                        startdate={submitdate.checkin}
+                        enddate={submitdate.checkout}
+                    />
+                )}
+            </div>
+        </div>
     );
 }
 

@@ -47,7 +47,7 @@ export default function HotelInfo({ data }) {
                     <div
                         className={`text-sm py-1 px-2 bg-${
                             HOTEL_STATUS[hotel.status].color
-                            } text-white font-bold uppercase tracking-wide text-center`}>
+                        } text-white font-bold uppercase tracking-wide text-center`}>
                         {HOTEL_STATUS[hotel.status].string}
                     </div>
                 </div>
