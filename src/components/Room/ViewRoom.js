@@ -149,6 +149,9 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
         );
     }
 
+    const previewImage =
+        (detail.photos && detail.photos[0]) || DEFAULT_IMAGE.ROOM;
+
     return (
         <div className="py-10 bg-gray-300 h-full">
             <div className="max-w-5xl mx-auto bg-white shadow overflow-hidden  sm:rounded-lg">
@@ -156,7 +159,7 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                     <div className="lg:w-1/2">
                         <img
                             className="h-64 bg-cover lg:rounded-lg"
-                            src={DEFAULT_IMAGE.ROOM}
+                            src={previewImage}
                             alt={detail.title}
                         />
                     </div>
