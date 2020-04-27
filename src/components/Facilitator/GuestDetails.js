@@ -2,7 +2,6 @@ import React from "react";
 
 
 function GuestDetails({ user_details, id }) {
-    console.log(id);
     var item = [];
     var i;
     var j = 0;
