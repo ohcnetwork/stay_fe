@@ -63,7 +63,6 @@ export default function ViewBooking({ id }) {
     useEffect(() => {
         dispatch(getHotelBookingList(id)).then((resp) => {
             const { data: res } = resp;
-            console.log(res);
             setdetails(res);
             // setForm(res);
         });
