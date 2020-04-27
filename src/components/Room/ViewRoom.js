@@ -105,22 +105,7 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                 checkout: formData.checkout,
             };
 
-            // setShowConfirmation(true);
-            dispatch(dopostBook(body)).then((resp) => {
-                const { data: res } = resp;
-                const { status: statusCode } = resp;
-                if (res && statusCode === 201) {
-                    Notficiation.Success({
-                        msg: "Booking Successfull",
-                    });
-                    navigate("/history");
-                } else {
-                    Notficiation.Error({
-                        msg:
-                            "Sorry! some error encountered... Please reload the page to continue.",
-                    });
-                }
-            });
+            setShowConfirmation(true);
         } else {
             //not logged in
             Notficiation.Error({
@@ -327,7 +312,7 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
                 <BookingConfirmation
                     shown={showConfirmation}
                     toggle={toggleConfirmation}
-                    data={{ ...detail, startdate, enddate }}
+                    data={{ ...detail, startdate: datein, enddate: dateout }}
                 />
             }
         </div>

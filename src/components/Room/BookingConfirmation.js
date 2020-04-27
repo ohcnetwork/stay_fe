@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import { BOOKING_TERMS, GENDER } from "../../Common/constants";
 import { phonePreg, isNumber } from "../../util/validation";
+import { useDispatch } from "react-redux";
+import { dopostBook } from "../../Redux/actions";
+import { navigate } from "hookrouter";
+import * as Notficiation from "../../util/Notifications";
 
 export default function BookingConfirmation({ shown, toggle, data }) {
+    const dispatch = useDispatch();
+    console.log("new data", data);
+    var startdates = data.startdate.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkin = new Date(data.startdate - startdates)
+        .toISOString()
+        .slice(0, -14);
+
+    var enddates = data.enddate.getTimezoneOffset() * 60000; //offset in milliseconds
+    var checkout = new Date(data.enddate - enddates)
+        .toISOString()
+        .slice(0, -14);
     const initPerson = {
         name: "",
         age: "",
         gender: GENDER[0].type,
-        phone: "",
+        number: "",
     };
     const initErr = { ...initPerson, gender: "" };
-    const optional = ["phone"];
+    const optional = ["number"];
 
     const [previousPersons, setPreviousPersons] = useState([]);
     const [person, setPerson] = useState(initPerson);
@@ -28,8 +43,8 @@ export default function BookingConfirmation({ shown, toggle, data }) {
             }
         });
 
-        if (person["phone"] !== "" && !phonePreg(person["phone"])) {
-            err["phone"] = true;
+        if (person["number"] !== "" && !phonePreg(person["number"])) {
+            err["number"] = true;
             isValid = false;
         }
 
@@ -47,7 +62,8 @@ export default function BookingConfirmation({ shown, toggle, data }) {
         console.log(person);
 
         if (validPerson()) {
-            setPreviousPersons([...previousPersons, person]);
+            const number = person.number || null;
+            setPreviousPersons([...previousPersons, { ...person, number }]);
             setPerson(initPerson);
         }
     }
@@ -63,16 +79,31 @@ export default function BookingConfirmation({ shown, toggle, data }) {
 
     function confirmBooking() {
         const bookingData = {
-            id: data.id,
-            checkin: data.startdate,
-            checkout: data.enddate,
-            userDetails: previousPersons,
+            roomid: data.id,
+            checkin: checkin,
+            checkout: checkout,
+            guestdetails: previousPersons,
         };
 
-        if (previousPersons > 0) {
+        if (previousPersons.length > 0) {
             console.log("send booking");
+            dispatch(dopostBook(bookingData)).then((resp) => {
+                const { data: res } = resp;
+                const { status: statusCode } = resp;
+                if (res && statusCode === 201) {
+                    Notficiation.Success({
+                        msg: "Booking Successfull",
+                    });
+                    navigate("/history");
+                } else {
+                    Notficiation.Error({
+                        msg:
+                            "Sorry! some error encountered... Please reload the page to continue.",
+                    });
+                }
+            });
+            console.log(bookingData);
         }
-        console.log(bookingData);
     }
 
     return (
@@ -92,11 +123,8 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                             room for{" "}
                             <span className="font-medium">{data.beds}</span>{" "}
                             people for the duration from{" "}
-                            <span className="font-medium">
-                                {data.startdate}
-                            </span>{" "}
-                            to{" "}
-                            <span className="font-medium">{data.enddate}</span>
+                            <span className="font-medium">{checkin}</span> to{" "}
+                            <span className="font-medium">{checkout}</span>
                         </div>
                         <div className="mt-4">{BOOKING_TERMS}</div>
                         {previousPersons.length < data.beds && (
@@ -138,7 +166,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                                             <div className="relative w-1/2 mr-1">
                                                 <select
                                                     className={`appearance-none w-full py-2 px-3 ${
-                                                        personErr.phone
+                                                        personErr.number
                                                             ? "border-red-500"
                                                             : ""
                                                     } bg-gray-200 focus:bg-gray-300 text-gray-700 rounded`}
@@ -164,14 +192,14 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                                             </div>
                                             <input
                                                 type="tel"
-                                                name="phone"
+                                                name="number"
                                                 className={`w-1/2 border appearance-none bg-gray-200 focus:bg-gray-300 ${
-                                                    personErr.phone
+                                                    personErr.number
                                                         ? "border-red-500"
                                                         : ""
                                                 } rounded py-2 px-3 text-gray-700 leading-tight focus:border-indigo-700 focus:outline-none`}
                                                 placeholder="Phone"
-                                                value={person.phone}
+                                                value={person.number}
                                                 onChange={handleChange}
                                             />
                                         </div>
@@ -206,7 +234,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                                             {person.name}({person.age}
                                             {person.gender[0]})
                                         </div>
-                                        <div className="">{person.phone}</div>
+                                        <div className="">{person.number}</div>
                                     </div>
                                     <button
                                         onClick={() => deletePerson(i)}
