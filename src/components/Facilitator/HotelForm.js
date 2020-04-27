@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { phonePreg } from "../../util/validation";
 import { DISTRICT_CHOICES } from "../../Common/constants";
 import UploadImage from "./UploadImage";
@@ -30,6 +30,10 @@ export default function HotelForm({
         const prevState = checkbox[name];
         const newState = { ...checkbox, [name]: !prevState };
         setCheckbox(newState);
+
+        console.log(newState);
+        console.log(Object.keys(newState)
+        .filter((el) => newState[el]));
 
         setForm({
             ...form,
