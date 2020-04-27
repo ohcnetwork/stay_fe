@@ -45,6 +45,8 @@ function Hotel() {
     const [hotels, sethotels] = useState([]);
 
     useEffect(() => {
+        seterrFlagCatch(false);
+        seterrFlag(false);
         setloading(true);
         var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
         var checkins = new Date(startdate.date - startdates)
@@ -99,6 +101,8 @@ function Hotel() {
         setform({ ...form, [e.target.name]: e.target.value });
     };
     const onSubmit = () => {
+        seterrFlagCatch(false);
+        seterrFlag(false);
         setloading(true);
         var category = form.category;
         var location = form.location;
