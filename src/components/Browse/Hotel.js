@@ -230,7 +230,7 @@ function Hotel() {
     };
     return (
         <div>
-            <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
+            <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto ">
                 <div className="relative max-w-7xl mx-auto">
                     <div className="">
                         {/* <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">

@@ -8,6 +8,7 @@ import UserEdit from "../components/Dashboard/Userdashboard/UserEdit";
 import History from "../components/BookingHistory/History";
 import ViewRoom from "../components/Room/ViewRoom";
 import BrowseRooms from "../components/Browse/BrowseRooms";
+import Footer from "../components/common/Footer";
 
 const routes = {
     "/": () => <LandingPage />,
@@ -46,6 +47,7 @@ const AppRouter = () => {
                     Error 404: Page not found
                 </div>
             )}
+            <Footer />
         </div>
     );
 };
