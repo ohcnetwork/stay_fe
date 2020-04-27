@@ -33,19 +33,19 @@ export default function AddHotelForm() {
     const [formLoading, setFormLoading] = useState(false);
     const [formError, setFormError] = useState(false);
 
-    const handleSubmit = (formData) => {
+    const handleSubmit = (form) => {
         setFormLoading(true);
 
-        // const formData = new FormData();
-        // Object.keys(form).forEach((key) => {
-        //     if (key === "file") {
-        //         form[key].forEach((el) => {
-        //             formData.append(key, el);
-        //         });
-        //     } else {
-        //         formData.append(key, form[key]);
-        //     }
-        // });
+        const formData = new FormData();
+        Object.keys(form).forEach((key) => {
+            if (key === "file") {
+                form[key].forEach((el) => {
+                    formData.append(key, el);
+                });
+            } else {
+                formData.append(key, form[key]);
+            }
+        });
 
         dispatch(postAddHotel(formData)).then((resp) => {
             const { status: statusCode } = resp;

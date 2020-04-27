@@ -8,7 +8,7 @@ export const postLogin = (form) => {
 };
 
 export const postAddHotel = (form) => {
-    return fireRequest("addFacility", [], form, "");
+    return fireRequest("addFacility", [], form, "", true);
 };
 export const changePassword = (form) => {
     return fireRequest("changepassword", [], form);
@@ -18,7 +18,7 @@ export const getBookingHistory = () => {
     return fireRequest("bookingHistory");
 };
 export const postAddRooms = (id, form) => {
-    return fireRequest("addRooms", [id], form, "");
+    return fireRequest("addRooms", [id], form, "", true);
 };
 export const getCurrentUser = () => {
     return fireRequest("currentUser");

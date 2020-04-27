@@ -102,19 +102,19 @@ export default function AddRoom({ id }) {
 
         if (validInputs() && !formLoading) {
             console.log("AddHotelForm.js: ", "creating a new hotel", form);
-            // const formData = new FormData();
+            const formData = new FormData();
 
-            // Object.keys(form).forEach((key) => {
-            //     if (key === "file") {
-            //         form[key].forEach((el) => {
-            //             formData.append(key, el);
-            //         });
-            //     } else {
-            //         formData.append(key, form[key]);
-            //     }
-            // });
+            Object.keys(form).forEach((key) => {
+                if (key === "file") {
+                    form[key].forEach((el) => {
+                        formData.append(key, el);
+                    });
+                } else {
+                    formData.append(key, form[key]);
+                }
+            });
             setFormLoading(true);
-            dispatch(postAddRooms(id, form)).then((resp) => {
+            dispatch(postAddRooms(id, formData)).then((resp) => {
                 const { status: statusCode } = resp;
                 const { data: res } = resp;
                 console.log(resp);
@@ -389,7 +389,7 @@ export default function AddRoom({ id }) {
                         </div>
 
                         {/* File upload */}
-                        {/* <div className="mt-2">
+                        <div className="mt-2">
                             <label
                                 className="block text-sm text-gray-600 "
                                 htmlFor="photos">
@@ -400,19 +400,28 @@ export default function AddRoom({ id }) {
                                 setFiles={setFiles}
                                 formLoading={formLoading}
                             />
-                        </div> */}
+                        </div>
                         <div className="h-10">
                             <p className="text-red-500 text-xs italic bold text-center mt-2">
                                 {formError}
                             </p>
                         </div>
 
-                        <div className="mt-2">
+                        <div className="mt-2 flex items-center">
                             <button
-                                className="px-4 py-1 text-white w-full font-light tracking-wider bg-indigo-600 hover:bg-indigo-300 rounded "
+                                className={`px-4 py-1 text-white font-bold tracking-wider ${
+                                    formLoading
+                                        ? "bg-gray-600 cursor-default"
+                                        : "bg-indigo-600 hover:bg-indigo-800"
+                                } rounded`}
                                 type="submit">
                                 Submit
                             </button>
+                            {formLoading && (
+                                <div className="ml-3 text-gray-700 text-sm">
+                                    Uploading images and submitting data...
+                                </div>
+                            )}
                         </div>
                     </form>
                 </div>
