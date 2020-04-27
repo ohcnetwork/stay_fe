@@ -105,9 +105,10 @@ export default function EditHotel({ id }) {
         currentForm[el] = currentHotel[el];
     });
     let currentFacilities = Object.assign({}, initFacilities);
-    currentHotel.facilities && currentHotel.facilities.split(",").forEach((el) => {
-        currentFacilities[el] = true;
-    });
+    currentHotel.facilities &&
+        currentHotel.facilities.split(",").forEach((el) => {
+            currentFacilities[el] = true;
+        });
     const facilities = currentFacilities;
     const form = currentForm;
 

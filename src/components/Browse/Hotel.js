@@ -161,12 +161,12 @@ function Hotel() {
                     const minimum = Math.max(
                         0,
                         parseInt(res.data[1][0].minimum) -
-                        (parseInt(res.data[1][0].minimum) % 100)
+                            (parseInt(res.data[1][0].minimum) % 100)
                     );
                     const maximum = Math.max(
                         0,
                         parseInt(res.data[1][0].maximum) +
-                        (100 - (parseInt(res.data[1][0].maximum) % 100))
+                            (100 - (parseInt(res.data[1][0].maximum) % 100))
                     );
 
                     dispatch(getDistricts())
@@ -412,12 +412,12 @@ function Hotel() {
                 ) : errFlag ? (
                     <ErrorComponent />
                 ) : (
-                                <HotelList
-                                    hotels={hotels}
-                                    startdate={submitdate.checkin}
-                                    enddate={submitdate.checkout}
-                                />
-                            )}
+                    <HotelList
+                        hotels={hotels}
+                        startdate={submitdate.checkin}
+                        enddate={submitdate.checkout}
+                    />
+                )}
             </div>
         </div>
     );
