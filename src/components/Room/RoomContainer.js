@@ -18,6 +18,8 @@ export default function RoomContainer({ r, count = null }) {
         localStorage.setItem("roomdetails", JSON.stringify(body));
     }
 
+    const previewImage = (r.photos && r.photos[0]) || DEFAULT_IMAGE.ROOM;
+
     return (
         <div className="md:w-1/2 lg:w-1/3 w-full">
             <A
@@ -29,11 +31,11 @@ export default function RoomContainer({ r, count = null }) {
                         ? "hover:bg-gray-300 hover:shadow-lg"
                         : "cursor-default"
                 } bg-gray-200 rounded`}>
-                <div className="">
+                <div className="h-64">
                     <img
                         alt={r.title}
-                        className="w-full rounded"
-                        src={DEFAULT_IMAGE.ROOM}
+                        className="w-full h-full object-cover rounded"
+                        src={previewImage}
                     />
                 </div>
                 <div className="py-3 px-3">

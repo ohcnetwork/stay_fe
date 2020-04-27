@@ -13,13 +13,16 @@ export default function HotelInfo({ data }) {
         return null;
     }
 
+    const previewImage =
+        (hotel.photos && hotel.photos[0]) || DEFAULT_IMAGE.HOTEL;
+
     return (
         <div className="bg-white border-t border-b rounded shadow flex flex-wrap">
-            <div className="w-full lg:w-2/5">
+            <div className="flex items-center w-full lg:w-2/5">
                 <img
                     alt={hotel.name}
-                    className="w-full h-full rounded"
-                    src={DEFAULT_IMAGE.HOTEL}
+                    className="w-full h-64 rounded object-cover"
+                    src={previewImage}
                 />
             </div>
             <div className="flex flex-col w-full lg:w-3/5 md:pl-10 px-5 py-5">

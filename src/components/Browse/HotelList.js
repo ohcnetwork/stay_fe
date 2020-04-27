@@ -22,6 +22,7 @@ const HotelList = ({ hotels, startdate, enddate }) => {
             </div>
         );
     }
+
     return (
         <div className="hotelslist-center max-w-6xl mx-auto">
             <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-4 md:grid-cols-3 md:max-w-none sm:mx-8">
@@ -32,7 +33,10 @@ const HotelList = ({ hotels, startdate, enddate }) => {
                                 <div className="flex-shrink-0">
                                     <img
                                         className="h-48 w-full object-cover"
-                                        src={DEFAULT_IMAGE.HOTEL}
+                                        src={
+                                            (item.photos && item.photos[0]) ||
+                                            DEFAULT_IMAGE.HOTEL
+                                        }
                                         alt={item.name}
                                     />
                                 </div>

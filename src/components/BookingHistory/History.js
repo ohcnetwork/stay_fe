@@ -134,7 +134,11 @@ export default function History() {
                                         className="sm:w-full md:w-3/4 lg:w-5/6 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
                                         <img
                                             className="w-full  h-30"
-                                            src={DEFAULT_IMAGE.HOTEL}
+                                            src={
+                                                (value.photos &&
+                                                    value.photos[0]) ||
+                                                DEFAULT_IMAGE.HOTEL
+                                            }
                                             alt={value.name}
                                         />
                                         <div className="px-3 py-4">
