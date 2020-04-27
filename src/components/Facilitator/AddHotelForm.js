@@ -18,7 +18,6 @@ export default function AddHotelForm() {
         latitude: "11.1",
         longitude: "2.1",
         facilities: null,
-        photos: "photos",
         contact: "",
         policy: "",
     };
@@ -33,19 +32,19 @@ export default function AddHotelForm() {
     const [formLoading, setFormLoading] = useState(false);
     const [formError, setFormError] = useState(false);
 
-    const handleSubmit = (formData) => {
+    const handleSubmit = (form) => {
         setFormLoading(true);
 
-        // const formData = new FormData();
-        // Object.keys(form).forEach((key) => {
-        //     if (key === "file") {
-        //         form[key].forEach((el) => {
-        //             formData.append(key, el);
-        //         });
-        //     } else {
-        //         formData.append(key, form[key]);
-        //     }
-        // });
+        const formData = new FormData();
+        Object.keys(form).forEach((key) => {
+            if (key === "file") {
+                form[key].forEach((el) => {
+                    formData.append(key, el);
+                });
+            } else {
+                formData.append(key, form[key]);
+            }
+        });
 
         dispatch(postAddHotel(formData)).then((resp) => {
             const { status: statusCode } = resp;
@@ -56,8 +55,8 @@ export default function AddHotelForm() {
                 Notficiation.Success({
                     msg: "Hotel Created, Add Room Details",
                 });
-                // navigate(`${res.id}/room/add `);
-                navigate(`${res.data.id}/room/add `);
+                navigate(`${res.id}/room/add `);
+                // navigate(`${res.data.id}/room/add `);
             } else {
                 setFormError("Some problem occurred");
                 setFormLoading(false);
