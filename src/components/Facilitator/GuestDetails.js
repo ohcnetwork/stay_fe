@@ -31,7 +31,7 @@ function GuestDetails({ user_details, id }) {
                                 <h1 className="text-l font-semibold text-gray-800">
                                     Name : {value.name}
                                 </h1>
-                                <div className="flex items-center mt-4 text-gray-700">
+                                <div className="flex items-center mt-4 text-gray-900">
                                     <svg
                                         class="icon icon-phone"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -44,12 +44,12 @@ function GuestDetails({ user_details, id }) {
                                         {value.number}
                                     </h1>
                                 </div>
-                                <div className="flex items-center mt-4 text-gray-700">
+                                <div className="flex items-center mt-4 text-gray-900">
                                     <h1 className="px-2 text-sm">
                                         Age : {value.age}
                                     </h1>
                                 </div>
-                                <div className="flex items-center mt-4 text-gray-700">
+                                <div className="flex items-center mt-4 text-gray-900">
                                     <h1 className="px-2 text-sm">
                                         Gender : {value.gender}
                                     </h1>
