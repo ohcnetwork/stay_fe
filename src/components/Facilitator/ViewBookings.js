@@ -64,7 +64,6 @@ export default function ViewBooking({ id }) {
         dispatch(getHotelBookingList(id)).then((resp) => {
             const { data: res } = resp;
             setdetails(res);
-            // setForm(res);
         });
     }, [dispatch, id]);
 
