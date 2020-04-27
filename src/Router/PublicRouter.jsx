@@ -50,7 +50,7 @@ const PublicRouter = () => {
                     Error 404: Page not found
                 </div>
             )}
-            <Footer signUp={true}/>
+            <Footer signUp={true} />
         </div>
     );
 };

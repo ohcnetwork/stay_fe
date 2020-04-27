@@ -1,7 +1,7 @@
 import React from "react";
 import { A } from "hookrouter";
 
-export default function Footer({signUp}) {
+export default function Footer({ signUp }) {
     return (
         <div>
             <section className="bg-indigo-700 py-3 w-full ">

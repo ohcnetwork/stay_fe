@@ -47,7 +47,7 @@ const AppRouter = () => {
                     Error 404: Page not found
                 </div>
             )}
-            <Footer/>
+            <Footer />
         </div>
     );
 };
