@@ -44,10 +44,8 @@ export const HOTEL_STATUS = {
 };
 
 export const DEFAULT_IMAGE = {
-    HOTEL:
-        "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=450&q=100",
-    ROOM:
-        "https://images.unsplash.com/photo-1515362778563-6a8d0e44bc0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=350&q=80",
+    HOTEL: require("./images/no-image.png"),
+    ROOM: require("./images/no-image.png"),
     USER:
         "https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg",
 };
