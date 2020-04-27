@@ -14,7 +14,6 @@ export default function AddRoom({ id }) {
         description: "",
         category: "",
         beds: "",
-        photos: "photo",
         noOfRooms: "",
         cost: "",
     };
