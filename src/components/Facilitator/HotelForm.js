@@ -32,8 +32,7 @@ export default function HotelForm({
         setCheckbox(newState);
 
         console.log(newState);
-        console.log(Object.keys(newState)
-        .filter((el) => newState[el]));
+        console.log(Object.keys(newState).filter((el) => newState[el]));
 
         setForm({
             ...form,
