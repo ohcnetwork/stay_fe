@@ -1,6 +1,5 @@
 import React from "react";
 
-
 function GuestDetails({ user_details, id }) {
     var item = [];
     var i;
