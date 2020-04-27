@@ -31,10 +31,10 @@ export default function RoomContainer({ r, count = null }) {
                         ? "hover:bg-gray-300 hover:shadow-lg"
                         : "cursor-default"
                 } bg-gray-200 rounded`}>
-                <div className="">
+                <div className="h-64">
                     <img
                         alt={r.title}
-                        className="w-full rounded"
+                        className="w-full h-full object-cover rounded"
                         src={previewImage}
                     />
                 </div>

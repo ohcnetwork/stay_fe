@@ -18,10 +18,10 @@ export default function HotelInfo({ data }) {
 
     return (
         <div className="bg-white border-t border-b rounded shadow flex flex-wrap">
-            <div className="w-full lg:w-2/5">
+            <div className="flex items-center w-full lg:w-2/5">
                 <img
                     alt={hotel.name}
-                    className="w-full h-full rounded"
+                    className="w-full h-64 rounded object-cover"
                     src={previewImage}
                 />
             </div>
