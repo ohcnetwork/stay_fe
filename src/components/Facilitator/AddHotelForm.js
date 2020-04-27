@@ -56,8 +56,8 @@ export default function AddHotelForm() {
                 Notficiation.Success({
                     msg: "Hotel Created, Add Room Details",
                 });
-                // navigate(`${res.id}/room/add `);
-                navigate(`${res.data.id}/room/add `);
+                navigate(`${res.id}/room/add `);
+                // navigate(`${res.data.id}/room/add `);
             } else {
                 setFormError("Some problem occurred");
                 setFormLoading(false);
