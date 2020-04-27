@@ -11,9 +11,6 @@ function GuestDetails({ user_details, id }) {
             for (j = 0; j < user_details[i].guestdetail.length; j++) {
                 item = item.concat(user_details[i].guestdetail[j]);
             }
-
-
-        
             break;
         }
     }
