@@ -7,7 +7,6 @@ function GuestDetails({ user_details, id }) {
     var j = 0;
     for (i = 0; i < user_details.length; i++) {
         if (user_details[i].book_id === id) {
-            console.log(id);
             for (j = 0; j < user_details[i].guestdetail.length; j++) {
                 item = item.concat(user_details[i].guestdetail[j]);
             }
