@@ -5,7 +5,7 @@ import * as Notficiation from "../../util/Notifications";
 import { getBookingHistory, deleteBooking } from "../../Redux/actions";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
-export default function ViewRoom() {
+export default function History() {
     var item = [];
     const state = useSelector((state) => state);
     const { currentUser } = state;

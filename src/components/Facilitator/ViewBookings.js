@@ -14,7 +14,7 @@ export default function ViewBooking({ id }) {
         shown: false,
         data: "",
     });
-
+    const [details, setdetails] = useState({});
     const availableFilters = {
         STATUS_CHECKIN: (el, status) =>
             el.filter((e) => e.statusCheckin === status),
@@ -61,7 +61,10 @@ export default function ViewBooking({ id }) {
     ];
 
     useEffect(() => {
-        dispatch(getHotelBookingList(id));
+        dispatch(getHotelBookingList(id)).then((resp) => {
+            const { data: res } = resp;
+            setdetails(res);
+        });
     }, [dispatch, id]);
 
     function setFilter(type, value) {
@@ -96,7 +99,6 @@ export default function ViewBooking({ id }) {
             </div>
         );
     }
-
     function showBookingList(bookings) {
         let msg = "This hotel has no bookings";
         if (bookings.length > 0) {
@@ -211,7 +213,10 @@ export default function ViewBooking({ id }) {
 
     return (
         <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
-            <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
+            <div
+                className={`flex-col ${
+                    showUpdation.shown ? "hidden" : "flex"
+                } flex-grow container mx-auto sm:px-4 pt-6 pb-8`}>
                 <div className="bg-white border-t border-b sm:rounded shadow mb-6 mx-0 mx-2">
                     <div className="pt-5 border-b bg-gray-100">
                         <div className="flex items-center text-gray-800">
@@ -351,6 +356,7 @@ export default function ViewBooking({ id }) {
                     shown={showUpdation.shown}
                     data={showUpdation.data}
                     id={id}
+                    user_details={details}
                 />
             )}
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { navigate } from "hookrouter";
-
+import GuestDetails from "./GuestDetails";
 import { BOOKING_CHECKIN_STATUS, BOOKING_STATUS } from "../../Common/constants";
 import * as Notification from "../../util/Notifications";
 import {
@@ -10,13 +10,18 @@ import {
     getHotelBookingList,
 } from "../../Redux/actions";
 
-export default function UpdateBooking({ toggle, data, shown, id }) {
+export default function UpdateBooking({
+    toggle,
+    data,
+    shown,
+    id,
+    user_details,
+}) {
     const [roomError, setRoomError] = useState(false);
     const [roomno, setRoomno] = useState("");
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -79,12 +84,12 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
         <div
             className={`${
                 shown ? "flex" : "hidden"
-            } fixed top-0 left-0 bg-gray-200 h-screen w-full items-center justify-center`}>
-            <div className="pb-8 px-0 md:w-1/2 w-full bg-white shadow-lg mx-5 rounded">
-                <div className="uppercase bg-indigo-600 pt-3 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
+            }   w-full w-3/4 justify-center`}>
+            <div className="pb-8 px-0   w-full   mx-5 rounded">
+                <div className="uppercase bg-indigo-600 pt-3 m-0 m-auto mt-5 md:w-1/2 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
                     Booking ID: {data.book_id}
                 </div>
-                <div className="px-5">
+                <div className="px-5 bg-white shadow-lg rounded md:w-1/2 m-0 m-auto pb-3">
                     <div className="pb-8 pt-3 px-0 text-gray-800">
                         <div className="flex flex-wrap justify-center">
                             <div className="flex col pb-8 pt-2 mx-5 flex-grow items-center justify-center">
@@ -291,6 +296,7 @@ export default function UpdateBooking({ toggle, data, shown, id }) {
                         )}
                     </div>
                 </div>
+                <GuestDetails user_details={user_details} id={data.book_id} />
             </div>
         </div>
     );
