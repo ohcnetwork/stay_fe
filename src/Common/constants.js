@@ -44,10 +44,8 @@ export const HOTEL_STATUS = {
 };
 
 export const DEFAULT_IMAGE = {
-    HOTEL:
-        require("./images/no-image.png"),
-    ROOM:
-        require("./images/no-image.png"),
+    HOTEL: require("./images/no-image.png"),
+    ROOM: require("./images/no-image.png"),
     USER:
         "https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg",
 };
