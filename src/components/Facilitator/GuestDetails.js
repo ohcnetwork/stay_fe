@@ -12,6 +12,8 @@ function GuestDetails({ user_details, id }) {
                 item = item.concat(user_details[i].guestdetail[j]);
             }
 
+
+        
             break;
         }
     }
