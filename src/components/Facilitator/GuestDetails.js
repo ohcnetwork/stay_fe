@@ -14,7 +14,6 @@ function GuestDetails({ user_details, id }) {
             break;
         }
     }
-    console.log(item);
     return (
         <div className=" m-0 mt-5 m-auto">
             <div className="m-0 text-center text-4xl lg:w-1/4 w-full m-auto">
