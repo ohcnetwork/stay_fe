@@ -8,6 +8,7 @@ import ViewBookings from "../components/Facilitator/ViewBookings";
 import AddHotelForm from "../components/Facilitator/AddHotelForm";
 import EditHotel from "../components/Facilitator/EditHotel";
 import AddRoom from "../components/Facilitator/AddRoom";
+import Footer from "../components/common/Footer";
 
 const routes = {
     "/": () => <Facilitator />,
@@ -32,6 +33,7 @@ const FacilitatorRouter = () => {
                     Error 404: Page not found
                 </div>
             )}
+            <Footer />
         </div>
     );
 };
