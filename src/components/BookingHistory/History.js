@@ -96,6 +96,7 @@ export default function History() {
                                 </button>
                             </div>
                             <div className=" text-center w-1/3  px-1 py-2 m-1">
+                        
                                 <button
                                     className={`bg-white w-full text-xs ml-0 hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
                                         form3 === "BOOKED"
