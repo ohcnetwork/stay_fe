@@ -121,15 +121,15 @@ export default function ViewRoom({ category, id }) {
         //     navigate("/browse");
         //     return false;
         // }
-        // var startdates = datein.getTimezoneOffset() * 60000; //offset in milliseconds
-        // var checkin = new Date(datein - startdates).toISOString().slice(0, -14);
-        // var enddates = dateout.getTimezoneOffset() * 60000; //offset in milliseconds
-        // var checkout = new Date(dateout - enddates).toISOString().slice(0, -14);
+        var startdates = datein.getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkin = new Date(datein - startdates).toISOString().slice(0, -14);
+        var enddates = dateout.getTimezoneOffset() * 60000; //offset in milliseconds
+        var checkout = new Date(dateout - enddates).toISOString().slice(0, -14);
         const formdata = {
             hotelid,
             category,
-            checkin: datein,
-            checkout: dateout,
+            checkin: checkin,
+            checkout: checkout,
             type: "room",
         };
 
