@@ -11,7 +11,8 @@ import AddRoom from "../components/Facilitator/AddRoom";
 import Footer from "../components/common/Footer";
 
 const routes = {
-    "/": () => <Facilitator />,
+    "/": () => <Facilitator from={""} />,
+    "/room/:id/:id/:id/:id": () => <Facilitator from={"booking_page"} />,
     "/hotel/add": () => <AddHotelForm />,
     "/hotel/:id": ({ id }) => <FacilitatorViewHotel id={id} />,
     "/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
