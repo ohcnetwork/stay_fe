@@ -41,7 +41,7 @@ const HotelList = ({ hotels, startdate, enddate }) => {
                                     />
                                 </div>
                                 <A
-                                    href={`/roomlist/${item.id}/${startdate}/${enddate}`}
+                                    href={`/roomlist/${item.id}`}
                                     className="block">
                                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div className="flex-1">

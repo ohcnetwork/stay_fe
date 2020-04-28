@@ -3,7 +3,13 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
 
-export default function RoomContainer({ r, count = null }) {
+export default function RoomContainer({ r, count = null, date1, date2 }) {
+    const body1 = {
+        checkin: date1,
+        checkout: date2,
+    };
+    console.log("deeeee", date1);
+    localStorage.setItem("dates", JSON.stringify(body1));
     function storeRoomDetails() {
         const body = {
             id: r.id,

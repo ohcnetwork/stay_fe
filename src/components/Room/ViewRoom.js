@@ -8,15 +8,14 @@ import BookingConfirmation from "./BookingConfirmation";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
 
-export default function ViewRoom({ category, id, startdate, enddate }) {
+export default function ViewRoom({ category, id }) {
     const hotelid = id;
-
+    const body1 = JSON.parse(localStorage.getItem("dates"));
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const { currentUser } = state;
-
-    const [datein, setdatein] = useState(new Date(startdate));
-    const [dateout, setdateout] = useState(new Date(enddate));
+    const [datein, setdatein] = useState(new Date(body1.checkin));
+    const [dateout, setdateout] = useState(new Date(body1.checkout));
     const [avail, setavail] = useState(true);
     const [detail, setDetail] = useState({ isFetching: true });
     const [applied, setApplied] = useState(false);
@@ -120,20 +119,19 @@ export default function ViewRoom({ category, id, startdate, enddate }) {
     };
 
     function getUpdatedDetails() {
-        if (!Date.parse(startdate) || !Date.parse(enddate)) {
-            navigate("/browse");
-            return false;
-        }
+        // if (!Date.parse(datein) || !Date.parse(dateout)) {
+        //     navigate("/browse");
+        //     return false;
+        // }
         var startdates = datein.getTimezoneOffset() * 60000; //offset in milliseconds
         var checkin = new Date(datein - startdates).toISOString().slice(0, -14);
-
         var enddates = dateout.getTimezoneOffset() * 60000; //offset in milliseconds
         var checkout = new Date(dateout - enddates).toISOString().slice(0, -14);
         const formdata = {
             hotelid,
             category,
-            checkin,
-            checkout,
+            checkin: checkin,
+            checkout: checkout,
             type: "room",
         };
 

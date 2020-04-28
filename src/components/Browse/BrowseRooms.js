@@ -5,22 +5,16 @@ import { navigate } from "hookrouter";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomsList from "../Room/RoomsList";
 
-function BrowseRooms({ id, startdate, enddate }) {
-    const dates = {
-        checkin: startdate,
-        checkout: enddate,
-    };
+function BrowseRooms({ id }) {
+    const body1 = JSON.parse(localStorage.getItem("filterdetails"));
+    console.log("body1", body1);
     const [sortedrooms, setsortedrooms] = useState(false);
     const [currenthotel, setcurrenthotel] = useState(false);
     // const [errflag, seterrflag] = useState(false);
     const dispatch = useDispatch();
-
+    console.log("hello");
     useEffect(() => {
-        if (
-            isNaN(new Date(startdate).getTime()) ||
-            isNaN(new Date(enddate).getTime()) ||
-            isNaN(id)
-        ) {
+        if (isNaN(id)) {
             navigate("/browse");
         } else {
             dispatch(getHotelByHotelId(id)).then((res) => {
@@ -28,9 +22,13 @@ function BrowseRooms({ id, startdate, enddate }) {
             });
             const body = {
                 hotelid: id,
-                checkin: dates.checkin,
-                checkout: dates.checkout,
+                checkin: body1.checkin,
+                checkout: body1.checkout,
                 type: "room",
+                category: body1.category,
+                minimum: body1.minimum,
+                maximum: body1.maximum,
+                beds: body1.beds,
             };
             dispatch(getHotelList(body)).then((res) => {
                 if (res) {
@@ -50,6 +48,7 @@ function BrowseRooms({ id, startdate, enddate }) {
             </div>
         );
     }
+
     return (
         <div className="font-sans bg-gray-200 flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
@@ -60,7 +59,9 @@ function BrowseRooms({ id, startdate, enddate }) {
                 <div className="w-full mb-6">
                     <RoomsList
                         data={sortedrooms}
-                        linkSuffix={`/${id}/${dates.checkin}/${dates.checkout}`}
+                        date1={body1.checkin}
+                        date2={body1.checkout}
+                        linkSuffix={`/${id}`}
                     />
                 </div>
             </div>
