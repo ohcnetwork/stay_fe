@@ -9,6 +9,7 @@ import * as Notficiation from "../../util/Notifications";
 export default function BookingConfirmation({ shown, toggle, data }) {
     const dispatch = useDispatch();
     console.log("new data", data);
+
     var startdates = data.startdate.getTimezoneOffset() * 60000; //offset in milliseconds
     var checkin = new Date(data.startdate - startdates)
         .toISOString()
@@ -18,6 +19,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
     var checkout = new Date(data.enddate - enddates)
         .toISOString()
         .slice(0, -14);
+
     const initPerson = {
         name: "",
         age: "",
