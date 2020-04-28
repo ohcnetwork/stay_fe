@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
+import Carousal from "../common/Carousal";
 
 export default function RoomContainer({ r, count = null }) {
     function storeRoomDetails() {
@@ -19,6 +20,7 @@ export default function RoomContainer({ r, count = null }) {
     }
 
     const previewImage = (r.photos && r.photos[0]) || DEFAULT_IMAGE.ROOM;
+    const controlCarousal = useState(false);
 
     return (
         <div className="md:w-1/2 lg:w-1/3 w-full">
@@ -33,8 +35,17 @@ export default function RoomContainer({ r, count = null }) {
                 } bg-gray-200 rounded`}>
                 <div className="h-64">
                     <img
+                        onClick={() =>
+                            !r.link && r.photos.length >= 1
+                                ? controlCarousal[1](true)
+                                : null
+                        }
                         alt={r.title}
-                        className="w-full h-full object-cover rounded"
+                        className={`w-full h-full object-cover rounded ${
+                            r.link || r.photos.length < 1
+                                ? ""
+                                : "cursor-pointer"
+                        }`}
                         src={previewImage}
                     />
                 </div>
@@ -89,6 +100,11 @@ export default function RoomContainer({ r, count = null }) {
                     </div>
                 </div>
             </A>
+            <Carousal
+                control={controlCarousal}
+                images={r.photos}
+                title={r.title}
+            />
         </div>
     );
 }
