@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { HOTEL_STATUS, DEFAULT_IMAGE } from "../../Common/constants";
+import Carousal from "../common/Carousal";
 import Star from "../common/Star";
 
 export default function HotelInfo({ data }) {
     const [hotel, setHotel] = useState(null);
+    const controlCarousal = useState(false);
 
     useEffect(() => {
         setHotel(data);
@@ -20,8 +22,13 @@ export default function HotelInfo({ data }) {
         <div className="bg-white border-t border-b rounded shadow flex flex-wrap">
             <div className="flex items-center w-full lg:w-2/5">
                 <img
+                    onClick={() => controlCarousal[1](true)}
                     alt={hotel.name}
-                    className="w-full h-64 rounded object-cover"
+                    className={`w-full h-64 rounded object-cover ${
+                        hotel.photos && hotel.photos.length >= 1
+                            ? "cursor-pointer"
+                            : ""
+                    } `}
                     src={previewImage}
                 />
             </div>
@@ -69,6 +76,11 @@ export default function HotelInfo({ data }) {
                     </div>
                 </div> */}
             </div>
+            <Carousal
+                control={controlCarousal}
+                images={hotel.photos}
+                title={hotel.name}
+            />
         </div>
     );
 }

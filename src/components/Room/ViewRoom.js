@@ -6,6 +6,7 @@ import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
 import BookingConfirmation from "./BookingConfirmation";
 import { DEFAULT_IMAGE } from "../../Common/constants";
+import Carousal from "../common/Carousal";
 
 export default function ViewRoom({ category, id }) {
     const hotelid = id;
@@ -19,6 +20,7 @@ export default function ViewRoom({ category, id }) {
     const [detail, setDetail] = useState({ isFetching: true });
     const [applied, setApplied] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const controlCarousal = useState(false);
     const [queryParams, setQueryParams] = useQueryParams();
     const currentURI = usePath();
     const body = JSON.parse(localStorage.getItem("roomdetails"));
@@ -155,7 +157,16 @@ export default function ViewRoom({ category, id }) {
                 <div className="bg-white lg:mx-8 lg:my-4 lg:flex lg:max-w-5xl">
                     <div className="lg:w-1/2">
                         <img
-                            className="h-64 bg-cover lg:rounded-lg"
+                            onClick={() =>
+                                detail.photos.length >= 1
+                                    ? controlCarousal[1](true)
+                                    : null
+                            }
+                            className={`h-64 bg-cover lg:rounded-lg ${
+                                detail.photos.length >= 1
+                                    ? "cursor-pointer"
+                                    : ""
+                            }`}
                             src={previewImage}
                             alt={detail.title}
                         />
@@ -308,6 +319,11 @@ export default function ViewRoom({ category, id }) {
                     </dl>
                 </div>
             </div>
+            <Carousal
+                control={controlCarousal}
+                images={detail.photos}
+                title={detail.title}
+            />
             {
                 <BookingConfirmation
                     shown={showConfirmation}
