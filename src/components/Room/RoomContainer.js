@@ -36,7 +36,7 @@ export default function RoomContainer({ r, count = null, date1, date2 }) {
                     r.link
                         ? "hover:bg-gray-300 hover:shadow-lg"
                         : "cursor-default"
-                } bg-gray-200 rounded`}>
+                    } bg-gray-200 rounded`}>
                 <div className="h-64">
                     <img
                         alt={r.title}

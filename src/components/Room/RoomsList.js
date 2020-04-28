@@ -7,7 +7,6 @@ export default function RoomList({ data, date1, date2, linkSuffix = "" }) {
     useEffect(() => {
         setRooms(data);
     }, [data]);
-    console.log("dxxxxx", date1);
     function listRooms(rooms) {
         // categorize rooms based on all parameters except id
         rooms = [

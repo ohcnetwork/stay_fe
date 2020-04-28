@@ -12,7 +12,7 @@ function BrowseRooms({ id }) {
     const [currenthotel, setcurrenthotel] = useState(false);
     // const [errflag, seterrflag] = useState(false);
     const dispatch = useDispatch();
-
+    console.log("hello")
     useEffect(() => {
         if (isNaN(id)) {
             navigate("/browse");

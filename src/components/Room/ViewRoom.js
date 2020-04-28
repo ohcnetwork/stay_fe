@@ -13,14 +13,12 @@ export default function ViewRoom({ category, id }) {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const { currentUser } = state;
-    console.log("Daaaaa", body1.checkin);
     const [datein, setdatein] = useState(new Date(body1.checkin));
     const [dateout, setdateout] = useState(new Date(body1.checkout));
     const [avail, setavail] = useState(true);
     const [detail, setDetail] = useState({ isFetching: true });
     const [applied, setApplied] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
-    console.log("fggggg", new Date(datein));
     const [queryParams, setQueryParams] = useQueryParams();
     const currentURI = usePath();
     const body = JSON.parse(localStorage.getItem("roomdetails"));
@@ -201,7 +199,7 @@ export default function ViewRoom({ category, id }) {
                                     applied
                                         ? "bg-gray-500 cursor-default"
                                         : "bg-gray-900"
-                                } text-gray-100 px-5 py-3 font-semibold rounded`}>
+                                    } text-gray-100 px-5 py-3 font-semibold rounded`}>
                                 Apply
                             </button>
                             <button
@@ -211,14 +209,14 @@ export default function ViewRoom({ category, id }) {
                                     !avail
                                         ? "text-red-700"
                                         : applied
-                                        ? "bg-gray-900 cursor-pointer"
-                                        : "bg-gray-500"
-                                } px-8 py-3 font-semibold rounded float-right`}>
+                                            ? "bg-gray-900 cursor-pointer"
+                                            : "bg-gray-500"
+                                    } px-8 py-3 font-semibold rounded float-right`}>
                                 {avail ? (
                                     <div>Book Now</div>
                                 ) : (
-                                    <div>Not Available</div>
-                                )}
+                                        <div>Not Available</div>
+                                    )}
                             </button>
                         </div>
                     </div>
