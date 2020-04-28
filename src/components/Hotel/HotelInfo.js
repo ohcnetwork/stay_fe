@@ -25,7 +25,7 @@ export default function HotelInfo({ data }) {
                     onClick={() => controlCarousal[1](true)}
                     alt={hotel.name}
                     className={`w-full h-64 rounded object-cover ${
-                        hotel.photos && hotel.photos.length > 1
+                        hotel.photos && hotel.photos.length >= 1
                             ? "cursor-pointer"
                             : ""
                     } `}

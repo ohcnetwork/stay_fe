@@ -7,6 +7,7 @@ export default function Carousal({ images, control, title = "" }) {
     const [currentImage, setCurrentImage] = useState(0);
 
     const [imageOpacity, setImageOpacity] = useState(1);
+    const [animationRunning, setAnimationRunning] = useState(false);
 
     const initTransitionDuration = 300;
     const transitionDuration = 200;
@@ -17,7 +18,6 @@ export default function Carousal({ images, control, title = "" }) {
             setVisibility("visible");
             setOpacity(1);
         } else {
-            console.log("hide");
             setOpacity(0);
             setTimeout(() => {
                 setVisibility("invisible");
@@ -28,7 +28,6 @@ export default function Carousal({ images, control, title = "" }) {
 
     useEffect(() => {
         if (shown && images.length > 1) {
-            console.log("set timer");
             const id = setInterval(nextImage, timerInterval);
             return () => {
                 clearInterval(id);
@@ -36,28 +35,62 @@ export default function Carousal({ images, control, title = "" }) {
         }
     }, [shown, images, timerInterval, transitionDuration]);
 
+    useEffect(() => {
+        if (shown) {
+            console.log("add listener");
+            document.addEventListener("keydown", handleKeyPress);
+            return () => {
+                console.log("remove listener");
+                document.removeEventListener("keydown", handleKeyPress);
+            };
+        }
+    }, [shown]);
+
     function previousImage() {
+        if (animationRunning) return;
+        setAnimationRunning(true);
         setImageOpacity(0);
         setTimeout(() => {
             setCurrentImage((c) => (c == 0 ? images.length - 1 : c - 1));
             setImageOpacity(1);
+            setAnimationRunning(false);
         }, transitionDuration);
     }
 
     function loadImage(i) {
+        if (animationRunning) return;
+        setAnimationRunning(true);
         setImageOpacity(0);
         setTimeout(() => {
             setCurrentImage(i);
             setImageOpacity(1);
+            setAnimationRunning(false);
         }, transitionDuration);
     }
 
     function nextImage() {
+        if (animationRunning) return;
+        setAnimationRunning(true);
         setImageOpacity(0);
         setTimeout(() => {
             setCurrentImage((c) => (c + 1) % images.length);
             setImageOpacity(1);
+            setAnimationRunning(false);
         }, transitionDuration);
+    }
+
+    function handleKeyPress(e) {
+        switch (e.key) {
+            case "ArrowLeft":
+                previousImage();
+                break;
+            case "ArrowRight":
+                nextImage();
+                break;
+            case "Escape":
+                setShown(false);
+                break;
+        }
     }
 
     if (!images || images.length < 1) {
@@ -66,6 +99,7 @@ export default function Carousal({ images, control, title = "" }) {
 
     return (
         <div
+            onKeyDown={handleKeyPress}
             className={`${visibility} transition ease-in-out duration-${initTransitionDuration} fixed top-0 left-0 max-h-screen h-screen w-full bg-black opacity-${opacity}`}>
             <div className="relative flex flex-col items-center justify-center w-full h-full py-2">
                 <div className="absolute top-0 text-shadow text-2xl tracking-wide md:text-4xl text-white pt-5 text-center">
@@ -78,9 +112,10 @@ export default function Carousal({ images, control, title = "" }) {
                 />
                 <div className="absolute flex justify-between items-center w-full h-full">
                     <div className="flex items-center justify-center h-full pl-2 sm:pl-5">
-                        <button className="sm:p-5 p-2 flex items-center justify-center rounded-full text-white opacity-50 bg-black">
+                        <button
+                            onClick={previousImage}
+                            className="sm:p-5 p-2 flex items-center justify-center rounded-full text-white opacity-50 bg-black">
                             <svg
-                                onClick={previousImage}
                                 aria-hidden="true"
                                 focusable="false"
                                 data-prefix="fas"
@@ -96,9 +131,10 @@ export default function Carousal({ images, control, title = "" }) {
                         </button>
                     </div>
                     <div className="flex items-center justify-center h-full pr-2 sm:pr-5">
-                        <button className="sm:p-5 p-2 flex items-center justify-center rounded-full text-white opacity-50 bg-black">
+                        <button
+                            onClick={nextImage}
+                            className="sm:p-5 p-2 flex items-center justify-center rounded-full text-white opacity-50 bg-black">
                             <svg
-                                onClick={nextImage}
                                 aria-hidden="true"
                                 focusable="false"
                                 data-prefix="fas"
