@@ -2,7 +2,10 @@ import React from "react";
 import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
-const HotelList = ({ hotels, startdate, enddate }) => {
+const HotelList = ({ hotels, filterdetails }) => {
+    const storefilterdetails = () => {
+        localStorage.setItem("filterdetails", JSON.stringify(filterdetails));
+    };
     if (hotels.length === 0) {
         return (
             <div>
@@ -41,6 +44,7 @@ const HotelList = ({ hotels, startdate, enddate }) => {
                                     />
                                 </div>
                                 <A
+                                    onClick={storefilterdetails}
                                     href={`/roomlist/${item.id}`}
                                     className="block">
                                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">

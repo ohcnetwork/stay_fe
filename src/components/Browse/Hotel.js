@@ -21,6 +21,7 @@ function Hotel() {
     const [errFlagCatch, seterrFlagCatch] = useState(false);
     // for loading
     const [loading, setloading] = useState(true);
+    // for filter details
 
     var today = new Date();
     today.setDate(today.getDate() + 15);
@@ -42,6 +43,17 @@ function Hotel() {
         minPrice: 0,
         maxPrice: 1000,
     });
+    const [formdata, setformdata] = useState({
+        category: "",
+        district: form.location,
+        minimum: optionlist.minPrice,
+        maximum: optionlist.maxPrice,
+        checkin: startdate,
+        checkout: enddate,
+        type: "hotel",
+        beds: form.beds,
+    });
+
     const [hotels, sethotels] = useState([]);
 
     useEffect(() => {
@@ -59,13 +71,24 @@ function Hotel() {
             .slice(0, -14);
 
         getOptions();
-        const formdata = {
+        const formdata1 = {
             checkin: checkins,
             checkout: checkouts,
             type: "hotel",
             beds: form.beds,
         };
-        dispatch(getHotelList(formdata))
+        setformdata({
+            category: "",
+            district: form.location,
+            // price
+            minimum: optionlist.minPrice,
+            maximum: optionlist.maxPrice,
+            checkin: formdata1.checkin,
+            checkout: formdata1.checkout,
+            type: "hotel",
+            beds: form.beds,
+        });
+        dispatch(getHotelList(formdata1))
             .then((res) => {
                 if (res) {
                     res.data = res.data.filter((e) => e);
@@ -122,7 +145,7 @@ function Hotel() {
         var checkoutsubmit = new Date(enddate.date - tempenddate)
             .toISOString()
             .slice(0, -14);
-        const formdata = {
+        setformdata({
             category: category,
             district: location,
             // price
@@ -132,12 +155,13 @@ function Hotel() {
             checkout: checkoutsubmit,
             type: "hotel",
             beds: form.beds,
-        };
+        });
         setsubmitdate({
             checkin: checkinsubmit,
             checkout: checkoutsubmit,
         });
-        localStorage.setItem("filterdetails", JSON.stringify(formdata));
+        // storefilterdetails(formdata);
+        // localStorage.setItem("filterdetails", JSON.stringify(formdata));
         dispatch(getHotelList(formdata))
             .then((res) => {
                 if (res) {
@@ -417,7 +441,7 @@ function Hotel() {
                 ) : errFlag ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList hotels={hotels} />
+                    <HotelList hotels={hotels} filterdetails={formdata} />
                 )}
             </div>
         </div>
