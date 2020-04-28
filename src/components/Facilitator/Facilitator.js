@@ -28,7 +28,6 @@ export default function Facilitator({ from }) {
 
     const dispatch = useDispatch();
     const { userHotelList } = state;
-
     useEffect(() => {
         if (from === "booking_page") {
             navigate("/");
