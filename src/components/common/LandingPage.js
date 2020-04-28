@@ -10,7 +10,7 @@ function LandingPage() {
 
     return (
         <div>
-            <div className="w-full ">
+            <div className="w-full  ">
                 <div className="flex bg-white" style={{ height: "350px" }}>
                     <div className="flex items-center text-left sm:text-center md:text-left px-8 md:pl-12 lg:w-2/3">
                         <div>
@@ -40,13 +40,13 @@ function LandingPage() {
                                     <A
                                         className="ml-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400"
                                         href="/user-register">
-                                        SignUp as User
+                                        SignUp
                                     </A>
-                                    <A
+                                    {/* <A
                                         className="ml-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400"
                                         href="facilitator-register">
                                         SignUp as Facilitator
-                                    </A>
+                                    </A> */}
                                 </div>
                             )}
                         </div>

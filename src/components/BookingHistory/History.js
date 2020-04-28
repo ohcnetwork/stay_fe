@@ -58,10 +58,10 @@ export default function History() {
             }
         }
     }
-
+    console.log(item);
     if (count === 0) {
         return (
-            <div className="py-10 bg-white min-h-full">
+            <div className="py-10 bg-white min-h-screen">
                 <div className="text-center">
                     <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                         Booking History
@@ -76,7 +76,7 @@ export default function History() {
         );
     } else
         return (
-            <div className="py-10 bg-white min-h-full">
+            <div className="py-10 bg-white min-h-screen">
                 <div className="max-w-5xl  mx-auto   overflow-hidden  sm:rounded-lg">
                     <div className="text-center">
                         <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
@@ -85,7 +85,7 @@ export default function History() {
                         <div className="flex mt-3 text-center lg:text-md text-sm w-5/6 flex-row bg-gray-200 lg:w-1/2 m-0 m-auto ">
                             <div className="text-center w-1/3  px-3 py-2 m-1">
                                 <button
-                                    className={`bg-white text-xs ml-0 w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
+                                    className={`bg-white text-xs ml-0 w-full shadow-lg hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
                                         form3 === "CHECKED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
@@ -189,7 +189,7 @@ export default function History() {
                                                     ).toLocaleDateString()}
                                                 </li>
                                                 <li>
-                                                    <div className="flex w-full   flex-row  ">
+                                                    <div className="flex w-full  text-sm flex-row  ">
                                                         <div className=" w-1/2  ">
                                                             Booking status :{" "}
                                                             {

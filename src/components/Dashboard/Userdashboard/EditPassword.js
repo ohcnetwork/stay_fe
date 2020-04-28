@@ -73,7 +73,6 @@ export default function EditPassword() {
         e.preventDefault();
 
         if (validInputs() && !formLoading) {
-            console.log(form);
             setFormLoading(true);
             dispatch(changePassword(form)).then((resp) => {
                 const { status: statusCode } = resp;
@@ -125,7 +124,7 @@ export default function EditPassword() {
             <form
                 onSubmit={handleSubmit}
                 className={`bg-white shadow-lg mt-4 rounded px-8 pt-6 pb-8 my-20 ${
-                    currentUser.data.data.type === "customer"
+                    currentUser.data.data.type === "user"
                         ? "bg-gray-400"
                         : "bg-white"
                 }`}>
