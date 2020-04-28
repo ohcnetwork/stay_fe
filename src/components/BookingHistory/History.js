@@ -85,7 +85,7 @@ export default function History() {
                         <div className="flex mt-3 text-center lg:text-md text-sm w-5/6 flex-row bg-gray-200 lg:w-1/2 m-0 m-auto ">
                             <div className="text-center w-1/3  px-3 py-2 m-1">
                                 <button
-                                    className={`bg-white text-xs ml-0 w-full hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
+                                    className={`bg-white text-xs ml-0 w-full shadow-lg hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
                                         form3 === "CHECKED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
