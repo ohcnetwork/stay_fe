@@ -58,7 +58,7 @@ export default function History() {
             }
         }
     }
-
+    console.log(item);
     if (count === 0) {
         return (
             <div className="py-10 bg-white min-h-screen">
@@ -189,7 +189,7 @@ export default function History() {
                                                     ).toLocaleDateString()}
                                                 </li>
                                                 <li>
-                                                    <div className="flex w-full   flex-row  ">
+                                                    <div className="flex w-full  text-sm flex-row  ">
                                                         <div className=" w-1/2  ">
                                                             Booking status :{" "}
                                                             {
