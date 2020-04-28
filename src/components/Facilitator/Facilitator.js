@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { A, navigate } from "hookrouter";
-
 import { getUserHotelList } from "../../Redux/actions";
 import { HOTEL_STATUS } from "../../Common/constants";
 import ActionsBox from "./ActionsBox";
