@@ -25,6 +25,10 @@ function BrowseRooms({ id }) {
                 checkin: body1.checkin,
                 checkout: body1.checkout,
                 type: "room",
+                category: body1.category,
+                minimum: body1.minimum,
+                maximum: body1.maximum,
+                beds: body1.beds,
             };
             dispatch(getHotelList(body)).then((res) => {
                 if (res) {
