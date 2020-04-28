@@ -11,14 +11,13 @@ import AddRoom from "../components/Facilitator/AddRoom";
 import Footer from "../components/common/Footer";
 
 const routes = {
-    "/": () => <Facilitator from={""} />,
+    "/": () => <Facilitator />,
     "/hotel/add": () => <AddHotelForm />,
     "/hotel/:id": ({ id }) => <FacilitatorViewHotel id={id} />,
     "/hotel/:id/room/add": ({ id }) => <AddRoom id={id} />,
     "/hotel/:id/edit": ({ id }) => <EditHotel id={id} />,
     "/hotel/:id/bookings": ({ id }) => <ViewBookings id={id} />,
     "/edit": () => <UserEdit />,
-    "/room/:id/:id/:id/:id": () => <Facilitator from={"booking_page"} />,
 };
 
 const FacilitatorRouter = () => {
