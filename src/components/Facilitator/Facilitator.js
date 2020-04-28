@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { A } from "hookrouter";
+import { A, navigate } from "hookrouter";
 
 import { getUserHotelList } from "../../Redux/actions";
 import { HOTEL_STATUS } from "../../Common/constants";
 import ActionsBox from "./ActionsBox";
 
-export default function Facilitator() {
+export default function Facilitator({ from }) {
     const state = useSelector((state) => state);
     const { currentUser: temp } = state;
     const currentUser = temp && temp.data && temp.data.data;
-
     const months = [
         "jan",
         "feb",
@@ -31,8 +30,11 @@ export default function Facilitator() {
     const { userHotelList } = state;
 
     useEffect(() => {
+        if (from === "booking_page") {
+            navigate("/");
+        }
         dispatch(getUserHotelList(currentUser.id));
-    }, [dispatch, currentUser.id]);
+    }, [dispatch, currentUser.id, from]);
 
     function timeString(tme) {
         let hours = tme.getHours() % 12;
