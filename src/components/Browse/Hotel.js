@@ -137,7 +137,6 @@ function Hotel() {
             checkin: checkinsubmit,
             checkout: checkoutsubmit,
         });
-        localStorage.setItem("filterdetails", JSON.stringify(formdata));
         dispatch(getHotelList(formdata))
             .then((res) => {
                 if (res) {
@@ -417,7 +416,11 @@ function Hotel() {
                 ) : errFlag ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList hotels={hotels} />
+                    <HotelList
+                        hotels={hotels}
+                        startdate={submitdate.checkin}
+                        enddate={submitdate.checkout}
+                    />
                 )}
             </div>
         </div>

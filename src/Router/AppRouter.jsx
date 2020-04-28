@@ -16,10 +16,22 @@ const routes = {
     "/edit": () => <UserEdit />,
     "/history": () => <History />,
 
-    "/room/:category/:id": ({ category, id }) => (
-        <ViewRoom category={category} id={id} />
+    "/room/:category/:id/:startdate/:enddate": ({
+        category,
+        id,
+        startdate,
+        enddate,
+    }) => (
+        <ViewRoom
+            category={category}
+            id={id}
+            startdate={startdate}
+            enddate={enddate}
+        />
     ),
-    "/roomlist/:id": ({ id }) => <BrowseRooms id={id} />,
+    "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
+        <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
+    ),
 };
 
 const AppRouter = () => {

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import RoomContainer from "./RoomContainer";
 
-export default function RoomList({ data, date1, date2, linkSuffix = "" }) {
+export default function RoomList({ data, linkSuffix = "" }) {
     const [rooms, setRooms] = useState(null);
-    console.log(date1);
+
     useEffect(() => {
         setRooms(data);
     }, [data]);
+
     function listRooms(rooms) {
         // categorize rooms based on all parameters except id
         rooms = [
@@ -19,13 +20,7 @@ export default function RoomList({ data, date1, date2, linkSuffix = "" }) {
                 const r = room[0];
                 r.link = linkSuffix && `/room/${r.category}${linkSuffix}`;
                 return (
-                    <RoomContainer
-                        key={r.title}
-                        r={r}
-                        count={room.length}
-                        date1={date1}
-                        date2={date2}
-                    />
+                    <RoomContainer key={r.title} r={r} count={room.length} />
                 );
             });
         } else {
