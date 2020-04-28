@@ -16,22 +16,10 @@ const routes = {
     "/login": () => <Login />,
     "/facilitator-register": () => <FacilitatorRegister />,
     "/user-register": () => <UserRegister />,
-    "/room/:category/:id/:startdate/:enddate": ({
-        category,
-        id,
-        startdate,
-        enddate,
-    }) => (
-        <ViewRoom
-            category={category}
-            id={id}
-            startdate={startdate}
-            enddate={enddate}
-        />
+    "/room/:category/:id": ({ category, id }) => (
+        <ViewRoom category={category} id={id} />
     ),
-    "/roomlist/:id/:startdate/:enddate": ({ id, startdate, enddate }) => (
-        <BrowseRooms id={id} startdate={startdate} enddate={enddate} />
-    ),
+    "/roomlist/:id": ({ id }) => <BrowseRooms id={id} />,
     "/forgot-password": () => <ForgotPassword />,
     "/reset-password/:token": ({ token }) => <ResetPassword token={token} />,
 };
