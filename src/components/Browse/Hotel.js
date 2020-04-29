@@ -4,7 +4,11 @@ import { useDispatch, connectAdvanced, useSelector } from "react-redux";
 import Slider from "rc-slider";
 import { Loading } from "../common/Loader";
 import { DISTRICT_CHOICES } from "../../Common/constants";
-
+import {
+    getAppliedFilters,
+    setAppliedFilters,
+    stringFromDate,
+} from "../../util/helperFunctions";
 import { getHotelList, getOptionlist } from "../../Redux/actions";
 import HotelList from "./HotelList";
 import ErrorComponent from "./ErrorComponent";
@@ -15,11 +19,6 @@ const Range = createSliderWithTooltip(Slider.Range);
 
 function Hotel() {
     const dispatch = useDispatch();
-
-    const checkinMin = stringFromDate(new Date());
-    const checkoutMin = stringFromDate(
-        new Date(+new Date() + 15 * 60 * 60 * 24 * 1000)
-    );
 
     const [optionlist, setOptionlist] = useState(null);
     const [form, setForm] = useState(null);
@@ -70,19 +69,19 @@ function Hotel() {
     function onSliderChange(price) {
         setForm({ ...form, minimum: price[0], maximum: price[1] });
     }
-    
+
     function fetchUpdatedHotels(updatedForm) {
-        localStorage.setItem("applied_filters", JSON.stringify(updatedForm));
         const formData = {
             ...updatedForm,
             category:
-            updatedForm.category === "All" ? "" : updatedForm.category,
+                updatedForm.category === "All" ? "" : updatedForm.category,
             district:
-            updatedForm.district === "All" ? "" : updatedForm.district,
+                updatedForm.district === "All" ? "" : updatedForm.district,
         };
+        setAppliedFilters(formData);
         dispatch(getHotelList(formData));
     }
-    
+
     function clearFilters() {
         localStorage.removeItem("applied_filters");
         const currentForm = getInitFilter(optionlist);
@@ -90,17 +89,9 @@ function Hotel() {
         fetchUpdatedHotels(currentForm);
     }
 
-    function stringFromDate(date) {
-        const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000 * -1;
-        const offsetedDate = new Date(+date + timezoneOffset);
-        return offsetedDate.toISOString().slice(0, -14);
-    }
-
     function getInitFilter(options) {
-        const prevFilters = JSON.parse(localStorage.getItem("applied_filters"));
+        const prevFilters = getAppliedFilters(options);
         let currentForm = {
-            checkin: checkinMin,
-            checkout: checkoutMin,
             type: "hotel",
             beds: 1,
             category: options.category[0],
@@ -110,13 +101,11 @@ function Hotel() {
         };
 
         if (prevFilters) {
-            currentForm.category = (options.category.includes(prevFilters.category))? prevFilters.category: currentForm.category;
-            currentForm.district = (options.district.includes(prevFilters.district))? prevFilters.district: currentForm.district;
-            currentForm.beds = (prevFilters.beds > 0 && prevFilters.beds <= 20)? prevFilters.beds: currentForm.beds;
-            currentForm.minimum = (prevFilters.minimum >= options.minimum)? prevFilters.minimum: currentForm.minimum;
-            currentForm.maximum = (prevFilters.maximum >= options.maximum)? prevFilters.maximum: currentForm.maximum;
-            currentForm.checkin = (new Date(prevFilters.checkin) && new Date(prevFilters.checkin) > ( + new Date - 24 * 60 * 60 * 1000))? prevFilters.checkin: currentForm.checkin;
-            currentForm.checkout = (new Date(prevFilters.checkout) && new Date(prevFilters.checkout) > new Date(prevFilters.checkin))? prevFilters.checkout: currentForm.checkout;
+            Object.keys(prevFilters).map((key) => {
+                currentForm[key] = prevFilters[key]
+                    ? prevFilters[key]
+                    : currentForm[key];
+            });
         }
 
         return currentForm;
@@ -279,8 +268,7 @@ function Hotel() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 Start Date
                             </label>
@@ -296,14 +284,18 @@ function Hotel() {
                                         })
                                     }
                                     minDate={new Date()}
-                                    maxDate={new Date(new Date(form.checkout) + 24 * 60 * 60 * 100)}
+                                    maxDate={
+                                        new Date(
+                                            new Date(form.checkout) +
+                                                24 * 60 * 60 * 100
+                                        )
+                                    }
                                     clearIcon={null}
                                     format="y-MM-dd"
                                 />
                             </div>
                         </div>
-                        <div
-                            className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 End Date
                             </label>
@@ -325,10 +317,8 @@ function Hotel() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/3  px-3 mb-6 md:mb-0 pt-5">
-                            <div
-                                className="relative pt-12 flex justify-around">
+                        <div className="w-full md:w-1/3  px-3 mb-6 md:mb-0 pt-5">
+                            <div className="relative pt-12 flex justify-around">
                                 <button
                                     onClick={clearFilters}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
@@ -351,10 +341,7 @@ function Hotel() {
                 ) : !getHotelDetails.data ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList
-                        hotels={getHotelDetails.data}
-                        filterdetails={form}
-                    />
+                    <HotelList hotels={getHotelDetails.data} />
                 )}
             </div>
         </div>

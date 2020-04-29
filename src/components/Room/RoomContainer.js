@@ -3,26 +3,12 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
 
-export default function RoomContainer({ r, count = null, date1, date2 }) {
-    const body1 = {
-        checkin: date1,
-        checkout: date2,
-    };
-    console.log("deeeee", date1);
-    localStorage.setItem("dates", JSON.stringify(body1));
+export default function RoomContainer({ r, count = null }) {
     function storeRoomDetails() {
-        const body = {
-            id: r.id,
-            title: r.title,
-            features: r.features,
-            description: r.description,
-            category: r.category,
-            beds: r.beds,
-            photos: r.photos,
-            cost: r.cost,
-            status: r.status,
-        };
-        localStorage.setItem("roomdetails", JSON.stringify(body));
+        const body = Object.assign({}, r);
+        delete body.link;
+        body.id = "";
+        localStorage.setItem("room_details", JSON.stringify(body));
     }
 
     const previewImage = (r.photos && r.photos[0]) || DEFAULT_IMAGE.ROOM;
