@@ -48,20 +48,11 @@ function Hotel() {
                     ),
                 };
 
-                const initForm = {
-                    category: newOptions.category[0],
-                    district: newOptions.district[0],
-                    minimum: newOptions.minimum,
-                    maximum: newOptions.maximum,
-                    checkin: checkinMin,
-                    checkout: checkoutMin,
-                    type: "hotel",
-                    beds: 1,
-                };
+                const currentForm = getInitFilter(newOptions);
 
-                setForm(initForm);
+                setForm(currentForm);
                 setOptionlist(newOptions);
-                fetchUpdatedHotels(initForm);
+                fetchUpdatedHotels(currentForm);
             }
         });
     }, []);
@@ -79,23 +70,56 @@ function Hotel() {
     function onSliderChange(price) {
         setForm({ ...form, minimum: price[0], maximum: price[1] });
     }
-
+    
     function fetchUpdatedHotels(updatedForm) {
+        localStorage.setItem("applied_filters", JSON.stringify(updatedForm));
         const formData = {
             ...updatedForm,
             category:
-                updatedForm.category === "All" ? "" : updatedForm.category,
+            updatedForm.category === "All" ? "" : updatedForm.category,
             district:
-                updatedForm.district === "All" ? "" : updatedForm.district,
+            updatedForm.district === "All" ? "" : updatedForm.district,
         };
-
         dispatch(getHotelList(formData));
+    }
+    
+    function clearFilters() {
+        localStorage.removeItem("applied_filters");
+        const currentForm = getInitFilter(optionlist);
+        setForm(currentForm);
+        fetchUpdatedHotels(currentForm);
     }
 
     function stringFromDate(date) {
         const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000 * -1;
         const offsetedDate = new Date(+date + timezoneOffset);
         return offsetedDate.toISOString().slice(0, -14);
+    }
+
+    function getInitFilter(options) {
+        const prevFilters = JSON.parse(localStorage.getItem("applied_filters"));
+        let currentForm = {
+            checkin: checkinMin,
+            checkout: checkoutMin,
+            type: "hotel",
+            beds: 1,
+            category: options.category[0],
+            district: options.district[0],
+            minimum: options.minimum,
+            maximum: options.maximum,
+        };
+
+        if (prevFilters) {
+            currentForm.category = (options.category.includes(prevFilters.category))? prevFilters.category: currentForm.category;
+            currentForm.district = (options.district.includes(prevFilters.district))? prevFilters.district: currentForm.district;
+            currentForm.beds = (prevFilters.beds > 0 && prevFilters.beds <= 20)? prevFilters.beds: currentForm.beds;
+            currentForm.minimum = (prevFilters.minimum >= options.minimum)? prevFilters.minimum: currentForm.minimum;
+            currentForm.maximum = (prevFilters.maximum >= options.maximum)? prevFilters.maximum: currentForm.maximum;
+            currentForm.checkin = (new Date(prevFilters.checkin) && new Date(prevFilters.checkin) > ( + new Date - 24 * 60 * 60 * 1000))? prevFilters.checkin: currentForm.checkin;
+            currentForm.checkout = (new Date(prevFilters.checkout) && new Date(prevFilters.checkout) > new Date(prevFilters.checkin))? prevFilters.checkout: currentForm.checkout;
+        }
+
+        return currentForm;
     }
 
     if (
@@ -244,7 +268,7 @@ function Hotel() {
                             </label>
                             <div className="relative">
                                 <Range
-                                    style={{ paddingTop: "20px" }}
+                                    className="pt-5"
                                     min={optionlist.minimum}
                                     max={optionlist.maximum}
                                     allowCross={false}
@@ -256,8 +280,7 @@ function Hotel() {
                         </div>
 
                         <div
-                            style={{ paddingTop: "20px" }}
-                            className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 Start Date
                             </label>
@@ -273,15 +296,14 @@ function Hotel() {
                                         })
                                     }
                                     minDate={new Date()}
-                                    maxDate={new Date(form.checkout)}
+                                    maxDate={new Date(new Date(form.checkout) + 24 * 60 * 60 * 100)}
                                     clearIcon={null}
                                     format="y-MM-dd"
                                 />
                             </div>
                         </div>
                         <div
-                            style={{ paddingTop: "20px" }}
-                            className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 End Date
                             </label>
@@ -304,11 +326,15 @@ function Hotel() {
                         </div>
 
                         <div
-                            style={{ paddingTop: "20px" }}
-                            className="w-full md:w-1/3  px-3 mb-6 md:mb-0">
+                            className="w-full md:w-1/3  px-3 mb-6 md:mb-0 pt-5">
                             <div
-                                style={{ paddingTop: "30px" }}
-                                className="relative">
+                                className="relative pt-12 flex justify-around">
+                                <button
+                                    onClick={clearFilters}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
+                                    type="button">
+                                    Clear
+                                </button>
                                 <button
                                     onClick={() => fetchUpdatedHotels(form)}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
