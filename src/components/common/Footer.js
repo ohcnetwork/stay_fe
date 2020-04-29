@@ -16,7 +16,6 @@ export default function Footer({ signUp }) {
                             SignUp as Facilitator
                         </A>
                     )}
-                    ;
                 </div>
             </section>
         </div>
