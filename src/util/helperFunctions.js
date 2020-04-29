@@ -31,7 +31,6 @@ export function getAppliedFilters(options = null, all = false) {
                     : options.maximum;
         }
         if (all) {
-            console.log(appliedFilters.minimum);
             currentForm.category = appliedFilters.category || "";
             currentForm.district = appliedFilters.district || "";
             currentForm.minimum = appliedFilters.minimum || 0;
@@ -57,8 +56,15 @@ export function getAppliedFilters(options = null, all = false) {
 }
 
 export function setAppliedFilters(filters) {
-    console.log(filters);
     localStorage.setItem("applied_filters", JSON.stringify(filters));
+}
+
+export function setRoomDetails(details) {
+    localStorage.setItem("room_details", details);
+}
+
+export function getRoomDetails() {
+    return JSON.parse(localStorage.getItem("room_details"));
 }
 
 export function stringFromDate(date) {

@@ -7,7 +7,6 @@ export default function RoomContainer({ r, count = null }) {
     function storeRoomDetails() {
         const body = Object.assign({}, r);
         delete body.link;
-        body.id = "";
         localStorage.setItem("room_details", JSON.stringify(body));
     }
 
