@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-date-picker";
-import { useDispatch, connectAdvanced } from "react-redux";
+import { useDispatch, connectAdvanced, useSelector } from "react-redux";
 import Slider from "rc-slider";
 import { Loading } from "../common/Loader";
+import { DISTRICT_CHOICES } from "../../Common/constants";
 
-import { getHotelList, getOptionlist, getDistricts } from "../../Redux/actions";
+import { getHotelList, getOptionlist } from "../../Redux/actions";
 import HotelList from "./HotelList";
 import ErrorComponent from "./ErrorComponent";
 import "rc-slider/assets/index.css";
@@ -15,244 +16,104 @@ const Range = createSliderWithTooltip(Slider.Range);
 function Hotel() {
     const dispatch = useDispatch();
 
-    // for bad response
-    const [errFlag, seterrFlag] = useState(false);
-    // for catch error
-    const [errFlagCatch, seterrFlagCatch] = useState(false);
-    // for loading
-    const [loading, setloading] = useState(true);
-    // for filter details
+    const checkinMin = stringFromDate(new Date());
+    const checkoutMin = stringFromDate(
+        new Date(+new Date() + 15 * 60 * 60 * 24 * 1000)
+    );
 
-    var today = new Date();
-    today.setDate(today.getDate() + 15);
-    const [startdate, setstartdate] = useState({
-        date: new Date(),
-    });
-    const [enddate, setenddate] = useState({
-        date: today,
-    });
-    const [price, setprice] = useState([]);
-    const [form, setform] = useState({
-        category: "All",
-        location: "All",
-        beds: 1,
-    });
-    const [optionlist, setoptionlist] = useState({
-        category: ["All"],
-        location: ["ALL"],
-        minPrice: 0,
-        maxPrice: 1000,
-    });
-    const [formdata, setformdata] = useState({
-        category: "",
-        district: form.location,
-        minimum: optionlist.minPrice,
-        maximum: optionlist.maxPrice,
-        checkin: startdate,
-        checkout: enddate,
-        type: "hotel",
-        beds: form.beds,
-    });
+    const [optionlist, setOptionlist] = useState(null);
+    const [form, setForm] = useState(null);
 
-    const [hotels, sethotels] = useState([]);
+    const state = useSelector((reduxState) => reduxState);
+    const { getOptionlistBackend, getHotelDetails } = state;
 
     useEffect(() => {
-        seterrFlagCatch(false);
-        seterrFlag(false);
-        setloading(true);
-        var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkins = new Date(startdate.date - startdates)
-            .toISOString()
-            .slice(0, -14);
+        dispatch(getOptionlist()).then((res) => {
+            if (res && res.data) {
+                const options = res.data;
 
-        var enddates = enddate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkouts = new Date(enddate.date - enddates)
-            .toISOString()
-            .slice(0, -14);
+                const newOptions = {
+                    category: [
+                        "All",
+                        ...Object.values(options[0]).map((el) => el.category),
+                    ],
+                    district: ["All", ...DISTRICT_CHOICES.map((el) => el.text)],
+                    minimum: Math.max(
+                        0,
+                        Math.floor(options[1][0].minimum / 100) * 100
+                    ),
+                    maximum: Math.max(
+                        0,
+                        Math.ceil(options[1][0].maximum / 100) * 100
+                    ),
+                };
 
-        getOptions();
-        const formdata1 = {
-            checkin: checkins,
-            checkout: checkouts,
-            type: "hotel",
-            beds: form.beds,
-        };
-        setformdata({
-            category: "",
-            district: form.location,
-            // price
-            minimum: optionlist.minPrice,
-            maximum: optionlist.maxPrice,
-            checkin: formdata1.checkin,
-            checkout: formdata1.checkout,
-            type: "hotel",
-            beds: form.beds,
+                const initForm = {
+                    category: newOptions.category[0],
+                    district: newOptions.district[0],
+                    minimum: newOptions.minimum,
+                    maximum: newOptions.maximum,
+                    checkin: checkinMin,
+                    checkout: checkoutMin,
+                    type: "hotel",
+                    beds: 1,
+                };
+
+                setForm(initForm);
+                setOptionlist(newOptions);
+                fetchUpdatedHotels(initForm);
+            }
         });
-        dispatch(getHotelList(formdata1))
-            .then((res) => {
-                if (res) {
-                    res.data = res.data.filter((e) => e);
-                    sethotels(res.data);
-                    setloading(false);
-                } else {
-                    seterrFlag(true);
-                    setloading(false);
-                }
-                // console.log("dispatch hotels", res)
-            })
-            .catch((err) => {
-                seterrFlagCatch(true);
-                setloading(false);
-            });
     }, []);
 
-    var startdates = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkin = new Date(startdate.date - startdates)
-        .toISOString()
-        .slice(0, -14);
+    function handleChange(e) {
+        let { name, value } = e.target;
 
-    var enddates = enddate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkout = new Date(enddate.date - enddates)
-        .toISOString()
-        .slice(0, -14);
-
-    const [submitdate, setsubmitdate] = useState({
-        checkin: checkin,
-        checkout: checkout,
-    });
-    const handleChange = (e) => {
-        setform({ ...form, [e.target.name]: e.target.value });
-    };
-    const onSubmit = () => {
-        seterrFlagCatch(false);
-        seterrFlag(false);
-        setloading(true);
-        var category = form.category;
-        var location = form.location;
-        if (category === "All") {
-            category = "";
+        if (name === "beds" && (value > 20 || value < 1)) return;
+        if (["checkin", "checkout"].includes(name)) {
+            value = stringFromDate(value);
         }
-        if (location === "All") {
-            location = "";
-        }
+        setForm({ ...form, [name]: value });
+    }
 
-        var tempstartdate = startdate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkinsubmit = new Date(startdate.date - tempstartdate)
-            .toISOString()
-            .slice(0, -14);
+    function onSliderChange(price) {
+        setForm({ ...form, minimum: price[0], maximum: price[1] });
+    }
 
-        var tempenddate = enddate.date.getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkoutsubmit = new Date(enddate.date - tempenddate)
-            .toISOString()
-            .slice(0, -14);
-        setformdata({
-            category: category,
-            district: location,
-            // price
-            minimum: price[0],
-            maximum: price[1],
-            checkin: checkinsubmit,
-            checkout: checkoutsubmit,
-            type: "hotel",
-            beds: form.beds,
-        });
-        setsubmitdate({
-            checkin: checkinsubmit,
-            checkout: checkoutsubmit,
-        });
-        // storefilterdetails(formdata);
-        // localStorage.setItem("filterdetails", JSON.stringify(formdata));
-        dispatch(getHotelList(formdata))
-            .then((res) => {
-                if (res) {
-                    console.log("dispatch", res);
-                    res.data = res.data.filter((e) => e);
-                    sethotels(res.data);
-                    setloading(false);
-                } else {
-                    seterrFlag(true);
-                    setloading(false);
-                }
-            })
-            .catch((err) => {
-                seterrFlagCatch(true);
-                setloading(false);
-            });
-    };
-    const getOptions = () => {
-        dispatch(getOptionlist())
-            .then((res) => {
-                if (res) {
-                    const category = [];
-                    for (var i = 0; i < res.data[0].length; i++) {
-                        category[i] = res.data[0][i].category;
-                    }
-                    const minimum = Math.max(
-                        0,
-                        parseInt(res.data[1][0].minimum) -
-                            (parseInt(res.data[1][0].minimum) % 100)
-                    );
-                    const maximum = Math.max(
-                        0,
-                        parseInt(res.data[1][0].maximum) +
-                            (100 - (parseInt(res.data[1][0].maximum) % 100))
-                    );
+    function fetchUpdatedHotels(updatedForm) {
+        const formData = {
+            ...updatedForm,
+            category:
+                updatedForm.category === "All" ? "" : updatedForm.category,
+            district:
+                updatedForm.district === "All" ? "" : updatedForm.district,
+        };
 
-                    dispatch(getDistricts())
-                        .then((res) => {
-                            if (res.data) {
-                                console.log(res);
-                                const array = [];
-                                for (var i = 0; i < res.data.length; i++) {
-                                    array[i] = res.data[i].district;
-                                }
-                                console.log(array);
-                                setoptionlist({
-                                    ...optionlist,
-                                    location: ["All", ...array],
-                                    category: ["All", ...category],
-                                    minPrice: minimum,
-                                    maxPrice: maximum,
-                                });
-                                setprice([minimum, maximum]);
-                            } else {
-                                seterrFlag(true);
-                            }
-                        })
-                        .catch((err) => seterrFlagCatch(true));
-                } else {
-                    seterrFlag(true);
-                }
-            })
+        dispatch(getHotelList(formData));
+    }
 
-            .catch((err) => seterrFlagCatch(true));
-    };
-    const onSliderChange = (value) => {
-        console.log(value);
-        setprice(value);
-    };
-    const onstartDateChange = (newdate) => {
-        setstartdate({ date: newdate });
-    };
-    const onendDateChange = (newdate) => {
-        setenddate({ date: newdate });
-    };
-    const bed_decrement = () => {
-        if (form.beds > 1) {
-            setform({
-                ...form,
-                beds: form.beds - 1,
-            });
-        }
-    };
-    const bed_increment = () => {
-        if (form.beds < 20) {
-            setform({
-                ...form,
-                beds: form.beds + 1,
-            });
-        }
-    };
+    function stringFromDate(date) {
+        const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000 * -1;
+        const offsetedDate = new Date(+date + timezoneOffset);
+        return offsetedDate.toISOString().slice(0, -14);
+    }
+
+    if (
+        getOptionlistBackend &&
+        !getOptionlistBackend.isFetching &&
+        (getOptionlistBackend.isError || !getOptionlistBackend.data)
+    ) {
+        return <ErrorComponent />;
+    }
+
+    if (
+        !getOptionlistBackend ||
+        getOptionlistBackend.isFetching ||
+        !optionlist
+    ) {
+        return <Loading />;
+    }
+
     return (
         <div>
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto ">
@@ -302,17 +163,17 @@ function Hotel() {
                         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                             <label
                                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                htmlFor="location">
+                                htmlFor="district">
                                 Location
                             </label>
                             <div className="relative">
                                 <select
                                     className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    name="location"
-                                    id="location"
+                                    name="district"
+                                    id="district"
                                     onChange={handleChange}
-                                    value={form.location}>
-                                    {optionlist.location.map((item, index) => (
+                                    value={form.district}>
+                                    {optionlist.district.map((item, index) => (
                                         <option key={index} value={item}>
                                             {item}
                                         </option>
@@ -340,7 +201,14 @@ function Hotel() {
                                     className="custom-number-input h-10">
                                     <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1 hover:text-black text-gray-700">
                                         <button
-                                            onClick={bed_decrement}
+                                            onClick={() =>
+                                                handleChange({
+                                                    target: {
+                                                        name: "beds",
+                                                        value: form.beds - 1,
+                                                    },
+                                                })
+                                            }
                                             className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
                                             <span className="m-auto text-2xl font-thin">
                                                 −
@@ -353,7 +221,14 @@ function Hotel() {
                                             name="custom-input-number"
                                             value={form.beds}></input>
                                         <button
-                                            onClick={bed_increment}
+                                            onClick={() =>
+                                                handleChange({
+                                                    target: {
+                                                        name: "beds",
+                                                        value: form.beds + 1,
+                                                    },
+                                                })
+                                            }
                                             className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer outline-none">
                                             <span className="m-auto text-2xl font-thin">
                                                 +
@@ -365,15 +240,15 @@ function Hotel() {
                         </div>
                         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Price Rs. {price[0]}-{price[1]}
+                                Price Rs. {form.minimum}-{form.maximum}
                             </label>
                             <div className="relative">
                                 <Range
                                     style={{ paddingTop: "20px" }}
-                                    min={optionlist.minPrice}
-                                    max={optionlist.maxPrice}
+                                    min={optionlist.minimum}
+                                    max={optionlist.maximum}
                                     allowCross={false}
-                                    value={price}
+                                    value={[form.minimum, form.maximum]}
                                     onChange={onSliderChange}
                                     step={50}
                                 />
@@ -388,11 +263,17 @@ function Hotel() {
                             </label>
                             <div className="relative">
                                 <DatePicker
-                                    value={startdate.date}
+                                    value={new Date(form.checkin)}
                                     onChange={(newdate) =>
-                                        onstartDateChange(newdate)
+                                        handleChange({
+                                            target: {
+                                                name: "checkin",
+                                                value: newdate,
+                                            },
+                                        })
                                     }
                                     minDate={new Date()}
+                                    maxDate={new Date(form.checkout)}
                                     clearIcon={null}
                                     format="y-MM-dd"
                                 />
@@ -406,11 +287,16 @@ function Hotel() {
                             </label>
                             <div className="relative">
                                 <DatePicker
-                                    value={enddate.date}
+                                    value={new Date(form.checkout)}
                                     onChange={(newdate) =>
-                                        onendDateChange(newdate)
+                                        handleChange({
+                                            target: {
+                                                name: "checkout",
+                                                value: newdate,
+                                            },
+                                        })
                                     }
-                                    minDate={new Date()}
+                                    minDate={new Date(form.checkin)}
                                     clearIcon={null}
                                     format="y-MM-dd"
                                 />
@@ -424,7 +310,7 @@ function Hotel() {
                                 style={{ paddingTop: "30px" }}
                                 className="relative">
                                 <button
-                                    onClick={onSubmit}
+                                    onClick={() => fetchUpdatedHotels(form)}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
                                     Apply
@@ -434,14 +320,15 @@ function Hotel() {
                     </div>
                 </div>
 
-                {loading ? (
+                {!getHotelDetails || getHotelDetails.isFetching ? (
                     <Loading />
-                ) : errFlagCatch ? (
-                    <ErrorComponent />
-                ) : errFlag ? (
+                ) : !getHotelDetails.data ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList hotels={hotels} filterdetails={formdata} />
+                    <HotelList
+                        hotels={getHotelDetails.data}
+                        filterdetails={form}
+                    />
                 )}
             </div>
         </div>

@@ -54,7 +54,7 @@ export default {
         method: "GET",
         noAuth: true,
     },
-    getOptionlist: {
+    getOptionlistBackend: {
         path: "api/v1/rooms/get/details",
         noAuth: true,
     },
