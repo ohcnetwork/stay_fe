@@ -30,7 +30,10 @@ const HotelList = ({ hotels }) => {
                     return (
                         <div key={item.id}>
                             <div className="flex flex-col rounded-lg shadow-lg overflow-hidden max-w-xs mx-auto">
-                                <div className="flex-shrink-0">
+                                <A
+                                    onClick={storefilterdetails}
+                                    href={`/roomlist/${item.id}`}
+                                    className="flex-shrink-0">
                                     <img
                                         className="h-48 w-full object-cover"
                                         src={
@@ -39,7 +42,7 @@ const HotelList = ({ hotels }) => {
                                         }
                                         alt={item.name}
                                     />
-                                </div>
+                                </A>
                                 <A
                                     href={`/roomlist/${item.id}`}
                                     className="block">
