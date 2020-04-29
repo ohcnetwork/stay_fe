@@ -94,7 +94,7 @@ function BrowseRooms({ id }) {
                         <div className="flex-grow flex items-center justify-center pt-5 sm:pt-0">
                             <A
                                 className="text-white font-bold flex items-center justify-center p-2 px-3 md:px-6 rounded mr-2 bg-indigo-600 hover:bg-indigo-800"
-                                href="/browse">
+                                href="/">
                                 Change
                             </A>
                         </div>
