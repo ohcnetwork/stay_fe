@@ -4,6 +4,7 @@ import { A, navigate } from "hookrouter";
 import { getUserHotelList } from "../../Redux/actions";
 import { HOTEL_STATUS } from "../../Common/constants";
 import ActionsBox from "./ActionsBox";
+import Star from "../common/Star";
 
 export default function Facilitator({ from }) {
     const state = useSelector((state) => state);
@@ -63,8 +64,8 @@ export default function Facilitator({ from }) {
                         <div className="w-1/2 text-left truncate">
                             {hotel.panchayath}
                         </div>
-                        <div className="w-1/2 text-left truncate">
-                            {hotel.starCategory} Star
+                        <div className="w-1/2 text-left truncate flex">
+                            <Star num={hotel.starCategory} dim={4} />
                         </div>
                     </div>
                     <div className="w-1/4 px-1 flex flex-col justify-around items-center">

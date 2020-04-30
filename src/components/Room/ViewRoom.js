@@ -7,26 +7,31 @@ import DatePicker from "react-date-picker";
 import BookingConfirmation from "./BookingConfirmation";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
+import {
+    getAppliedFilters,
+    setAppliedFilters,
+    stringFromDate,
+    getRoomDetails,
+    setRoomDetails,
+} from "../../util/helperFunctions";
 
 export default function ViewRoom({ category, id }) {
     const hotelid = id;
-    const body1 = JSON.parse(localStorage.getItem("dates"));
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const { currentUser } = state;
-    const [datein, setdatein] = useState(new Date(body1.checkin));
-    const [dateout, setdateout] = useState(new Date(body1.checkout));
+    const appliedFilters = getAppliedFilters(null, true);
+    const [datein, setdatein] = useState(new Date(appliedFilters.checkin));
+    const [dateout, setdateout] = useState(new Date(appliedFilters.checkout));
     const [avail, setavail] = useState(true);
-    const [detail, setDetail] = useState({ isFetching: true });
     const [applied, setApplied] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const controlCarousal = useState(false);
     const [queryParams, setQueryParams] = useQueryParams();
     const currentURI = usePath();
-    const body = JSON.parse(localStorage.getItem("roomdetails"));
-    console.log("body", body);
+    const roomDetails = getRoomDetails();
+    const [detail, setDetail] = useState({ ...roomDetails, isFetching: true });
     useEffect(() => {
-        // console.log(localStorage.getItem('room_desc'));
         updateRoomGetDetail();
     }, []);
 
@@ -35,30 +40,51 @@ export default function ViewRoom({ category, id }) {
         const form = getUpdatedDetails();
         if (form) {
             dispatch(getHotelList(form)).then((res) => {
-                let newDetail = detail;
+                let newDetail = { ...detail };
+                delete newDetail.isFetching;
+                delete newDetail.count;
+                let listDetail = [];
                 setApplied(true);
                 if (res && res.data) {
-                    console.log("res", res.data);
-                    console.log("body1", JSON.stringify({ ...body, id: "" }));
-                    console.log(
-                        "body1",
-                        JSON.stringify({ ...res.data[0], id: "" })
-                    );
-                    newDetail = res.data.find(
+                    console.log(res.data[0]);
+                    if (!roomDetails && res.data[0]) {
+                        newDetail = res.data[0];
+                        setRoomDetails(newDetail);
+                    }
+
+                    listDetail = res.data.filter(
                         (el) =>
                             JSON.stringify({ ...el, id: "" }) ===
-                            JSON.stringify({ ...body, id: "" })
+                            JSON.stringify({ ...newDetail, id: "" })
                     );
-                    console.log("new", newDetail);
-                    if (newDetail == null) {
-                        setavail(false);
-                    } else {
+
+                    if (listDetail.length < 1 && res.data.length > 0) {
+                        listDetail = res.data.filter(
+                            (el) =>
+                                JSON.stringify({ ...el, id: "" }) ===
+                                JSON.stringify({ ...res.data[0], id: "" })
+                        );
+                    }
+
+                    if (listDetail.length > 0) {
+                        newDetail =
+                            listDetail[
+                                Math.floor(Math.random() * listDetail.length)
+                            ];
+                        setRoomDetails(newDetail);
                         setavail(true);
+                    } else {
+                        newDetail = {};
+                        setavail(false);
                     }
                 } else {
                     setavail(false);
                 }
-                setDetail({ ...newDetail, isFetching: false });
+                setDetail({
+                    ...newDetail,
+                    count: listDetail.length,
+                    isFetching: false,
+                });
             });
         }
     };
@@ -98,12 +124,6 @@ export default function ViewRoom({ category, id }) {
         if (currentUser && currentUser.data) {
             console.log(avail && applied);
             //logged in
-            const formData = getUpdatedDetails();
-            const body = {
-                roomid: detail.id,
-                checkin: formData.checkin,
-                checkout: formData.checkout,
-            };
 
             setShowConfirmation(true);
         } else {
@@ -123,18 +143,18 @@ export default function ViewRoom({ category, id }) {
         //     navigate("/browse");
         //     return false;
         // }
-        var startdates = datein.getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkin = new Date(datein - startdates).toISOString().slice(0, -14);
-        var enddates = dateout.getTimezoneOffset() * 60000; //offset in milliseconds
-        var checkout = new Date(dateout - enddates).toISOString().slice(0, -14);
         const formdata = {
             hotelid,
             category,
-            checkin: checkin,
-            checkout: checkout,
+            checkin: stringFromDate(datein),
+            checkout: stringFromDate(dateout),
             type: "room",
         };
-
+        setAppliedFilters({
+            ...appliedFilters,
+            checkin: formdata.checkin,
+            checkout: formdata.checkout,
+        });
         return formdata;
     }
 
@@ -158,12 +178,12 @@ export default function ViewRoom({ category, id }) {
                     <div className="lg:w-1/2">
                         <img
                             onClick={() =>
-                                detail.photos.length >= 1
+                                detail.photos && detail.photos.length >= 1
                                     ? controlCarousal[1](true)
                                     : null
                             }
                             className={`h-64 bg-cover lg:rounded-lg ${
-                                detail.photos.length >= 1
+                                detail.photos && detail.photos.length >= 1
                                     ? "cursor-pointer"
                                     : ""
                             }`}
@@ -185,6 +205,12 @@ export default function ViewRoom({ category, id }) {
                                     value={datein}
                                     onChange={onDateChangeIn}
                                     minDate={new Date()}
+                                    maxDate={
+                                        new Date(
+                                            new Date(dateout) +
+                                                24 * 60 * 60 * 100
+                                        )
+                                    }
                                 />
                             </div>
 

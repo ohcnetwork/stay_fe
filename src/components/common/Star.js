@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function Start({ num, dim = 6 }) {
+export default function Star({ num, dim = 6 }) {
     return Array.apply(null, {
         length: num,
-    }).map((el, num) => (
+    }).map((el, i) => (
         <svg
-            key={num.toString()}
+            key={i.toString()}
             className={`w-${dim} h-${dim} mr-1`}
             viewBox="0 0 300 275"
             xmlns="http://www.w3.org/2000/svg"

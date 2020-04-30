@@ -54,7 +54,7 @@ export default {
         method: "GET",
         noAuth: true,
     },
-    getOptionlist: {
+    getOptionlistBackend: {
         path: "api/v1/rooms/get/details",
         noAuth: true,
     },
@@ -120,7 +120,7 @@ export default {
         method: "POST",
         noAuth: true,
     },
-    getHotelByHotelId: {
+    hotelByHotelId: {
         path: "/api/v1/facility",
         method: "GET",
         noAuth: true,

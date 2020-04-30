@@ -1,11 +1,9 @@
 import React from "react";
 import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
+import Star from "../common/Star";
 
-const HotelList = ({ hotels, filterdetails }) => {
-    const storefilterdetails = () => {
-        localStorage.setItem("filterdetails", JSON.stringify(filterdetails));
-    };
+const HotelList = ({ hotels }) => {
     if (hotels.length === 0) {
         return (
             <div>
@@ -32,11 +30,10 @@ const HotelList = ({ hotels, filterdetails }) => {
                 {hotels.map((item) => {
                     return (
                         <div key={item.id}>
-                            <div className="flex flex-col rounded-lg shadow-lg overflow-hidden max-w-xs mx-auto">
-                                <A
-                                    onClick={storefilterdetails}
-                                    href={`/roomlist/${item.id}`}
-                                    className="flex-shrink-0">
+                            <A
+                                className="flex flex-col rounded-lg shadow-lg overflow-hidden max-w-xs mx-auto"
+                                href={`/roomlist/${item.id}`}>
+                                <div className="flex-shrink-0">
                                     <img
                                         className="h-48 w-full object-cover"
                                         src={
@@ -45,16 +42,16 @@ const HotelList = ({ hotels, filterdetails }) => {
                                         }
                                         alt={item.name}
                                     />
-                                </A>
-                                <A
-                                    onClick={storefilterdetails}
-                                    href={`/roomlist/${item.id}`}
-                                    className="block">
+                                </div>
+                                <div className="block">
                                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div className="flex-1">
-                                            <p className="text-sm leading-5 font-medium text-indigo-600">
-                                                <span>
-                                                    {item.starCategory} Star
+                                            <p className="text-sm leading-5 font-medium text-indigo-600 h-4">
+                                                <span className="flex">
+                                                    <Star
+                                                        num={item.starCategory}
+                                                        dim={4}
+                                                    />
                                                 </span>
                                             </p>
                                             <h3 className="mt-2 text-base leading-7 font-semibold text-gray-900">
@@ -70,13 +67,13 @@ const HotelList = ({ hotels, filterdetails }) => {
                                                 <p className="text-sm leading-5 font-medium text-gray-900">
                                                     {item.category}
                                                 </p>
-                                                <div className="flex text-sm leading-5 text-gray-500">
+                                                <div className="flex text-sm leading-5 text-gray-500 h-24">
                                                     {/* <time dateTime="2020-03-16">
                                                 Mar 16, 2020
                                             </time> */}
-                                                    {item.address}
-                                                    <br />
                                                     {item.district}
+                                                    <br />
+                                                    {item.address}
                                                     <span className="mx-1">
                                                         &middot;
                                                     </span>
@@ -84,8 +81,8 @@ const HotelList = ({ hotels, filterdetails }) => {
                                             </div>
                                         </div>
                                     </div>
-                                </A>
-                            </div>
+                                </div>
+                            </A>
                         </div>
                     );
                 })}

@@ -5,20 +5,18 @@ import { useDispatch } from "react-redux";
 import { dopostBook } from "../../Redux/actions";
 import { navigate } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
+import {
+    stringFromDate,
+    setRoomDetails,
+    setAppliedFilters,
+} from "../../util/helperFunctions";
 
 export default function BookingConfirmation({ shown, toggle, data }) {
     const dispatch = useDispatch();
     console.log("new data", data);
 
-    var startdates = data.startdate.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkin = new Date(data.startdate - startdates)
-        .toISOString()
-        .slice(0, -14);
-
-    var enddates = data.enddate.getTimezoneOffset() * 60000; //offset in milliseconds
-    var checkout = new Date(data.enddate - enddates)
-        .toISOString()
-        .slice(0, -14);
+    var checkin = stringFromDate(data.startdate);
+    var checkout = stringFromDate(data.enddate);
 
     const initPerson = {
         name: "",
@@ -96,6 +94,8 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                     Notficiation.Success({
                         msg: "Booking Successfull",
                     });
+                    setAppliedFilters("", true);
+                    setRoomDetails("", true);
                     navigate("/history");
                 } else {
                     Notficiation.Error({

@@ -36,7 +36,7 @@ export const getHotelList = (params) => {
     return fireRequest("getHotelDetails", [], params);
 };
 export const getOptionlist = () => {
-    return fireRequest("getOptionlist");
+    return fireRequest("getOptionlistBackend");
 };
 export const getDistricts = () => {
     return fireRequest("getDistricts");
@@ -76,5 +76,5 @@ export const resetPassword = (form) => {
     return fireRequest("resetPassword", [], form);
 };
 export const getHotelByHotelId = (id) => {
-    return fireRequest("getHotelByHotelId", [id]);
+    return fireRequest("hotelByHotelId", [id]);
 };
