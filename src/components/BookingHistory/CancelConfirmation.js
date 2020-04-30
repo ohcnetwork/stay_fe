@@ -1,11 +1,16 @@
 import React from "react";
 
-export default function CancelConfirmation({ Shown , Sure, toggle , CancelSured }) {
+export default function CancelConfirmation({
+    Shown,
+    Sure,
+    toggle,
+    CancelSured,
+}) {
     function Cancel() {
         CancelSured(Sure);
         toggle(Shown);
     }
-    function back(){
+    function back() {
         toggle(Shown);
     }
 
@@ -23,8 +28,10 @@ export default function CancelConfirmation({ Shown , Sure, toggle , CancelSured 
                         You are about to Cancel the booking
                     </div>
                     <div className="flex justify-between font-bold tracking-wide">
-                        <div className="flex" >
-                            <div onClick={back} className="flex items-center justify-center p-2 px-3 md:px-6 rounded bg-gray-300  hover:bg-gray-400 cursor-pointer">
+                        <div className="flex">
+                            <div
+                                onClick={back}
+                                className="flex items-center justify-center p-2 px-3 md:px-6 rounded bg-gray-300  hover:bg-gray-400 cursor-pointer">
                                 Back
                             </div>
                         </div>
