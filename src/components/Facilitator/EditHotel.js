@@ -5,6 +5,7 @@ import { updateHotel, getUserHotelList } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate, A } from "hookrouter";
 import HotelForm from "./HotelForm";
+import { FullLoading } from "../common/Loader";
 
 export default function EditHotel({ id }) {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export default function EditHotel({ id }) {
 
     useEffect(() => {
         dispatch(getUserHotelList());
-    }, [dispatch]);
+    }, [id]);
 
     function handleSubmit(formData) {
         setFormLoading(true);
@@ -69,9 +70,7 @@ export default function EditHotel({ id }) {
     }
 
     if (!userHotelList || userHotelList.isFetching) {
-        return (
-            <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
-        );
+        return <FullLoading />;
     }
     if (userHotelList.error) {
         return (

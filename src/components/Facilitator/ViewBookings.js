@@ -5,6 +5,7 @@ import { A } from "hookrouter";
 import { BOOKING_CHECKIN_STATUS, BOOKING_STATUS } from "../../Common/constants";
 import { getHotelBookingList } from "../../Redux/actions";
 import UpdateBooking from "./UpdateBooking";
+import { FullLoading } from "../common/Loader";
 
 export default function ViewBooking({ id }) {
     const state = useSelector((state) => state);
@@ -180,9 +181,7 @@ export default function ViewBooking({ id }) {
     }
 
     if (!hotelBookingList || hotelBookingList.isFetching) {
-        return (
-            <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
-        );
+        return <FullLoading />;
     }
 
     // check if hotel exists

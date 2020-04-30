@@ -6,6 +6,7 @@ import axios from "axios";
 import { useAbortableEffect } from "./util/useAbortableEffect";
 import { getCurrentUser } from "./Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { FullLoading } from "./components/common/Loader";
 
 function App() {
     const dispatch = useDispatch();
@@ -67,9 +68,7 @@ function App() {
     // to be kept on UI
     console.log("app.js: current user: ", currentUser);
     if (user !== null && (!currentUser || currentUser.isFetching)) {
-        return (
-            <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
-        );
+        return <FullLoading />;
     }
 
     if (currentUser && currentUser.data) {

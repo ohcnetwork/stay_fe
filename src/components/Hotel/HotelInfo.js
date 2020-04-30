@@ -39,7 +39,7 @@ export default function HotelInfo({ data }) {
                         <Star num={hotel.starCategory} />
                     </div>
                 </div>
-                <div className="text-gray-600">
+                <div className="text-gray-600 break-all">
                     {hotel.address},{" "}
                     {hotel.panchayath && <span>{hotel.panchayath},</span>}{" "}
                     {hotel.district}
@@ -48,7 +48,7 @@ export default function HotelInfo({ data }) {
                     {(hotel.facilities || "").split(",").map((el) => (
                         <div
                             key={el}
-                            className="text-sm text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">
+                            className="text-sm text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide uppercase">
                             {el.replace("_", " ")}
                         </div>
                     ))}

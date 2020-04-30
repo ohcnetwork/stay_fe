@@ -6,7 +6,7 @@ import {
     getAppliedFilters,
     setAppliedFilters,
 } from "../../util/helperFunctions";
-import { Loading } from "../common/Loader";
+import { FullLoading } from "../common/Loader";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomsList from "../Room/RoomsList";
 
@@ -38,12 +38,12 @@ function BrowseRooms({ id }) {
         !getHotelDetails ||
         getHotelDetails.isFetching
     ) {
-        return <Loading />;
+        return <FullLoading />;
     }
 
     if (!hotelByHotelId.data) {
         return (
-            <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
+            <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden bg-gray-200">
                 <div className="text-5xl text-gray-400">
                     Hotel was not found
                 </div>

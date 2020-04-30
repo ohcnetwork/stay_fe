@@ -9,9 +9,9 @@ function LandingPage() {
     console.log("Current User", currentUser);
 
     return (
-        <div>
-            <div className="w-full  ">
-                <div className="flex bg-white" style={{ height: "350px" }}>
+        <div className="bg-gray-200">
+            <div className="w-full">
+                <div className="flex" style={{ height: "350px" }}>
                     <div className="flex items-center text-left sm:text-center md:text-left px-8 md:pl-12 lg:w-2/3">
                         <div>
                             <h2 className="text-3xl font-semibold text-gray-800 md:text-4xl">
