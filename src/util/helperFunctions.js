@@ -1,5 +1,5 @@
 export function getAppliedFilters(options = null, all = false) {
-    const appliedFilters = JSON.parse(localStorage.getItem("applied_filters"));
+    const appliedFilters = JSONstring(localStorage.getItem("applied_filters"));
     let currentForm = {
         checkin: stringFromDate(new Date()),
         checkout: stringFromDate(
@@ -72,7 +72,17 @@ export function setRoomDetails(details, remove = false) {
 }
 
 export function getRoomDetails() {
-    return JSON.parse(localStorage.getItem("room_details"));
+    return JSONstring(localStorage.getItem("room_details"));
+}
+
+export function JSONstring(str) {
+    let result = {};
+    try {
+        result = JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return result;
 }
 
 export function stringFromDate(date) {
