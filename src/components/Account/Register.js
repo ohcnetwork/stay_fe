@@ -128,16 +128,16 @@ export default function Register(user) {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
+        <div className="lg:min-h-full flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
+                    <h2 className="lg:mt-4 mt-3 text-center text-xl lg:text-3xl leading-9 font-bold text-gray-800 uppercase">
                         {user.label}
                     </h2>
                 </div>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white shadow-lg rounded px-8 pt-6 pb-8 my-20 bg-gray-200">
+                    className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mt-10 my-20 bg-gray-200">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"

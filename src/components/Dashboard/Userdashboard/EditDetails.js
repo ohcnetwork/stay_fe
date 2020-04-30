@@ -44,7 +44,7 @@ export default function EditDetails() {
     return (
         <div className="max-w-md  sm:m-auto sm:m-0 sm:h-1/4 lg:mr-3 w-full">
             <div>
-                <h2 className="mt-3 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
+                <h2 className="mt-5  text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
                     Change Details
                 </h2>
             </div>
