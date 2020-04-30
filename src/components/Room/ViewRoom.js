@@ -67,7 +67,7 @@ export default function ViewRoom({ category, id }) {
                     }
 
                     if (listDetail.length > 0) {
-                        newDetail = listDetail[0];
+                        newDetail = listDetail[Math.floor(Math.random() * listDetail.length)];
                         setRoomDetails(newDetail);
                         setavail(true);
                     } else {
