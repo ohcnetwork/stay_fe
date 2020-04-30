@@ -67,13 +67,13 @@ const HotelList = ({ hotels }) => {
                                                 <p className="text-sm leading-5 font-medium text-gray-900">
                                                     {item.category}
                                                 </p>
-                                                <div className="flex text-sm leading-5 text-gray-500">
+                                                <div className="flex text-sm leading-5 text-gray-500 h-24">
                                                     {/* <time dateTime="2020-03-16">
                                                 Mar 16, 2020
                                             </time> */}
-                                                    {item.address}
-                                                    <br />
                                                     {item.district}
+                                                    <br />
+                                                    {item.address}
                                                     <span className="mx-1">
                                                         &middot;
                                                     </span>
