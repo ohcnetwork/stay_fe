@@ -101,7 +101,7 @@ function Hotel() {
         };
 
         if (prevFilters) {
-            Object.keys(prevFilters).map((key) => {
+            Object.keys(prevFilters).forEach((key) => {
                 currentForm[key] = prevFilters[key]
                     ? prevFilters[key]
                     : currentForm[key];

@@ -10,7 +10,7 @@ import { FullLoading } from "../common/Loader";
 export default function EditHotel({ id }) {
     const dispatch = useDispatch();
 
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser: temp } = state;
     const currentUser = temp && temp.data && temp.data.data;
     const { userHotelList } = state;

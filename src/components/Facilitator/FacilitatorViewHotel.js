@@ -12,7 +12,7 @@ import { FullLoading } from "../common/Loader";
 export default function FacilitatorViewHotel({ id }) {
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser: temp } = state;
     const currentUser = temp && temp.data && temp.data.data;
 

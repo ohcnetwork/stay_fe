@@ -8,7 +8,7 @@ import UpdateBooking from "./UpdateBooking";
 import { FullLoading } from "../common/Loader";
 
 export default function ViewBooking({ id }) {
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { hotelBookingList } = state;
     const dispatch = useDispatch();
     const [showUpdation, setShowUpdation] = useState({
