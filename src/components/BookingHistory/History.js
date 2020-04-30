@@ -226,6 +226,7 @@ export default function History() {
                         })}
                     </div>
                 </div>
+                
             </div>
             { !Shown && 
             <CancelConfirm Shown={Shown}  Sure={Sure} toggle={toggle} CancelSured={CancelSured} />
