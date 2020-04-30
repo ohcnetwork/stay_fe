@@ -1,5 +1,6 @@
 import React from "react";
-export default function DeleteConfirmation({ Shown , Sure, toggle , CancelSured }) {
+
+export default function CancelConfirmation({ Shown , Sure, toggle , CancelSured }) {
     function Cancel() {
         CancelSured(Sure);
         toggle(Shown);
