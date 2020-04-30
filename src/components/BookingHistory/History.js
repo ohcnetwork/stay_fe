@@ -7,7 +7,7 @@ import { DEFAULT_IMAGE } from "../../Common/constants";
 
 export default function History() {
     var item = [];
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const user = currentUser.data.data;
     const dispatch = useDispatch();

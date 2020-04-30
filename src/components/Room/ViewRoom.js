@@ -19,7 +19,7 @@ import { FullLoading } from "../common/Loader";
 export default function ViewRoom({ category, id }) {
     const hotelid = id;
     const dispatch = useDispatch();
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const appliedFilters = getAppliedFilters(null, true);
     const [datein, setdatein] = useState(new Date(appliedFilters.checkin));

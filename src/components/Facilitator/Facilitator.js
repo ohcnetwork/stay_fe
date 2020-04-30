@@ -8,7 +8,7 @@ import Star from "../common/Star";
 import { FullLoading } from "../common/Loader";
 
 export default function Facilitator({ from }) {
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser: temp } = state;
     const currentUser = temp && temp.data && temp.data.data;
     const months = [

@@ -6,7 +6,7 @@ import { validatePassword } from "../../../util/validation";
 
 export default function EditPassword() {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const initForm = {
         id: currentUser.data.data.id,

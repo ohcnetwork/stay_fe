@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Hotel from "../Browse/Hotel";
 import landingpageimage from "../../Common/images/landingpageimage.png";
 function LandingPage() {
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     console.log("Current User", currentUser);
 

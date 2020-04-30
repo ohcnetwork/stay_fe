@@ -10,7 +10,7 @@ import { FullLoading } from "./components/common/Loader";
 
 function App() {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const [user, setUser] = useState(false);
 

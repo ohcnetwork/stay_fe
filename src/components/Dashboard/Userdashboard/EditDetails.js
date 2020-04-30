@@ -4,7 +4,7 @@ import * as Notficiation from "../../../util/Notifications";
 
 export default function EditDetails() {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const initForm2 = {
         id: currentUser.data.data.id,

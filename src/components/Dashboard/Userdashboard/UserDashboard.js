@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { DEFAULT_IMAGE } from "../../../Common/constants";
 
 function Home() {
-    const state = useSelector((state) => state);
+    const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const user = currentUser.data.data;
     if (user.image == null) {
