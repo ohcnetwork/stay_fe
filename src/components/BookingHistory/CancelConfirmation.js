@@ -1,8 +1,6 @@
 import React from "react";
-
-
 export default function DeleteConfirmation({ Shown , Sure, toggle , CancelSured }) {
-    function del() {
+    function Cancel() {
         CancelSured(Sure);
         toggle(Shown);
     }
@@ -31,7 +29,7 @@ export default function DeleteConfirmation({ Shown , Sure, toggle , CancelSured 
                         </div>
                         <div className="flex text-white">
                             <div
-                                onClick={del}
+                                onClick={Cancel}
                                 className="flex items-center justify-center rounded p-2 px-3 md:px-6 bg-red-700 hover:bg-red-800 cursor-pointer">
                                 Cancel
                             </div>
