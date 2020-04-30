@@ -5,6 +5,7 @@ import { getUserHotelList } from "../../Redux/actions";
 import { HOTEL_STATUS } from "../../Common/constants";
 import ActionsBox from "./ActionsBox";
 import Star from "../common/Star";
+import { FullLoading } from "../common/Loader";
 
 export default function Facilitator({ from }) {
     const state = useSelector((state) => state);
@@ -90,9 +91,7 @@ export default function Facilitator({ from }) {
     }
 
     if (!userHotelList || userHotelList.isFetching) {
-        return (
-            <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
-        );
+        return <FullLoading />;
     }
     if (userHotelList.error) {
         return (

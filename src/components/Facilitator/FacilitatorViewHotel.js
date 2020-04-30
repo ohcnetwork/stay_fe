@@ -7,6 +7,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import ActionsBox from "./ActionsBox";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomList from "../Room/RoomsList";
+import { FullLoading } from "../common/Loader";
 
 export default function FacilitatorViewHotel({ id }) {
     const [showConfirmation, setShowConfirmation] = useState(false);
@@ -31,9 +32,7 @@ export default function FacilitatorViewHotel({ id }) {
         !hotelRoomList ||
         hotelRoomList.isFetching
     ) {
-        return (
-            <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
-        );
+        return <FullLoading />;
     }
 
     if (userHotelList.error || hotelRoomList.error) {

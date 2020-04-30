@@ -14,6 +14,7 @@ import {
     getRoomDetails,
     setRoomDetails,
 } from "../../util/helperFunctions";
+import { FullLoading } from "../common/Loader";
 
 export default function ViewRoom({ category, id }) {
     const hotelid = id;
@@ -163,9 +164,7 @@ export default function ViewRoom({ category, id }) {
     }
 
     if (detail.isFetching) {
-        return (
-            <div className="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
-        );
+        return <FullLoading />;
     }
 
     const previewImage =
@@ -309,7 +308,7 @@ export default function ViewRoom({ category, id }) {
                                 <ul className="border border-gray-200 rounded-md">
                                     <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
                                         <div className="w-0 flex-1 flex items-center">
-                                            <div className="ml-2 flex flex-wrap">
+                                            <div className="ml-2 flex flex-wrap uppercase">
                                                 {detail.features &&
                                                     detail.features
                                                         .split(",")
