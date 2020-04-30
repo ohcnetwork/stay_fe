@@ -55,12 +55,20 @@ export function getAppliedFilters(options = null, all = false) {
     return currentForm;
 }
 
-export function setAppliedFilters(filters) {
-    localStorage.setItem("applied_filters", JSON.stringify(filters));
+export function setAppliedFilters(filters, remove = false) {
+    if (remove) {
+        localStorage.removeItem("applied_filters");
+    } else {
+        localStorage.setItem("applied_filters", JSON.stringify(filters));
+    }
 }
 
-export function setRoomDetails(details) {
-    localStorage.setItem("room_details", details);
+export function setRoomDetails(details, remove = false) {
+    if (remove) {
+        localStorage.removeItem("room_details");
+    } else {
+        localStorage.setItem("room_details", JSON.stringify(details));
+    }
 }
 
 export function getRoomDetails() {

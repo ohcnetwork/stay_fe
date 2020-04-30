@@ -83,7 +83,7 @@ function Hotel() {
     }
 
     function clearFilters() {
-        localStorage.removeItem("applied_filters");
+        setAppliedFilters("", true);
         const currentForm = getInitFilter(optionlist);
         setForm(currentForm);
         fetchUpdatedHotels(currentForm);

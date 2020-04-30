@@ -12,6 +12,7 @@ import {
     setAppliedFilters,
     stringFromDate,
     getRoomDetails,
+    setRoomDetails,
 } from "../../util/helperFunctions";
 
 export default function ViewRoom({ category, id }) {
@@ -35,11 +36,6 @@ export default function ViewRoom({ category, id }) {
     }, []);
 
     const updateRoomGetDetail = () => {
-        setAppliedFilters({
-            ...appliedFilters,
-            checkin: stringFromDate(datein),
-            checkout: stringFromDate(dateout),
-        });
         setDetail({ ...detail, isFetching: true });
         const form = getUpdatedDetails();
         if (form) {
@@ -50,8 +46,10 @@ export default function ViewRoom({ category, id }) {
                 let listDetail = [];
                 setApplied(true);
                 if (res && res.data) {
-                    if (!roomDetails) {
+                    console.log(res.data[0]);
+                    if (!roomDetails && res.data[0]) {
                         newDetail = res.data[0];
+                        setRoomDetails(newDetail);
                     }
 
                     listDetail = res.data.filter(
@@ -60,9 +58,20 @@ export default function ViewRoom({ category, id }) {
                             JSON.stringify({ ...newDetail, id: "" })
                     );
 
+                    if (listDetail.length < 1 && res.data.length > 0) {
+                        listDetail = res.data.filter(
+                            (el) =>
+                                JSON.stringify({ ...el, id: "" }) ===
+                                JSON.stringify({ ...res.data[0], id: "" })
+                        );
+                    }
+
                     if (listDetail.length > 0) {
+                        newDetail = listDetail[0];
+                        setRoomDetails(newDetail);
                         setavail(true);
                     } else {
+                        newDetail = {};
                         setavail(false);
                     }
                 } else {
@@ -166,12 +175,12 @@ export default function ViewRoom({ category, id }) {
                     <div className="lg:w-1/2">
                         <img
                             onClick={() =>
-                                detail.photos.length >= 1
+                                detail.photos && detail.photos.length >= 1
                                     ? controlCarousal[1](true)
                                     : null
                             }
                             className={`h-64 bg-cover lg:rounded-lg ${
-                                detail.photos.length >= 1
+                                detail.photos && detail.photos.length >= 1
                                     ? "cursor-pointer"
                                     : ""
                             }`}
@@ -193,6 +202,12 @@ export default function ViewRoom({ category, id }) {
                                     value={datein}
                                     onChange={onDateChangeIn}
                                     minDate={new Date()}
+                                    maxDate={
+                                        new Date(
+                                            new Date(dateout) +
+                                                24 * 60 * 60 * 100
+                                        )
+                                    }
                                 />
                             </div>
 

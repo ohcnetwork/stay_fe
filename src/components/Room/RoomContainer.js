@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
+import { setRoomDetails } from "../../util/helperFunctions";
 
 export default function RoomContainer({ r, count = null }) {
     function storeRoomDetails() {
         const body = Object.assign({}, r);
         delete body.link;
-        localStorage.setItem("room_details", JSON.stringify(body));
+        setRoomDetails(body);
     }
 
     const previewImage = (r.photos && r.photos[0]) || DEFAULT_IMAGE.ROOM;

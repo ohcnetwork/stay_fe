@@ -1,6 +1,7 @@
 import React from "react";
 import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
+import Star from "../common/Star";
 
 const HotelList = ({ hotels }) => {
     if (hotels.length === 0) {
@@ -45,9 +46,12 @@ const HotelList = ({ hotels }) => {
                                 <div className="block">
                                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div className="flex-1">
-                                            <p className="text-sm leading-5 font-medium text-indigo-600">
-                                                <span>
-                                                    {item.starCategory} Star
+                                            <p className="text-sm leading-5 font-medium text-indigo-600 h-4">
+                                                <span className="flex">
+                                                    <Star
+                                                        num={item.starCategory}
+                                                        dim={4}
+                                                    />
                                                 </span>
                                             </p>
                                             <h3 className="mt-2 text-base leading-7 font-semibold text-gray-900">

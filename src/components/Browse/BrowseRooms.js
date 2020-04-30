@@ -21,7 +21,6 @@ function BrowseRooms({ id }) {
 
         // these filters are not acknoledged/invalid
         appliedFilters.district = "";
-        appliedFilters.beds = "";
 
         // add page specific parameters
         let form = Object.assign({}, appliedFilters);

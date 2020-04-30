@@ -94,8 +94,8 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                     Notficiation.Success({
                         msg: "Booking Successfull",
                     });
-                    setAppliedFilters("");
-                    setRoomDetails("");
+                    setAppliedFilters("", true);
+                    setRoomDetails("", true);
                     navigate("/history");
                 } else {
                     Notficiation.Error({
