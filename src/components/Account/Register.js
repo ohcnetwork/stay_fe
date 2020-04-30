@@ -128,7 +128,7 @@ export default function Register(user) {
     };
 
     return (
-        <div className="min-h-full flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
+        <div className="lg:min-h-full flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 <div>
                     <h2 className="lg:mt-4 mt-3 text-center text-xl lg:text-3xl leading-9 font-bold text-gray-800 uppercase">
