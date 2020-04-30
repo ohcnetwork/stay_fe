@@ -113,7 +113,9 @@ export default function History() {
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
                                     } border-blue-500 hover:border-transparent rounded`}
-                                    onClick={() => setBookingstate("CANCELLED")}>
+                                    onClick={() =>
+                                        setBookingstate("CANCELLED")
+                                    }>
                                     CANCELLED
                                 </button>
                             </div>

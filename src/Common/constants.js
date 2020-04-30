@@ -46,7 +46,7 @@ export const HOTEL_STATUS = {
 export const DEFAULT_IMAGE = {
     HOTEL: require("./images/no-image.png"),
     ROOM: require("./images/no-image.png"),
-    USER: require("./images/userdefault.png")
+    USER: require("./images/userdefault.png"),
 };
 
 export const BOOKING_TERMS =

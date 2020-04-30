@@ -74,7 +74,8 @@ export default function Login() {
                 })
                 .catch((err) => {
                     Notficiation.Error({
-                        msg: "Kindly check your login credentials and try again",
+                        msg:
+                            "Kindly check your login credentials and try again",
                     });
                 });
         }
@@ -84,7 +85,7 @@ export default function Login() {
         <div className="min-h-full flex items-center lg:justify-center py-5 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 <div>
-                    <h2 className="lg:mt-6 sm:mt-2 text-center  text-xl leading-9 font-bold text-gray-800 uppercase">
+                    <h2 className="lg:mt-6 sm:mt-2 text-center lg:text-3xl text-xl leading-9 font-bold text-gray-800 uppercase">
                         Sign in to continue
                     </h2>
                 </div>
