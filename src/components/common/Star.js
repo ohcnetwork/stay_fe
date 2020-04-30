@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function Start({ num, dim = 6 }) {
+export default function Star({ num, dim = 6 }) {
     return Array.apply(null, {
-        length: 5,
+        length: num,
     }).map((el, i) => (
         <svg
             key={i.toString()}
@@ -11,8 +11,8 @@ export default function Start({ num, dim = 6 }) {
             xmlns="http://www.w3.org/2000/svg"
             version="1.1">
             <polygon
-                fill={`${i < num ? "#2D3748" : "#CBD5E0"}`}
-                stroke={`${i < num ? "#2D3748" : "#CBD5E0"}`}
+                fill="#2D3748"
+                stroke="#2D3748"
                 strokeWidth="15"
                 points="150,25  179,111 269,111 197,165 223,251  150,200 77,251  103,165 31,111 121,111"
             />

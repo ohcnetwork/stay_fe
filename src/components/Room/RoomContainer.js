@@ -56,7 +56,7 @@ export default function RoomContainer({ r, count = null }) {
                         {(r.features || "").split(",").map((el) => (
                             <div
                                 key={el}
-                                className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide">
+                                className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide uppercase">
                                 {el.replace("_", " ")}
                             </div>
                         ))}
