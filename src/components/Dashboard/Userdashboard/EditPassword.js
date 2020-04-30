@@ -117,7 +117,7 @@ export default function EditPassword() {
     return (
         <div className="max-w-md sm:m-auto sm:m-0 lg:ml-3 w-full">
             <div>
-                <h2 className="mt-3 m-3 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
+                <h2 className="mt-5 m-3 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
                     Change Password
                 </h2>
             </div>

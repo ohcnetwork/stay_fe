@@ -13,9 +13,9 @@ export default function History() {
 
     const dispatch = useDispatch();
 
-    const [form, setForm] = useState({});
-    const [form2, setForm2] = useState({});
-    const [form3, setForm3] = useState("BOOKED");
+    const [Historydata, setHistorydata] = useState({});
+    const [PageRerender, setPageRerender] = useState({});
+    const [Bookingstate, setBookingstate] = useState("BOOKED");
 
     var i = 0;
 
@@ -24,7 +24,7 @@ export default function History() {
             dispatch(deleteBooking(e.target.name)).then((resp) => {
                 const { status: statusCode } = resp;
                 if (statusCode === 200) {
-                    setForm2(Math.random() * 10 + Math.random());
+                    setPageRerender(Math.random() * 10 + Math.random());
                     Notficiation.Success({
                         msg: "Booking Cancelled",
                     });
@@ -36,14 +36,14 @@ export default function History() {
     useEffect(() => {
         dispatch(getBookingHistory()).then((resp) => {
             const { data: res } = resp;
-            setForm(res);
+            setHistorydata(res);
         });
-    }, [dispatch, user, form2]);
+    }, [dispatch, user, PageRerender]);
     var count = 0;
-    if (form !== undefined) {
-        count = form.length;
+    if (Historydata !== undefined) {
+        count = Historydata.length;
         for (i = 0; i < count; i++) {
-            item = item.concat(form[i]);
+            item = item.concat(Historydata[i]);
         }
     }
 
@@ -86,34 +86,36 @@ export default function History() {
                             <div className="text-center w-1/3  px-3 py-2 m-1">
                                 <button
                                     className={`bg-white text-xs ml-0 w-full shadow-lg hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
-                                        form3 === "CHECKED"
+                                        Bookingstate === "CHECKED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
                                     }
                                      border-blue-500 hover:border-transparent rounded`}
-                                    onClick={() => setForm3("CHECKED")}>
+                                    onClick={() => setBookingstate("CHECKED")}>
                                     CHECKED
                                 </button>
                             </div>
                             <div className=" text-center w-1/3  px-1 py-2 m-1">
                                 <button
                                     className={`bg-white w-full text-xs ml-0 hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-2 border ${
-                                        form3 === "BOOKED"
+                                        Bookingstate === "BOOKED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
                                     } border-blue-500 hover:border-transparent rounded`}
-                                    onClick={() => setForm3("BOOKED")}>
+                                    onClick={() => setBookingstate("BOOKED")}>
                                     BOOKED
                                 </button>
                             </div>
                             <div className=" text-center w-1/3 px-3 py-2 m-1">
                                 <button
                                     className={`bg-white w-full text-xs ml-0 hover:bg-blue-500 font-semibold mt-1  hover:text-white py-1 px-0 lg:px-2 border ${
-                                        form3 === "CANCELLED"
+                                        Bookingstate === "CANCELLED"
                                             ? "bg-blue-500 text-white"
                                             : "text-blue-500"
                                     } border-blue-500 hover:border-transparent rounded`}
-                                    onClick={() => setForm3("CANCELLED")}>
+                                    onClick={() =>
+                                        setBookingstate("CANCELLED")
+                                    }>
                                     CANCELLED
                                 </button>
                             </div>
@@ -122,9 +124,9 @@ export default function History() {
                     <div className="relative  content-center lg:grid-cols-2 grid  m-8 lg:mx-8 lg:my-4 lg:max-w-5xl">
                         {item.map((value, index) => {
                             if (
-                                (value.statusBooking === form3 &&
+                                (value.statusBooking === Bookingstate &&
                                     value.statusCheckin === "PENDING") ||
-                                (form3 === "CHECKED" &&
+                                (Bookingstate === "CHECKED" &&
                                     (value.statusCheckin === "CHECKEDIN" ||
                                         value.statusCheckin === "CHECKEDOUT"))
                             )

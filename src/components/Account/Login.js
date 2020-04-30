@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../Redux/actions";
-import { navigate, A, useQueryParams, usePath } from "hookrouter";
+import { navigate, A, useQueryParams } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 
 export default function Login() {
@@ -74,23 +74,24 @@ export default function Login() {
                 })
                 .catch((err) => {
                     Notficiation.Error({
-                        msg: "Kindly check your login credentials and try again",
+                        msg:
+                            "Kindly check your login credentials and try again",
                     });
                 });
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
+        <div className="lg:min-h-full min-h-screen flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
+                    <h2 className="lg:mt-6 md:mt-6 sm:mt-2 text-center lg:text-3xl text-xl leading-9 font-bold text-gray-800 uppercase">
                         Sign in to continue
                     </h2>
                 </div>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-gray-200 shadow-lg rounded px-8 pt-6 pb-8 my-20">
+                    className="bg-gray-200 shadow-lg rounded px-8 pt-6 pb-8 my-5 lg:my-20">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
@@ -156,7 +157,7 @@ export default function Login() {
                             </svg>
                             Sign In
                         </button>
-                        <div className="flex flex-col ">
+                        <div className="flex flex-col ml-1  ">
                             <A
                                 className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1"
                                 href="/user-register">

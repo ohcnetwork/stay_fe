@@ -37,7 +37,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
         setPersonErr(initErr);
 
         Object.keys(person).forEach((key) => {
-            if (person[key] == "" && !optional.includes(key)) {
+            if (person[key] === "" && !optional.includes(key)) {
                 err[key] = true;
                 isValid = false;
             }
