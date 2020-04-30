@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as Notficiation from "../../util/Notifications";
-
+import CancelConfirm from "./CancelConfirmation";
 import { getBookingHistory, deleteBooking } from "../../Redux/actions";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 
@@ -10,34 +10,38 @@ export default function History() {
     const state = useSelector((state) => state);
     const { currentUser } = state;
     const user = currentUser.data.data;
-
     const dispatch = useDispatch();
-
+    const [Shown , toggleShown ] = useState(true);
+    const [Sure , toggleSure ] = useState(false);
     const [Historydata, setHistorydata] = useState({});
     const [PageRerender, setPageRerender] = useState({});
     const [Bookingstate, setBookingstate] = useState("BOOKED");
-
+    const [deletetarget , setdeletetarget] =useState({});
     var i = 0;
 
     const Cancel = (e) => {
-        if (window.confirm("Cancel")) {
-            dispatch(deleteBooking(e.target.name)).then((resp) => {
-                const { status: statusCode } = resp;
-                if (statusCode === 200) {
-                    setPageRerender(Math.random() * 10 + Math.random());
-                    Notficiation.Success({
-                        msg: "Booking Cancelled",
-                    });
-                }
-            });
-        }
-    };
+        setdeletetarget(e.target);
+        toggleShown(!Shown);}
+    
+    if (Sure === true) {
+        toggleSure(!Sure);
+        dispatch(deleteBooking(deletetarget.name)).then((resp) => {
+            const { status: statusCode } = resp;
+            if (statusCode === 200) {
+                setPageRerender(Math.random() * 10 + Math.random());
+                Notficiation.Success({
+                    msg: "Booking Cancelled",
+                });
+            }
+        });
+    }
 
     useEffect(() => {
         dispatch(getBookingHistory()).then((resp) => {
             const { data: res } = resp;
             setHistorydata(res);
         });
+        
     }, [dispatch, user, PageRerender]);
     var count = 0;
     if (Historydata !== undefined) {
@@ -58,7 +62,12 @@ export default function History() {
             }
         }
     }
-    console.log(item);
+    function toggle() {
+        toggleShown(!Shown);   
+    }
+    function CancelSured(){
+        toggleSure(!Sure);
+    }
     if (count === 0) {
         return (
             <div className="py-10 bg-white min-h-screen">
@@ -76,7 +85,8 @@ export default function History() {
         );
     } else
         return (
-            <div className="py-10 bg-white min-h-screen">
+            <div>
+            <div className={` ${Shown ? "" : "hidden"}  py-10 bg-white min-h-screen `}>
                 <div className="max-w-5xl  mx-auto   overflow-hidden  sm:rounded-lg">
                     <div className="text-center">
                         <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
@@ -216,6 +226,10 @@ export default function History() {
                         })}
                     </div>
                 </div>
+            </div>
+            { !Shown && 
+            <CancelConfirm Shown={Shown}  Sure={Sure} toggle={toggle} CancelSured={CancelSured} />
+            }
             </div>
         );
 }
