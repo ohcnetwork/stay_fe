@@ -43,7 +43,7 @@ function BrowseRooms({ id }) {
 
     if (!hotelByHotelId.data) {
         return (
-            <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
+            <div className="h-full w-full items-center flex flex-col justify-center overflow-hidden">
                 <div className="text-5xl text-gray-400">
                     Hotel was not found
                 </div>
@@ -57,7 +57,7 @@ function BrowseRooms({ id }) {
     }
 
     return (
-        <div className="font-sans bg-gray-200 flex flex-col w-full min-h-screen overflow-x-hidden">
+        <div className="font-sans bg-gray-200 flex flex-col w-full min-h-full overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 <div className="mb-6 md:mx-0 mx-2">
                     <HotelInfo data={hotelByHotelId.data} />
