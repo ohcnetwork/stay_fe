@@ -18,22 +18,28 @@ export default function UpdateBooking({
     user_details,
 }) {
     const [roomError, setRoomError] = useState(false);
-    const [roomno, setRoomno] = useState("");
+    const [roomNumber, setRoomNumber] = useState(data.roomNumber);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        setRoomno(data.roomno);
-    }, [data.roomno]);
+        setRoomNumber(data.roomNumber);
+    }, [data.roomNumber]);
 
     function updateRoomno(status) {
-        setRoomError(false);
-        if (roomno && !loading) {
+        setRoomError(false);    
+        if (roomNumber && !loading) {
+            let body = {
+                status,
+            };
+            if (status === BOOKING_CHECKIN_STATUS.CHECKEDIN.type) {
+                body.roomNumber = roomNumber;
+            }
             setError(false);
             setLoading(true);
-            dispatch(setCheckinStatus(data.book_id, { status })).then((res) => {
+            dispatch(setCheckinStatus(data.book_id, body)).then((res) => {
                 if (res.status === 200) {
                     Notification.Success({
                         msg: `${BOOKING_CHECKIN_STATUS[status].string} #${data.book_id}`,
@@ -45,7 +51,7 @@ export default function UpdateBooking({
                     setLoading(false);
                 }
             });
-            console.log("update room no to", roomno);
+            console.log("update room no to", roomNumber);
         } else {
             setRoomError(true);
         }
@@ -80,12 +86,14 @@ export default function UpdateBooking({
         }
     }
 
+    console.log();
+
     return (
         <div
             className={`${
                 shown ? "flex" : "hidden"
-            }   w-full w-3/4 justify-center`}>
-            <div className="pb-8 px-0   w-full   mx-5 rounded">
+            }   w-full w-3/4 justify-center top-0 left-0 fixed h-screen bg-gray-200 overflow-y-auto`}>
+            <div className="pb-8 px-0 w-full mx-5 rounded">
                 <div className="uppercase bg-indigo-600 pt-3 m-0 m-auto mt-5 md:w-1/2 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
                     Booking ID: {data.book_id}
                 </div>
@@ -96,21 +104,23 @@ export default function UpdateBooking({
                                 <div className="pb-8">
                                     <label
                                         className="block font-bold text-xl"
-                                        htmlFor="roomno">
+                                        htmlFor="roomNumber">
                                         Room No
                                     </label>
                                     <div className="w-40 h-8">
                                         <input
+                                            disabled={!(data.statusCheckin === BOOKING_CHECKIN_STATUS.PENDING.type && data.statusBooking === BOOKING_STATUS.BOOKED.type)}
                                             className={`bg-gray-200 text-center appearance-none border-2 border-gray-400 ${
                                                 roomError
                                                     ? "border-red-700"
                                                     : ""
                                             } rounded w-full py-2 px-4 text-5xl font-bold text-gray-800 leading-tight focus:outline-none focus:border-indigo-600`}
                                             type="text"
+                                            name="roomNumber"
                                             onChange={(e) =>
-                                                setRoomno(e.target.value)
+                                                setRoomNumber(e.target.value)
                                             }
-                                            value={roomno}
+                                            value={roomNumber}
                                         />
                                     </div>
                                 </div>
@@ -157,9 +167,9 @@ export default function UpdateBooking({
                                 </div>
                                 <div className="flex">
                                     <div className="font-bold w-24">
-                                        Category
+                                        Room
                                     </div>
-                                    <div className="">{data.room.category}</div>
+                                    <div className="">{data.room.title} ({data.room.category})</div>
                                 </div>
 
                                 <div className="flex">
