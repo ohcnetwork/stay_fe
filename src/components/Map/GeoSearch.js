@@ -14,7 +14,6 @@ export default function GeoSearch({ onChange = () => null }) {
         setError("");
         const baseURL = "https://nominatim.openstreetmap.org/search";
         const params = `q=${query}&countrycodes=IN&format=json&limit=5`;
-        console.log(`${baseURL}?${params}`);
 
         try {
             const results = await Axios.get(`${baseURL}?${params}`);
@@ -31,26 +30,21 @@ export default function GeoSearch({ onChange = () => null }) {
     }
 
     function changeHandler(val) {
-        console.log(val);
+        const { lat, lon, display_name } = val;
         setResults([]);
-
-        onChange(val);
+        setQuery(display_name);
+        onChange({ lat: parseFloat(lat), lng: parseFloat(lon) });
     }
 
     function showResults() {
         if (results.length > 0) {
             return (
-                <div className="shadow-xl rounded-xl rounded-t-none bg-gray-100 absolute w-full">
+                <div className="shadow-xl rounded rounded-t-none bg-gray-100 absolute w-full">
                     {results.map((result) => (
                         <div
                             key={result.place_id}
                             className="text-gray-700 px-2 py-2 break-word transition ease-in duration-200 hover:bg-gray-300 cursor-pointer text-sm"
-                            onClick={() =>
-                                changeHandler({
-                                    lat: result.lat,
-                                    lon: result.lon,
-                                })
-                            }>
+                            onClick={() => changeHandler(result)}>
                             {result.display_name}
                         </div>
                     ))}
@@ -60,7 +54,7 @@ export default function GeoSearch({ onChange = () => null }) {
 
         if (loading) {
             return (
-                <div className="shadow-xl rounded-xl rounded-t-none bg-gray-100 absolute w-full">
+                <div className="shadow-xl rounded rounded-t-none bg-gray-100 absolute w-full">
                     <Loading />
                 </div>
             );
@@ -72,7 +66,7 @@ export default function GeoSearch({ onChange = () => null }) {
     }
 
     return (
-        <div className="bg-gray-200">
+        <div className="">
             <div className="flex h-12">
                 <input
                     name="location"
