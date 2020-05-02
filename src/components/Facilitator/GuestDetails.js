@@ -20,7 +20,9 @@ function GuestDetails({ user_details, id }) {
             <div className="m-0 m-auto w-3/4   relative  content-center lg:grid-cols-2 grid ">
                 {item.map((value, index) => {
                     return (
-                        <div className="max-w-sm m-0 m-auto w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
+                        <div
+                            key={index.toString()}
+                            className="max-w-sm m-0 m-auto w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
                             <div className="flex items-center px-6 py-3 bg-indigo-600">
                                 <h1 className="mx-3 text-white font-semibold text-lg">
                                     Guest {index + 1}
@@ -32,7 +34,7 @@ function GuestDetails({ user_details, id }) {
                                 </h1>
                                 <div className="flex items-center mt-4 text-gray-900">
                                     <svg
-                                        class="icon icon-phone"
+                                        className="icon icon-phone"
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
                                         height="24"

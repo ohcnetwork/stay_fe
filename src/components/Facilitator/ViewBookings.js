@@ -207,7 +207,6 @@ export default function ViewBooking({ id }) {
         bookings[i].checkinString = dateString(b.checkin);
         bookings[i].checkoutString = dateString(b.checkout);
         bookings[i].createdAtString = dateString(b.createdAt, true);
-        bookings[i].roomno = "";
     });
 
     return (
