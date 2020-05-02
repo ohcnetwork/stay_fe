@@ -34,7 +34,6 @@ export default function History() {
             if (statusCode === 200) {
                 setPageRerender(Math.random() * 10 + Math.random());
                 setloading(false);
-
                 Notficiation.Success({
                     msg: "Booking Cancelled",
                 });
