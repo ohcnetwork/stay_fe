@@ -33,7 +33,6 @@ export default function History() {
             const { status: statusCode } = resp;
             if (statusCode === 200) {
                 setPageRerender(Math.random() * 10 + Math.random());
-                setloading(false);
                 Notficiation.Success({
                     msg: "Booking Cancelled",
                 });
@@ -45,6 +44,7 @@ export default function History() {
         dispatch(getBookingHistory()).then((resp) => {
             const { data: res } = resp;
             setHistorydata(res);
+            setloading(false);
         });
     }, [dispatch, user, PageRerender]);
     var count = 0;
