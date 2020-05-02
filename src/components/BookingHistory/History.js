@@ -4,6 +4,7 @@ import * as Notficiation from "../../util/Notifications";
 import CancelConfirm from "./CancelConfirmation";
 import { getBookingHistory, deleteBooking } from "../../Redux/actions";
 import { DEFAULT_IMAGE } from "../../Common/constants";
+import { Loading } from "../common/Loader";
 
 export default function History() {
     var item = [];
@@ -17,6 +18,7 @@ export default function History() {
     const [PageRerender, setPageRerender] = useState({});
     const [Bookingstate, setBookingstate] = useState("BOOKED");
     const [deletetarget, setdeletetarget] = useState({});
+    const [loading , setloading] = useState(false);
     var i = 0;
 
     const Cancel = (e) => {
@@ -25,14 +27,18 @@ export default function History() {
     };
 
     if (Sure === true) {
+        setloading(true);
         toggleSure(!Sure);
         dispatch(deleteBooking(deletetarget.name)).then((resp) => {
             const { status: statusCode } = resp;
             if (statusCode === 200) {
                 setPageRerender(Math.random() * 10 + Math.random());
+                setloading(false);
+
                 Notficiation.Success({
                     msg: "Booking Cancelled",
                 });
+
             }
         });
     }
@@ -90,7 +96,9 @@ export default function History() {
                     className={` ${
                         Shown ? "" : "hidden"
                     }  py-10 bg-white min-h-screen `}>
-                    <div className="max-w-5xl  mx-auto   overflow-hidden  sm:rounded-lg">
+                    {
+                        loading ? (<Loading/>) :
+                    (<div className="max-w-5xl  mx-auto   overflow-hidden  sm:rounded-lg">
                         <div className="text-center">
                             <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                                 Booking History
@@ -150,6 +158,7 @@ export default function History() {
                                 )
                                     return (
                                         <div
+                                            key={index}
                                             id={index}
                                             className="sm:w-full md:w-3/4 lg:w-5/6 bg-gray-300 mx-auto my-8  rounded overflow-hidden shadow-lg">
                                             <img
@@ -239,7 +248,8 @@ export default function History() {
                                     );
                             })}
                         </div>
-                    </div>
+                    </div>)
+                    }
                 </div>
                 {!Shown && (
                     <CancelConfirm
