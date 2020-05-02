@@ -22,7 +22,7 @@ function Home() {
                     <img
                         className="h-40 w-40 rounded-full mx-auto"
                         src={user.image}
-                        alt="Randy Robertson"
+                        alt="User Image"
                     />
                     <p className="pt-2 text-xl font-semibold">{user.name}</p>
                     <p className="text-lg text-gray-800">{user.email}</p>
