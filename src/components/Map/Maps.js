@@ -21,8 +21,8 @@ function Maps({ mark = null, onChange = () => null, markerDraggable = false }) {
         const markerPos = refMarker.current;
         if (markerPos != null) {
             setMarker(markerPos.leafletElement.getLatLng());
+            onChange(markerPos.leafletElement.getLatLng());
         }
-        onChange(markerPos.leafletElement.getLatLng());
     }
 
     function handleViewportChanged(e) {

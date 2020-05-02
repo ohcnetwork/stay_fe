@@ -16,9 +16,9 @@ export default function GeoSearch({ onChange = () => null }) {
         const params = `q=${query}&countrycodes=IN&format=json&limit=5`;
 
         try {
-            const results = await Axios.get(`${baseURL}?${params}`);
-            if (results.data && results.data.length > 0) {
-                setResults(results.data);
+            const searchResults = await Axios.get(`${baseURL}?${params}`);
+            if (searchResults.data && searchResults.data.length > 0) {
+                setResults(searchResults.data);
             } else {
                 setError("No results found");
             }
