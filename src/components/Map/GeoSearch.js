@@ -75,7 +75,7 @@ export default function GeoSearch({ onChange = () => null }) {
                     onChange={(el) => setQuery(el.target.value)}
                     className={`flex-grow appearance-none rounded h-full rounded-r-none ${
                         error ? "border-red-700" : ""
-                    } py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border focus:bg-gray-100`}
+                    } py-2 px-3 text-gray-700 leading-tight bg-transparent focus:outline-none focus:border focus:shadow-outline`}
                     placeholder="Search for a location"
                 />
                 <button

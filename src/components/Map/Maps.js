@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
-function Maps({ mark = null, onChange = () => null }) {
+function Maps({ mark = null, onChange = () => null, markerDraggable = false }) {
     const [viewport, setViewport] = useState({
         center: { lat: 10.552621801948733, lng: 76.35498046875001 },
         zoom: 7,
@@ -9,7 +9,7 @@ function Maps({ mark = null, onChange = () => null }) {
     const [marker, setMarker] = useState(viewport.center);
 
     useEffect(() => {
-        if (mark) {
+        if (mark.lat && mark.lng) {
             setMarker(mark);
             setViewport({ ...viewport, center: mark });
         }
@@ -38,15 +38,17 @@ function Maps({ mark = null, onChange = () => null }) {
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker
-                draggable={true}
-                onDragend={updatePosition}
-                position={marker}
-                ref={refMarker}>
-                <Popup minWidth={90}>
-                    <span>Hotel Location</span>
-                </Popup>
-            </Marker>
+            {mark.lat && mark.lng && (
+                <Marker
+                    draggable={markerDraggable}
+                    onDragend={updatePosition}
+                    position={marker}
+                    ref={refMarker}>
+                    <Popup minWidth={90}>
+                        <span>Hotel Location</span>
+                    </Popup>
+                </Marker>
+            )}
         </Map>
     );
 }
