@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BOOKING_TERMS, GENDER } from "../../Common/constants";
 import { phonePreg, isNumber } from "../../util/validation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { dopostBook } from "../../Redux/actions";
 import { navigate } from "hookrouter";
 import { Loading } from "../common/Loader";

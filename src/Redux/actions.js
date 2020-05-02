@@ -1,4 +1,4 @@
-import { fireRequest, actions } from "./fireRequest";
+import { fireRequest } from "./fireRequest";
 
 export const postRegister = (form) => {
     return fireRequest("register", [], form);

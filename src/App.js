@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AppRouter from "./Router/AppRouter";
 import PublicRouter from "./Router/PublicRouter";
 import FacilitatorRouter from "./Router/FacilitatorRouter";
-import axios from "axios";
 import { useAbortableEffect } from "./util/useAbortableEffect";
 import { getCurrentUser } from "./Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
