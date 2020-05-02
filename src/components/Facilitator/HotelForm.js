@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { phonePreg } from "../../util/validation";
 import { DISTRICT_CHOICES } from "../../Common/constants";
 import UploadImage from "./UploadImage";
+import MapWithSearch from "../Map/MapWithSearch";
 
 export default function HotelForm({
     initForm,
@@ -22,7 +23,15 @@ export default function HotelForm({
 
     const handleChange = (e) => {
         const { value, name } = e.target;
-        setForm({ ...form, [name]: value });
+        if (name === "location") {
+            setForm({
+                ...form,
+                latitude: value.lat.toString(),
+                longitude: value.lng.toString(),
+            });
+        } else {
+            setForm({ ...form, [name]: value });
+        }
     };
 
     const handleCheckbox = (e) => {
@@ -30,9 +39,6 @@ export default function HotelForm({
         const prevState = checkbox[name];
         const newState = { ...checkbox, [name]: !prevState };
         setCheckbox(newState);
-
-        console.log(newState);
-        console.log(Object.keys(newState).filter((el) => newState[el]));
 
         setForm({
             ...form,
@@ -299,6 +305,31 @@ export default function HotelForm({
                         {error.facilities}
                     </div> */}
                 </div>
+                <div className="my-4">
+                    <label
+                        className="block text-sm text-gray-600 "
+                        htmlFor="facilities">
+                        Hotel Location
+                    </label>
+                    <div className="mt-2 h-64 w-full bg-gray-200">
+                        <MapWithSearch
+                            markerDraggable={true}
+                            value={{ lat: form.latitude, lng: form.longitude }}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: { name: "location", value: e },
+                                })
+                            }
+                        />
+                    </div>
+                    <div className="text-xs italic text-gray-600">
+                        Search for a location then click and drag the marker
+                    </div>
+                    <div className="text-xs italic text-red-500">
+                        {error.latitude || error.longitude}
+                    </div>
+                </div>
+
                 {!uploadOff && (
                     <div className="mt-2">
                         <label
