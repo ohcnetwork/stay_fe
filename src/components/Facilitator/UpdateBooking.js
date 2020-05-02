@@ -29,7 +29,7 @@ export default function UpdateBooking({
     }, [data.roomNumber]);
 
     function updateRoomno(status) {
-        setRoomError(false);    
+        setRoomError(false);
         if (roomNumber && !loading) {
             let body = {
                 status,
@@ -109,7 +109,16 @@ export default function UpdateBooking({
                                     </label>
                                     <div className="w-40 h-8">
                                         <input
-                                            disabled={!(data.statusCheckin === BOOKING_CHECKIN_STATUS.PENDING.type && data.statusBooking === BOOKING_STATUS.BOOKED.type)}
+                                            disabled={
+                                                !(
+                                                    data.statusCheckin ===
+                                                        BOOKING_CHECKIN_STATUS
+                                                            .PENDING.type &&
+                                                    data.statusBooking ===
+                                                        BOOKING_STATUS.BOOKED
+                                                            .type
+                                                )
+                                            }
                                             className={`bg-gray-200 text-center appearance-none border-2 border-gray-400 ${
                                                 roomError
                                                     ? "border-red-700"
@@ -166,10 +175,10 @@ export default function UpdateBooking({
                                     <div className="">{data.user.email}</div>
                                 </div>
                                 <div className="flex">
-                                    <div className="font-bold w-24">
-                                        Room
+                                    <div className="font-bold w-24">Room</div>
+                                    <div className="">
+                                        {data.room.title} ({data.room.category})
                                     </div>
-                                    <div className="">{data.room.title} ({data.room.category})</div>
                                 </div>
 
                                 <div className="flex">
