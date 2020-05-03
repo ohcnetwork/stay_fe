@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../Redux/actions";
 import { navigate, A, useQueryParams } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 
 export default function Login() {
+    
+   
+    // create our ref
+    const myInput = useRef(); 
+    
     const dispatch = useDispatch();
     const [formLoading, setFormLoading] = useState(false);
     const [formError, setFormError] = useState(false);
@@ -17,6 +22,7 @@ export default function Login() {
     const [form, setForm] = useState(initForm);
 
     useEffect(() => {
+        myInput.current && myInput.current.focus()
         setQueryParams(queryParams);
     }, []);
 
@@ -92,13 +98,14 @@ export default function Login() {
                 <form
                     onSubmit={handleSubmit}
                     className="bg-gray-200 shadow-lg rounded px-8 pt-6 pb-8 my-5 lg:my-20">
-                    <div className="mb-4">
+                    <div className="mb-4" >
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
                             htmlFor="email">
                             Email
                         </label>
-                        <input
+                        <input 
+                            ref={myInput}
                             aria-label="Email"
                             name="email"
                             type="text"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useRef, useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { postRegister } from "../../Redux/actions";
 import { navigate, A } from "hookrouter";
@@ -6,6 +6,8 @@ import * as Notficiation from "../../util/Notifications";
 import { validateEmailAddress, validatePassword } from "../../util/validation";
 
 export default function Register(user) {
+    const myInput = useRef(); 
+
     const dispatch = useDispatch();
     const initForm = {
         name: "",
@@ -38,6 +40,8 @@ export default function Register(user) {
         setForm(fieldValue);
     };
     const links = ["user-register", "facilitator-register"];
+
+    useEffect(() => myInput.current && myInput.current.focus());
 
     function validInputs() {
         let formValid = true;
@@ -145,6 +149,7 @@ export default function Register(user) {
                             Name
                         </label>
                         <input
+                            ref={myInput}
                             aria-label="Name"
                             name="name"
                             type="name"
