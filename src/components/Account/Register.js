@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { postRegister } from "../../Redux/actions";
 import { navigate, A } from "hookrouter";
@@ -6,6 +6,7 @@ import * as Notficiation from "../../util/Notifications";
 import { validateEmailAddress, validatePassword } from "../../util/validation";
 
 export default function Register(user) {
+    const textInput = useRef(null);
     const dispatch = useDispatch();
     const initForm = {
         name: "",
@@ -26,7 +27,9 @@ export default function Register(user) {
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
     const [formError, setFormError] = useState(false);
-
+    useEffect(() => {
+        textInput.current && textInput.current.focus()
+    }, []);
     const handleChange = (e) => {
         const { value, name } = e.target;
         const fieldValue = { ...form };
@@ -80,7 +83,6 @@ export default function Register(user) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (validInputs() && !formLoading) {
             console.log("Register.js: ", "creating a new user", form);
             setFormLoading(true);
@@ -145,6 +147,7 @@ export default function Register(user) {
                             Name
                         </label>
                         <input
+                            ref={textInput} 
                             aria-label="Name"
                             name="name"
                             type="name"
