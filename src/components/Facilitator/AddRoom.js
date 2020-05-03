@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useRef , useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { postAddRooms } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
@@ -27,7 +27,10 @@ export default function AddRoom({ id }) {
         cost: "",
     };
     const optionalValues = ["features"];
-
+    const myInput = useRef(); 
+    useEffect(() =>{
+        myInput.current && myInput.current.focus()
+    },[])
     const [formLoading, setFormLoading] = useState(false);
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
@@ -151,7 +154,8 @@ export default function AddRoom({ id }) {
                                 Title
                             </label>
                             <input
-                                className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                                ref={myInput}
+                                className="w-full focus:shadow-outline px-5 py-1 text-gray-700 bg-gray-200 rounded"
                                 id="title"
                                 name="title"
                                 value={form.title}
@@ -172,7 +176,7 @@ export default function AddRoom({ id }) {
                                 Description
                             </label>
                             <textarea
-                                className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                                className="form-textarea w-full focus:shadow-outline px-5 py-1 text-gray-700 bg-gray-200 rounded"
                                 id="description"
                                 name="description"
                                 value={form.description}
@@ -201,7 +205,7 @@ export default function AddRoom({ id }) {
                                         type="checkbox"
                                         name="ac"
                                         checked={checkbox.ac}
-                                        className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                        className="form-checkbox h-4 w-4 focus:shadow-outline text-indigo-600 transition duration-150 ease-in-out"
                                         onChange={handleCheckbox}
                                     />
                                     <span className="ml-2 text-gray-600">
@@ -214,7 +218,7 @@ export default function AddRoom({ id }) {
                                         type="checkbox"
                                         name="wifi"
                                         checked={checkbox.wifi}
-                                        className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                        className="form-checkbox h-4 w-4 focus:shadow-outline text-indigo-600 transition duration-150 ease-in-out"
                                         onChange={handleCheckbox}
                                     />
                                     <span className="ml-2  text-gray-600">
@@ -227,7 +231,7 @@ export default function AddRoom({ id }) {
                                         type="checkbox"
                                         name="mini_fridge"
                                         checked={checkbox.mini_fridge}
-                                        className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                        className="form-checkbox h-4 w-4 focus:shadow-outline text-indigo-600 transition duration-150 ease-in-out"
                                         onChange={handleCheckbox}
                                     />
                                     <span className="ml-2  text-gray-600">
@@ -240,7 +244,7 @@ export default function AddRoom({ id }) {
                                         type="checkbox"
                                         name="geyser"
                                         checked={checkbox.geyser}
-                                        className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                        className="form-checkbox h-4 w-4 focus:shadow-outline text-indigo-600 transition duration-150 ease-in-out"
                                         onChange={handleCheckbox}
                                     />
                                     <span className="ml-2  text-gray-600">
@@ -264,7 +268,7 @@ export default function AddRoom({ id }) {
                                 <label className="inline-flex items-center ml-6">
                                     <input
                                         type="radio"
-                                        className="form-radio h-4 w-4"
+                                        className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
                                         checked={category === "hostel"}
                                         value="hostel"
@@ -278,7 +282,7 @@ export default function AddRoom({ id }) {
                                 <label className="inline-flex items-center ml-6">
                                     <input
                                         type="radio"
-                                        className="form-radio h-4 w-4"
+                                        className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
                                         checked={category === "economy"}
                                         value="economy"
@@ -292,7 +296,7 @@ export default function AddRoom({ id }) {
                                 <label className="inline-flex items-center ml-6">
                                     <input
                                         type="radio"
-                                        className="form-radio h-4 w-4"
+                                        className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
                                         checked={category === "standard"}
                                         value="standard"
@@ -306,7 +310,7 @@ export default function AddRoom({ id }) {
                                 <label className="inline-flex items-center ml-6">
                                     <input
                                         type="radio"
-                                        className="form-radio h-4 w-4"
+                                        className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
                                         checked={category === "premium"}
                                         value="premium"
@@ -330,7 +334,7 @@ export default function AddRoom({ id }) {
                                 Number of Rooms
                             </label>
                             <input
-                                className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                                className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
                                 id="noOfRooms"
                                 name="noOfRooms"
                                 value={form.noOfRooms}
@@ -351,7 +355,7 @@ export default function AddRoom({ id }) {
                                 Bed Capacity
                             </label>
                             <input
-                                className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                                className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
                                 id="beds"
                                 name="beds"
                                 value={form.beds}
@@ -372,7 +376,7 @@ export default function AddRoom({ id }) {
                                 Enter the Cost
                             </label>
                             <input
-                                className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                                className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
                                 id="cost"
                                 name="cost"
                                 value={form.cost}
