@@ -6,7 +6,7 @@ import { getUserHotelList, getHotelRoomList } from "../../Redux/actions";
 import DeleteConfirmation from "./DeleteConfirmation";
 import ActionsBox from "./ActionsBox";
 import HotelInfo from "../Hotel/HotelInfo";
-import RoomList from "../Room/RoomsList";
+import RoomsList from "../Room/RoomsList";
 import { FullLoading } from "../common/Loader";
 
 export default function FacilitatorViewHotel({ id }) {
@@ -92,7 +92,7 @@ export default function FacilitatorViewHotel({ id }) {
                 </div>
 
                 <div className="w-full mb-6">
-                    <RoomList data={hotelRoomData} />
+                    <RoomsList data={hotelRoomData} />
                 </div>
             </div>
             <DeleteConfirmation

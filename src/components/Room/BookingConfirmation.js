@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BOOKING_TERMS, GENDER } from "../../Common/constants";
 import { phonePreg, isNumber } from "../../util/validation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { dopostBook } from "../../Redux/actions";
 import { navigate } from "hookrouter";
 import { Loading } from "../common/Loader";
@@ -237,7 +237,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                                 </div>
                             )}
                             <div className="flex flex-wrap">
-                                {previousPersons.map((person, i) => (
+                                {previousPersons.map((prevPerson, i) => (
                                     <div
                                         className="mt-4 bg-gray-100 flex flex-col items-center justify-between border p-2 mr-2 text-sm rounded"
                                         key={i.toString()}>
@@ -246,11 +246,11 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                                         </div>
                                         <div className="">
                                             <div className="">
-                                                {person.name}({person.age}
-                                                {person.gender[0]})
+                                                {prevPerson.name}({prevPerson.age}
+                                                {prevPerson.gender[0]})
                                             </div>
                                             <div className="">
-                                                {person.number}
+                                                {prevPerson.number}
                                             </div>
                                         </div>
                                         <button

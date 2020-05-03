@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-date-picker";
-import { useDispatch, connectAdvanced, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "rc-slider";
 import { Loading } from "../common/Loader";
 import { DISTRICT_CHOICES } from "../../Common/constants";

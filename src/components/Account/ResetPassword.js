@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { resetPassword } from "../../Redux/actions";
-import { navigate, A } from "hookrouter";
+import { navigate } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import { validatePassword } from "../../util/validation";
 

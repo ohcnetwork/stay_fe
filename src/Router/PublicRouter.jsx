@@ -1,5 +1,5 @@
 import React from "react";
-import { useRedirect, useRoutes, navigate } from "hookrouter";
+import { useRoutes, navigate } from "hookrouter";
 import PublicNavBar from "../components/Navbars/PublicNavBar";
 import Login from "../components/Account/Login";
 // import Hotel from "../components/Browse/Hotel";
