@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { sendEmail } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
@@ -7,6 +7,10 @@ export default function ForgotPassword() {
     const dispatch = useDispatch();
     const [formLoading, setFormLoading] = useState(false);
     const [formError, setFormError] = useState(false);
+    const myInput = useRef();
+    useEffect(() => {
+        myInput.current && myInput.current.focus();
+    }, []);
 
     const initForm = {
         email: "",
@@ -70,10 +74,10 @@ export default function ForgotPassword() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-full py-20 flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 <div>
-                    <h6 className="mt-5 text-center text-2  xl leading-9 font-bold text-gray-800 uppercase">
+                    <h6 className="mt-10 text-center text-2  xl leading-9 font-bold text-gray-800 uppercase">
                         Enter your email
                     </h6>
                 </div>
@@ -82,7 +86,7 @@ export default function ForgotPassword() {
                 </p>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-gray-200 shadow-lg rounded px-8 pt-6 pb-8 my-10">
+                    className="bg-gray-200 mb-20 shadow-lg rounded px-8 pt-6 pb-8 my-10">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
@@ -90,6 +94,7 @@ export default function ForgotPassword() {
                             Email
                         </label>
                         <input
+                            ref={myInput}
                             aria-label="Email"
                             name="email"
                             type="email"

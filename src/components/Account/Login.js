@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../Redux/actions";
 import { navigate, A, useQueryParams } from "hookrouter";
@@ -6,7 +6,7 @@ import * as Notficiation from "../../util/Notifications";
 
 export default function Login() {
     // create our ref
-    const myInput = useRef(); 
+    const myInput = useRef();
     const dispatch = useDispatch();
     const [formLoading, setFormLoading] = useState(false);
     const [formError, setFormError] = useState(false);
@@ -19,7 +19,7 @@ export default function Login() {
     const [form, setForm] = useState(initForm);
 
     useEffect(() => {
-        myInput.current && myInput.current.focus()
+        myInput.current && myInput.current.focus();
         setQueryParams(queryParams);
     }, []);
 
