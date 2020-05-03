@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
 
-export default function UserNavBar() {
+export default function PublicNavBar() {
     const links = [
         {
             link: "/",

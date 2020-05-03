@@ -7,7 +7,7 @@ import { getHotelBookingList } from "../../Redux/actions";
 import UpdateBooking from "./UpdateBooking";
 import { FullLoading } from "../common/Loader";
 
-export default function ViewBooking({ id }) {
+export default function ViewBookings({ id }) {
     const state = useSelector((reduxState) => reduxState);
     const { hotelBookingList } = state;
     const dispatch = useDispatch();
@@ -72,10 +72,10 @@ export default function ViewBooking({ id }) {
         setFilters({ ...filters, [type]: value });
     }
 
-    function toggle(id) {
+    function toggle(booking_id) {
         setShowUpdation({
             shown: !showUpdation.shown,
-            data: bookings.find((b) => b.book_id === id),
+            data: bookings.find((b) => b.book_id === booking_id),
         });
     }
 
@@ -100,14 +100,14 @@ export default function ViewBooking({ id }) {
             </div>
         );
     }
-    function showBookingList(bookings) {
+    function showBookingList(bookingsCurrent) {
         let msg = "This hotel has no bookings";
         if (bookings.length > 0) {
             const filteredBookings = Object.keys(filters).reduce(
                 (prev, fil, i) => {
                     return availableFilters[fil](prev, filters[fil]);
                 },
-                bookings
+                bookingsCurrent
             );
             if (filteredBookings.length > 0) {
                 return filteredBookings.map((booking) => (

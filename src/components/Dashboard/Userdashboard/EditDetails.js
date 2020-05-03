@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import * as Notficiation from "../../../util/Notifications";
+import { useSelector } from "react-redux";
 
 export default function EditDetails() {
-    const dispatch = useDispatch();
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const initForm2 = {

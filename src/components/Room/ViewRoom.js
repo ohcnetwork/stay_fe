@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getHotelList, dopostBook } from "../../Redux/actions";
+import { getHotelList } from "../../Redux/actions";
 import { navigate, useQueryParams, usePath } from "hookrouter";
 import * as Notficiation from "../../util/Notifications";
 import DatePicker from "react-date-picker";
@@ -325,9 +325,7 @@ export default function ViewRoom({ category, id }) {
                                             </div>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
-                                            <a
-                                                href="#"
-                                                className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+                                            <div className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     width="24"
@@ -335,7 +333,7 @@ export default function ViewRoom({ category, id }) {
                                                     viewBox="0 0 24 24">
                                                     <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
                                                 </svg>
-                                            </a>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>

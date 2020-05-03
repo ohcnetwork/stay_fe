@@ -3,7 +3,7 @@ import { A } from "hookrouter";
 import { useSelector } from "react-redux";
 import { DEFAULT_IMAGE } from "../../../Common/constants";
 
-function Home() {
+function UserDashboard() {
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const user = currentUser.data.data;
@@ -22,7 +22,7 @@ function Home() {
                     <img
                         className="h-40 w-40 rounded-full mx-auto"
                         src={user.image}
-                        alt="User Image"
+                        alt="User Default"
                     />
                     <p className="pt-2 text-xl font-semibold">{user.name}</p>
                     <p className="text-lg text-gray-800">{user.email}</p>
@@ -40,4 +40,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default UserDashboard;

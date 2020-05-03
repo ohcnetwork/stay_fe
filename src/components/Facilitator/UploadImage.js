@@ -42,8 +42,8 @@ export default function UploadImage({
                 setImages({
                     preview: [
                         ...images.preview,
-                        ...currentImages.map((file) =>
-                            URL.createObjectURL(file)
+                        ...currentImages.map((uploadFile) =>
+                            URL.createObjectURL(uploadFile)
                         ),
                     ],
                     raw: [...images.raw, ...currentImages],

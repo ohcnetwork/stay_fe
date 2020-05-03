@@ -53,7 +53,7 @@ export default function Carousal({ images, control, title = "" }) {
         setAnimationRunning(true);
         setImageOpacity(0);
         setTimeout(() => {
-            setCurrentImage((c) => (c == 0 ? images.length - 1 : c - 1));
+            setCurrentImage((c) => (c === 0 ? images.length - 1 : c - 1));
             setImageOpacity(1);
             setAnimationRunning(false);
         }, transitionDuration);
@@ -91,6 +91,8 @@ export default function Carousal({ images, control, title = "" }) {
                 break;
             case "Escape":
                 setShown(false);
+                break;
+            default:
                 break;
         }
     }

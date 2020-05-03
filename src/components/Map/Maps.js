@@ -11,7 +11,7 @@ function Maps({ mark = null, onChange = () => null, markerDraggable = false }) {
     useEffect(() => {
         if (mark.lat && mark.lng) {
             setMarker(mark);
-            setViewport({ ...viewport, center: mark });
+            setViewport((prevViewport) => ({ ...prevViewport, center: mark }));
         }
     }, [mark]);
 
