@@ -12,7 +12,7 @@ import {
     setAppliedFilters,
 } from "../../util/helperFunctions";
 
-export default function BookingConfirmation({ shown, toggle, data, myInput }) {
+export default function BookingConfirmation({ shown, toggle, data }) {
     const dispatch = useDispatch();
     console.log("new data", data);
 
@@ -149,7 +149,6 @@ export default function BookingConfirmation({ shown, toggle, data, myInput }) {
                                         <div className="">
                                             <div className="flex py-1">
                                                 <input
-                                                    ref={myInput}
                                                     type="text"
                                                     name="name"
                                                     className={`w-3/4 mr-1 border appearance-none bg-gray-200 focus:bg-gray-300 ${
