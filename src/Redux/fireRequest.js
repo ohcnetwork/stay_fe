@@ -47,7 +47,7 @@ export const fireRequest = (
     path = [],
     params = {},
     urlParam = "",
-    multipart = false,
+    multipart = false
 ) => {
     return (dispatch) => {
         dispatch(fetchDataRequest(key));

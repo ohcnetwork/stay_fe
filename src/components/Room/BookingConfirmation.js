@@ -246,7 +246,8 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                                         </div>
                                         <div className="">
                                             <div className="">
-                                                {prevPerson.name}({prevPerson.age}
+                                                {prevPerson.name}(
+                                                {prevPerson.age}
                                                 {prevPerson.gender[0]})
                                             </div>
                                             <div className="">

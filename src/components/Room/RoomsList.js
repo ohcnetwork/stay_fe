@@ -10,7 +10,9 @@ export default function RoomsList({ data, linkSuffix = "" }) {
     function listRooms(currentRooms) {
         // categorize rooms based on all parameters except id
         currentRooms = [
-            ...new Set(currentRooms.map((e) => JSON.stringify({ ...e, id: "" }))),
+            ...new Set(
+                currentRooms.map((e) => JSON.stringify({ ...e, id: "" }))
+            ),
         ].map((e) =>
             currentRooms.filter((el) => JSON.stringify({ ...el, id: "" }) === e)
         );
