@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHotelList, getHotelByHotelId } from "../../Redux/actions";
 import { A } from "hookrouter";
