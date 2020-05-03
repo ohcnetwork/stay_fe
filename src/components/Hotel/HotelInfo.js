@@ -31,8 +31,7 @@ export default function HotelInfo({ data }) {
         hotel.latitude +
         "," +
         hotel.longitude;
-    console.log(MapLink);
-    console.log(hotel);
+
     return (
         <div className="bg-white border-t border-b rounded shadow flex flex-wrap">
             <div className="flex items-center w-full lg:w-2/5">

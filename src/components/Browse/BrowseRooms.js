@@ -34,13 +34,10 @@ function BrowseRooms({ id }) {
 
         // add page specific parameters
         let form = Object.assign({}, appliedFilters);
-        console.log(form);
         form.type = "room";
         form.hotelid = id;
         dispatch(getHotelList(form));
     }, []);
-
-    console.log(getHotelDetails);
 
     if (
         !hotelByHotelId ||
@@ -66,9 +63,6 @@ function BrowseRooms({ id }) {
         );
     }
 
-
-
-
     return (
         <div className="font-sans bg-gray-200 flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
@@ -76,19 +70,19 @@ function BrowseRooms({ id }) {
                     <HotelInfo data={hotelByHotelId.data} />
                 </div>
                 <div className="mb-6 md:mx-0 mx-2">
-                <div className="mt-2 lg:w-3/4 h-64 sm:h-50 w-full bg-gray-200">
-                    <MapsWithoutSearch
-                        markerDraggable={true}
-                        hotel_latitude={hotelByHotelId.data.latitude}
-                        hotel_longitude={hotelByHotelId.data.longitude}
-                        value={{ lat: Loc.latitude, lng: Loc.longitude }}
-                        onChange={(e) =>
-                            handleChange({
-                                target: { name: "location", value: e },
-                            })
-                        }
-                    />
-                </div>
+                    <div className="mt-2 lg:w-3/4 h-64 sm:h-50 w-full bg-gray-200">
+                        <MapsWithoutSearch
+                            markerDraggable={true}
+                            hotel_latitude={hotelByHotelId.data.latitude}
+                            hotel_longitude={hotelByHotelId.data.longitude}
+                            value={{ lat: Loc.latitude, lng: Loc.longitude }}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: { name: "location", value: e },
+                                })
+                            }
+                        />
+                    </div>
                 </div>
 
                 <div className="w-full mb-6">
