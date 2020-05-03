@@ -10,6 +10,7 @@ import { FullLoading } from "../common/Loader";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomsList from "../Room/RoomsList";
 import MapsWithoutSearch from "../Map/MapsWithoutSearch";
+import { DEFAULT_IMAGE } from "../../Common/constants";
 
 function BrowseRooms({ id }) {
     const dispatch = useDispatch();
@@ -62,14 +63,21 @@ function BrowseRooms({ id }) {
             </div>
         );
     }
-
+    const MapLink =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        hotelByHotelId.data.latitude +
+        "," +
+        hotelByHotelId.data.longitude;
     return (
         <div className="font-sans bg-gray-200 flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 <div className="mb-6 md:mx-0 mx-2">
                     <HotelInfo data={hotelByHotelId.data} />
                 </div>
-                <div className="mb-6 md:mx-0 mx-2">
+                <div className="mb-6 md:mx-0 mx-2 bg-white px-6 py-2  ">
+                <div className="text-black px-2 text-lg text-gray-900 flex items-center pb-2 border-b sm:border-none">
+                            Location
+                        </div>
                     <div className="mt-2 lg:w-3/4 h-64 sm:h-50 w-full bg-gray-200">
                         <MapsWithoutSearch
                             markerDraggable={true}
@@ -83,6 +91,17 @@ function BrowseRooms({ id }) {
                             }
                         />
                     </div>
+                    <button
+                        className="bg-blue-500 lg:ml-5   text-sm text-white rounded ml-0  shadow-lg hover:bg-blue-700 font-semibold mt-1  hover:text-white py-2 px-2  border"
+                        onClick={() => window.open(MapLink, "_blank")}>
+                        <div className="flex flex-row">
+                            <img
+                                className="h-8  "
+                                src={DEFAULT_IMAGE.LOCATION}
+                                alt="location"></img>
+                            <div>Open in Google Maps</div>
+                        </div>
+                    </button>
                 </div>
 
                 <div className="w-full mb-6">

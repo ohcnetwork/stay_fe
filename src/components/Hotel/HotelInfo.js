@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { HOTEL_STATUS, DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
 import Star from "../common/Star";
+
 export default function HotelInfo({ data }) {
     const [hotel, setHotel] = useState(null);
     const controlCarousal = useState(false);
-    const [form, setForm] = useState({});
 
     useEffect(() => {
         setHotel(data);
@@ -15,22 +15,8 @@ export default function HotelInfo({ data }) {
         return null;
     }
 
-    const handleChange = (e) => {
-        const { value, name } = e.target;
-        setForm({
-            ...form,
-            latitude: value.lat.toString(),
-            longitude: value.lng.toString(),
-        });
-    };
-
     const previewImage =
         (hotel.photos && hotel.photos[0]) || DEFAULT_IMAGE.HOTEL;
-    const MapLink =
-        "https://www.google.com/maps/search/?api=1&query=" +
-        hotel.latitude +
-        "," +
-        hotel.longitude;
 
     return (
         <div className="bg-white border-t border-b rounded shadow flex flex-wrap">
@@ -75,31 +61,12 @@ export default function HotelInfo({ data }) {
                         {HOTEL_STATUS[hotel.status].string}
                     </div>
                 </div>
-
-                <div className="flex flex-row">
-                    <div>
-                        <div className="text-gray-600 text-sm">
-                            Policy: {hotel.policy}
-                        </div>
-                        <div className="text-gray-600 text-sm">
-                            Contact: {hotel.contact}
-                        </div>
-                    </div>
-                    <div>
-                        <button
-                            className="bg-blue-500 lg:ml-5 sm:ml-2 w-3/4 text-xs text-white rounded ml-0 w-full shadow-lg hover:bg-blue-700 font-semibold mt-1  hover:text-white py-1 px-1  border"
-                            onClick={() => window.open(MapLink, "_blank")}>
-                            <div className="flex flex-row">
-                                <img
-                                    className="h-8  "
-                                    src={DEFAULT_IMAGE.LOCATION}
-                                    alt="location"></img>
-                                <div>Open in Google Maps</div>
-                            </div>
-                        </button>
-                    </div>
+                <div className="text-gray-600 text-sm">
+                    Policy: {hotel.policy}
                 </div>
-
+                <div className="text-gray-600 text-sm">
+                    Contact: {hotel.contact}
+                </div>
                 {/* <div className="flex-grow flex flex-col justify-center items-end py-50">
                     <div className="text-xs font-bold text-gray-800">
                         {totalRoomBooked}/{totalRoomData.length} booked
