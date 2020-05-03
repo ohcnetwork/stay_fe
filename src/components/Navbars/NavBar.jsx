@@ -29,7 +29,7 @@ export default function NavBar({ links, logout }) {
             <div className="block lg:hidden py-6 pr-6">
                 <button
                     onClick={() => setShown(!shown)}
-                    className="flex items-center px-3 py-2 border rounded text-indigo-200 border-indigo-400 hover:text-white hover:border-white">
+                    className="flex items-center px-3 py-2 border outline-none rounded text-indigo-200 border-indigo-400 hover:text-white hover:border-white">
                     <svg
                         className="fill-current h-3 w-3"
                         viewBox="0 0 20 20"
