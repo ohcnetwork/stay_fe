@@ -31,7 +31,7 @@ const HotelList = ({ hotels }) => {
                     return (
                         <div key={item.id}>
                             <A
-                                className="flex flex-col rounded-lg shadow-lg overflow-hidden max-w-xs mx-auto"
+                                className="flex flex-col rounded-lg shadow-sm border overflow-hidden max-w-xs mx-auto hover:shadow-xl"
                                 href={`/roomlist/${item.id}`}>
                                 <div className="flex-shrink-0">
                                     <img
