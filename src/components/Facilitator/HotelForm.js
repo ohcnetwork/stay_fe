@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useRef , useEffect} from "react";
 import { phonePreg } from "../../util/validation";
 import { DISTRICT_CHOICES } from "../../Common/constants";
 import UploadImage from "./UploadImage";
@@ -20,7 +20,7 @@ export default function HotelForm({
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
     const [checkbox, setCheckbox] = useState(initFacilities);
-
+    const myInput = useRef(); 
     const handleChange = (e) => {
         const { value, name } = e.target;
         if (name === "location") {
@@ -33,7 +33,9 @@ export default function HotelForm({
             setForm({ ...form, [name]: value });
         }
     };
-
+    useEffect(()=>{
+        myInput.current && myInput.current.focus()
+    },[])
     const handleCheckbox = (e) => {
         const { name } = e.target;
         const prevState = checkbox[name];
@@ -96,7 +98,8 @@ export default function HotelForm({
                         Hotel Name
                     </label>
                     <input
-                        className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                        ref={myInput}
+                        className="w-full focus:shadow-outline px-5 py-1 text-gray-700 bg-gray-200 rounded"
                         id="hotel-name"
                         name="name"
                         value={form.name}
@@ -117,7 +120,7 @@ export default function HotelForm({
                         Address
                     </label>
                     <textarea
-                        className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                        className="form-textarea focus:shadow-outline w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                         id="address"
                         name="address"
                         value={form.address}
@@ -138,7 +141,7 @@ export default function HotelForm({
                         Panchayath
                     </label>
                     <input
-                        className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                        className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
                         id="panchayath"
                         name="panchayath"
                         value={form.panchayath}
@@ -157,7 +160,7 @@ export default function HotelForm({
                     </label>
                     <div className="relative">
                         <select
-                            className="appearance-none w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                            className="appearance-none focus:shadow-outline w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
                             name="district"
                             value={form.district}
                             onChange={handleChange}
@@ -190,7 +193,7 @@ export default function HotelForm({
                         <label className="inline-flex items-center mx-3">
                             <input
                                 type="radio"
-                                className="form-radio h-3 w-3"
+                                className="form-radio focus:shadow-outline h-3 w-3"
                                 name="starCategory"
                                 checked={form.starCategory === "1"}
                                 value="1"
@@ -201,7 +204,7 @@ export default function HotelForm({
                         <label className="inline-flex items-center mx-3">
                             <input
                                 type="radio"
-                                className="form-radio h-3 w-3"
+                                className="form-radio focus:shadow-outline h-3 w-3"
                                 name="starCategory"
                                 checked={form.starCategory === "2"}
                                 value="2"
@@ -212,7 +215,7 @@ export default function HotelForm({
                         <label className="inline-flex items-center mx-3">
                             <input
                                 type="radio"
-                                className="form-radio h-3 w-3"
+                                className="form-radio focus:shadow-outline h-3 w-3"
                                 name="starCategory"
                                 checked={form.starCategory === "3"}
                                 value="3"
@@ -223,7 +226,7 @@ export default function HotelForm({
                         <label className="inline-flex items-center mx-3">
                             <input
                                 type="radio"
-                                className="form-radio h-3 w-3"
+                                className="form-radio focus:shadow-outline h-3 w-3"
                                 name="starCategory"
                                 checked={form.starCategory === "4"}
                                 value="4"
@@ -234,7 +237,7 @@ export default function HotelForm({
                         <label className="inline-flex items-center mx-3">
                             <input
                                 type="radio"
-                                className="form-radio h-3 w-3"
+                                className="form-radio focus:shadow-outline h-3 w-3"
                                 name="starCategory"
                                 checked={form.starCategory === "5"}
                                 value="5"
@@ -262,7 +265,7 @@ export default function HotelForm({
                                 type="checkbox"
                                 name="pool"
                                 checked={checkbox.pool}
-                                className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                className="form-checkbox focus:shadow-outline h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                 onChange={handleCheckbox}
                             />
                             <span className="ml-1 text-gray-600">Pool</span>
@@ -273,7 +276,7 @@ export default function HotelForm({
                                 type="checkbox"
                                 name="wifi"
                                 checked={checkbox.wifi}
-                                className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                className="form-checkbox h-4 focus:shadow-outline w-4 text-indigo-600 transition duration-150 ease-in-out"
                                 onChange={handleCheckbox}
                             />
                             <span className="ml-1 text-gray-600">Wifi</span>
@@ -284,7 +287,7 @@ export default function HotelForm({
                                 type="checkbox"
                                 name="cctv"
                                 checked={checkbox.cctv}
-                                className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                className="form-checkbox h-4 w-4 focus:shadow-outline text-indigo-600 transition duration-150 ease-in-out"
                                 onChange={handleCheckbox}
                             />
                             <span className="ml-1 text-gray-600">CCTV</span>
@@ -295,7 +298,7 @@ export default function HotelForm({
                                 type="checkbox"
                                 name="parking"
                                 checked={checkbox.parking}
-                                className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                className="form-checkbox h-4 w-4 focus:shadow-outline text-indigo-600 transition duration-150 ease-in-out"
                                 onChange={handleCheckbox}
                             />
                             <span className="ml-1 text-gray-600">Parking</span>
@@ -351,7 +354,7 @@ export default function HotelForm({
                         Contact Number
                     </label>
                     <input
-                        className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                        className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
                         id="contact"
                         name="contact"
                         value={form.contact}
@@ -373,7 +376,7 @@ export default function HotelForm({
                         Policy
                     </label>
                     <textarea
-                        className="form-textarea w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                        className="form-textarea w-full focus:shadow-outline px-5 py-1 text-gray-700 bg-gray-200 rounded"
                         id="policy"
                         name="policy"
                         value={form.policy}
