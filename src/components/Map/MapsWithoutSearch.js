@@ -6,10 +6,10 @@ export default function MapWithSearch({
     value = null,
     markerDraggable = false,
     hotel_latitude,
-    hotel_longitude
+    hotel_longitude,
 }) {
-    value.lat=hotel_latitude;
-    value.lng=hotel_longitude;
+    value.lat = hotel_latitude;
+    value.lng = hotel_longitude;
     const [location, setLocation] = useState(value);
 
     useEffect(() => {

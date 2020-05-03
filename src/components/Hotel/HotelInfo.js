@@ -8,7 +8,6 @@ export default function HotelInfo({ data }) {
     const controlCarousal = useState(false);
     const [form, setForm] = useState({});
 
-
     useEffect(() => {
         setHotel(data);
     }, [data]);
@@ -19,16 +18,20 @@ export default function HotelInfo({ data }) {
 
     const handleChange = (e) => {
         const { value, name } = e.target;
-            setForm({
-                ...form,
-                latitude: value.lat.toString(),
-                longitude: value.lng.toString(),
-            });
+        setForm({
+            ...form,
+            latitude: value.lat.toString(),
+            longitude: value.lng.toString(),
+        });
     };
 
     const previewImage =
         (hotel.photos && hotel.photos[0]) || DEFAULT_IMAGE.HOTEL;
-    const MapLink  = "https://www.google.com/maps/search/?api=1&query="+hotel.latitude+","+hotel.longitude;
+    const MapLink =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        hotel.latitude +
+        "," +
+        hotel.longitude;
     console.log(MapLink);
     console.log(hotel);
     return (
@@ -75,43 +78,40 @@ export default function HotelInfo({ data }) {
                     </div>
                 </div>
                 <div className="mt-2 lg:w-3/4 h-64 sm:h-50 w-full bg-gray-200">
-                        <MapsWithoutSearch
-                            markerDraggable={true}
-                            hotel_latitude={hotel.latitude}
-                            hotel_longitude={hotel.longitude}
-                            value={{ lat: form.latitude, lng: form.longitude }}
-                            onChange={(e) =>
-                                handleChange({
-                                    target: { name: "location", value: e },
-                                })
-                            }
-                        />
-                    </div>
+                    <MapsWithoutSearch
+                        markerDraggable={true}
+                        hotel_latitude={hotel.latitude}
+                        hotel_longitude={hotel.longitude}
+                        value={{ lat: form.latitude, lng: form.longitude }}
+                        onChange={(e) =>
+                            handleChange({
+                                target: { name: "location", value: e },
+                            })
+                        }
+                    />
+                </div>
                 <div className="flex flex-row">
-                <div>
-                
-                <div className="text-gray-600 text-sm">
-                    Policy: {hotel.policy}
-                </div>
-                <div className="text-gray-600 text-sm">
-                    Contact: {hotel.contact}
-                </div>
-                </div>
-                <div>
-                <button className="bg-blue-500 ml-5 w-3/4 text-xs text-white rounded ml-0 w-full shadow-lg hover:bg-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border"
-                             onClick={() => window.open(MapLink , "_blank")}>
+                    <div>
+                        <div className="text-gray-600 text-sm">
+                            Policy: {hotel.policy}
+                        </div>
+                        <div className="text-gray-600 text-sm">
+                            Contact: {hotel.contact}
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            className="bg-blue-500 ml-5 w-3/4 text-xs text-white rounded ml-0 w-full shadow-lg hover:bg-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border"
+                            onClick={() => window.open(MapLink, "_blank")}>
                             <div className="flex flex-row">
-                            <img
-                            className="h-8  "
-                            src={DEFAULT_IMAGE.LOCATION}
-                            alt="location"
-                            ></img>
-                            <div>
-                            Open in Google Maps
-                            </div>
+                                <img
+                                    className="h-8  "
+                                    src={DEFAULT_IMAGE.LOCATION}
+                                    alt="location"></img>
+                                <div>Open in Google Maps</div>
                             </div>
                         </button>
-                </div>
+                    </div>
                 </div>
 
                 {/* <div className="flex-grow flex flex-col justify-center items-end py-50">
