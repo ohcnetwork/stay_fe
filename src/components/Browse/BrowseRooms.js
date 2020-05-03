@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHotelList, getHotelByHotelId } from "../../Redux/actions";
-import { A } from "hookrouter";
-import { getAppliedFilters } from "../../util/helperFunctions";
+import { navigate, A } from "hookrouter";
+import {
+    getAppliedFilters,
+    setAppliedFilters,
+} from "../../util/helperFunctions";
 import { FullLoading } from "../common/Loader";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomsList from "../Room/RoomsList";
@@ -72,9 +75,9 @@ function BrowseRooms({ id }) {
                     <HotelInfo data={hotelByHotelId.data} />
                 </div>
                 <div className="mb-6 md:mx-0 mx-2 bg-white px-6 py-2  ">
-                    <div className="text-black px-2 text-lg text-gray-900 flex items-center pb-2 border-b sm:border-none">
-                        Location
-                    </div>
+                <div className="text-black px-2 text-lg text-gray-900 flex items-center pb-2 border-b sm:border-none">
+                            Location
+                        </div>
                     <div className="mt-2 lg:w-3/4 h-64 sm:h-50 w-full bg-gray-200">
                         <MapsWithoutSearch
                             markerDraggable={true}
