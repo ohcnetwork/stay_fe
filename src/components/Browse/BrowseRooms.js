@@ -9,12 +9,22 @@ import {
 import { FullLoading } from "../common/Loader";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomsList from "../Room/RoomsList";
+import MapsWithoutSearch from "../Map/MapsWithoutSearch";
 
 function BrowseRooms({ id }) {
     const dispatch = useDispatch();
     const state = useSelector((reduxState) => reduxState);
     const { hotelByHotelId, getHotelDetails } = state;
     let appliedFilters = getAppliedFilters(null, true);
+    const [Loc, setLoc] = useState({});
+    const handleChange = (e) => {
+        const { value, name } = e.target;
+        setLoc({
+            ...Loc,
+            latitude: value.lat.toString(),
+            longitude: value.lng.toString(),
+        });
+    };
 
     useEffect(() => {
         dispatch(getHotelByHotelId(id));
@@ -56,12 +66,31 @@ function BrowseRooms({ id }) {
         );
     }
 
+
+
+
     return (
         <div className="font-sans bg-gray-200 flex flex-col w-full min-h-screen overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 <div className="mb-6 md:mx-0 mx-2">
                     <HotelInfo data={hotelByHotelId.data} />
                 </div>
+                <div className="mb-6 md:mx-0 mx-2">
+                <div className="mt-2 lg:w-3/4 h-64 sm:h-50 w-full bg-gray-200">
+                    <MapsWithoutSearch
+                        markerDraggable={true}
+                        hotel_latitude={hotelByHotelId.data.latitude}
+                        hotel_longitude={hotelByHotelId.data.longitude}
+                        value={{ lat: Loc.latitude, lng: Loc.longitude }}
+                        onChange={(e) =>
+                            handleChange({
+                                target: { name: "location", value: e },
+                            })
+                        }
+                    />
+                </div>
+                </div>
+
                 <div className="w-full mb-6">
                     <RoomsList
                         data={getHotelDetails.data}

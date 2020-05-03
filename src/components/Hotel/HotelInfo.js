@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { HOTEL_STATUS, DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
 import Star from "../common/Star";
-import MapsWithoutSearch from "../Map/MapsWithoutSearch";
 export default function HotelInfo({ data }) {
     const [hotel, setHotel] = useState(null);
     const controlCarousal = useState(false);
@@ -77,19 +76,7 @@ export default function HotelInfo({ data }) {
                         {HOTEL_STATUS[hotel.status].string}
                     </div>
                 </div>
-                <div className="mt-2 lg:w-3/4 h-64 sm:h-50 w-full bg-gray-200">
-                    <MapsWithoutSearch
-                        markerDraggable={true}
-                        hotel_latitude={hotel.latitude}
-                        hotel_longitude={hotel.longitude}
-                        value={{ lat: form.latitude, lng: form.longitude }}
-                        onChange={(e) =>
-                            handleChange({
-                                target: { name: "location", value: e },
-                            })
-                        }
-                    />
-                </div>
+
                 <div className="flex flex-row">
                     <div>
                         <div className="text-gray-600 text-sm">
@@ -101,7 +88,7 @@ export default function HotelInfo({ data }) {
                     </div>
                     <div>
                         <button
-                            className="bg-blue-500 ml-5 w-3/4 text-xs text-white rounded ml-0 w-full shadow-lg hover:bg-blue-700 font-semibold mt-1  hover:text-white py-1 px-2 border"
+                            className="bg-blue-500 lg:ml-5 sm:ml-2 w-3/4 text-xs text-white rounded ml-0 w-full shadow-lg hover:bg-blue-700 font-semibold mt-1  hover:text-white py-1 px-1  border"
                             onClick={() => window.open(MapLink, "_blank")}>
                             <div className="flex flex-row">
                                 <img
