@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHotelList, getHotelByHotelId } from "../../Redux/actions";
 import { A } from "hookrouter";
-import {
-    getAppliedFilters,
-    setAppliedFilters,
-} from "../../util/helperFunctions";
+import { getAppliedFilters } from "../../util/helperFunctions";
 import { FullLoading } from "../common/Loader";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomsList from "../Room/RoomsList";
