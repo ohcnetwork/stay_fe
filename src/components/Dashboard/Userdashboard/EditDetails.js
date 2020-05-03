@@ -1,14 +1,13 @@
-import React, { useState , useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function EditDetails() {
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
-    const myInput = useRef(); 
+    const myInput = useRef();
     useEffect(() => {
-        myInput.current && myInput.current.focus()
-
-    },[])
+        myInput.current && myInput.current.focus();
+    }, []);
     const initForm2 = {
         id: currentUser.data.data.id,
         name: currentUser.data.data.name,

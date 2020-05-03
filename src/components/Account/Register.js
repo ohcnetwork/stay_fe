@@ -1,4 +1,4 @@
-import React, { useState,useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { postRegister } from "../../Redux/actions";
 import { navigate, A } from "hookrouter";
@@ -28,7 +28,7 @@ export default function Register(user) {
     const [error, setError] = useState(initError);
     const [formError, setFormError] = useState(false);
     useEffect(() => {
-        textInput.current && textInput.current.focus()
+        textInput.current && textInput.current.focus();
     }, []);
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -147,7 +147,7 @@ export default function Register(user) {
                             Name
                         </label>
                         <input
-                            ref={textInput} 
+                            ref={textInput}
                             aria-label="Name"
                             name="name"
                             type="name"

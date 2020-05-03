@@ -1,4 +1,4 @@
-import React, { useState , useRef , useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { postAddRooms } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
@@ -27,10 +27,10 @@ export default function AddRoom({ id }) {
         cost: "",
     };
     const optionalValues = ["features"];
-    const myInput = useRef(); 
-    useEffect(() =>{
-        myInput.current && myInput.current.focus()
-    },[])
+    const myInput = useRef();
+    useEffect(() => {
+        myInput.current && myInput.current.focus();
+    }, []);
     const [formLoading, setFormLoading] = useState(false);
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);

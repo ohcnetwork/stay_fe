@@ -1,4 +1,4 @@
-import React, { useState , useRef , useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { phonePreg } from "../../util/validation";
 import { DISTRICT_CHOICES } from "../../Common/constants";
 import UploadImage from "./UploadImage";
@@ -20,7 +20,7 @@ export default function HotelForm({
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
     const [checkbox, setCheckbox] = useState(initFacilities);
-    const myInput = useRef(); 
+    const myInput = useRef();
     const handleChange = (e) => {
         const { value, name } = e.target;
         if (name === "location") {
@@ -33,9 +33,9 @@ export default function HotelForm({
             setForm({ ...form, [name]: value });
         }
     };
-    useEffect(()=>{
-        myInput.current && myInput.current.focus()
-    },[])
+    useEffect(() => {
+        myInput.current && myInput.current.focus();
+    }, []);
     const handleCheckbox = (e) => {
         const { name } = e.target;
         const prevState = checkbox[name];

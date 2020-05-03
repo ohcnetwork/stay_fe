@@ -1,4 +1,4 @@
-import React, { useState , useRef , useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { sendEmail } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
@@ -7,10 +7,10 @@ export default function ForgotPassword() {
     const dispatch = useDispatch();
     const [formLoading, setFormLoading] = useState(false);
     const [formError, setFormError] = useState(false);
-    const myInput = useRef(); 
+    const myInput = useRef();
     useEffect(() => {
-        myInput.current && myInput.current.focus()
-    },[]);
+        myInput.current && myInput.current.focus();
+    }, []);
 
     const initForm = {
         email: "",
