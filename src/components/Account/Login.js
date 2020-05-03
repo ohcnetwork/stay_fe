@@ -165,13 +165,13 @@ export default function Login() {
                             <A
                                 className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1"
                                 href="/user-register">
-                                Register as Customer
+                                Register Account
                             </A>
-                            <A
+                            {/* <A
                                 className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800 my-1"
                                 href="/facilitator-register">
                                 Register as Hotel Owner
-                            </A>
+                            </A> */}
                             <A
                                 className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-800"
                                 href="/forgot-password">

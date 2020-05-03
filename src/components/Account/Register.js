@@ -257,11 +257,11 @@ export default function Register(user) {
                             Register
                         </button>
                         <div className="flex-row  ml-2 ">
-                            <A
+                            {/* <A
                                 className="inline-block align-baseline text-center  font-bold text-sm text-indigo-600 hover:text-indigo-800"
                                 href={"/" + links[user.otherlinkid]}>
                                 Register as {user.othertype}
-                            </A>
+                            </A> */}
                             <A
                                 className="inline-block align-baseline font-bold text-center text-sm text-indigo-600 hover:text-indigo-800"
                                 href="/login">
