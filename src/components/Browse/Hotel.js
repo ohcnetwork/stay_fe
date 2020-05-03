@@ -129,20 +129,20 @@ function Hotel() {
 
     return (
         <div>
-            <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
+            <div className="relative rounded-b-lg bg-white px-4 sm:px-6 lg:px-8 mx-auto">
                 <div className="relative max-w-7xl mx-auto">
                     <div className="">
                         {/* <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                             Accomodation
                         </h2> */}
-                        <p className="mt-3  text-xl leading-7 text-indigo-500 sm:mt-4">
+                        <p className="pt-3  text-xl leading-7 text-indigo-500 sm:pt-4">
                             Select an accomodation that fits your needs and your
                             budget
                         </p>
                     </div>
                 </div>
                 <br />
-                <div className="bg-white shadow rounded-lg p-6">
+                <div className="bg-white shadow-md border rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
                         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                             <label
@@ -335,7 +335,8 @@ function Hotel() {
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
                 {!getHotelDetails || getHotelDetails.isFetching ? (
                     <Loading />
                 ) : !getHotelDetails.data ? (
