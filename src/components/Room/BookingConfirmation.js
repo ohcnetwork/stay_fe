@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BOOKING_TERMS, GENDER } from "../../Common/constants";
 import { phonePreg, isNumber } from "../../util/validation";
 import { useDispatch } from "react-redux";
@@ -14,10 +14,13 @@ import {
 
 export default function BookingConfirmation({ shown, toggle, data }) {
     const dispatch = useDispatch();
-    console.log("new data", data);
-
     var checkin = stringFromDate(data.startdate);
     var checkout = stringFromDate(data.enddate);
+
+    const myInput = useRef();
+    useEffect(() => {
+        myInput.current && myInput.current.focus();
+    }, [shown]);
 
     const initPerson = {
         name: "",
@@ -149,6 +152,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                                         <div className="">
                                             <div className="flex py-1">
                                                 <input
+                                                    ref={myInput}
                                                     type="text"
                                                     name="name"
                                                     className={`w-3/4 mr-1 border appearance-none bg-gray-200 focus:bg-gray-300 ${
