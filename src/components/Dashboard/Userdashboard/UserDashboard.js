@@ -3,7 +3,7 @@ import { A } from "hookrouter";
 import { useSelector } from "react-redux";
 import { DEFAULT_IMAGE } from "../../../Common/constants";
 
-function Home() {
+function UserDashboard() {
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const user = currentUser.data.data;
@@ -40,4 +40,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default UserDashboard;

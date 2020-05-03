@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import RoomContainer from "./RoomContainer";
 
-export default function RoomList({ data, linkSuffix = "" }) {
+export default function RoomsList({ data, linkSuffix = "" }) {
     const [rooms, setRooms] = useState(null);
 
     useEffect(() => {
         setRooms(data);
     }, [data]);
-    function listRooms(rooms) {
+    function listRooms(currentRooms) {
         // categorize rooms based on all parameters except id
-        rooms = [
-            ...new Set(rooms.map((e) => JSON.stringify({ ...e, id: "" }))),
+        currentRooms = [
+            ...new Set(currentRooms.map((e) => JSON.stringify({ ...e, id: "" }))),
         ].map((e) =>
-            rooms.filter((el) => JSON.stringify({ ...el, id: "" }) === e)
+            currentRooms.filter((el) => JSON.stringify({ ...el, id: "" }) === e)
         );
-        if (rooms.length > 0) {
-            return rooms.map((room) => {
+        if (currentRooms.length > 0) {
+            return currentRooms.map((room) => {
                 const r = room[0];
                 r.link = linkSuffix && `/room/${r.category}${linkSuffix}`;
                 return (

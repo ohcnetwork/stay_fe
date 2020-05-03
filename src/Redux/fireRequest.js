@@ -46,8 +46,8 @@ export const fireRequest = (
     key,
     path = [],
     params = {},
-    urlParam,
-    multipart = false
+    urlParam = "",
+    multipart = false,
 ) => {
     return (dispatch) => {
         dispatch(fetchDataRequest(key));
@@ -66,8 +66,8 @@ export const APIRequest = (
     key,
     path = [],
     params = {},
-    urlParam,
-    multipart
+    urlParam = "",
+    multipart = false
 ) => {
     // cancel previous api call
     if (isRunning[key]) {
