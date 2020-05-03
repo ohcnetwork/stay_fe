@@ -89,6 +89,7 @@ export default function HotelInfo({ data }) {
                     </div>
                 <div className="flex flex-row">
                 <div>
+                
                 <div className="text-gray-600 text-sm">
                     Policy: {hotel.policy}
                 </div>
