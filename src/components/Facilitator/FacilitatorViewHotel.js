@@ -92,7 +92,7 @@ export default function FacilitatorViewHotel({ id }) {
                     <ActionsBox buttons={buttons} labels={["owner"]} />
                 </div>
 
-                <div className="mb-6 md:mx-0 mx-2">
+                <div className={`mb-6 md:mx-0 mx-2 ${showConfirmation? "opacity-0": ""}`}>
                     <HotelLocation
                         markerLabel={currentHotel.name}
                         location={{
