@@ -86,7 +86,7 @@ export default function ForgotPassword() {
                 </p>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-gray-200 mb-20 shadow-lg rounded px-8 pt-6 pb-8 my-10">
+                    className="bg-gray-100 mb-20 shadow rounded px-8 pt-6 pb-8 my-10">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"

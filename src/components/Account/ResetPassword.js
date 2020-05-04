@@ -125,7 +125,7 @@ export default function ResetPassword({ token }) {
                 </div>
                 <form
                     onSubmit={handleSubmit}
-                    className="shadow-lg rounded px-8 pt-6 pb-8 my-10 bg-gray-200">
+                    className="shadow rounded px-8 pt-6 pb-8 my-10 bg-gray-100">
                     <div className="mb-4 md:flex md:justify-between">
                         <div className="mb-4 md:mr-2 md:mb-0">
                             <label
