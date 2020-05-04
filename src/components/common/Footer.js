@@ -13,7 +13,7 @@ export default function Footer({ signUp }) {
                         <A
                             href="facilitator-register"
                             className="block text-gray-400 font-bold text-sm text-center hover:text-indigo-400">
-                            SignUp as Facilitator
+                            Sign Up as Facilitator
                         </A>
                     )}
                 </div>

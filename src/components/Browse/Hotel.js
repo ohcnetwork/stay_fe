@@ -158,7 +158,10 @@ function Hotel() {
                                     onChange={handleChange}
                                     value={form.category}>
                                     {optionlist.category.map((item, index) => (
-                                        <option className="capitalize" key={index} value={item}>
+                                        <option
+                                            className="capitalize"
+                                            key={index}
+                                            value={item}>
                                             {item}
                                         </option>
                                     ))}

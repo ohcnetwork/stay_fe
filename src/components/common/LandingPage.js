@@ -35,12 +35,12 @@ function LandingPage() {
                                     <A
                                         className="px-4 py-3 bg-gray-900 text-gray-200 text-xs font-semibold rounded hover:bg-gray-800"
                                         href="/login">
-                                        SignIn
+                                        Sign In
                                     </A>
                                     <A
                                         className="ml-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400"
                                         href="/user-register">
-                                        SignUp
+                                        Sign Up
                                     </A>
                                     {/* <A
                                         className="ml-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400"
