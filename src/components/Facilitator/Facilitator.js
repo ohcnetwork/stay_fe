@@ -110,7 +110,7 @@ export default function Facilitator({ from }) {
     const buttons = [{ link: "/hotel/add", text: "Add Hotel" }];
 
     return (
-        <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
+        <div className="flex flex-col w-full overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
                 <div className="bg-white border-t border-b sm:rounded shadow mb-6 md:mx-0 mx-2">
                     <div className="border-b px-6 py-2">

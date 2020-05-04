@@ -65,7 +65,7 @@ export default function AddHotelForm() {
     };
 
     return (
-        <div className="h-full overflow-x-hidden flex items-center justify-center bg-gray-400">
+        <div className="h-full overflow-x-hidden flex items-center justify-center">
             <HotelForm
                 initForm={initForm}
                 initFacilities={initFacilities}

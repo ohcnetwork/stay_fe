@@ -74,7 +74,7 @@ export default function History() {
     }
     if (count === 0) {
         return (
-            <div className="py-10 bg-white min-h-screen">
+            <div className="py-10 bg-white">
                 <div className="text-center">
                     <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                         Booking History
@@ -90,10 +90,7 @@ export default function History() {
     } else
         return (
             <div>
-                <div
-                    className={` ${
-                        Shown ? "" : "hidden"
-                    }  py-10 bg-white min-h-screen `}>
+                <div className={` ${Shown ? "" : "hidden"}  py-10`}>
                     {loading ? (
                         <Loading />
                     ) : (

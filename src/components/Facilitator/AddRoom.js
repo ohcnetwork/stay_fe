@@ -139,7 +139,7 @@ export default function AddRoom({ id }) {
 
     return (
         <div>
-            <div className="min-h-screen overflow-x-hidden flex items-center justify-center bg-gray-400 ">
+            <div className="overflow-x-hidden flex items-center justify-center">
                 <div className="leading-loose">
                     <form
                         onSubmit={handleSubmit}

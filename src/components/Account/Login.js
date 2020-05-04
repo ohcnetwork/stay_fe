@@ -85,7 +85,7 @@ export default function Login() {
     };
 
     return (
-        <div className="lg:min-h-full min-h-screen flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 <div>
                     <h2 className="lg:mt-6 md:mt-6 sm:mt-2 text-center lg:text-3xl text-xl leading-9 font-bold text-gray-800 uppercase">

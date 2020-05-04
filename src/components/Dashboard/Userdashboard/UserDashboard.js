@@ -11,7 +11,7 @@ function UserDashboard() {
         user.image = DEFAULT_IMAGE.USER;
     }
     return (
-        <div className="mt-10 min-h-screen">
+        <div className="mt-10">
             <div className="bg-gray-300 shadow-lg  py-4 px-3 lg:w-1/2 w-3/4 m-0 m-auto sm:max-w-full max-w-md rounded overflow-hidden shadow-lg">
                 <A
                     href="/edit"
