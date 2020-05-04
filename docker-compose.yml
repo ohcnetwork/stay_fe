@@ -1,9 +1,0 @@
-version: "3"
-services:
-  stay_fe:
-    container_name: stay_fe
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "1337:80"
