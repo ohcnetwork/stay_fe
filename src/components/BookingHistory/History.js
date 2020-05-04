@@ -74,13 +74,13 @@ export default function History() {
     }
     if (count === 0) {
         return (
-            <div className="py-10 bg-white">
+            <div className="py-10 ">
                 <div className="text-center">
                     <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                         Booking History
                     </h2>
                 </div>
-                <div className="w-2/6 bg-gray-300 p-10  my-8 mx-auto  text-center rounded overflow-hidden shadow-lg">
+                <div className="w-2/6 bg-gray-100 p-10  my-8 mx-auto  text-center rounded overflow-hidden shadow-lg">
                     <h3 className=" m-0 text-lg m-auto">
                         No Booking History !
                     </h3>
