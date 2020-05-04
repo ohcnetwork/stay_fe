@@ -27,11 +27,11 @@ const AppRouter = () => {
     const pages = useRoutes(routes);
 
     return (
-        <div className="bg-white">
+        <div className="relative bg-gray-200 min-h-screen pb-24">
             <UserNavBar />
             {pages}
             {!pages && (
-                <div className="h-screen flex justify-center py-16">
+                <div className="flex justify-center py-16">
                     Error 404: Page not found
                 </div>
             )}

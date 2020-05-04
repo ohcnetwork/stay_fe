@@ -139,7 +139,7 @@ export default function Register(user) {
                 </div>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mt-10 my-20 bg-gray-200">
+                    className="shadow rounded px-8 pt-6 pb-8 mt-10 my-20 bg-gray-100">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"

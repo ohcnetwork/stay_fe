@@ -26,7 +26,7 @@ const FacilitatorRouter = () => {
     const pages = useRoutes(routes);
 
     return (
-        <div className="bg-gray-200">
+        <div className="relative bg-gray-200 min-h-screen pb-24">
             <FacilitatorNavBar />
             {pages}
             {!pages && (

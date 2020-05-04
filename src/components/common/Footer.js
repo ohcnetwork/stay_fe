@@ -3,8 +3,8 @@ import { A } from "hookrouter";
 
 export default function Footer({ signUp }) {
     return (
-        <div>
-            <section className="bg-indigo-700 py-3 w-full ">
+        <div className="absolute bottom-0 w-full">
+            <section className="bg-indigo-700 py-3 w-full">
                 <div className="container mx-auto px-8">
                     <p className="text-gray-400 text-center text-sm sm:mb-2">
                         © 2020 CoronaSafe Network. All rights reserved.

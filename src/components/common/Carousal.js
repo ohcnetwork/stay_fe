@@ -110,7 +110,7 @@ export default function Carousal({ images, control, title = "" }) {
     return (
         <div
             onKeyDown={handleKeyPress}
-            className={`${visibility} transition ease-in-out duration-${initTransitionDuration} fixed top-0 left-0 max-h-screen h-screen w-full bg-black opacity-${opacity}`}>
+            className={`${visibility} transition ease-in-out duration-${initTransitionDuration} fixed top-0 left-0 max-h-screen h-screen w-full bg-black opacity-${opacity} z-10`}>
             <div className="relative flex flex-col items-center justify-center w-full h-full py-2">
                 <div className="absolute top-0 text-shadow text-2xl tracking-wide md:text-4xl text-white pt-5 text-center">
                     {title}

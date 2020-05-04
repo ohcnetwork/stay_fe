@@ -116,7 +116,7 @@ export default function ResetPassword({ token }) {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center py-5 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 <div>
                     <h2 className="mt-20 text-center text-3xl leading-9 font-bold text-gray-800 uppercase">
@@ -125,7 +125,7 @@ export default function ResetPassword({ token }) {
                 </div>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white shadow-lg rounded px-8 pt-6 pb-8 my-10 bg-gray-200">
+                    className="shadow rounded px-8 pt-6 pb-8 my-10 bg-gray-100">
                     <div className="mb-4 md:flex md:justify-between">
                         <div className="mb-4 md:mr-2 md:mb-0">
                             <label

@@ -210,7 +210,7 @@ export default function ViewBookings({ id }) {
     });
 
     return (
-        <div className="font-sans bg-gray-lighter flex flex-col w-full min-h-screen overflow-x-hidden">
+        <div className="flex flex-col w-full overflow-x-hidden">
             <div
                 className={`flex-col ${
                     showUpdation.shown ? "hidden" : "flex"

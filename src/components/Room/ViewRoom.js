@@ -171,7 +171,7 @@ export default function ViewRoom({ category, id }) {
         (detail.photos && detail.photos[0]) || DEFAULT_IMAGE.ROOM;
 
     return (
-        <div className="py-10 bg-gray-300 h-full">
+        <div className="py-10 h-full">
             <div className="max-w-5xl mx-auto bg-white shadow overflow-hidden  sm:rounded-lg">
                 <div className="bg-white lg:mx-8 lg:my-4 lg:flex lg:max-w-5xl">
                     <div className="lg:w-1/2">

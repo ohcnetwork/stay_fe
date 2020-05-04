@@ -129,7 +129,7 @@ function Hotel() {
 
     return (
         <div>
-            <div className="relative rounded-b-lg bg-white px-4 sm:px-6 lg:px-8 mx-auto">
+            <div className="relative rounded-b-lg px-4 sm:px-6 lg:px-8 mx-auto">
                 <div className="relative max-w-7xl mx-auto">
                     <div className="">
                         {/* <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
@@ -142,7 +142,7 @@ function Hotel() {
                     </div>
                 </div>
                 <br />
-                <div className="bg-white shadow-md border rounded-lg p-6">
+                <div className="bg-white shadow border rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
                         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                             <label

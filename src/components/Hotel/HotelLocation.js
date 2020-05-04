@@ -40,6 +40,7 @@ export default function HotelLocation({
                     <a
                         className="bg-indigo-700 text-white px-2 py-2 rounded hover:bg-indigo-800 font-medium flex justify-center items-center"
                         href={mapLink}
+                        rel="noopener noreferrer"
                         target="_blank">
                         <svg
                             aria-hidden="true"
