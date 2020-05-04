@@ -47,7 +47,6 @@ export const DEFAULT_IMAGE = {
     HOTEL: require("./images/no-image.png"),
     ROOM: require("./images/no-image.png"),
     USER: require("./images/userdefault.png"),
-    LOCATION: require("./images/location.png"),
 };
 
 export const BOOKING_TERMS =
