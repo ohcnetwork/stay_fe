@@ -119,7 +119,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
         <div
             className={`${
                 shown ? "flex" : "hidden"
-            } fixed top-0 left-0 bg-gray-200 h-screen w-full items-center justify-center`}>
+            } fixed top-0 left-0 bg-gray-200 h-screen w-full items-center justify-center z-10`}>
             {loading ? (
                 <Loading />
             ) : (

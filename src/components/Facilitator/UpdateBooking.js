@@ -92,7 +92,7 @@ export default function UpdateBooking({
         <div
             className={`${
                 shown ? "flex" : "hidden"
-            }   w-full w-3/4 justify-center top-0 left-0 fixed h-screen bg-gray-200 overflow-y-auto`}>
+            }   w-full w-3/4 justify-center top-0 left-0 fixed h-screen bg-gray-200 overflow-y-auto z-10`}>
             <div className="pb-8 px-0 w-full mx-5 rounded">
                 <div className="uppercase bg-indigo-600 pt-3 m-0 m-auto mt-5 md:w-1/2 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
                     Booking ID: {data.book_id}

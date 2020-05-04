@@ -18,7 +18,7 @@ export default function CancelConfirmation({
         <div
             className={`${
                 !Shown ? "flex" : "hidden"
-            } fixed top-0 left-0 bg-gray-200 h-screen w-full items-center justify-center`}>
+            } fixed top-0 left-0 bg-gray-200 h-screen w-full items-center justify-center z-10`}>
             <div className="pb-8 px-0 md:w-1/2 lg:w-1/4 bg-white shadow-lg mx-5 rounded">
                 <div className="uppercase bg-red-700 pt-3 px-5 pb-2 text-lg text-white font-bold tracking-wide rounded-t">
                     Cancel Booking
