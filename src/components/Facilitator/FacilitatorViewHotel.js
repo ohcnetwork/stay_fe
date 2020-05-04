@@ -7,6 +7,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import ActionsBox from "./ActionsBox";
 import HotelInfo from "../Hotel/HotelInfo";
 import RoomsList from "../Room/RoomsList";
+import HotelLocation from "../Hotel/HotelLocation";
 import { FullLoading } from "../common/Loader";
 
 export default function FacilitatorViewHotel({ id }) {
@@ -89,6 +90,16 @@ export default function FacilitatorViewHotel({ id }) {
 
                 <div className="w-full mb-6">
                     <ActionsBox buttons={buttons} labels={["owner"]} />
+                </div>
+
+                <div className="mb-6 md:mx-0 mx-2">
+                    <HotelLocation
+                        markerLabel={currentHotel.name}
+                        location={{
+                            lat: currentHotel.latitude,
+                            lng: currentHotel.longitude,
+                        }}
+                    />
                 </div>
 
                 <div className="w-full mb-6">

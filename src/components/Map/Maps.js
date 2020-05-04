@@ -1,7 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
-function Maps({ mark = null, onChange = () => null, markerDraggable = false }) {
+function Maps({
+    mark = null,
+    onChange = () => null,
+    markerDraggable = false,
+    markerLabel,
+}) {
     const [viewport, setViewport] = useState({
         center: { lat: 10.552621801948733, lng: 76.35498046875001 },
         zoom: 7,
@@ -9,7 +14,7 @@ function Maps({ mark = null, onChange = () => null, markerDraggable = false }) {
     const [marker, setMarker] = useState(viewport.center);
 
     useEffect(() => {
-        if (mark.lat && mark.lng) {
+        if (mark && mark.lat && mark.lng) {
             setMarker(mark);
             setViewport((prevViewport) => ({ ...prevViewport, center: mark }));
         }
@@ -38,14 +43,14 @@ function Maps({ mark = null, onChange = () => null, markerDraggable = false }) {
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {mark.lat && mark.lng && (
+            {mark && mark.lat && mark.lng && (
                 <Marker
                     draggable={markerDraggable}
                     onDragend={updatePosition}
                     position={marker}
                     ref={refMarker}>
                     <Popup minWidth={90}>
-                        <span>Hotel Location</span>
+                        <span>{markerLabel || "Hotel Location"}</span>
                     </Popup>
                 </Marker>
             )}
