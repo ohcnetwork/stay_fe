@@ -31,6 +31,7 @@
         "start": "concurrently --kill-others \"npm run watch:css\" \"react-scripts start\"",
         "build": "npm run build:css && react-scripts build",
         "test": "react-scripts test --env=jsdom",
+        "cypress": "cypress open",
         "pretty": "prettier --write .",
         "eject": "react-scripts eject"
     },
@@ -53,6 +54,7 @@
         "autoprefixer": "^9.7.6",
         "bs-platform": "^7.2.2",
         "concurrently": "^5.1.0",
+        "cypress": "^4.5.0",
         "postcss-cli": "^7.1.0",
         "prettier": "2.0.5",
         "tailwindcss": "^1.2.0"
