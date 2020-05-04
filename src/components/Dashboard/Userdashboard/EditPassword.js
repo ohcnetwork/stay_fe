@@ -123,11 +123,7 @@ export default function EditPassword() {
             </div>
             <form
                 onSubmit={handleSubmit}
-                className={`bg-gray-100 shadow mt-4 rounded px-8 pt-6 pb-8 my-20 ${
-                    currentUser.data.data.type === "user"
-                        ? "bg-gray-400"
-                        : "bg-white"
-                }`}>
+                className="bg-white shadow mt-4 rounded px-8 pt-6 pb-8 my-20">
                 <div className="mb-4 md:mr-2 md:mb-0">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -140,9 +136,9 @@ export default function EditPassword() {
                         type="password"
                         value={form.currentPassword}
                         onChange={handleChange}
-                        className={`shadow appearance-none border ${
+                        className={`appearance-none border ${
                             error.currentpassword ? "border-red-500" : ""
-                        } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                        } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                         placeholder="******************"
                     />
                     <div className="text-xs italic text-red-500">
@@ -163,9 +159,9 @@ export default function EditPassword() {
                             type="password"
                             value={form.password}
                             onChange={handleChange}
-                            className={`shadow appearance-none border ${
+                            className={`appearance-none border ${
                                 error.password ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="******************"
                         />
                         <div className="text-xs italic text-red-500">
@@ -184,9 +180,9 @@ export default function EditPassword() {
                             type="password"
                             value={form.confirm}
                             onChange={handleChange}
-                            className={`shadow appearance-none border ${
+                            className={`appearance-none border ${
                                 error.confirm ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="******************"
                         />
                         <div className="text-xs italic text-red-500">

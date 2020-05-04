@@ -82,11 +82,11 @@ export default function ForgotPassword() {
                     </h6>
                 </div>
                 <p className="text-center text-gray-800">
-                    We will send you a mail to reset your pasword
+                    We will send you a mail to reset your password
                 </p>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-gray-100 mb-20 shadow rounded px-8 pt-6 pb-8 my-10">
+                    className="bg-white mb-20 shadow rounded px-8 pt-6 pb-8 my-10">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
@@ -102,7 +102,7 @@ export default function ForgotPassword() {
                             onChange={handleChange}
                             className={`shadow appearance-none border ${
                                 formError ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="Email address"
                         />
                     </div>

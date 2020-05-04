@@ -52,11 +52,7 @@ export default function EditDetails() {
             </div>
             <form
                 onSubmit={handleSubmit2}
-                className={`bg-gray-100 shadow mt-4 rounded px-8 pt-6 pb-8 my-20 ${
-                    currentUser.data.data.type === "user"
-                        ? "bg-gray-400"
-                        : "bg-white"
-                }`}>
+                className="bg-white shadow mt-4 rounded px-8 pt-6 pb-8 my-20">
                 <div className="mb-4 md:mr-2 md:mb-0">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -70,9 +66,9 @@ export default function EditDetails() {
                         type="text"
                         value={form2.name}
                         onChange={handleChange2}
-                        className={`shadow appearance-none border ${
+                        className={`appearance-none border ${
                             error2.password ? "border-red-500" : ""
-                        } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                        } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                     />
                     <div className="text-xs italic text-red-500">
                         {error2.password}
@@ -91,9 +87,9 @@ export default function EditDetails() {
                             type="email"
                             value={form2.email}
                             onChange={handleChange2}
-                            className={`shadow appearance-none border ${
+                            className={`appearance-none border ${
                                 error2.password ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                         />
                         <div className="text-xs italic text-red-500">
                             {error2.password}
@@ -111,9 +107,9 @@ export default function EditDetails() {
                             type="text"
                             value={form2.mobno}
                             onChange={handleChange2}
-                            className={`shadow appearance-none border ${
+                            className={`appearance-none border ${
                                 error2.confirm ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                         />
                         <div className="text-xs italic text-red-500">
                             {error2.confirm}

@@ -139,7 +139,7 @@ export default function Register(user) {
                 </div>
                 <form
                     onSubmit={handleSubmit}
-                    className="shadow rounded px-8 pt-6 pb-8 mt-10 my-20 bg-gray-100">
+                    className="shadow rounded px-8 pt-6 pb-8 mt-10 my-20 bg-white">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
@@ -153,9 +153,9 @@ export default function Register(user) {
                             type="name"
                             value={form.name}
                             onChange={handleChange}
-                            className={`shadow appearance-none border ${
+                            className={`appearance-none border ${
                                 error.name ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="Your name"
                         />
                         <div className="text-xs italic text-red-500">
@@ -174,9 +174,9 @@ export default function Register(user) {
                             type="email"
                             value={form.email}
                             onChange={handleChange}
-                            className={`shadow appearance-none border ${
+                            className={` appearance-none border ${
                                 error.email ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="Email address"
                         />
                         <div className="text-xs italic text-red-500">
@@ -196,9 +196,9 @@ export default function Register(user) {
                                 type="password"
                                 value={form.password}
                                 onChange={handleChange}
-                                className={`shadow appearance-none border ${
+                                className={`appearance-none border ${
                                     error.password ? "border-red-500" : ""
-                                } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                                 placeholder="******************"
                             />
                             <div className="text-xs italic text-red-500">
@@ -217,9 +217,9 @@ export default function Register(user) {
                                 type="password"
                                 value={form.confirm}
                                 onChange={handleChange}
-                                className={`shadow appearance-none border ${
+                                className={`appearance-none border ${
                                     error.confirm ? "border-red-500" : ""
-                                } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                                 placeholder="******************"
                             />
                             <div className="text-xs italic text-red-500">

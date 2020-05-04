@@ -94,7 +94,7 @@ export default function Login() {
                 </div>
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-gray-100 shadow rounded px-8 pt-6 pb-8 my-5 lg:my-20">
+                    className="bg-white shadow rounded px-8 pt-6 pb-8 my-5 lg:my-20">
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
@@ -108,9 +108,9 @@ export default function Login() {
                             type="text"
                             value={form.email}
                             onChange={handleChange}
-                            className={`shadow appearance-none border ${
+                            className={`appearance-none border ${
                                 formError ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="Email address"
                         />
                     </div>
@@ -126,9 +126,9 @@ export default function Login() {
                             type="password"
                             value={form.password}
                             onChange={handleChange}
-                            className={`shadow appearance-none border ${
+                            className={`appearance-none border ${
                                 formError ? "border-red-500" : ""
-                            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                            } rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
                             placeholder="******************"
                         />
                     </div>
