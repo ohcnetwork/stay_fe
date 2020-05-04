@@ -25,7 +25,7 @@ export default function MapWithSearch({
             <div className="relative z-10">
                 <GeoSearch onChange={changeHandler} />
             </div>
-            <div className="flex-grow relative z-0">
+            <div className="flex-grow">
                 <Maps
                     onChange={changeHandler}
                     mark={location}
