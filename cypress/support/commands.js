@@ -23,3 +23,25 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("login", (type = "user") => {
+    const users = {
+        user: {
+            email: "user@example.com",
+            password: "Password123@",
+        },
+        facilityowner: {
+            email: "owner@example.com",
+            password: "Password123@",
+        },
+    };
+
+    const user = users[type];
+    cy.request({
+        method: "POST",
+        url: `${Cypress.config().apiUrl}/auth/login`,
+        body: user,
+    }).then((resp) => {
+        localStorage.setItem("stay_access_token", resp.body.access_token);
+    });
+});
