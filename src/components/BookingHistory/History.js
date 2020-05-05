@@ -157,6 +157,7 @@ export default function History() {
                                         return (
                                             <div
                                                 id={index}
+                                                key={index}
                                                 className="sm:w-full md:w-3/4 lg:w-5/6 bg-gray-100 mx-auto my-8  rounded overflow-hidden shadow-lg">
                                                 <img
                                                     className="w-full  h-30"
