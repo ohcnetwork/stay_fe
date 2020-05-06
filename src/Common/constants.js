@@ -35,7 +35,13 @@ export const DISTRICT_CHOICES = [
     { id: 14, text: "Kasaragod" },
 ];
 
-export const BED_COUNT=[{ id:1 , text: "1"},{ id:2 , text: "2"},{ id:3 , text: "3"},{ id:4 , text: "4"},{ id:5 , text: "5"},]
+export const BED_COUNT = [
+    { id: 1, text: "1" },
+    { id: 2, text: "2" },
+    { id: 3, text: "3" },
+    { id: 4, text: "4" },
+    { id: 5, text: "5" },
+];
 export const HOTEL_STATUS = {
     ACTIVE: { type: "ACTIVE", string: "Active", color: "green-600" },
     NOT_AVAILABLE: {
