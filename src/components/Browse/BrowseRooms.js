@@ -25,8 +25,7 @@ function BrowseRooms({ id }) {
         form.type = "room";
         form.hotelid = id;
         dispatch(getHotelList(form));
-        window.scrollTo(0, 0)
-
+        window.scrollTo(0, 0);
     }, []);
 
     if (

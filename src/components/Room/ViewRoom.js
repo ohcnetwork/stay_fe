@@ -37,9 +37,8 @@ export default function ViewRoom({ category, id }) {
     );
     const [dateDifference, setdateDifference] = useState(dateDifferences);
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         updateRoomGetDetail();
-
     }, []);
 
     const updateRoomGetDetail = () => {

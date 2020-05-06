@@ -41,7 +41,7 @@ export default function History() {
     }
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         dispatch(getBookingHistory()).then((resp) => {
             const { data: res } = resp;
             setHistorydata(res);
