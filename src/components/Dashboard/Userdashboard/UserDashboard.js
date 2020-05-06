@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect} from "react";
 import { A } from "hookrouter";
 import { useSelector } from "react-redux";
 import { DEFAULT_IMAGE } from "../../../Common/constants";
@@ -7,6 +7,10 @@ function UserDashboard() {
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     const user = currentUser.data.data;
+    useEffect(() =>{
+        window.scrollTo(0, 0)
+
+    },[])
     if (user.image == null) {
         user.image = DEFAULT_IMAGE.USER;
     }

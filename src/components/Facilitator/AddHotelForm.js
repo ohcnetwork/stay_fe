@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { postAddHotel } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
@@ -8,7 +8,10 @@ import HotelForm from "./HotelForm";
 
 export default function AddHotelForm() {
     const dispatch = useDispatch();
+    useEffect(() =>{
+        window.scrollTo(0, 0)
 
+    },[])
     const initForm = {
         name: "",
         address: "",
