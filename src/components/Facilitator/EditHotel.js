@@ -45,6 +45,7 @@ export default function EditHotel({ id }) {
         Object.values(userHotelList.data.data).find((el) => el.id === id);
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         dispatch(getUserHotelList());
     }, [id]);
 

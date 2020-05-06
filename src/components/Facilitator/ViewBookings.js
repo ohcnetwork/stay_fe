@@ -62,6 +62,7 @@ export default function ViewBookings({ id }) {
     ];
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         dispatch(getHotelBookingList(id)).then((resp) => {
             const { data: res } = resp;
             setdetails(res);
