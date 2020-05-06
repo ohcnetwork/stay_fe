@@ -32,6 +32,10 @@ export default function ViewRoom({ category, id }) {
     const currentURI = usePath();
     const roomDetails = getRoomDetails();
     const [detail, setDetail] = useState({ ...roomDetails, isFetching: true });
+    const dateDifferences = Math.ceil(
+        (dateout - datein) / (1000 * 60 * 60 * 24) + 1
+    );
+    const [dateDifference, setdateDifference] = useState(dateDifferences);
     useEffect(() => {
         updateRoomGetDetail();
     }, []);
@@ -74,12 +78,15 @@ export default function ViewRoom({ category, id }) {
                             ];
                         setRoomDetails(newDetail);
                         setavail(true);
+                        setdateDifference(dateDifferences);
                     } else {
                         newDetail = {};
                         setavail(false);
+                        setdateDifference(1);
                     }
                 } else {
                     setavail(false);
+                    setdateDifference(1);
                 }
                 setDetail({
                     ...newDetail,
@@ -89,7 +96,6 @@ export default function ViewRoom({ category, id }) {
             });
         }
     };
-
     const onDateChangeIn = (newdatein) => {
         if (checkValidDate(newdatein, dateout)) {
             setdatein(newdatein);
@@ -271,7 +277,7 @@ export default function ViewRoom({ category, id }) {
                             <dt className="text-sm leading-5 font-medium text-gray-500">
                                 Category
                             </dt>
-                            <dd className="mt-1 text-sm leading-5 text-gray-900">
+                            <dd className="mt-1 text-sm leading-5 text-gray-900 capitalize">
                                 {detail.category}
                             </dd>
                         </div>
@@ -293,10 +299,18 @@ export default function ViewRoom({ category, id }) {
             </div> */}
                         <div className="sm:col-span-1">
                             <dt className="text-sm leading-5 font-medium text-gray-500">
-                                Cost
+                                Rent /Day
                             </dt>
                             <dd className="mt-1 text-sm leading-5 text-gray-900">
-                                Rs.{detail.cost}
+                                Rs. {detail.cost}
+                            </dd>
+                        </div>
+                        <div className="sm:col-span-1">
+                            <dt className="text-base leading-5 font-medium text-gray-800">
+                                Total Price
+                            </dt>
+                            <dd className="mt-1 text-base leading-5 text-gray-900 font-semibold">
+                                Rs. {detail.cost * dateDifference}
                             </dd>
                         </div>
 
