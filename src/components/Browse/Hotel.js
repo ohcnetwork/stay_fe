@@ -46,7 +46,7 @@ function Hotel() {
                         Math.ceil(options[1][0].maximum / 100) * 100
                     ),
                 };
-
+                setAppliedFilters("", true);
                 const currentForm = getInitFilter(newOptions);
 
                 setForm(currentForm);

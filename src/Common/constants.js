@@ -50,7 +50,7 @@ export const DEFAULT_IMAGE = {
 };
 
 export const BOOKING_TERMS =
-    "Your are booking a room for staying in quarantine. So, you are oblidged to stay to there untill the end of the time period. This is for your safety and the safety of the people around you";
+    "Your are booking a room for staying in quarantine. So, you are obliged to stay here until the end of the time period. This is for your safety and the safety of the people around you";
 
 export const GENDER = [
     { type: "MALE", text: "Male" },

@@ -131,13 +131,13 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                     <div className="px-5">
                         <div className="pb-8 pt-3 px-0 text-gray-800">
                             <div className="">
-                                You are booking a{" "}
+                                You are booking{" "}
                                 <span className="font-medium">
                                     {data.category}
                                 </span>{" "}
                                 room for{" "}
                                 <span className="font-medium">{data.beds}</span>{" "}
-                                people for the duration from{" "}
+                                person(s) from{" "}
                                 <span className="font-medium">{checkin}</span>{" "}
                                 to{" "}
                                 <span className="font-medium">{checkout}</span>
