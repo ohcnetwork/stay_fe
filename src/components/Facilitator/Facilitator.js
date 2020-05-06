@@ -34,6 +34,7 @@ export default function Facilitator({ from }) {
         if (from === "booking_page") {
             navigate("/");
         }
+        window.scrollTo(0, 0);
         dispatch(getUserHotelList(currentUser.id));
     }, [dispatch, currentUser.id, from]);
 

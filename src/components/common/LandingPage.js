@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { A } from "hookrouter";
 import { useSelector } from "react-redux";
 import Hotel from "../Browse/Hotel";
@@ -7,6 +7,9 @@ function LandingPage() {
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
     console.log("Current User", currentUser);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="">

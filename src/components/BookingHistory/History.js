@@ -41,6 +41,7 @@ export default function History() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(getBookingHistory()).then((resp) => {
             const { data: res } = resp;
             setHistorydata(res);
@@ -80,8 +81,8 @@ export default function History() {
                         Booking History
                     </h2>
                 </div>
-                <div className="w-2/6 bg-gray-100 p-10  my-8 mx-auto  text-center rounded overflow-hidden shadow-lg">
-                    <h3 className=" m-0 text-lg m-auto">
+                <div className="w-3/4 lg:w-2/6 bg-gray-100 p-10  my-8 mx-auto  text-center rounded overflow-hidden shadow-lg">
+                    <h3 className=" m-0 text-md m-auto">
                         No Booking History !
                     </h3>
                 </div>

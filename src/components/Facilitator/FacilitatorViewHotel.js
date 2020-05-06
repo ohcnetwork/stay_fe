@@ -22,6 +22,7 @@ export default function FacilitatorViewHotel({ id }) {
     const { hotelRoomList } = state;
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(getUserHotelList(currentUser.id));
         dispatch(getHotelRoomList(id));
     }, [dispatch, currentUser.id, id]);

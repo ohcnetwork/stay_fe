@@ -29,6 +29,7 @@ export default function AddRoom({ id }) {
     const optionalValues = ["features"];
     const myInput = useRef();
     useEffect(() => {
+        window.scrollTo(0, 0);
         myInput.current && myInput.current.focus();
     }, []);
     const [formLoading, setFormLoading] = useState(false);
