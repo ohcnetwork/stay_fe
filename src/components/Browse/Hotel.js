@@ -18,7 +18,6 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 function Hotel() {
-    if (window.location.reload) setAppliedFilters("", true);
     const dispatch = useDispatch();
 
     const [optionlist, setOptionlist] = useState(null);
@@ -47,7 +46,7 @@ function Hotel() {
                         Math.ceil(options[1][0].maximum / 100) * 100
                     ),
                 };
-
+                setAppliedFilters("", true);
                 const currentForm = getInitFilter(newOptions);
 
                 setForm(currentForm);
