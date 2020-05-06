@@ -23,6 +23,7 @@ export default function Facilitator({ from }) {
         if (from === "booking_page") {
             navigate("/");
         }
+        window.scrollTo(0, 0);
         if (currentUser.type === USER_TYPES.FACILITY_OWNER.type) {
             dispatch(getUserHotelList());
         } else {
