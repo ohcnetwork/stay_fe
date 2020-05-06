@@ -352,7 +352,7 @@ export default function AddRoom({ id }) {
                             <label
                                 className="block text-sm text-gray-600 "
                                 htmlFor="cost">
-                                Bed Capacity
+                                Bed Capacity Per Room
                             </label>
                             <input
                                 className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
@@ -362,7 +362,7 @@ export default function AddRoom({ id }) {
                                 onChange={handleChange}
                                 type="text"
                                 required=""
-                                placeholder="Capacity"
+                                placeholder="Bed Capacity"
                                 aria-label="Name"
                             />
                             <div className="text-xs italic text-red-500">
@@ -373,7 +373,7 @@ export default function AddRoom({ id }) {
                             <label
                                 className="block text-sm text-gray-600 "
                                 htmlFor="cost">
-                                Enter the Cost
+                                Rent (Per day tariff including GST)
                             </label>
                             <input
                                 className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
@@ -383,7 +383,7 @@ export default function AddRoom({ id }) {
                                 onChange={handleChange}
                                 type="text"
                                 required=""
-                                placeholder="Cost"
+                                placeholder="Enter the Room Rent Per Day"
                                 aria-label="Name"
                             />
                             <div className="text-xs italic text-red-500">
