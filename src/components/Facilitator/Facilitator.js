@@ -72,9 +72,7 @@ export default function Facilitator({ from }) {
                 <div className="flex w-full mb-6 flex flex-col">
                     <HotelsList
                         hotelList={hotelList}
-                        isAdmin={
-                            currentUser.type === USER_TYPES.FACILITY_OWNER.type
-                        }
+                        isAdmin={currentUser.type === USER_TYPES.ADMIN.type}
                     />
                 </div>
             </div>
