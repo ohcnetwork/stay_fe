@@ -6,7 +6,6 @@ import landingpageimage from "../../Common/images/landingpageimage.png";
 function LandingPage() {
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
-    console.log("Current User", currentUser);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);

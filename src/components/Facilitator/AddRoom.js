@@ -104,7 +104,6 @@ export default function AddRoom({ id }) {
         e.preventDefault();
 
         if (validInputs() && !formLoading) {
-            console.log("AddHotelForm.js: ", "creating a new hotel", form);
             const formData = new FormData();
 
             Object.keys(form).forEach((key) => {
@@ -120,7 +119,6 @@ export default function AddRoom({ id }) {
             dispatch(postAddRooms(id, formData)).then((resp) => {
                 const { status: statusCode } = resp;
                 const { data: res } = resp;
-                console.log(resp);
 
                 // set captha logic needed
                 if (res && statusCode === 201) {

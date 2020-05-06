@@ -11,7 +11,6 @@ export default function DeleteConfirmation({ show, name, toggle, id, rooms }) {
 
     function del() {
         dispatch(deleteHotel(id)).then((res) => {
-            console.log(res);
             setError(false);
             if (res.status === 200) {
                 Notification.Success({

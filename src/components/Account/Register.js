@@ -84,7 +84,6 @@ export default function Register(user) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validInputs() && !formLoading) {
-            console.log("Register.js: ", "creating a new user", form);
             setFormLoading(true);
             dispatch(postRegister(form))
                 .then((resp) => {

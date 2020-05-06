@@ -65,7 +65,6 @@ export default function BookingConfirmation({ shown, toggle, data }) {
 
     function addPerson(e) {
         e.preventDefault();
-        console.log(person);
 
         if (validPerson()) {
             const number = person.number || null;
@@ -93,7 +92,6 @@ export default function BookingConfirmation({ shown, toggle, data }) {
         };
 
         if (previousPersons.length > 0) {
-            console.log("send booking");
             dispatch(dopostBook(bookingData)).then((resp) => {
                 const { data: res } = resp;
                 const { status: statusCode } = resp;

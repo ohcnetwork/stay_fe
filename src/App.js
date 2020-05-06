@@ -65,7 +65,6 @@ function App() {
     // App component will render loading page
     // This can be kept within AppRouter as well incase navbar needs
     // to be kept on UI
-    console.log("app.js: current user: ", currentUser);
     if (user !== null && (!currentUser || currentUser.isFetching)) {
         return <FullLoading />;
     }

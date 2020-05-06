@@ -52,8 +52,6 @@ function BrowseRooms({ id }) {
         );
     }
 
-    console.log(hotelByHotelId);
-
     return (
         <div className="font-sans flex flex-col w-full overflow-x-hidden">
             <div className="flex-col flex-grow container mx-auto sm:px-4 pt-6 pb-8">
