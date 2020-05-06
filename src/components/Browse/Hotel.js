@@ -18,6 +18,7 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 function Hotel() {
+    if (window.location.reload) setAppliedFilters("", true);
     const dispatch = useDispatch();
 
     const [optionlist, setOptionlist] = useState(null);
