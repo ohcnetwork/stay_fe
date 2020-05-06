@@ -52,7 +52,6 @@ export default function ViewRoom({ category, id }) {
                 let listDetail = [];
                 setApplied(true);
                 if (res && res.data) {
-                    console.log(res.data[0]);
                     if (!roomDetails && res.data[0]) {
                         newDetail = res.data[0];
                         setRoomDetails(newDetail);
@@ -130,7 +129,6 @@ export default function ViewRoom({ category, id }) {
         if (!avail || !applied) return;
 
         if (currentUser && currentUser.data) {
-            console.log(avail && applied);
             //logged in
 
             setShowConfirmation(true);

@@ -23,7 +23,6 @@ export default function GeoSearch({ onChange = () => null }) {
                 setError("No results found");
             }
         } catch (err) {
-            console.log(err);
             setError(err.message);
         }
         setLoading(false);

@@ -37,10 +37,8 @@ export default function EditDetails() {
 
         setForm2(fieldValue2);
     };
-    console.log(currentUser);
     const handleSubmit2 = (e) => {
         e.preventDefault();
-        console.log("submit");
     };
 
     return (

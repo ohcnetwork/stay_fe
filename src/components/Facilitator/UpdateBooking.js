@@ -51,7 +51,6 @@ export default function UpdateBooking({
                     setLoading(false);
                 }
             });
-            console.log("update room no to", roomNumber);
         } else {
             setRoomError(true);
         }
@@ -85,8 +84,6 @@ export default function UpdateBooking({
             toggle(data.book_id);
         }
     }
-
-    console.log();
 
     return (
         <div
