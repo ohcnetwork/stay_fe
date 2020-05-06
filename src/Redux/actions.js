@@ -23,7 +23,7 @@ export const postAddRooms = (id, form) => {
 export const getCurrentUser = () => {
     return fireRequest("currentUser");
 };
-export const getUserHotelList = (id) => {
+export const getUserHotelList = () => {
     return fireRequest("userHotelList");
 };
 export const getHotelRoomList = (id) => {
@@ -77,4 +77,7 @@ export const resetPassword = (form) => {
 };
 export const getHotelByHotelId = (id) => {
     return fireRequest("hotelByHotelId", [id]);
+};
+export const getAllHotelsList = () => {
+    return fireRequest("allHotelsList");
 };

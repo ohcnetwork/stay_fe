@@ -1,7 +1,11 @@
 import React from "react";
 import { A } from "hookrouter";
 
-export default function ActionsBox({ buttons, labels = [] }) {
+export default function ActionsBox({ buttons = [], labels = [] }) {
+    if (buttons.length < 1) {
+        return null;
+    }
+
     return (
         <div className="bg-white rounded sm:border shadow md:mx-0 mx-2 pb-1">
             <div className="border-b">
