@@ -5,6 +5,8 @@ import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
 import { isNumber } from "../../util/validation";
 import UploadImage from "./UploadImage";
+import { BED_COUNT } from "../../Common/constants";
+
 
 export default function AddRoom({ id }) {
     const dispatch = useDispatch();
@@ -13,7 +15,7 @@ export default function AddRoom({ id }) {
         features: null,
         description: "",
         category: "",
-        beds: "",
+        beds: BED_COUNT[0].text,
         noOfRooms: "",
         cost: "",
     };
@@ -29,6 +31,7 @@ export default function AddRoom({ id }) {
     const optionalValues = ["features"];
     const myInput = useRef();
     useEffect(() => {
+        window.scrollTo(0, 0);
         myInput.current && myInput.current.focus();
     }, []);
     const [formLoading, setFormLoading] = useState(false);
@@ -103,7 +106,6 @@ export default function AddRoom({ id }) {
         e.preventDefault();
 
         if (validInputs() && !formLoading) {
-            console.log("AddHotelForm.js: ", "creating a new hotel", form);
             const formData = new FormData();
 
             Object.keys(form).forEach((key) => {
@@ -119,7 +121,6 @@ export default function AddRoom({ id }) {
             dispatch(postAddRooms(id, formData)).then((resp) => {
                 const { status: statusCode } = resp;
                 const { data: res } = resp;
-                console.log(resp);
 
                 // set captha logic needed
                 if (res && statusCode === 201) {
@@ -161,7 +162,6 @@ export default function AddRoom({ id }) {
                                 value={form.title}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Enter Title"
                                 aria-label="Name"
                             />
@@ -182,7 +182,6 @@ export default function AddRoom({ id }) {
                                 value={form.description}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Enter Room Description"
                                 aria-label="Name"
                             />
@@ -340,7 +339,6 @@ export default function AddRoom({ id }) {
                                 value={form.noOfRooms}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Enter the number of rooms"
                                 aria-label="Name"
                             />
@@ -351,20 +349,41 @@ export default function AddRoom({ id }) {
                         <div className="inline-block mt-2 w-1/2 pr-1">
                             <label
                                 className="block text-sm text-gray-600 "
-                                htmlFor="cost">
-                                Bed Capacity
+                                htmlFor="bed-capacity">
+                                Bed Capacity Per Room
                             </label>
-                            <input
+                            {/* <input
                                 className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
                                 id="beds"
                                 name="beds"
                                 value={form.beds}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
-                                placeholder="Capacity"
+                                placeholder="Number of Beds"
                                 aria-label="Name"
-                            />
+                            /> */}
+                            <div className="relative">
+                        <select
+                            className="appearance-none focus:shadow-outline w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                            name="beds"
+                            value={form.beds}
+                            onChange={handleChange}
+                            aria-label="Enter Bed Count per room">
+                            {BED_COUNT.map((el) => (
+                                <option value={el.text} key={el.text}>
+                                    {el.text}
+                                </option>
+                            ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg
+                                className="fill-current h-4 w-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
                             <div className="text-xs italic text-red-500">
                                 {error.beds}&nbsp;
                             </div>
@@ -373,7 +392,7 @@ export default function AddRoom({ id }) {
                             <label
                                 className="block text-sm text-gray-600 "
                                 htmlFor="cost">
-                                Enter the Cost
+                                Rent (Per day tariff including GST)
                             </label>
                             <input
                                 className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
@@ -382,8 +401,7 @@ export default function AddRoom({ id }) {
                                 value={form.cost}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
-                                placeholder="Cost"
+                                placeholder="Enter the Room Rent Per Day"
                                 aria-label="Name"
                             />
                             <div className="text-xs italic text-red-500">

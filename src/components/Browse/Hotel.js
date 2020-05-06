@@ -46,7 +46,7 @@ function Hotel() {
                         Math.ceil(options[1][0].maximum / 100) * 100
                     ),
                 };
-
+                setAppliedFilters("", true);
                 const currentForm = getInitFilter(newOptions);
 
                 setForm(currentForm);
@@ -59,7 +59,7 @@ function Hotel() {
     function handleChange(e) {
         let { name, value } = e.target;
 
-        if (name === "beds" && (value > 20 || value < 1)) return;
+        if (name === "beds" && (value > 5 || value < 1)) return;
         if (["checkin", "checkout"].includes(name)) {
             value = stringFromDate(value);
         }
@@ -209,7 +209,7 @@ function Hotel() {
                             <label
                                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 htmlFor="type">
-                                No. of Beds
+                                No. of Beds/Room
                             </label>
                             <div className="relative">
                                 <div

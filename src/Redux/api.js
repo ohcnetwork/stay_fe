@@ -125,4 +125,9 @@ export default {
         method: "GET",
         noAuth: true,
     },
+    allHotelsList: {
+        path: "/api/v1/facility/all-facility",
+        method: "GET",
+        noAuth: false,
+    },
 };

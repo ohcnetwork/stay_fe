@@ -1,7 +1,8 @@
-export const USER_TYPES = [
-    { type: "customer", string: "Customer" },
-    { type: "facilityowner", string: "Facility Owner" },
-];
+export const USER_TYPES = {
+    USER: { type: "user", string: "User" },
+    FACILITY_OWNER: { type: "facilityowner", string: "Facility Owner" },
+    ADMIN: { type: "admin", string: "Admin" },
+};
 
 export const BOOKING_CHECKIN_STATUS = {
     PENDING: { type: "PENDING", string: "Pending", color: "orange-600" },
@@ -34,6 +35,7 @@ export const DISTRICT_CHOICES = [
     { id: 14, text: "Kasaragod" },
 ];
 
+export const BED_COUNT=[{ id:1 , text: "1"},{ id:2 , text: "2"},{ id:3 , text: "3"},{ id:4 , text: "4"},{ id:5 , text: "5"},]
 export const HOTEL_STATUS = {
     ACTIVE: { type: "ACTIVE", string: "Active", color: "green-600" },
     NOT_AVAILABLE: {
@@ -50,7 +52,7 @@ export const DEFAULT_IMAGE = {
 };
 
 export const BOOKING_TERMS =
-    "Your are booking a room for staying in quarantine. So, you are oblidged to stay to there untill the end of the time period. This is for your safety and the safety of the people around you";
+    "Your are booking a room for staying in quarantine. So, you are obliged to stay here until the end of the time period. This is for your safety and the safety of the people around you";
 
 export const GENDER = [
     { type: "MALE", text: "Male" },

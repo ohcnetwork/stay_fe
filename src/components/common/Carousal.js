@@ -39,10 +39,8 @@ export default function Carousal({ images, control, title = "" }) {
 
     useEffect(() => {
         if (shown && images.length > 1) {
-            console.log("add listener");
             document.addEventListener("keydown", handleKeyPress);
             return () => {
-                console.log("remove listener");
                 document.removeEventListener("keydown", handleKeyPress);
             };
         }

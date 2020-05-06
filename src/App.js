@@ -6,6 +6,7 @@ import { useAbortableEffect } from "./util/useAbortableEffect";
 import { getCurrentUser } from "./Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { FullLoading } from "./components/common/Loader";
+import { USER_TYPES } from "./Common/constants";
 
 function App() {
     const dispatch = useDispatch();
@@ -65,13 +66,16 @@ function App() {
     // App component will render loading page
     // This can be kept within AppRouter as well incase navbar needs
     // to be kept on UI
-    console.log("app.js: current user: ", currentUser);
     if (user !== null && (!currentUser || currentUser.isFetching)) {
         return <FullLoading />;
     }
 
     if (currentUser && currentUser.data) {
-        if (currentUser.data.data.type === "facilityowner") {
+        if (
+            [USER_TYPES.FACILITY_OWNER.type, USER_TYPES.ADMIN.type].includes(
+                currentUser.data.data.type
+            )
+        ) {
             return <FacilitatorRouter />;
         } else {
             return <AppRouter />;

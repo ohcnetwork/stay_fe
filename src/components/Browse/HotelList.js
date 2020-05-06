@@ -54,7 +54,7 @@ const HotelList = ({ hotels }) => {
                                                     />
                                                 </span>
                                             </p>
-                                            <h3 className="mt-2 text-base leading-7 font-semibold text-gray-900">
+                                            <h3 className="mt-2 text-base truncate leading-7 font-semibold text-gray-900">
                                                 {item.name}
                                             </h3>
                                             {/* <p className="mt-3 text-xl leading-6 text-gray-500">
@@ -63,7 +63,7 @@ const HotelList = ({ hotels }) => {
                                         </div>
 
                                         <div className="mt-6 flex items-center">
-                                            <div className="ml-3 break-all">
+                                            <div className="ml-3">
                                                 <p className="text-sm leading-5 font-medium text-gray-900">
                                                     {item.category}
                                                 </p>
