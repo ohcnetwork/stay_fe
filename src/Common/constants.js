@@ -1,7 +1,8 @@
-export const USER_TYPES = [
-    { type: "customer", string: "Customer" },
-    { type: "facilityowner", string: "Facility Owner" },
-];
+export const USER_TYPES = {
+    USER: { type: "user", string: "User" },
+    FACILITY_OWNER: { type: "facilityowner", string: "Facility Owner" },
+    ADMIN: { type: "admin", string: "Admin" },
+};
 
 export const BOOKING_CHECKIN_STATUS = {
     PENDING: { type: "PENDING", string: "Pending", color: "orange-600" },

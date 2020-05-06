@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { navigate } from "hookrouter";
 import GuestDetails from "./GuestDetails";
-import { BOOKING_CHECKIN_STATUS, BOOKING_STATUS } from "../../Common/constants";
+import {
+    BOOKING_CHECKIN_STATUS,
+    BOOKING_STATUS,
+    USER_TYPES,
+} from "../../Common/constants";
 import * as Notification from "../../util/Notifications";
 import {
     deleteBooking,
@@ -23,6 +27,9 @@ export default function UpdateBooking({
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const dispatch = useDispatch();
+    const state = useSelector((reduxState) => reduxState);
+    const { currentUser: temp } = state;
+    const currentUser = temp && temp.data && temp.data.data;
 
     useEffect(() => {
         setRoomNumber(data.roomNumber);
@@ -221,8 +228,8 @@ export default function UpdateBooking({
                                 Back
                             </div>
                         </div>
-                        {data.statusBooking ===
-                        BOOKING_STATUS.CANCELLED.type ? (
+                        {data.statusBooking === BOOKING_STATUS.CANCELLED.type ||
+                        currentUser.type !== USER_TYPES.FACILITY_OWNER.type ? (
                             <div className="flex text-white"></div>
                         ) : (
                             <div className="flex text-white">
