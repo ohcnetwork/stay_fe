@@ -358,7 +358,7 @@ export default function AddRoom({ id }) {
                                 value={form.beds}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Bed Capacity"
+                                placeholder="Number of Beds"
                                 aria-label="Name"
                             />
                             <div className="text-xs italic text-red-500">
