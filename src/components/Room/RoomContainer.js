@@ -79,7 +79,7 @@ export default function RoomContainer({ r, count = null }) {
                     </div>
                     <div className="flex flex-wrap items-center justify-between py-2">
                         <div className="text-gray-800 font-medium py-2">
-                            Rooms: {count}
+                            Rooms Available: {count}
                         </div>
                         {/* <div className="flex py-2">
                             <A href="#" className="bg-indigo-600 hover:bg-indigo-800 rounded px-3 py-1 mx-1 font-medium text-white">
