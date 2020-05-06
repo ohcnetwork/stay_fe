@@ -161,7 +161,6 @@ export default function AddRoom({ id }) {
                                 value={form.title}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Enter Title"
                                 aria-label="Name"
                             />
@@ -182,7 +181,6 @@ export default function AddRoom({ id }) {
                                 value={form.description}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Enter Room Description"
                                 aria-label="Name"
                             />
@@ -340,7 +338,6 @@ export default function AddRoom({ id }) {
                                 value={form.noOfRooms}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Enter the number of rooms"
                                 aria-label="Name"
                             />
@@ -351,7 +348,7 @@ export default function AddRoom({ id }) {
                         <div className="inline-block mt-2 w-1/2 pr-1">
                             <label
                                 className="block text-sm text-gray-600 "
-                                htmlFor="cost">
+                                htmlFor="bed-capacity">
                                 Bed Capacity Per Room
                             </label>
                             <input
@@ -361,7 +358,6 @@ export default function AddRoom({ id }) {
                                 value={form.beds}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Bed Capacity"
                                 aria-label="Name"
                             />
@@ -382,7 +378,6 @@ export default function AddRoom({ id }) {
                                 value={form.cost}
                                 onChange={handleChange}
                                 type="text"
-                                required=""
                                 placeholder="Enter the Room Rent Per Day"
                                 aria-label="Name"
                             />
