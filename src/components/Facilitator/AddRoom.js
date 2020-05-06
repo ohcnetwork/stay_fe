@@ -5,6 +5,8 @@ import * as Notficiation from "../../util/Notifications";
 import { navigate } from "hookrouter";
 import { isNumber } from "../../util/validation";
 import UploadImage from "./UploadImage";
+import { BED_COUNT } from "../../Common/constants";
+
 
 export default function AddRoom({ id }) {
     const dispatch = useDispatch();
@@ -13,7 +15,7 @@ export default function AddRoom({ id }) {
         features: null,
         description: "",
         category: "",
-        beds: "",
+        beds: BED_COUNT[0].text,
         noOfRooms: "",
         cost: "",
     };
@@ -350,7 +352,7 @@ export default function AddRoom({ id }) {
                                 htmlFor="bed-capacity">
                                 Bed Capacity Per Room
                             </label>
-                            <input
+                            {/* <input
                                 className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
                                 id="beds"
                                 name="beds"
@@ -359,7 +361,29 @@ export default function AddRoom({ id }) {
                                 type="text"
                                 placeholder="Number of Beds"
                                 aria-label="Name"
-                            />
+                            /> */}
+                            <div className="relative">
+                        <select
+                            className="appearance-none focus:shadow-outline w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                            name="beds"
+                            value={form.beds}
+                            onChange={handleChange}
+                            aria-label="Enter Bed Count per room">
+                            {BED_COUNT.map((el) => (
+                                <option value={el.text} key={el.text}>
+                                    {el.text}
+                                </option>
+                            ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg
+                                className="fill-current h-4 w-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
                             <div className="text-xs italic text-red-500">
                                 {error.beds}&nbsp;
                             </div>

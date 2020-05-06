@@ -59,7 +59,7 @@ function Hotel() {
     function handleChange(e) {
         let { name, value } = e.target;
 
-        if (name === "beds" && (value > 20 || value < 1)) return;
+        if (name === "beds" && (value > 5 || value < 1)) return;
         if (["checkin", "checkout"].includes(name)) {
             value = stringFromDate(value);
         }
