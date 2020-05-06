@@ -63,7 +63,7 @@ const HotelList = ({ hotels }) => {
                                         </div>
 
                                         <div className="mt-6 flex items-center">
-                                            <div className="ml-3 break-all">
+                                            <div className="ml-3">
                                                 <p className="text-sm leading-5 font-medium text-gray-900">
                                                     {item.category}
                                                 </p>
