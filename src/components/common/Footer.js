@@ -19,7 +19,7 @@ export default function Footer({ signUp }) {
                     <a
                         href="https://github.com/coronasafe/"
                         className="block text-gray-400 text-center  font-bold text-sm sm:mb-2 ">
-                        Powered by OSS Project :{" "}
+                        Powered by OSS Project :
                         <span className=" underline hover:text-indigo-400">
                             Github-Reference
                         </span>
