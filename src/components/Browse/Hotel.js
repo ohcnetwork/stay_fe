@@ -45,6 +45,7 @@ function Hotel() {
                         0,
                         Math.ceil(options[1][0].maximum / 100) * 100
                     ),
+                    sort: ["Price Low to High", "Price High to Low"],
                 };
                 setAppliedFilters("", true);
                 const currentForm = getInitFilter(newOptions);
@@ -77,6 +78,10 @@ function Hotel() {
                 updatedForm.category === "All" ? "" : updatedForm.category,
             district:
                 updatedForm.district === "All" ? "" : updatedForm.district,
+            sort:
+                updatedForm.sort === "Price Low to High"
+                    ? "low_to_high"
+                    : "high_to_low",
         };
         setAppliedFilters(formData);
         dispatch(getHotelList(formData));
@@ -98,6 +103,7 @@ function Hotel() {
             district: options.district[0],
             minimum: options.minimum,
             maximum: options.maximum,
+            sort: options.sort[0],
         };
 
         if (prevFilters) {
@@ -152,7 +158,7 @@ function Hotel() {
                             </label>
                             <div className="relative">
                                 <select
-                                    className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="category"
                                     id="category"
                                     onChange={handleChange}
@@ -184,7 +190,7 @@ function Hotel() {
                             </label>
                             <div className="relative">
                                 <select
-                                    className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="district"
                                     id="district"
                                     onChange={handleChange}
@@ -205,7 +211,44 @@ function Hotel() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                Sort
+                            </label>
+                            <div className="relative">
+                                <select
+                                    className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="sort"
+                                    id="sort"
+                                    onChange={handleChange}
+                                    value={form.sort}>
+                                    {optionlist.sort.map((item, index) => (
+                                        <option key={index} value={item}>
+                                            {item}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                Price Rs. {form.minimum}-{form.maximum}
+                            </label>
+                            <div className="relative">
+                                <Range
+                                    className="pt-5"
+                                    min={optionlist.minimum}
+                                    max={optionlist.maximum}
+                                    allowCross={false}
+                                    value={[form.minimum, form.maximum]}
+                                    onChange={onSliderChange}
+                                    step={50}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 pt-5">
                             <label
                                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 htmlFor="type">
@@ -254,28 +297,11 @@ function Hotel() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Price Rs. {form.minimum}-{form.maximum}
-                            </label>
-                            <div className="relative">
-                                <Range
-                                    className="pt-5"
-                                    min={optionlist.minimum}
-                                    max={optionlist.maximum}
-                                    allowCross={false}
-                                    value={[form.minimum, form.maximum]}
-                                    onChange={onSliderChange}
-                                    step={50}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
+                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 pt-5">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 Start Date
                             </label>
-                            <div className="relative">
+                            <div className="relative pt-2">
                                 <DatePicker
                                     value={new Date(form.checkin)}
                                     onChange={(newdate) =>
@@ -298,11 +324,11 @@ function Hotel() {
                                 />
                             </div>
                         </div>
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 pt-5">
+                        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0 pt-5">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 End Date
                             </label>
-                            <div className="relative">
+                            <div className="relative pt-2">
                                 <DatePicker
                                     value={new Date(form.checkout)}
                                     onChange={(newdate) =>
@@ -320,7 +346,7 @@ function Hotel() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/3  px-3 mb-6 md:mb-0 pt-5">
+                        <div className="w-full md:w-1/4  px-3 mb-6 md:mb-0 pt-5">
                             <div className="relative pt-12 flex justify-around">
                                 <button
                                     onClick={clearFilters}

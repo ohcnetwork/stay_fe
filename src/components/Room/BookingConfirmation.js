@@ -57,6 +57,11 @@ export default function BookingConfirmation({ shown, toggle, data }) {
         if (!isNumber(person["age"])) {
             err["age"] = true;
             isValid = false;
+        } else {
+            if (person["age"] > 125 || person["age"] < 0) {
+                err["age"] = true;
+                isValid = false;
+            }
         }
 
         setPersonErr(err);
