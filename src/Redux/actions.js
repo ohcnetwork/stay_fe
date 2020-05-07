@@ -81,3 +81,6 @@ export const getHotelByHotelId = (id) => {
 export const getAllHotelsList = () => {
     return fireRequest("allHotelsList");
 };
+export const deleteRooms = (ids) => {
+    return fireRequest("deleteRooms", [], ids);
+};

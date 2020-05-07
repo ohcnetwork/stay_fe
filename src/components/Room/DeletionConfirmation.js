@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { navigate, A } from "hookrouter";
 
 import * as Notification from "../../util/Notifications";
-import { deleteHotel, getHotelRoomList } from "../../Redux/actions";
+import { deleteRooms, getHotelRoomList } from "../../Redux/actions";
 
 export default function DeleteConfirmation({ control, ids, name, hotelId }) {
     const dispatch = useDispatch();
@@ -13,26 +12,25 @@ export default function DeleteConfirmation({ control, ids, name, hotelId }) {
     const [count, setCount] = useState(1);
 
     function del() {
-        console.log(count);
         setLoading(true);
         setError(false);
         if (count > 0 && count <= ids.length) {
-            dispatch(getHotelRoomList(hotelId));
-            Notification.Error({
-                msg: "Specfied room could not be deleted",
-            });
             const body = { roomid: ids.slice(0, count) };
-            console.log(body);
-            // dispatch(deleteHotel(id)).then((res) => {
-            //     if (res.status === 200) {
-            //         Notification.Success({
-            //             msg: `Deleted ${name}`,
-            //         });
-            //         navigate("/");
-            //     } else {
-            //         setError(true);
-            //     }
-            // });
+            dispatch(deleteRooms(body))
+                .then((res) => {
+                    if (res.status === 200) {
+                        Notification.Success({
+                            msg: `Deleted ${count} of ${name}`,
+                        });
+                    } else {
+                        Notification.Error({
+                            msg: "Specfied room could not be deleted",
+                        });
+                    }
+                })
+                .finally(() => {
+                    dispatch(getHotelRoomList(hotelId));
+                });
         } else {
             setError("Invalid number of rooms");
             setLoading(false);
