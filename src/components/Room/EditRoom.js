@@ -109,7 +109,7 @@ export default function EditRoom({ id }) {
         hotelRoomList.data.data.filter(
             (el) =>
                 JSON.stringify({ ...el, id: "" }) ===
-                JSON.stringify({ ...el, id: "" })
+                JSON.stringify({ ...currentRoom, id: "" })
         );
 
     // check if the hotel actually exists
