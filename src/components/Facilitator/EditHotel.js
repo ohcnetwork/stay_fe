@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { updateHotel, getUserHotelList } from "../../Redux/actions";
 import * as Notficiation from "../../util/Notifications";
 import { navigate, A } from "hookrouter";
@@ -14,6 +13,7 @@ export default function EditHotel({ id }) {
     const { currentUser: temp } = state;
     const currentUser = temp && temp.data && temp.data.data;
     const { userHotelList } = state;
+    //const [submt , setsubmit] = useState
 
     const initForm = {
         name: "",
@@ -43,13 +43,24 @@ export default function EditHotel({ id }) {
         userHotelList.data &&
         userHotelList.data.data &&
         Object.values(userHotelList.data.data).find((el) => el.id === id);
-
+  
     useEffect(() => {
         window.scrollTo(0, 0);
         dispatch(getUserHotelList());
     }, [id]);
 
-    function handleSubmit(formData) {
+    function handleSubmit(form) {
+        console.log(form);
+        const formData = new FormData();
+        Object.keys(form).forEach((key) => {
+            if (key === "file") {
+                form[key].forEach((el) => {
+                    formData.append(key, el);
+                });
+            } else {
+                formData.append(key, form[key]);
+            }
+        });
         setFormLoading(true);
         dispatch(updateHotel([id, "update-Facility"], formData)).then(
             (resp) => {
@@ -119,7 +130,7 @@ export default function EditHotel({ id }) {
                 initFacilities={facilities}
                 formLoading={formLoading}
                 formError={formError}
-                uploadOff={true}
+                uploadOff={false}
                 submit={handleSubmit}
             />
         </div>
