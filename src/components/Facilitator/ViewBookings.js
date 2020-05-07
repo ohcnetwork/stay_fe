@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { A } from "hookrouter";
 
-import { BOOKING_CHECKIN_STATUS, BOOKING_STATUS } from "../../Common/constants";
+import {
+    BOOKING_CHECKIN_STATUS,
+    BOOKING_STATUS,
+    USER_TYPES,
+} from "../../Common/constants";
 import { getHotelBookingList } from "../../Redux/actions";
 import UpdateBooking from "./UpdateBooking";
 import { FullLoading } from "../common/Loader";
 
 export default function ViewBookings({ id }) {
     const state = useSelector((reduxState) => reduxState);
+    const { currentUser: temp } = state;
+    const currentUser = temp && temp.data && temp.data.data;
     const { hotelBookingList } = state;
     const dispatch = useDispatch();
     const [showUpdation, setShowUpdation] = useState({
@@ -118,10 +124,15 @@ export default function ViewBookings({ id }) {
                             booking.statusBooking ===
                             BOOKING_STATUS.CANCELLED.type
                                 ? "bg-gray-300"
-                                : "bg-white hover:bg-gray-200"
-                        } cursor-pointer`}
+                                : "bg-white"
+                        } ${
+                            currentUser.type === USER_TYPES.ADMIN.type
+                                ? ""
+                                : "hover:bg-gray-200 cursor-pointer"
+                        }`}
                         onClick={() => {
-                            toggle(booking.book_id);
+                            currentUser.type !== USER_TYPES.ADMIN.type &&
+                                toggle(booking.book_id);
                         }}>
                         <div className="w-1/12 text-gray-700 text-sm md:text-base">
                             {booking.book_id}

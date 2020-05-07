@@ -7,8 +7,14 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import reducer from "./Redux/reducer";
+import * as Sentry from "@sentry/browser";
 
 const store = createStore(reducer, applyMiddleware(thunk));
+
+Sentry.init({
+    dsn:
+        "https://97beba458f3f41c5a333814f6ff02c1d@o371117.ingest.sentry.io/5227083",
+});
 
 ReactDOM.render(
     <Provider store={store}>
