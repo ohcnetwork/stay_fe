@@ -104,7 +104,7 @@ export default function FacilitatorViewHotel({ id }) {
                 </div>
 
                 <div className="w-full mb-6">
-                    <RoomsList data={hotelRoomData} />
+                    <RoomsList data={hotelRoomData} hotelId={id} />
                 </div>
             </div>
             <DeleteConfirmation

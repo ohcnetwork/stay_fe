@@ -1,50 +1,31 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { postAddRooms } from "../../Redux/actions";
-import * as Notficiation from "../../util/Notifications";
-import { navigate } from "hookrouter";
 import { isNumber } from "../../util/validation";
-import UploadImage from "./UploadImage";
+import UploadImage from "../Facilitator/UploadImage";
 import { BED_COUNT } from "../../Common/constants";
 
-
-export default function AddRoom({ id }) {
-    const dispatch = useDispatch();
-    const initForm = {
-        title: "",
-        features: null,
-        description: "",
-        category: "",
-        beds: BED_COUNT[0].text,
-        noOfRooms: "",
-        cost: "",
-    };
-    const initError = {
-        title: "",
-        description: "",
-        category: "",
-        beds: "",
-        photos: "",
-        noOfRooms: "",
-        cost: "",
-    };
+export default function RoomForm({
+    initForm,
+    onSubmit,
+    formLoading,
+    formError,
+    initFeatures,
+    editMode = false,
+    count = "",
+}) {
     const optionalValues = ["features"];
+
+    let initError = {};
+    Object.keys(initForm).forEach((formKey) => (initError[formKey] = ""));
+
     const myInput = useRef();
     useEffect(() => {
         window.scrollTo(0, 0);
         myInput.current && myInput.current.focus();
     }, []);
-    const [formLoading, setFormLoading] = useState(false);
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
-    const [formError, setFormError] = useState(false);
     const [category, setCategory] = useState("");
-    const [checkbox, setCheckbox] = useState({
-        ac: false,
-        wifi: false,
-        mini_fridge: false,
-        geyser: false,
-    });
+    const [checkbox, setCheckbox] = useState(initFeatures);
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -89,7 +70,7 @@ export default function AddRoom({ id }) {
             formValid = false;
             err["beds"] = "Enter Valid number";
         }
-        if (!isNumber(noOfRooms)) {
+        if (!isNumber(noOfRooms) && !editMode) {
             formValid = false;
             err["noOfRooms"] = "Enter Valid number";
         }
@@ -104,10 +85,8 @@ export default function AddRoom({ id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (validInputs() && !formLoading) {
             const formData = new FormData();
-
             Object.keys(form).forEach((key) => {
                 if (key === "file") {
                     form[key].forEach((el) => {
@@ -117,24 +96,8 @@ export default function AddRoom({ id }) {
                     formData.append(key, form[key]);
                 }
             });
-            setFormLoading(true);
-            dispatch(postAddRooms(id, formData)).then((resp) => {
-                const { status: statusCode } = resp;
-                const { data: res } = resp;
 
-                // set captha logic needed
-                if (res && statusCode === 201) {
-                    Notficiation.Success({
-                        msg: "Room Created",
-                    });
-                    navigate(`/hotel/${id}`);
-                } else {
-                    let formErr = "Some problem occurred";
-
-                    setFormError(formErr);
-                    setFormLoading(false);
-                }
-            });
+            onSubmit(formData);
         }
     };
 
@@ -146,7 +109,9 @@ export default function AddRoom({ id }) {
                         onSubmit={handleSubmit}
                         className="max-w-xl  m-4 p-10 bg-white rounded shadow-xl">
                         <p className="text-gray-800 font-medium text-center">
-                            Room Details
+                            {editMode
+                                ? `Editing ${count} Room(s)`
+                                : "Room Details"}
                         </p>
                         <div className="mt-2">
                             <label
@@ -269,7 +234,7 @@ export default function AddRoom({ id }) {
                                         type="radio"
                                         className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
-                                        checked={category === "hostel"}
+                                        checked={form.category === "hostel"}
                                         value="hostel"
                                         onChange={handleChange}
                                         onClick={() => setCategory("hostel")}
@@ -283,7 +248,7 @@ export default function AddRoom({ id }) {
                                         type="radio"
                                         className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
-                                        checked={category === "economy"}
+                                        checked={form.category === "economy"}
                                         value="economy"
                                         onChange={handleChange}
                                         onClick={() => setCategory("economy")}
@@ -297,7 +262,7 @@ export default function AddRoom({ id }) {
                                         type="radio"
                                         className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
-                                        checked={category === "standard"}
+                                        checked={form.category === "standard"}
                                         value="standard"
                                         onChange={handleChange}
                                         onClick={() => setCategory("standard")}
@@ -311,7 +276,7 @@ export default function AddRoom({ id }) {
                                         type="radio"
                                         className="form-radio focus:shadow-outline h-4 w-4"
                                         name="category"
-                                        checked={category === "premium"}
+                                        checked={form.category === "premium"}
                                         value="premium"
                                         onChange={handleChange}
                                         onClick={() => setCategory("premium")}
@@ -326,26 +291,28 @@ export default function AddRoom({ id }) {
                             </div>
                         </div>
 
-                        <div className="inline-block mt-2 w-1/2 pr-1">
-                            <label
-                                className="block text-sm text-gray-600 "
-                                htmlFor="noOfRooms">
-                                Number of Rooms
-                            </label>
-                            <input
-                                className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
-                                id="noOfRooms"
-                                name="noOfRooms"
-                                value={form.noOfRooms}
-                                onChange={handleChange}
-                                type="text"
-                                placeholder="Enter the number of rooms"
-                                aria-label="Name"
-                            />
-                            <div className="text-xs italic text-red-500">
-                                {error.noOfRooms}&nbsp;
+                        {!editMode && (
+                            <div className="inline-block mt-2 w-1/2 pr-1">
+                                <label
+                                    className="block text-sm text-gray-600 "
+                                    htmlFor="noOfRooms">
+                                    Number of Rooms
+                                </label>
+                                <input
+                                    className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
+                                    id="noOfRooms"
+                                    name="noOfRooms"
+                                    value={form.noOfRooms}
+                                    onChange={handleChange}
+                                    type="text"
+                                    placeholder="Enter the number of rooms"
+                                    aria-label="Name"
+                                />
+                                <div className="text-xs italic text-red-500">
+                                    {error.noOfRooms}&nbsp;
+                                </div>
                             </div>
-                        </div>
+                        )}
                         <div className="inline-block mt-2 w-1/2 pr-1">
                             <label
                                 className="block text-sm text-gray-600 "
@@ -363,27 +330,27 @@ export default function AddRoom({ id }) {
                                 aria-label="Name"
                             /> */}
                             <div className="relative">
-                        <select
-                            className="appearance-none focus:shadow-outline w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                            name="beds"
-                            value={form.beds}
-                            onChange={handleChange}
-                            aria-label="Enter Bed Count per room">
-                            {BED_COUNT.map((el) => (
-                                <option value={el.text} key={el.text}>
-                                    {el.text}
-                                </option>
-                            ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg
-                                className="fill-current h-4 w-4"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                        </div>
-                    </div>
+                                <select
+                                    className="appearance-none focus:shadow-outline w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                                    name="beds"
+                                    value={form.beds}
+                                    onChange={handleChange}
+                                    aria-label="Enter Bed Count per room">
+                                    {BED_COUNT.map((el) => (
+                                        <option value={el.text} key={el.text}>
+                                            {el.text}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg
+                                        className="fill-current h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
                             <div className="text-xs italic text-red-500">
                                 {error.beds}&nbsp;
                             </div>
@@ -421,6 +388,13 @@ export default function AddRoom({ id }) {
                                 setFiles={setFiles}
                                 formLoading={formLoading}
                             />
+                            {editMode && (
+                                <div className="text-xs italic text-gray-600">
+                                    {" "}
+                                    Uploading new images will remove all the
+                                    previous images
+                                </div>
+                            )}
                         </div>
                         <div className="h-10">
                             <p className="text-red-500 text-xs italic bold text-center mt-2">
