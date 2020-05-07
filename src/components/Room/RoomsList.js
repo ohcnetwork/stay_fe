@@ -24,6 +24,7 @@ export default function RoomsList({ data, linkSuffix = "", hotelId = "" }) {
                     <RoomContainer
                         key={r.title}
                         r={r}
+                        ids={room.map((el) => el.id)}
                         count={room.length}
                         hotelId={hotelId}
                     />

@@ -3,8 +3,14 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
 import { setRoomDetails } from "../../util/helperFunctions";
+import DeleteConfirmation from "./DeletionConfirmation";
 
-export default function RoomContainer({ r, count = null, hotelId = "" }) {
+export default function RoomContainer({
+    r,
+    count = null,
+    hotelId = "",
+    ids = [],
+}) {
     function storeRoomDetails() {
         const body = Object.assign({}, r);
         delete body.link;
@@ -13,6 +19,7 @@ export default function RoomContainer({ r, count = null, hotelId = "" }) {
 
     const previewImage = (r.photos && r.photos[0]) || DEFAULT_IMAGE.ROOM;
     const controlCarousal = useState(false);
+    const controlDeletion = useState(false);
 
     return (
         <div className="md:w-1/2 lg:w-1/3 w-full">
@@ -93,13 +100,23 @@ export default function RoomContainer({ r, count = null, hotelId = "" }) {
                                 className="bg-indigo-600 hover:bg-indigo-800 rounded px-3 py-1 mx-1 font-medium text-white">
                                 Edit
                             </A>
-                            {/* <A href="#" className="bg-red-700 hover:bg-red-800 rounded px-3 py-1 mx-1 font-medium text-white">
+                            <div
+                                onClick={() => controlDeletion[1](true)}
+                                className="bg-red-700 hover:bg-red-800 rounded px-3 py-1 mx-1 font-medium text-white cursor-pointer">
                                 Delete
-                            </A> */}
+                            </div>
                         </div>
                     )}
                 </div>
             </div>
+            {
+                <DeleteConfirmation
+                    control={controlDeletion}
+                    ids={ids}
+                    name={r.title}
+                    hotelId={hotelId}
+                />
+            }
             <Carousal
                 control={controlCarousal}
                 images={r.photos}
