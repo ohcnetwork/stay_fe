@@ -105,9 +105,7 @@ export default function HotelForm({
                         value={form.name}
                         onChange={handleChange}
                         type="text"
-                        required=""
                         placeholder="Enter Hotel Name"
-                        aria-label="Name"
                     />
                     <div className="text-xs italic text-red-500">
                         {error.name}
@@ -126,9 +124,7 @@ export default function HotelForm({
                         value={form.address}
                         onChange={handleChange}
                         type="text"
-                        required=""
                         placeholder="Enter Hotel Address"
-                        aria-label="Name"
                     />
                     <div className="text-xs italic full-width text-red-500">
                         {error.address}
@@ -147,9 +143,7 @@ export default function HotelForm({
                         value={form.panchayath}
                         onChange={handleChange}
                         type="text"
-                        required=""
                         placeholder="Enter Panchayat"
-                        aria-label="Name"
                     />
                 </div>
                 <div className="w-full md:w-1/2 inline-block mt-2 -mx-1 pl-1">
@@ -163,8 +157,7 @@ export default function HotelForm({
                             className="appearance-none focus:shadow-outline w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
                             name="district"
                             value={form.district}
-                            onChange={handleChange}
-                            aria-label="Enter District">
+                            onChange={handleChange}>
                             {DISTRICT_CHOICES.map((el) => (
                                 <option value={el.text} key={el.text}>
                                     {el.text}
@@ -335,9 +328,7 @@ export default function HotelForm({
 
                 {!uploadOff && (
                     <div className="mt-2">
-                        <label
-                            className="block text-sm text-gray-600 "
-                            htmlFor="photos">
+                        <label className="block text-sm text-gray-600 ">
                             Upload photos (maximum 5)
                         </label>
 
@@ -360,9 +351,7 @@ export default function HotelForm({
                         value={form.contact}
                         onChange={handleChange}
                         type="text"
-                        required=""
                         placeholder="Enter Contact Number"
-                        aria-label="Name"
                     />
                     <div className="text-xs italic text-red-500">
                         {error.contact}
@@ -382,9 +371,7 @@ export default function HotelForm({
                         value={form.policy}
                         onChange={handleChange}
                         type="text"
-                        required=""
                         placeholder="Enter Hotel Policies"
-                        aria-label="Name"
                     />
                     <div className="text-xs italic full-width text-red-500">
                         {error.policy}

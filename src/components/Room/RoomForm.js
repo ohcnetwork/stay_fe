@@ -128,7 +128,6 @@ export default function RoomForm({
                                 onChange={handleChange}
                                 type="text"
                                 placeholder="Enter Title"
-                                aria-label="Name"
                             />
                             <div className="text-xs italic text-red-500">
                                 {error.title}
@@ -148,7 +147,6 @@ export default function RoomForm({
                                 onChange={handleChange}
                                 type="text"
                                 placeholder="Enter Room Description"
-                                aria-label="Name"
                             />
                             <div className="text-xs italic text-red-500">
                                 {error.description}
@@ -306,7 +304,6 @@ export default function RoomForm({
                                     onChange={handleChange}
                                     type="text"
                                     placeholder="Enter the number of rooms"
-                                    aria-label="Name"
                                 />
                                 <div className="text-xs italic text-red-500">
                                     {error.noOfRooms}&nbsp;
@@ -316,26 +313,15 @@ export default function RoomForm({
                         <div className="inline-block mt-2 w-1/2 pr-1">
                             <label
                                 className="block text-sm text-gray-600 "
-                                htmlFor="bed-capacity">
+                                htmlFor="beds">
                                 Bed Capacity Per Room
                             </label>
-                            {/* <input
-                                className="w-full px-5 py-1 focus:shadow-outline text-gray-700 bg-gray-200 rounded"
-                                id="beds"
-                                name="beds"
-                                value={form.beds}
-                                onChange={handleChange}
-                                type="text"
-                                placeholder="Number of Beds"
-                                aria-label="Name"
-                            /> */}
                             <div className="relative">
                                 <select
                                     className="appearance-none focus:shadow-outline w-full py-1 px-5 py-1 text-gray-700 bg-gray-200 rounded"
                                     name="beds"
                                     value={form.beds}
-                                    onChange={handleChange}
-                                    aria-label="Enter Bed Count per room">
+                                    onChange={handleChange}>
                                     {BED_COUNT.map((el) => (
                                         <option value={el.text} key={el.text}>
                                             {el.text}
@@ -369,7 +355,6 @@ export default function RoomForm({
                                 onChange={handleChange}
                                 type="text"
                                 placeholder="Enter the Room Rent Per Day"
-                                aria-label="Name"
                             />
                             <div className="text-xs italic text-red-500">
                                 {error.cost}
@@ -378,9 +363,7 @@ export default function RoomForm({
 
                         {/* File upload */}
                         <div className="mt-2">
-                            <label
-                                className="block text-sm text-gray-600 "
-                                htmlFor="photos">
+                            <label className="block text-sm text-gray-600 ">
                                 Upload photos (maximum 5)
                             </label>
 
