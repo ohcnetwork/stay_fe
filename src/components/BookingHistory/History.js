@@ -164,11 +164,14 @@ export default function History() {
                                                     <img
                                                         className="h-48 w-full object-cover"
                                                         src={
-                                                        (value.room.facility.photos &&
-                                                            value.room.facility.photos[0]) ||
-                                                        DEFAULT_IMAGE.HOTEL
-                                                    }
-                                                    alt={value.name}
+                                                            (value.room.facility
+                                                                .photos &&
+                                                                value.room
+                                                                    .facility
+                                                                    .photos[0]) ||
+                                                            DEFAULT_IMAGE.HOTEL
+                                                        }
+                                                        alt={value.name}
                                                     />
                                                 </div>
                                                 <div className="px-3 py-4">
