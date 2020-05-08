@@ -81,3 +81,11 @@ export const getHotelByHotelId = (id) => {
 export const getAllHotelsList = () => {
     return fireRequest("allHotelsList");
 };
+export const deleteRooms = (ids) => {
+    // axois does not support delete body in normal form
+    ids = { data: ids };
+    return fireRequest("deleteRooms", [], ids);
+};
+export const updateRooms = (form) => {
+    return fireRequest("updateRooms", [], form, "", true);
+};
