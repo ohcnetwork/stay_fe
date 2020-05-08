@@ -6,7 +6,7 @@ import Star from "../common/Star";
 export default function HotelInfo({ data }) {
     const [hotel, setHotel] = useState(null);
     const controlCarousal = useState(false);
-
+    const [readmore, setreadmore] = useState(false);
     useEffect(() => {
         setHotel(data);
     }, [data]);
@@ -14,6 +14,17 @@ export default function HotelInfo({ data }) {
     if (!hotel) {
         return null;
     }
+    var policyLength = 250;
+    var readLessPolicy = "";
+    const getLessPolicy = (len) => {
+        if (hotel.policy.length > len) {
+            readLessPolicy = hotel.policy.slice(0, len) + "...";
+        }
+    };
+    const changeread = () => {
+        setreadmore(!readmore);
+    };
+    getLessPolicy(policyLength);
 
     const previewImage =
         (hotel.photos && hotel.photos[0]) || DEFAULT_IMAGE.HOTEL;
@@ -62,10 +73,29 @@ export default function HotelInfo({ data }) {
                     </div>
                 </div>
                 <div className="text-gray-600 text-sm">
-                    Policy: {hotel.policy}
+                    <span className="text-gray-700 font-semibold">
+                        Policy :
+                    </span>{" "}
+                    {hotel.policy.length > policyLength
+                        ? readmore
+                            ? hotel.policy
+                            : readLessPolicy
+                        : hotel.policy}
+                    &nbsp; &nbsp;
+                    {hotel.policy.length > policyLength && (
+                        <button
+                            className="text-blue-500 outline-none"
+                            onClick={changeread}>
+                            {readmore ? "ReadLess" : "ReadMore"}
+                        </button>
+                    )}
                 </div>
+
                 <div className="text-gray-600 text-sm">
-                    Contact: {hotel.contact}
+                    <span className="text-gray-700 font-semibold">
+                        Contact :
+                    </span>{" "}
+                    {hotel.contact}
                 </div>
                 {/* <div className="flex-grow flex flex-col justify-center items-end py-50">
                     <div className="text-xs font-bold text-gray-800">
