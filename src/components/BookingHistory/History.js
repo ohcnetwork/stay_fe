@@ -45,7 +45,6 @@ export default function History() {
         dispatch(getBookingHistory()).then((resp) => {
             const { data: res } = resp;
             setHistorydata(res);
-            console.log(res);
             setloading(false);
         });
     }, [dispatch, user, PageRerender]);
