@@ -61,7 +61,7 @@ export const deleteHotel = (id) => {
     return fireRequest("deleteHotel", [id]);
 };
 export const updateHotel = (pathParam, body) => {
-    return fireRequest("updateHotel", pathParam, body);
+    return fireRequest("updateHotel", pathParam, body, "", true);
 };
 export const deleteBooking = (id) => {
     return fireRequest("deleteBooking", [id]);
