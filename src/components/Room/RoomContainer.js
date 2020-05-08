@@ -71,7 +71,7 @@ export default function RoomContainer({
                                     </div>
                                 ))}
                             {r.features === "" && (
-                                <div className="text-xs text-gray-200 mr-2 px-2 rounded tracking-wide uppercase">
+                                <div className="text-xs text-transparent mr-2 px-2 rounded tracking-wide uppercase">
                                     NO FACILITIES
                                 </div>
                             )}
