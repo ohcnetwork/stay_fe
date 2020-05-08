@@ -230,6 +230,12 @@ export default function ViewRoom({ category, id }) {
                                     value={dateout}
                                     onChange={onDateChangeOut}
                                     minDate={new Date()}
+                                    maxDate={
+                                        new Date(
+                                            +new Date() +
+                                                5 * 360 * 60 * 60 * 24 * 1000
+                                        )
+                                    }
                                 />
                             </div>
                         </form>

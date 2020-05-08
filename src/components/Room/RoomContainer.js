@@ -62,22 +62,19 @@ export default function RoomContainer({
                             </div>
                         </div>
                         <div className="flex flex-wrap pb-3">
-                            {   r.features &&
+                            {r.features &&
                                 (r.features || "").split(",").map((el) => (
-                                <div
-                                    key={el}
-                                    className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide uppercase">
-                                    {el.replace("_", " ")}
-                                </div>
-                            ))}
-                            {
-                                r.features === "" &&
-                                <div
-                                    className="text-xs text-gray-200 mr-2 px-2 rounded tracking-wide uppercase">
+                                    <div
+                                        key={el}
+                                        className="text-xs text-gray-900 mr-2 bg-gray-400 px-2 rounded tracking-wide uppercase">
+                                        {el.replace("_", " ")}
+                                    </div>
+                                ))}
+                            {r.features === "" && (
+                                <div className="text-xs text-gray-200 mr-2 px-2 rounded tracking-wide uppercase">
                                     NO FACILITIES
                                 </div>
-                                
-                            }
+                            )}
                         </div>
                         <div className="text-gray-600 pb h-32 overflow-hidden text-sm">
                             {r.description}
