@@ -9,20 +9,14 @@ export default function Footer({ signUp }) {
                     {signUp && (
                         <A
                             href="facilitator-register"
-                            className="block text-gray-400 font-bold text-m text-center pb-2 hover:text-indigo-400">
+                            className="block text-gray-400 font-bold text-sm text-center  hover:text-indigo-400">
                             Sign Up as Facilitator
                         </A>
                     )}
-                    {/* <p className="text-gray-400 text-center  text-sm sm:mb-2">
-                        Powered by OSS Project
-                    </p> */}
                     <a
-                        href="https://github.com/coronasafe/"
-                        className="block text-gray-400 text-center  font-bold text-sm sm:mb-2 ">
-                        Powered by OSS Project :
-                        <span className=" underline hover:text-indigo-400">
-                            Github-Reference
-                        </span>
+                        href="https://coronasafe.network/"
+                        className="block text-gray-400 text-center  font-bold text-sm sm:mb-2 hover:text-indigo-400 ">
+                        Powered by Coronasafe Network
                     </a>
                 </div>
             </section>
