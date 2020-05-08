@@ -10,7 +10,7 @@ export default function HotelForm({
     formLoading,
     formError,
     submit,
-    uploadOff = false,
+    editMode = false,
 }) {
     const optionalValues = ["panchayath", "starCategory", "facilities"];
 
@@ -79,15 +79,15 @@ export default function HotelForm({
         e.preventDefault();
         if (validInputs() && !formLoading) {
             const formData = new FormData();
-        Object.keys(form).forEach((key) => {
-            if (key === "file") {
-                form[key].forEach((el) => {
-                    formData.append(key, el);
-                });
-            } else {
-                formData.append(key, form[key]);
-            }
-        });
+            Object.keys(form).forEach((key) => {
+                if (key === "file") {
+                    form[key].forEach((el) => {
+                        formData.append(key, el);
+                    });
+                } else {
+                    formData.append(key, form[key]);
+                }
+            });
             submit(formData);
         }
     };
@@ -334,19 +334,23 @@ export default function HotelForm({
                         {error.latitude || error.longitude}
                     </div>
                 </div>
+                <div className="mt-2">
+                    <label className="block text-sm text-gray-600 ">
+                        Upload photos (maximum 5)
+                    </label>
 
-                {!uploadOff && (
-                    <div className="mt-2">
-                        <label className="block text-sm text-gray-600 ">
-                            Upload photos (maximum 5)
-                        </label>
-
-                        <UploadImage
-                            setFiles={setFiles}
-                            formLoading={formLoading}
-                        />
-                    </div>
-                )}
+                    <UploadImage
+                        setFiles={setFiles}
+                        formLoading={formLoading}
+                    />
+                    {editMode && (
+                        <div className="text-xs italic text-gray-600">
+                            {" "}
+                            Uploading new images will remove all the previous
+                            images
+                        </div>
+                    )}
+                </div>
                 <div className="mt-2">
                     <label
                         className="block text-sm text-gray-600"

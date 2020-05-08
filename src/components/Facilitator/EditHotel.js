@@ -26,7 +26,7 @@ export default function EditHotel({ id }) {
         facilities: "",
         contact: "",
         policy: "",
-        file:[],
+        file: [],
     };
 
     const initFacilities = {
@@ -51,8 +51,6 @@ export default function EditHotel({ id }) {
     }, [id]);
 
     function handleSubmit(formData) {
-        
-
         setFormLoading(true);
 
         dispatch(updateHotel([id, "update-Facility"], formData)).then(
@@ -106,11 +104,11 @@ export default function EditHotel({ id }) {
 
     let currentForm = Object.assign({}, initForm);
     Object.keys(currentForm).forEach((el) => {
-            if (el !== "photos") {
-              currentForm[el] = currentHotel[el];
-            }
-          });
-    currentForm.file=[];
+        if (el !== "photos") {
+            currentForm[el] = currentHotel[el];
+        }
+    });
+    currentForm.file = [];
     let currentFacilities = Object.assign({}, initFacilities);
     currentHotel.facilities &&
         currentHotel.facilities.split(",").forEach((el) => {
@@ -119,8 +117,6 @@ export default function EditHotel({ id }) {
     const facilities = currentFacilities;
     const form = currentForm;
     console.log(currentForm);
-    
-    
 
     return (
         <div className="overflow-x-hidden flex items-center justify-center">
@@ -131,6 +127,7 @@ export default function EditHotel({ id }) {
                 formError={formError}
                 // uploadOff={true}
                 submit={handleSubmit}
+                editMode={true}
             />
         </div>
     );
