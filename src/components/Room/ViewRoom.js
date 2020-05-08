@@ -391,7 +391,12 @@ export default function ViewRoom({ category, id }) {
                 <BookingConfirmation
                     shown={showConfirmation}
                     toggle={toggleConfirmation}
-                    data={{ ...detail, startdate: datein, enddate: dateout }}
+                    data={{
+                        ...detail,
+                        startdate: datein,
+                        enddate: dateout,
+                        hId: hotelid,
+                    }}
                 />
             }
         </div>
