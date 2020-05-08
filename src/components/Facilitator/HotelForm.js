@@ -78,8 +78,17 @@ export default function HotelForm({
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validInputs() && !formLoading) {
-            // pass the value for submission
-            submit(form);
+            const formData = new FormData();
+        Object.keys(form).forEach((key) => {
+            if (key === "file") {
+                form[key].forEach((el) => {
+                    formData.append(key, el);
+                });
+            } else {
+                formData.append(key, form[key]);
+            }
+        });
+            submit(formData);
         }
     };
 
