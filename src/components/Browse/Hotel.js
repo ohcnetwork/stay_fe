@@ -16,7 +16,7 @@ import "rc-slider/assets/index.css";
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-
+var minmumDays = process.env.REACT_APP_MIN_DAYS;
 function Hotel() {
     const dispatch = useDispatch();
 
@@ -59,12 +59,25 @@ function Hotel() {
 
     function handleChange(e) {
         let { name, value } = e.target;
-
+        var checkout = form.checkout;
         if (name === "beds" && (value > 5 || value < 1)) return;
         if (["checkin", "checkout"].includes(name)) {
+            if (name === "checkin") {
+                var datein = e.target.value;
+                var newdateout = new Date(
+                    +new Date(datein) + (minmumDays - 1) * 60 * 60 * 24 * 1000
+                );
+                if (new Date(form.checkout) < newdateout) {
+                    newdateout = stringFromDate(newdateout);
+                    checkout = newdateout;
+                }
+            } else {
+                checkout = stringFromDate(e.target.value);
+            }
             value = stringFromDate(value);
         }
-        setForm({ ...form, [name]: value });
+
+        setForm({ ...form, [name]: value, checkout: checkout });
     }
 
     function onSliderChange(price) {
@@ -315,8 +328,8 @@ function Hotel() {
                                     minDate={new Date()}
                                     maxDate={
                                         new Date(
-                                            new Date(form.checkout) +
-                                                24 * 60 * 60 * 100
+                                            +new Date() +
+                                                5 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                     clearIcon={null}
@@ -339,7 +352,16 @@ function Hotel() {
                                             },
                                         })
                                     }
-                                    minDate={new Date(form.checkin)}
+                                    minDate={
+                                        new Date(
+                                            +new Date(form.checkin) +
+                                                (minmumDays - 1) *
+                                                    60 *
+                                                    60 *
+                                                    24 *
+                                                    1000
+                                        )
+                                    }
                                     maxDate={
                                         new Date(
                                             +new Date() +
