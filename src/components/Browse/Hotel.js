@@ -329,7 +329,7 @@ function Hotel() {
                                     maxDate={
                                         new Date(
                                             +new Date() +
-                                                5 * 360 * 60 * 60 * 24 * 1000
+                                                2 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                     clearIcon={null}
@@ -365,7 +365,7 @@ function Hotel() {
                                     maxDate={
                                         new Date(
                                             +new Date() +
-                                                5 * 360 * 60 * 60 * 24 * 1000
+                                                2 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                     clearIcon={null}
