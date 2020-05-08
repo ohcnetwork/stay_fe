@@ -16,7 +16,7 @@ export default function BookingConfirmation({ shown, toggle, data }) {
     const dispatch = useDispatch();
     var checkin = stringFromDate(data.startdate);
     var checkout = stringFromDate(data.enddate);
-
+    const hotelid = data.hId;
     const myInput = useRef();
     useEffect(() => {
         myInput.current && myInput.current.focus();
@@ -110,9 +110,9 @@ export default function BookingConfirmation({ shown, toggle, data }) {
                 } else {
                     setLoading(false);
                     Notficiation.Error({
-                        msg:
-                            "Sorry! some error encountered... Please reload the page to continue.",
+                        msg: "Sorry! there was some issue while booking.",
                     });
+                    navigate(`/roomlist/${hotelid}`);
                 }
             });
         }
