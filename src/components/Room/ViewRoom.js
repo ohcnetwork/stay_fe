@@ -98,21 +98,19 @@ export default function ViewRoom({ category, id }) {
         }
     };
     const onDateChangeIn = (newdatein) => {
-        if (checkValidDate(newdatein, dateout)) {
-            setdatein(newdatein);
-            if (
-                new Date(dateout) <
-                +new Date(newdatein) + (minmumDays - 1) * 60 * 60 * 24 * 1000
-            ) {
-                setdateout(
-                    new Date(
-                        +new Date(newdatein) +
-                            (minmumDays - 1) * 60 * 60 * 24 * 1000
-                    )
-                );
-            }
-            setApplied(false);
+        setdatein(newdatein);
+        if (
+            new Date(dateout) <
+            +new Date(newdatein) + (minmumDays - 1) * 60 * 60 * 24 * 1000
+        ) {
+            setdateout(
+                new Date(
+                    +new Date(newdatein) +
+                        (minmumDays - 1) * 60 * 60 * 24 * 1000
+                )
+            );
         }
+        setApplied(false);
     };
     const onDateChangeOut = (newdateout) => {
         if (checkValidDate(datein, newdateout)) {
@@ -224,7 +222,7 @@ export default function ViewRoom({ category, id }) {
                                     maxDate={
                                         new Date(
                                             +new Date() +
-                                                5 * 360 * 60 * 60 * 24 * 1000
+                                                2 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                 />
@@ -254,7 +252,7 @@ export default function ViewRoom({ category, id }) {
                                     maxDate={
                                         new Date(
                                             +new Date() +
-                                                5 * 360 * 60 * 60 * 24 * 1000
+                                                2 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                 />
