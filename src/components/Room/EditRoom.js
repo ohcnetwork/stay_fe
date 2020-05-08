@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import RoomForm from "./RoomForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    postAddRooms,
+    updateRooms,
     getUserHotelList,
     getHotelRoomList,
 } from "../../Redux/actions";
@@ -64,15 +64,14 @@ export default function EditRoom({ id }) {
         );
 
         setFormLoading(true);
-        console.log("submit form");
-        dispatch(postAddRooms(id, form)).then((resp) => {
+        dispatch(updateRooms(form)).then((resp) => {
             const { status: statusCode } = resp;
             const { data: res } = resp;
 
             // set captha logic needed
-            if (res && statusCode === 201) {
+            if (res && statusCode === 200) {
                 Notficiation.Success({
-                    msg: "Room Created",
+                    msg: `${currentHotelRooms.length} room(s) updated`,
                 });
                 navigate(`/hotel/${id}`);
                 setRoomDetails(null, true);

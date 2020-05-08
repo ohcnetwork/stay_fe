@@ -86,3 +86,6 @@ export const deleteRooms = (ids) => {
     ids = { data: ids };
     return fireRequest("deleteRooms", [], ids);
 };
+export const updateRooms = (form) => {
+    return fireRequest("updateRooms", [], form, "", true);
+};

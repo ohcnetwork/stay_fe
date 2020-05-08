@@ -26,7 +26,7 @@ export default function RoomContainer({
             <div
                 className={`${
                     r.link ? "hover:bg-gray-300 hover:shadow-lg" : ""
-                }mx-5 my-5 bg-gray-200 rounded shadow-md `}>
+                } mx-5 my-5 bg-gray-200 rounded shadow-md `}>
                 <A
                     onClick={storeRoomDetails}
                     key={r.title}
@@ -52,7 +52,7 @@ export default function RoomContainer({
                     </div>
                     <div className="pt-3 px-3">
                         <div className="flex flex-wrap items-center justify-between py-1">
-                            <div className="text-gray-800 text-lg uppercase font-medium py-1">
+                            <div className="text-gray-800 text-lg uppercase font-medium py-1 truncate">
                                 {r.title}
                             </div>
                             <div className="flex items-center">
