@@ -3,7 +3,7 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Carousal from "../common/Carousal";
 import { setRoomDetails } from "../../util/helperFunctions";
-import DeleteConfirmation from "./DeletionConfirmation";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 export default function RoomContainer({
     r,

@@ -24,7 +24,6 @@ export default function RoomForm({
     }, []);
     const [form, setForm] = useState(initForm);
     const [error, setError] = useState(initError);
-    const [category, setCategory] = useState("");
     const [checkbox, setCheckbox] = useState(initFeatures);
 
     const handleChange = (e) => {
@@ -33,7 +32,7 @@ export default function RoomForm({
 
         // error handling needed
 
-        fieldValue[name] = fieldValue[name] = value;
+        fieldValue[name] = value;
 
         setForm(fieldValue);
     };
@@ -235,7 +234,6 @@ export default function RoomForm({
                                         checked={form.category === "hostel"}
                                         value="hostel"
                                         onChange={handleChange}
-                                        onClick={() => setCategory("hostel")}
                                     />
                                     <span className="ml-2  text-gray-600">
                                         Hostel
@@ -249,7 +247,6 @@ export default function RoomForm({
                                         checked={form.category === "economy"}
                                         value="economy"
                                         onChange={handleChange}
-                                        onClick={() => setCategory("economy")}
                                     />
                                     <span className="ml-2 text-gray-600">
                                         Economy
@@ -263,7 +260,6 @@ export default function RoomForm({
                                         checked={form.category === "standard"}
                                         value="standard"
                                         onChange={handleChange}
-                                        onClick={() => setCategory("standard")}
                                     />
                                     <span className="ml-2  text-gray-600">
                                         Standard
@@ -277,7 +273,6 @@ export default function RoomForm({
                                         checked={form.category === "premium"}
                                         value="premium"
                                         onChange={handleChange}
-                                        onClick={() => setCategory("premium")}
                                     />
                                     <span className="ml-2  text-gray-600">
                                         Premium

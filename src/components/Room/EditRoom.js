@@ -57,14 +57,14 @@ export default function EditRoom({ id }) {
         dispatch(getHotelRoomList(id));
     }, [id]);
 
-    function onSubmit(form) {
-        form.append(
+    function onSubmit(formCurrent) {
+        formCurrent.append(
             "ids",
             currentHotelRooms.map((el) => el.id)
         );
 
         setFormLoading(true);
-        dispatch(updateRooms(form)).then((resp) => {
+        dispatch(updateRooms(formCurrent)).then((resp) => {
             const { status: statusCode } = resp;
             const { data: res } = resp;
 
