@@ -36,6 +36,7 @@ export default function ViewRoom({ category, id }) {
         (dateout - datein) / (1000 * 60 * 60 * 24) + 1
     );
     const [dateDifference, setdateDifference] = useState(dateDifferences);
+    var minmumDays = process.env.REACT_APP_MIN_DAYS;
     useEffect(() => {
         window.scrollTo(0, 0);
         updateRoomGetDetail();
@@ -99,6 +100,17 @@ export default function ViewRoom({ category, id }) {
     const onDateChangeIn = (newdatein) => {
         if (checkValidDate(newdatein, dateout)) {
             setdatein(newdatein);
+            if (
+                new Date(dateout) <
+                +new Date(newdatein) + (minmumDays - 1) * 60 * 60 * 24 * 1000
+            ) {
+                setdateout(
+                    new Date(
+                        +new Date(newdatein) +
+                            (minmumDays - 1) * 60 * 60 * 24 * 1000
+                    )
+                );
+            }
             setApplied(false);
         }
     };
@@ -211,8 +223,8 @@ export default function ViewRoom({ category, id }) {
                                     minDate={new Date()}
                                     maxDate={
                                         new Date(
-                                            new Date(dateout) +
-                                                24 * 60 * 60 * 100
+                                            +new Date() +
+                                                5 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                 />
@@ -229,7 +241,16 @@ export default function ViewRoom({ category, id }) {
                                     name="dateout"
                                     value={dateout}
                                     onChange={onDateChangeOut}
-                                    minDate={new Date()}
+                                    minDate={
+                                        new Date(
+                                            +new Date(datein) +
+                                                (minmumDays - 1) *
+                                                    60 *
+                                                    60 *
+                                                    24 *
+                                                    1000
+                                        )
+                                    }
                                     maxDate={
                                         new Date(
                                             +new Date() +

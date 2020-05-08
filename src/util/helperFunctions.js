@@ -4,7 +4,7 @@ export function getAppliedFilters(options = null, all = false) {
     let currentForm = {
         checkin: stringFromDate(new Date()),
         checkout: stringFromDate(
-            new Date(+new Date() + minmumDays * 60 * 60 * 24 * 1000)
+            new Date(+new Date() + (minmumDays - 1) * 60 * 60 * 24 * 1000)
         ),
     };
 
