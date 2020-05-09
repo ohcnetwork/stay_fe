@@ -173,7 +173,7 @@ function Hotel() {
                             value={search}
                         />
                         <button
-                            className="flex items-center justify-center w-1/4 px-4 border-l"
+                            className="flex bg-gray-100 items-center justify-center w-1/4 px-4 border-l"
                             onClick={() => {
                                 clearFilters();
                                 setfinal(search);
@@ -437,10 +437,31 @@ function Hotel() {
                     </div>
                 </div>
             </div>
-            <div className="font-sans text-black px-3 py-5 mb-3 text-lg flex items-center justify-center">
-            {  final !== "" &&
-               <div> Search results for <span className="font-bold">{final}</span></div>
-            }
+            <div className="font-sans text-black px-3 mt-2 text-lg flex items-center justify-center">
+                {final !== "" && (
+                    <div>
+                        {" "}
+                        Search results for{" "}
+                        <span className="font-bold">
+                            {final}
+                            <button></button>
+                        </span>
+                    </div>
+                )}
+            </div>
+            <div className="font-sans text-black px-3 mb-2 text-lg flex items-center justify-center">
+                {final !== "" && (
+                    <div>
+                        <button
+                            onClick={() => {
+                                setfinal("");
+                                setsearch("");
+                            }}
+                            className="text-sm text-gray-800 underline">
+                            CLEAR SEARCH
+                        </button>
+                    </div>
+                )}
             </div>
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
                 {!getHotelDetails || getHotelDetails.isFetching ? (

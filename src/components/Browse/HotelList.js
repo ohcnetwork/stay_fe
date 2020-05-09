@@ -15,7 +15,6 @@ const HotelList = ({ hotels, search }) => {
         }
     }
     if (hotels.length !== 0) {
-        var namefound;
         if (hotels[0].panchayath !== undefined) {
             for (i = 0; i < hotels.length; i++) {
                 hotels[i].namefound = false;
