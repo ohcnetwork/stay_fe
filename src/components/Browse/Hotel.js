@@ -163,19 +163,19 @@ function Hotel() {
                     <div className="border rounded-lg overflow-hidden flex bg-white  mx-auto w-xl sm:w-64 md:w-1/4 mr-auto xs:mx-auto sm:ml-auto md:mr-0 h-10 mt-3 ">
                         <input
                             type="text"
-                            className="block appearance-none  w-3/4 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="block  w-3/4 text-gray-700 py-2 pl-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             placeholder="Search..."
                             onChange={(e) => setsearch(e.target.value)}
                             value={search}
                         />
                         <button
-                            className="flex items-center justify-center w-1/4 px-4"
+                            className="flex items-center justify-center w-1/4 pr-2 outline-none text-gray-600 hover:text-gray-900"
                             onClick={() => {
                                 clearFilters();
                                 setfinal(search);
                             }}>
                             <svg
-                                className="h-4 w-4 text-grey-dark"
+                                className="h-4 w-4"
                                 fill="currentColor"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24">
