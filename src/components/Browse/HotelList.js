@@ -3,8 +3,36 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Star from "../common/Star";
 
-const HotelList = ({ hotels }) => {
-    if (hotels.length === 0) {
+const HotelList = ({ hotels, search }) => {
+    var result = [];
+    var i = 0;
+    var space = true;
+    for (i = 0; i < search.length; i++) {
+        if (search[i] !== " ") {
+            space = false;
+            break;
+        }
+    }
+     if (hotels.length !== 0) {
+        if (hotels[0].panchayath !== undefined) {
+            for (i = 0; i < hotels.length; i++) {
+                if (
+                    hotels[i].panchayath.toLowerCase() ===
+                        search.toLowerCase() ||
+                    hotels[i].address
+                        .toLowerCase()
+                        .includes(search.toLowerCase()) ||
+                    search === "" ||
+                    hotels[i].district.toLowerCase() === search.toLowerCase() ||
+                    hotels[i].name.toLowerCase() === search.toLowerCase() ||
+                    space === true
+                )
+                    result = result.concat(hotels[i]);
+            }
+        }
+    }
+
+    if (result.length === 0) {
         return (
             <div>
                 <br />
@@ -23,11 +51,10 @@ const HotelList = ({ hotels }) => {
             </div>
         );
     }
-
     return (
         <div className="hotelslist-center max-w-6xl mx-auto">
             <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-4 md:grid-cols-3 md:max-w-none sm:mx-8">
-                {hotels.map((item) => {
+                {result.map((item) => {
                     return (
                         <div key={item.id}>
                             <A

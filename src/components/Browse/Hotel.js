@@ -25,6 +25,8 @@ function Hotel() {
 
     const state = useSelector((reduxState) => reduxState);
     const { getOptionlistBackend, getHotelDetails } = state;
+    const [search, setsearch] = useState("");
+    const [final, setfinal] = useState("");
 
     useEffect(() => {
         dispatch(getOptionlist()).then((res) => {
@@ -145,7 +147,6 @@ function Hotel() {
     ) {
         return <Loading />;
     }
-
     return (
         <div>
             <div className="relative rounded-b-lg px-4 sm:px-6 lg:px-8 mx-auto">
@@ -161,6 +162,33 @@ function Hotel() {
                     </div>
                 </div>
                 <br />
+
+                <div className="font-sans text-black py-5 mb-5 shadow   -lg  bg-white flex items-center justify-center">
+                    <div className="border rounded overflow-hidden flex">
+                        <input
+                            type="text"
+                            className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            placeholder="Search..."
+                            onChange={(e) => setsearch(e.target.value)}
+                            value={search}
+                        />
+                        <button
+                            className="flex items-center justify-center px-4 border-l"
+                            onClick={() => {
+                                clearFilters();
+                                setfinal(search);
+                            }}>
+                            <svg
+                                className="h-4 w-4 text-grey-dark"
+                                fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
                 <div className="bg-white shadow border rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
                         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
@@ -252,7 +280,7 @@ function Hotel() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 pt-5">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                 Price Rs. {form.minimum}-{form.maximum}
                             </label>
@@ -393,7 +421,10 @@ function Hotel() {
                                     Clear
                                 </button>
                                 <button
-                                    onClick={() => fetchUpdatedHotels(form)}
+                                    onClick={() => {
+                                        fetchUpdatedHotels(form);
+                                        setfinal(search);
+                                    }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
                                     Apply
@@ -409,7 +440,7 @@ function Hotel() {
                 ) : !getHotelDetails.data ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList hotels={getHotelDetails.data} />
+                    <HotelList hotels={getHotelDetails.data} search={final} />
                 )}
             </div>
         </div>
