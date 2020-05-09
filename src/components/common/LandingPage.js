@@ -26,11 +26,11 @@ function LandingPage() {
                             </h2>
                             <p className="mt-2 text-sm text-black-300 md:text-base">
                                 A platform to list and book quarantined hotels
-                                and corona care centers in
-                                Kerala with all required facilities provided to
-                                you. Choose from the best of the facilities we
-                                provide and make your quarantine stay better and
-                                safe! <b>Together lets Fight Corona!</b>
+                                and corona care centers in Kerala with all
+                                required facilities provided to you. Choose from
+                                the best of the facilities we provide and make
+                                your quarantine stay better and safe!{" "}
+                                <b>Together lets Fight Corona!</b>
                             </p>
                             {!currentUser && (
                                 <div className="flex justify-center lg:justify-start mt-6">

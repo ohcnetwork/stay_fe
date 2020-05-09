@@ -25,6 +25,8 @@ function Hotel() {
 
     const state = useSelector((reduxState) => reduxState);
     const { getOptionlistBackend, getHotelDetails } = state;
+    const [search, setsearch] = useState("");
+    const [final, setfinal] = useState("");
 
     useEffect(() => {
         dispatch(getOptionlist()).then((res) => {
@@ -145,7 +147,6 @@ function Hotel() {
     ) {
         return <Loading />;
     }
-
     return (
         <div>
             <div className="relative rounded-b-lg px-4 sm:px-6 lg:px-8 mx-auto">
@@ -161,6 +162,33 @@ function Hotel() {
                     </div>
                 </div>
                 <br />
+
+                <div className="font-sans text-black px-3 py-5 mb-5 shadow-lg  bg-white flex items-center justify-center">
+                    <div className="border rounded overflow-hidden flex">
+                        <input
+                            type="text"
+                            className="block appearance-none lg:w-full w-3/4  bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            placeholder="Search..."
+                            onChange={(e) => setsearch(e.target.value)}
+                            value={search}
+                        />
+                        <button
+                            className="flex bg-gray-100 items-center justify-center w-1/4 px-4 border-l"
+                            onClick={() => {
+                                clearFilters();
+                                setfinal(search);
+                            }}>
+                            <svg
+                                className="h-4 w-4 text-grey-dark"
+                                fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
                 <div className="bg-white shadow border rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
                         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
@@ -387,13 +415,19 @@ function Hotel() {
                         <div className="w-full md:w-1/4  px-3 mb-6 md:mb-0 pt-5">
                             <div className="relative pt-12 flex justify-around">
                                 <button
-                                    onClick={clearFilters}
+                                    onClick={() => {
+                                        clearFilters();
+                                        setfinal("");
+                                        setsearch("");
+                                    }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
                                     Clear
                                 </button>
                                 <button
-                                    onClick={() => fetchUpdatedHotels(form)}
+                                    onClick={() => {
+                                        fetchUpdatedHotels(form);
+                                    }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
                                     Apply
@@ -403,13 +437,39 @@ function Hotel() {
                     </div>
                 </div>
             </div>
+            <div className="font-sans text-black px-3 mt-2 text-lg flex items-center justify-center">
+                {final !== "" && (
+                    <div>
+                        {" "}
+                        Search results for{" "}
+                        <span className="font-bold">
+                            {final}
+                            <button></button>
+                        </span>
+                    </div>
+                )}
+            </div>
+            <div className="font-sans text-black px-3 mb-2 text-lg flex items-center justify-center">
+                {final !== "" && (
+                    <div>
+                        <button
+                            onClick={() => {
+                                setfinal("");
+                                setsearch("");
+                            }}
+                            className="text-sm text-gray-800 underline">
+                            CLEAR SEARCH
+                        </button>
+                    </div>
+                )}
+            </div>
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
                 {!getHotelDetails || getHotelDetails.isFetching ? (
                     <Loading />
                 ) : !getHotelDetails.data ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList hotels={getHotelDetails.data} />
+                    <HotelList hotels={getHotelDetails.data} search={final} />
                 )}
             </div>
         </div>
