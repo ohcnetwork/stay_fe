@@ -163,7 +163,7 @@ function Hotel() {
                 </div>
                 <br />
 
-                <div className="font-sans text-black px-3 py-5 mb-5 shadow-lg  bg-white flex items-center justify-center">
+                <div className="font-sans text-black px-3 py-5 mb-5 shadow-md lg:w-1/3  m-0 m-auto bg-white flex items-center justify-center">
                     <div className="border rounded overflow-hidden flex">
                         <input
                             type="text"
