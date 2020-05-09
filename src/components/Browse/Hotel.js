@@ -437,6 +437,11 @@ function Hotel() {
                     </div>
                 </div>
             </div>
+            <div className="font-sans text-black px-3 py-5 mb-3 text-lg flex items-center justify-center">
+            {  final !== "" &&
+               <div> Search results for <span className="font-bold">{final}</span></div>
+            }
+            </div>
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
                 {!getHotelDetails || getHotelDetails.isFetching ? (
                     <Loading />
