@@ -150,8 +150,8 @@ function Hotel() {
     return (
         <div>
             <div className="relative rounded-b-lg px-4 sm:px-6 lg:px-8 mx-auto">
-                <div className="relative max-w-7xl lg:flex lg:flex-row mx-auto">
-                    <div className="lg:w-3/5  w-full">
+                <div className="relative max-w-7xl lg:flex md:flex md:flex-row lg:flex-row mx-auto">
+                    <div className="lg:w-3/5 md:w-3/4 w-full">
                         {/* <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                             Accomodation
                         </h2> */}
@@ -160,7 +160,7 @@ function Hotel() {
                             budget
                         </p>
                     </div>
-                    <div className="font-sans lg:w-2/5 w-full text-black px-3 py-5 mb-5  mt-3 lg:mt-0   m-0 m-auto  flex rounded items-center justify-center">
+                    <div className="font-sans md:w-1/4 lg:w-2/5 w-full text-black px-3 py-5 mb-5  mt-3 lg:mt-0   m-0 m-auto  flex rounded items-center justify-center">
                         <div className="border rounded overflow-hidden shadow-sm  border border-gray-600 flex">
                             <input
                                 type="text"
