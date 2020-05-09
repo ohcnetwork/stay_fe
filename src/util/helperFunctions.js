@@ -1,9 +1,10 @@
 export function getAppliedFilters(options = null, all = false) {
     const appliedFilters = JSONstring(localStorage.getItem("applied_filters"));
+    var minmumDays = process.env.REACT_APP_MIN_DAYS;
     let currentForm = {
         checkin: stringFromDate(new Date()),
         checkout: stringFromDate(
-            new Date(+new Date() + 15 * 60 * 60 * 24 * 1000)
+            new Date(+new Date() + (minmumDays - 1) * 60 * 60 * 24 * 1000)
         ),
     };
 

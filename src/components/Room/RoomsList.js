@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RoomContainer from "./RoomContainer";
 
-export default function RoomsList({ data, linkSuffix = "" }) {
+export default function RoomsList({ data, linkSuffix = "", hotelId = "" }) {
     const [rooms, setRooms] = useState(null);
 
     useEffect(() => {
@@ -21,7 +21,13 @@ export default function RoomsList({ data, linkSuffix = "" }) {
                 const r = room[0];
                 r.link = linkSuffix && `/room/${r.category}${linkSuffix}`;
                 return (
-                    <RoomContainer key={r.title} r={r} count={room.length} />
+                    <RoomContainer
+                        key={r.title}
+                        r={r}
+                        ids={room.map((el) => el.id)}
+                        count={room.length}
+                        hotelId={hotelId}
+                    />
                 );
             });
         } else {

@@ -36,6 +36,7 @@ export default function ViewRoom({ category, id }) {
         (dateout - datein) / (1000 * 60 * 60 * 24) + 1
     );
     const [dateDifference, setdateDifference] = useState(dateDifferences);
+    var minmumDays = process.env.REACT_APP_MIN_DAYS;
     useEffect(() => {
         window.scrollTo(0, 0);
         updateRoomGetDetail();
@@ -97,10 +98,19 @@ export default function ViewRoom({ category, id }) {
         }
     };
     const onDateChangeIn = (newdatein) => {
-        if (checkValidDate(newdatein, dateout)) {
-            setdatein(newdatein);
-            setApplied(false);
+        setdatein(newdatein);
+        if (
+            new Date(dateout) <
+            +new Date(newdatein) + (minmumDays - 1) * 60 * 60 * 24 * 1000
+        ) {
+            setdateout(
+                new Date(
+                    +new Date(newdatein) +
+                        (minmumDays - 1) * 60 * 60 * 24 * 1000
+                )
+            );
         }
+        setApplied(false);
     };
     const onDateChangeOut = (newdateout) => {
         if (checkValidDate(datein, newdateout)) {
@@ -211,8 +221,8 @@ export default function ViewRoom({ category, id }) {
                                     minDate={new Date()}
                                     maxDate={
                                         new Date(
-                                            new Date(dateout) +
-                                                24 * 60 * 60 * 100
+                                            +new Date() +
+                                                2 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                 />
@@ -229,7 +239,22 @@ export default function ViewRoom({ category, id }) {
                                     name="dateout"
                                     value={dateout}
                                     onChange={onDateChangeOut}
-                                    minDate={new Date()}
+                                    minDate={
+                                        new Date(
+                                            +new Date(datein) +
+                                                (minmumDays - 1) *
+                                                    60 *
+                                                    60 *
+                                                    24 *
+                                                    1000
+                                        )
+                                    }
+                                    maxDate={
+                                        new Date(
+                                            +new Date() +
+                                                2 * 360 * 60 * 60 * 24 * 1000
+                                        )
+                                    }
                                 />
                             </div>
                         </form>
@@ -364,7 +389,12 @@ export default function ViewRoom({ category, id }) {
                 <BookingConfirmation
                     shown={showConfirmation}
                     toggle={toggleConfirmation}
-                    data={{ ...detail, startdate: datein, enddate: dateout }}
+                    data={{
+                        ...detail,
+                        startdate: datein,
+                        enddate: dateout,
+                        hId: hotelid,
+                    }}
                 />
             }
         </div>
