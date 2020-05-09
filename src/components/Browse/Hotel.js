@@ -16,7 +16,7 @@ import "rc-slider/assets/index.css";
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-
+var minmumDays = process.env.REACT_APP_MIN_DAYS;
 function Hotel() {
     const dispatch = useDispatch();
 
@@ -59,12 +59,25 @@ function Hotel() {
 
     function handleChange(e) {
         let { name, value } = e.target;
-
+        var checkout = form.checkout;
         if (name === "beds" && (value > 5 || value < 1)) return;
         if (["checkin", "checkout"].includes(name)) {
+            if (name === "checkin") {
+                var datein = e.target.value;
+                var newdateout = new Date(
+                    +new Date(datein) + (minmumDays - 1) * 60 * 60 * 24 * 1000
+                );
+                if (new Date(form.checkout) < newdateout) {
+                    newdateout = stringFromDate(newdateout);
+                    checkout = newdateout;
+                }
+            } else {
+                checkout = stringFromDate(e.target.value);
+            }
             value = stringFromDate(value);
         }
-        setForm({ ...form, [name]: value });
+
+        setForm({ ...form, [name]: value, checkout: checkout });
     }
 
     function onSliderChange(price) {
@@ -228,6 +241,14 @@ function Hotel() {
                                         </option>
                                     ))}
                                 </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg
+                                        className="fill-current h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
 
@@ -303,6 +324,7 @@ function Hotel() {
                             </label>
                             <div className="relative pt-2">
                                 <DatePicker
+                                    className="appearance-none  w-half bg-grey-lighter text-grey-darker  py-1 px-2"
                                     value={new Date(form.checkin)}
                                     onChange={(newdate) =>
                                         handleChange({
@@ -315,8 +337,8 @@ function Hotel() {
                                     minDate={new Date()}
                                     maxDate={
                                         new Date(
-                                            new Date(form.checkout) +
-                                                24 * 60 * 60 * 100
+                                            +new Date() +
+                                                2 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                     clearIcon={null}
@@ -330,6 +352,7 @@ function Hotel() {
                             </label>
                             <div className="relative pt-2">
                                 <DatePicker
+                                    className="appearance-none  w-half bg-grey-lighter text-grey-darker  py-1 px-2"
                                     value={new Date(form.checkout)}
                                     onChange={(newdate) =>
                                         handleChange({
@@ -339,7 +362,22 @@ function Hotel() {
                                             },
                                         })
                                     }
-                                    minDate={new Date(form.checkin)}
+                                    minDate={
+                                        new Date(
+                                            +new Date(form.checkin) +
+                                                (minmumDays - 1) *
+                                                    60 *
+                                                    60 *
+                                                    24 *
+                                                    1000
+                                        )
+                                    }
+                                    maxDate={
+                                        new Date(
+                                            +new Date() +
+                                                2 * 360 * 60 * 60 * 24 * 1000
+                                        )
+                                    }
                                     clearIcon={null}
                                     format="y-MM-dd"
                                 />

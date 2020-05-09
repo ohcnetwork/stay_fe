@@ -77,8 +77,7 @@ export default function Login() {
                 })
                 .catch((err) => {
                     Notficiation.Error({
-                        msg:
-                            "Kindly check your login credentials and try again",
+                        msg: "Check network connection and try again",
                     });
                 });
         }
