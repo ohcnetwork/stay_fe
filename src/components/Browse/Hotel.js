@@ -163,17 +163,17 @@ function Hotel() {
                 </div>
                 <br />
 
-                <div className="font-sans text-black py-5 mb-5 shadow   -lg  bg-white flex items-center justify-center">
+                <div className="font-sans text-black px-3 py-5 mb-5 shadow-lg  bg-white flex items-center justify-center">
                     <div className="border rounded overflow-hidden flex">
                         <input
                             type="text"
-                            className="block appearance-none w-full bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="block appearance-none lg:w-full w-3/4  bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             placeholder="Search..."
                             onChange={(e) => setsearch(e.target.value)}
                             value={search}
                         />
                         <button
-                            className="flex items-center justify-center px-4 border-l"
+                            className="flex items-center justify-center w-1/4 px-4 border-l"
                             onClick={() => {
                                 clearFilters();
                                 setfinal(search);
