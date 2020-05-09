@@ -5,7 +5,7 @@ import Star from "../common/Star";
 
 const HotelList = ({ hotels, search }) => {
     var result = [];
-    var i = 0;
+    var i = 0;var j=0;
     var space = true;
     for (i = 0; i < search.length; i++) {
         if (search[i] !== " ") {
@@ -15,7 +15,14 @@ const HotelList = ({ hotels, search }) => {
     }
      if (hotels.length !== 0) {
         if (hotels[0].panchayath !== undefined) {
+            var namefound=false;
             for (i = 0; i < hotels.length; i++) {
+                const namearray=(hotels[i].name.split(" "));
+                for(j=0;j<namearray.length;j++){
+                    if(namearray[j].toLowerCase() === search.toLowerCase()){
+                        namefound = true;
+                    }
+                }
                 if (
                     hotels[i].panchayath.toLowerCase() ===
                         search.toLowerCase() ||
@@ -23,6 +30,7 @@ const HotelList = ({ hotels, search }) => {
                         .toLowerCase()
                         .includes(search.toLowerCase()) ||
                     search === "" ||
+                    namefound === true ||
                     hotels[i].district.toLowerCase() === search.toLowerCase() ||
                     hotels[i].name.toLowerCase() === search.toLowerCase() ||
                     space === true
