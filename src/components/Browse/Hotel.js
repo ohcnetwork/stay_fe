@@ -150,8 +150,8 @@ function Hotel() {
     return (
         <div>
             <div className="relative rounded-b-lg px-4 sm:px-6 lg:px-8 mx-auto">
-                <div className="relative max-w-7xl mx-auto">
-                    <div className="">
+                <div className="relative max-w-7xl lg:flex md:flex md:flex-row lg:flex-row mx-auto">
+                    <div className="lg:w-3/5 md:w-3/4 w-full">
                         {/* <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                             Accomodation
                         </h2> */}
@@ -160,34 +160,33 @@ function Hotel() {
                             budget
                         </p>
                     </div>
-                </div>
-                <br />
-
-                <div className="font-sans text-black px-3 py-5 mb-5 shadow-md lg:w-1/3  m-0 m-auto bg-white flex items-center justify-center">
-                    <div className="border rounded overflow-hidden flex">
-                        <input
-                            type="text"
-                            className="block appearance-none lg:w-full w-3/4  bg-gray-300 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            placeholder="Search..."
-                            onChange={(e) => setsearch(e.target.value)}
-                            value={search}
-                        />
-                        <button
-                            className="flex bg-gray-100 items-center justify-center w-1/4 px-4 border-l"
-                            onClick={() => {
-                                clearFilters();
-                                setfinal(search);
-                            }}>
-                            <svg
-                                className="h-4 w-4 text-grey-dark"
-                                fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24">
-                                <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
-                            </svg>
-                        </button>
+                    <div className="font-sans md:w-1/4 lg:w-2/5 w-full text-black px-3 py-5 mb-5  mt-3 lg:mt-0   m-0 m-auto  flex rounded items-center justify-center">
+                        <div className="border rounded overflow-hidden shadow-sm  border border-gray-600 flex">
+                            <input
+                                type="text"
+                                className="block appearance-none lg:w-full w-3/4  bg-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                placeholder="Search..."
+                                onChange={(e) => setsearch(e.target.value)}
+                                value={search}
+                            />
+                            <button
+                                className="flex bg-gray-400   items-center justify-center w-1/4 px-4 border-l"
+                                onClick={() => {
+                                    clearFilters();
+                                    setfinal(search);
+                                }}>
+                                <svg
+                                    className="h-4 w-4 text-grey-dark"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24">
+                                    <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
+                <br />
 
                 <div className="bg-white shadow border rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
