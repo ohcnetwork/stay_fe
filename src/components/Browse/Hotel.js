@@ -415,7 +415,11 @@ function Hotel() {
                         <div className="w-full md:w-1/4  px-3 mb-6 md:mb-0 pt-5">
                             <div className="relative pt-12 flex justify-around">
                                 <button
-                                    onClick={clearFilters}
+                                    onClick={() => {
+                                        clearFilters();
+                                        setfinal("");
+                                        setsearch("");
+                                    }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
                                     Clear
@@ -423,7 +427,6 @@ function Hotel() {
                                 <button
                                     onClick={() => {
                                         fetchUpdatedHotels(form);
-                                        setfinal(search);
                                     }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
