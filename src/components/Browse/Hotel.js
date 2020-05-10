@@ -436,7 +436,7 @@ function Hotel() {
                     </div>
                 </div>
             </div>
-            <div className="border rounded-lg shadow-md w-5/6 overflow-hidden flex bg-white  m-0 w-xl sm:w-64 md:w-1/3 m-auto border border-gray-300 mt-5 ">
+            <div className="border rounded-lg shadow w-5/6 overflow-hidden flex bg-white  m-0 w-xl sm:w-64 md:w-1/3 m-auto border border-gray-300 mt-5 ">
                 <input
                     type="text"
                     className="block  w-4/5 text-gray-700 py-2 pl-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -444,7 +444,7 @@ function Hotel() {
                     onChange={handleSearch}
                     value={search}
                 />
-                <div className="flex items-center justify-center w-1/5 pr-2 outline-none text-gray-900">
+                <div className="flex items-center justify-center w-1/5 outline-none text-gray-900">
                     <svg
                         className="h-4 w-4"
                         fill="currentColor"

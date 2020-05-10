@@ -214,21 +214,60 @@ export default function History() {
                                                         </li>
                                                         <li>
                                                             Booking Date :{" "}
+                                                            {new Intl.DateTimeFormat(
+                                                                "en-GB",
+                                                                {
+                                                                    year:
+                                                                        "numeric",
+                                                                    month:
+                                                                        "long",
+                                                                    day:
+                                                                        "2-digit",
+                                                                }
+                                                            ).format(
+                                                                new Date(
+                                                                    value.createdAt
+                                                                )
+                                                            )}{" "}
                                                             {new Date(
                                                                 value.createdAt
-                                                            ).toLocaleString()}
+                                                            ).toLocaleTimeString()}
                                                         </li>
                                                         <li>
                                                             Checkin :{" "}
-                                                            {new Date(
-                                                                value.checkin
-                                                            ).toLocaleDateString()}
+                                                            {new Intl.DateTimeFormat(
+                                                                "en-GB",
+                                                                {
+                                                                    year:
+                                                                        "numeric",
+                                                                    month:
+                                                                        "long",
+                                                                    day:
+                                                                        "2-digit",
+                                                                }
+                                                            ).format(
+                                                                new Date(
+                                                                    value.checkin
+                                                                )
+                                                            )}
                                                         </li>
                                                         <li>
                                                             Checkout :{" "}
-                                                            {new Date(
-                                                                value.checkout
-                                                            ).toLocaleDateString()}
+                                                            {new Intl.DateTimeFormat(
+                                                                "en-GB",
+                                                                {
+                                                                    year:
+                                                                        "numeric",
+                                                                    month:
+                                                                        "long",
+                                                                    day:
+                                                                        "2-digit",
+                                                                }
+                                                            ).format(
+                                                                new Date(
+                                                                    value.checkout
+                                                                )
+                                                            )}
                                                         </li>
                                                         <li>
                                                             <div className="flex w-full  text-sm flex-row  ">
