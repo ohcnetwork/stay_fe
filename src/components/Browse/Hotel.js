@@ -26,7 +26,7 @@ function Hotel() {
     const state = useSelector((reduxState) => reduxState);
     const { getOptionlistBackend, getHotelDetails } = state;
     const [search, setsearch] = useState("");
-    const [final, setfinal] = useState("");
+    const [result, setResults] = useState({});
 
     useEffect(() => {
         dispatch(getOptionlist()).then((res) => {
@@ -109,6 +109,32 @@ function Hotel() {
         fetchUpdatedHotels(currentForm);
     }
 
+    function filterResults(property, srch) {
+        return getHotelDetails.data.filter(
+            (hotel) =>
+                hotel[property].toLowerCase().indexOf(srch.toLowerCase()) !== -1
+        );
+    }
+
+    function handleSearch(e) {
+        setsearch(e.target.value);
+        const currentSearch = e.target.value;
+        let currentMatches = [];
+        currentMatches = currentMatches.concat(
+            filterResults("name", currentSearch)
+        );
+        currentMatches = currentMatches.concat(
+            filterResults("address", currentSearch)
+        );
+        currentMatches = currentMatches.concat(
+            filterResults("panchayath", currentSearch)
+        );
+        currentMatches = currentMatches.concat(
+            filterResults("district", currentSearch)
+        );
+        setResults([...new Set(currentMatches)]);
+    }
+
     function getInitFilter(options) {
         const prevFilters = getAppliedFilters(options);
         let currentForm = {
@@ -147,6 +173,7 @@ function Hotel() {
     ) {
         return <Loading />;
     }
+
     return (
         <div>
             <div className="relative rounded-b-lg px-4 sm:px-6 lg:px-8 mx-auto">
@@ -159,29 +186,6 @@ function Hotel() {
                             Select an accomodation that fits your needs and your
                             budget
                         </p>
-                    </div>
-                    <div className="border rounded-lg overflow-hidden flex bg-white  mx-auto w-xl sm:w-64 md:w-1/4 mr-auto xs:mx-auto sm:ml-auto md:mr-0 h-10 mt-3 ">
-                        <input
-                            type="text"
-                            className="block  w-3/4 text-gray-700 py-2 pl-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            placeholder="Search..."
-                            onChange={(e) => setsearch(e.target.value)}
-                            value={search}
-                        />
-                        <button
-                            className="flex items-center justify-center w-1/4 pr-2 outline-none text-gray-600 hover:text-gray-900"
-                            onClick={() => {
-                                clearFilters();
-                                setfinal(search);
-                            }}>
-                            <svg
-                                className="h-4 w-4"
-                                fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24">
-                                <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
                 <br />
@@ -414,8 +418,6 @@ function Hotel() {
                                 <button
                                     onClick={() => {
                                         clearFilters();
-                                        setfinal("");
-                                        setsearch("");
                                     }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
@@ -434,39 +436,36 @@ function Hotel() {
                     </div>
                 </div>
             </div>
-            <div className="font-sans text-black px-3 mt-2 text-lg flex items-center justify-center">
-                {final !== "" && (
-                    <div>
-                        {" "}
-                        Search results for{" "}
-                        <span className="font-bold">
-                            {final}
-                            <button></button>
-                        </span>
-                    </div>
-                )}
+            <div className="border rounded-lg shadow-md w-5/6 overflow-hidden flex bg-white  m-0 w-xl sm:w-64 md:w-1/3 m-auto border border-gray-300 mt-5 ">
+                <input
+                    type="text"
+                    className="block  w-4/5 text-gray-700 py-2 pl-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    placeholder="Search..."
+                    onChange={handleSearch}
+                    value={search}
+                />
+                <div className="flex items-center justify-center w-1/5 pr-2 outline-none text-gray-900">
+                    <svg
+                        className="h-4 w-4"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                        <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                    </svg>
+                </div>
             </div>
-            <div className="font-sans text-black px-3 mb-2 text-lg flex items-center justify-center">
-                {final !== "" && (
-                    <div>
-                        <button
-                            onClick={() => {
-                                setfinal("");
-                                setsearch("");
-                            }}
-                            className="text-sm text-gray-800 underline">
-                            CLEAR SEARCH
-                        </button>
-                    </div>
-                )}
-            </div>
+
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
                 {!getHotelDetails || getHotelDetails.isFetching ? (
                     <Loading />
                 ) : !getHotelDetails.data ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList hotels={getHotelDetails.data} search={final} />
+                    <HotelList
+                        hotels={getHotelDetails.data}
+                        search={result}
+                        input={search}
+                    />
                 )}
             </div>
         </div>
