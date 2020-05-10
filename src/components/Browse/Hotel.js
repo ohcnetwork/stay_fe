@@ -444,7 +444,7 @@ function Hotel() {
                     onChange={handleSearch}
                     value={search}
                 />
-                <div className="flex items-center justify-center w-1/5 outline-none text-gray-900">
+                <div className="flex items-center justify-center w-1/5 pr-2 outline-none text-gray-900">
                     <svg
                         className="h-4 w-4"
                         fill="currentColor"
