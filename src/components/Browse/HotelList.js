@@ -3,40 +3,26 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Star from "../common/Star";
 
-const HotelList = ({ hotels, search }) => {
-    var result = [];
-    var i = 0;
-    var j = 0;
-    var space = true;
-    for (i = 0; i < search.length; i++) {
-        if (search[i] !== " ") {
+const HotelList = ({ hotels, search, input }) => {
+    let result = [];
+    let i = 0;
+    let j = 0;
+    let space = true;
+    for (i = 0; i < input.length; i++) {
+        if (input[i] !== " ") {
             space = false;
             break;
         }
     }
-    if (hotels.length !== 0) {
-        if (hotels[0].panchayath !== undefined) {
-            for (i = 0; i < hotels.length; i++) {
-                hotels[i].namefound = false;
-                const namearray = hotels[i].name.split(" ");
-                for (j = 0; j < namearray.length; j++) {
-                    if (namearray[j].toLowerCase() === search.toLowerCase()) {
-                        hotels[i].namefound = true;
-                    }
+    if (input.length === 0 || space === true) {
+        result = hotels;
+    } else if (search.length !== undefined && search.length !== 0) {
+        result = [];
+        for (i = 0; i < search.length; i++) {
+            for (j = 0; j < hotels.length; j++) {
+                if (search[i].id === hotels[j].id) {
+                    result = result.concat(search[i]);
                 }
-                if (
-                    hotels[i].panchayath.toLowerCase() ===
-                        search.toLowerCase() ||
-                    hotels[i].address
-                        .toLowerCase()
-                        .includes(search.toLowerCase()) ||
-                    search === "" ||
-                    hotels[i].namefound === true ||
-                    hotels[i].district.toLowerCase() === search.toLowerCase() ||
-                    hotels[i].name.toLowerCase() === search.toLowerCase() ||
-                    space === true
-                )
-                    result = result.concat(hotels[i]);
             }
         }
     }
