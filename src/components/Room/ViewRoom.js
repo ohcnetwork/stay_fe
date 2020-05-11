@@ -222,7 +222,7 @@ export default function ViewRoom({ category, id }) {
                                     maxDate={
                                         new Date(
                                             +new Date() +
-                                                2 * 360 * 60 * 60 * 24 * 1000
+                                                2 * 360 * 60 * 60 * 24 * 1000 //max 2 years from start date
                                         )
                                     }
                                 />
