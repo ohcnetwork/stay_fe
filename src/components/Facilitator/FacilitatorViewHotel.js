@@ -23,9 +23,9 @@ export default function FacilitatorViewHotel({ id }) {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        dispatch(getUserHotelList(currentUser.id));
+        dispatch(getUserHotelList());
         dispatch(getHotelRoomList(id));
-    }, [dispatch, currentUser.id, id]);
+    }, [dispatch, id]);
 
     // check if loading
     if (
@@ -54,7 +54,7 @@ export default function FacilitatorViewHotel({ id }) {
 
     // check if the hotel actually exists
     // and if this user is the owner
-    if (!currentHotel || currentHotel.ownerID !== currentUser.id) {
+    if (!currentHotel) {
         return (
             <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
                 <div className="text-5xl text-gray-400">

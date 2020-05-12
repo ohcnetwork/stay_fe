@@ -29,7 +29,7 @@ export default function Facilitator({ from }) {
         } else {
             dispatch(getAllHotelsList());
         }
-    }, [dispatch, currentUser.id, from]);
+    }, [dispatch, from]);
 
     if (!userHotelList || userHotelList.isFetching) {
         return <FullLoading />;
