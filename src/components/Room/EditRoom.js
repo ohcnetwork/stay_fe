@@ -115,7 +115,6 @@ export default function EditRoom({ id }) {
     // and if this user is the owner
     if (
         !currentHotel ||
-        currentHotel.ownerID !== currentUser.id ||
         !currentHotelRooms
     ) {
         return (
