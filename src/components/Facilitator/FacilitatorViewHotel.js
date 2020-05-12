@@ -23,9 +23,9 @@ export default function FacilitatorViewHotel({ id }) {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        dispatch(getUserHotelList(currentUser.id));
+        dispatch(getUserHotelList());
         dispatch(getHotelRoomList(id));
-    }, [dispatch, currentUser.id, id]);
+    }, [dispatch, id]);
 
     // check if loading
     if (
