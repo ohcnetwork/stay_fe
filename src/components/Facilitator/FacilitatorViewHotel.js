@@ -54,7 +54,7 @@ export default function FacilitatorViewHotel({ id }) {
 
     // check if the hotel actually exists
     // and if this user is the owner
-    if (!currentHotel ) {
+    if (!currentHotel) {
         return (
             <div className="h-screen w-full items-center flex flex-col justify-center overflow-hidden">
                 <div className="text-5xl text-gray-400">
