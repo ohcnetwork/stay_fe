@@ -13,7 +13,7 @@ function LandingPage() {
     return (
         <div className="">
             <div className="w-full">
-                <div className="flex py-12">
+                <div className="flex py-6">
                     <div className="flex items-center text-left sm:text-center md:text-left px-8 md:pl-12 lg:w-2/3">
                         <div>
                             <h2 className="text-3xl font-semibold text-gray-800 md:text-4xl">
@@ -26,11 +26,11 @@ function LandingPage() {
                             </h2>
                             <p className="mt-2 text-sm text-black-300 md:text-base">
                                 A platform to list and book quarantined hotels
-                                and corona care centers for 14 day isolation in
-                                Kerala with all required facilities provided to
-                                you. Choose from the best of the facilities we
-                                provide and make your quarantine stay better and
-                                safe! <b>Together lets Fight Corona!</b>
+                                and corona care centers in Kerala with all
+                                required facilities provided to you. Choose from
+                                the best of the facilities we provide and make
+                                your quarantine stay better and safe!{" "}
+                                <b>Together lets Fight Corona!</b>
                             </p>
                             {!currentUser && (
                                 <div className="flex justify-center lg:justify-start mt-6">

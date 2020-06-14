@@ -93,6 +93,18 @@ export default {
         noAuth: false,
     },
 
+    deleteRooms: {
+        path: "/api/v1/rooms/deleteroom",
+        method: "DELETE",
+        noAuth: false,
+    },
+
+    updateRooms: {
+        path: "/api/v1/rooms/update-rooms",
+        method: "PATCH",
+        noAuth: false,
+    },
+
     updateHotel: {
         path: "/api/v1/facility",
         method: "PATCH",

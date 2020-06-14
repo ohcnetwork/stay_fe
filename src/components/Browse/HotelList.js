@@ -3,8 +3,31 @@ import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Star from "../common/Star";
 
-const HotelList = ({ hotels }) => {
-    if (hotels.length === 0) {
+const HotelList = ({ hotels, search, input }) => {
+    let result = [];
+    let i = 0;
+    let j = 0;
+    let space = true;
+    for (i = 0; i < input.length; i++) {
+        if (input[i] !== " ") {
+            space = false;
+            break;
+        }
+    }
+    if (input.length === 0 || space === true) {
+        result = hotels;
+    } else if (search.length !== undefined && search.length !== 0) {
+        result = [];
+        for (i = 0; i < search.length; i++) {
+            for (j = 0; j < hotels.length; j++) {
+                if (search[i].id === hotels[j].id) {
+                    result = result.concat(search[i]);
+                }
+            }
+        }
+    }
+
+    if (result.length === 0) {
         return (
             <div>
                 <br />
@@ -23,11 +46,10 @@ const HotelList = ({ hotels }) => {
             </div>
         );
     }
-
     return (
         <div className="hotelslist-center max-w-6xl mx-auto">
             <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-4 md:grid-cols-3 md:max-w-none sm:mx-8">
-                {hotels.map((item) => {
+                {result.map((item) => {
                     return (
                         <div key={item.id}>
                             <A

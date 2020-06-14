@@ -37,18 +37,7 @@ export default function AddHotelForm() {
     const handleSubmit = (form) => {
         setFormLoading(true);
 
-        const formData = new FormData();
-        Object.keys(form).forEach((key) => {
-            if (key === "file") {
-                form[key].forEach((el) => {
-                    formData.append(key, el);
-                });
-            } else {
-                formData.append(key, form[key]);
-            }
-        });
-
-        dispatch(postAddHotel(formData)).then((resp) => {
+        dispatch(postAddHotel(form)).then((resp) => {
             const { status: statusCode } = resp;
             const { data: res } = resp;
 

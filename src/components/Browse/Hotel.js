@@ -16,7 +16,7 @@ import "rc-slider/assets/index.css";
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-
+var minmumDays = process.env.REACT_APP_MIN_DAYS;
 function Hotel() {
     const dispatch = useDispatch();
 
@@ -25,6 +25,8 @@ function Hotel() {
 
     const state = useSelector((reduxState) => reduxState);
     const { getOptionlistBackend, getHotelDetails } = state;
+    const [search, setsearch] = useState("");
+    const [result, setResults] = useState({});
 
     useEffect(() => {
         dispatch(getOptionlist()).then((res) => {
@@ -59,12 +61,25 @@ function Hotel() {
 
     function handleChange(e) {
         let { name, value } = e.target;
-
+        var checkout = form.checkout;
         if (name === "beds" && (value > 5 || value < 1)) return;
         if (["checkin", "checkout"].includes(name)) {
+            if (name === "checkin") {
+                var datein = e.target.value;
+                var newdateout = new Date(
+                    +new Date(datein) + (minmumDays - 1) * 60 * 60 * 24 * 1000
+                );
+                if (new Date(form.checkout) < newdateout) {
+                    newdateout = stringFromDate(newdateout);
+                    checkout = newdateout;
+                }
+            } else {
+                checkout = stringFromDate(e.target.value);
+            }
             value = stringFromDate(value);
         }
-        setForm({ ...form, [name]: value });
+
+        setForm({ ...form, [name]: value, checkout: checkout });
     }
 
     function onSliderChange(price) {
@@ -92,6 +107,32 @@ function Hotel() {
         const currentForm = getInitFilter(optionlist);
         setForm(currentForm);
         fetchUpdatedHotels(currentForm);
+    }
+
+    function filterResults(property, srch) {
+        return getHotelDetails.data.filter(
+            (hotel) =>
+                hotel[property].toLowerCase().indexOf(srch.toLowerCase()) !== -1
+        );
+    }
+
+    function handleSearch(e) {
+        setsearch(e.target.value);
+        const currentSearch = e.target.value;
+        let currentMatches = [];
+        currentMatches = currentMatches.concat(
+            filterResults("name", currentSearch)
+        );
+        currentMatches = currentMatches.concat(
+            filterResults("address", currentSearch)
+        );
+        currentMatches = currentMatches.concat(
+            filterResults("panchayath", currentSearch)
+        );
+        currentMatches = currentMatches.concat(
+            filterResults("district", currentSearch)
+        );
+        setResults([...new Set(currentMatches)]);
     }
 
     function getInitFilter(options) {
@@ -136,8 +177,8 @@ function Hotel() {
     return (
         <div>
             <div className="relative rounded-b-lg px-4 sm:px-6 lg:px-8 mx-auto">
-                <div className="relative max-w-7xl mx-auto">
-                    <div className="">
+                <div className="flex flex-wrap mx-auto">
+                    <div className=" w-full md:w-3/5 mt-1 ">
                         {/* <h2 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                             Accomodation
                         </h2> */}
@@ -148,6 +189,7 @@ function Hotel() {
                     </div>
                 </div>
                 <br />
+
                 <div className="bg-white shadow border rounded-lg p-6">
                     <div className="flex flex-wrap -mx-3 mb-2">
                         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
@@ -228,6 +270,14 @@ function Hotel() {
                                         </option>
                                     ))}
                                 </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg
+                                        className="fill-current h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
 
@@ -303,6 +353,7 @@ function Hotel() {
                             </label>
                             <div className="relative pt-2">
                                 <DatePicker
+                                    className="appearance-none  w-half bg-grey-lighter text-grey-darker  py-1 px-2"
                                     value={new Date(form.checkin)}
                                     onChange={(newdate) =>
                                         handleChange({
@@ -315,8 +366,8 @@ function Hotel() {
                                     minDate={new Date()}
                                     maxDate={
                                         new Date(
-                                            new Date(form.checkout) +
-                                                24 * 60 * 60 * 100
+                                            +new Date() +
+                                                2 * 360 * 60 * 60 * 24 * 1000
                                         )
                                     }
                                     clearIcon={null}
@@ -330,6 +381,7 @@ function Hotel() {
                             </label>
                             <div className="relative pt-2">
                                 <DatePicker
+                                    className="appearance-none  w-half bg-grey-lighter text-grey-darker  py-1 px-2"
                                     value={new Date(form.checkout)}
                                     onChange={(newdate) =>
                                         handleChange({
@@ -339,7 +391,22 @@ function Hotel() {
                                             },
                                         })
                                     }
-                                    minDate={new Date(form.checkin)}
+                                    minDate={
+                                        new Date(
+                                            +new Date(form.checkin) +
+                                                (minmumDays - 1) *
+                                                    60 *
+                                                    60 *
+                                                    24 *
+                                                    1000
+                                        )
+                                    }
+                                    maxDate={
+                                        new Date(
+                                            +new Date() +
+                                                2 * 360 * 60 * 60 * 24 * 1000
+                                        )
+                                    }
                                     clearIcon={null}
                                     format="y-MM-dd"
                                 />
@@ -349,13 +416,17 @@ function Hotel() {
                         <div className="w-full md:w-1/4  px-3 mb-6 md:mb-0 pt-5">
                             <div className="relative pt-12 flex justify-around">
                                 <button
-                                    onClick={clearFilters}
+                                    onClick={() => {
+                                        clearFilters();
+                                    }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
                                     Clear
                                 </button>
                                 <button
-                                    onClick={() => fetchUpdatedHotels(form)}
+                                    onClick={() => {
+                                        fetchUpdatedHotels(form);
+                                    }}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:outline-none"
                                     type="button">
                                     Apply
@@ -365,13 +436,36 @@ function Hotel() {
                     </div>
                 </div>
             </div>
+            <div className="border rounded-lg shadow w-5/6 overflow-hidden flex bg-white  m-0 w-xl sm:w-64 md:w-1/3 m-auto border border-gray-300 mt-5 ">
+                <input
+                    type="text"
+                    className="block  w-4/5 text-gray-700 py-2 pl-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    placeholder="Search..."
+                    onChange={handleSearch}
+                    value={search}
+                />
+                <div className="flex items-center justify-center w-1/5 pr-2 outline-none text-gray-900">
+                    <svg
+                        className="h-4 w-4"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                        <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                    </svg>
+                </div>
+            </div>
+
             <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8 mx-auto">
                 {!getHotelDetails || getHotelDetails.isFetching ? (
                     <Loading />
                 ) : !getHotelDetails.data ? (
                     <ErrorComponent />
                 ) : (
-                    <HotelList hotels={getHotelDetails.data} />
+                    <HotelList
+                        hotels={getHotelDetails.data}
+                        search={result}
+                        input={search}
+                    />
                 )}
             </div>
         </div>

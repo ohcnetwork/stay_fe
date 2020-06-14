@@ -21,7 +21,7 @@ function UserDashboard() {
                     className="bg-blue-500  hover:bg-blue-700 px-5 py-2 text-white font-bold h-2 w-full rounded-full">
                     Edit data
                 </A>
-                <div className="text-center p-6  border-b">
+                <div className="text-center p-6">
                     <img
                         className="h-40 w-40 rounded-full mx-auto"
                         src={user.image}

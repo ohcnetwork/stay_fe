@@ -160,15 +160,20 @@ export default function History() {
                                                 id={index}
                                                 key={index}
                                                 className="sm:w-full md:w-3/4 lg:w-5/6 bg-gray-100 mx-auto my-8  rounded overflow-hidden shadow-lg">
-                                                <img
-                                                    className="w-full  h-30"
-                                                    src={
-                                                        (value.photos &&
-                                                            value.photos[0]) ||
-                                                        DEFAULT_IMAGE.HOTEL
-                                                    }
-                                                    alt={value.name}
-                                                />
+                                                <div className="flex-shrink-0">
+                                                    <img
+                                                        className="h-48 w-full object-cover"
+                                                        src={
+                                                            (value.room.facility
+                                                                .photos &&
+                                                                value.room
+                                                                    .facility
+                                                                    .photos[0]) ||
+                                                            DEFAULT_IMAGE.HOTEL
+                                                        }
+                                                        alt={value.name}
+                                                    />
+                                                </div>
                                                 <div className="px-3 py-4">
                                                     <div className="font-bold flex text-xl mb-2">
                                                         <div className="w-1/2">
@@ -209,21 +214,60 @@ export default function History() {
                                                         </li>
                                                         <li>
                                                             Booking Date :{" "}
+                                                            {new Intl.DateTimeFormat(
+                                                                "en-GB",
+                                                                {
+                                                                    year:
+                                                                        "numeric",
+                                                                    month:
+                                                                        "long",
+                                                                    day:
+                                                                        "2-digit",
+                                                                }
+                                                            ).format(
+                                                                new Date(
+                                                                    value.createdAt
+                                                                )
+                                                            )}{" "}
                                                             {new Date(
                                                                 value.createdAt
-                                                            ).toLocaleString()}
+                                                            ).toLocaleTimeString()}
                                                         </li>
                                                         <li>
                                                             Checkin :{" "}
-                                                            {new Date(
-                                                                value.checkin
-                                                            ).toLocaleDateString()}
+                                                            {new Intl.DateTimeFormat(
+                                                                "en-GB",
+                                                                {
+                                                                    year:
+                                                                        "numeric",
+                                                                    month:
+                                                                        "long",
+                                                                    day:
+                                                                        "2-digit",
+                                                                }
+                                                            ).format(
+                                                                new Date(
+                                                                    value.checkin
+                                                                )
+                                                            )}
                                                         </li>
                                                         <li>
                                                             Checkout :{" "}
-                                                            {new Date(
-                                                                value.checkout
-                                                            ).toLocaleDateString()}
+                                                            {new Intl.DateTimeFormat(
+                                                                "en-GB",
+                                                                {
+                                                                    year:
+                                                                        "numeric",
+                                                                    month:
+                                                                        "long",
+                                                                    day:
+                                                                        "2-digit",
+                                                                }
+                                                            ).format(
+                                                                new Date(
+                                                                    value.checkout
+                                                                )
+                                                            )}
                                                         </li>
                                                         <li>
                                                             <div className="flex w-full  text-sm flex-row  ">
