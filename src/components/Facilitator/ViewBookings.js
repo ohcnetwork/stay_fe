@@ -120,19 +120,14 @@ export default function ViewBookings({ id }) {
                 return filteredBookings.map((booking) => (
                     <div
                         key={booking.book_id.toString()}
-                        className={`flex pt-5 pb-5 border-b pl-3 pr-3 ${
+                        className={`flex pt-5 pb-5 border-b pl-3 pr-3 hover:bg-gray-200 cursor-pointer ${
                             booking.statusBooking ===
                             BOOKING_STATUS.CANCELLED.type
                                 ? "bg-gray-300"
                                 : "bg-white"
-                        } ${
-                            currentUser.type === USER_TYPES.ADMIN.type
-                                ? ""
-                                : "hover:bg-gray-200 cursor-pointer"
                         }`}
                         onClick={() => {
-                            currentUser.type !== USER_TYPES.ADMIN.type &&
-                                toggle(booking.book_id);
+                            toggle(booking.book_id);
                         }}>
                         <div className="w-1/12 text-gray-700 text-sm md:text-base">
                             {booking.book_id}

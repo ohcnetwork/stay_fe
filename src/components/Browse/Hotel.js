@@ -383,14 +383,14 @@ function Hotel() {
                                 <DatePicker
                                     className="appearance-none  w-half bg-grey-lighter text-grey-darker  py-1 px-2"
                                     value={new Date(form.checkout)}
-                                    onChange={(newdate) =>
-                                        handleChange({
-                                            target: {
-                                                name: "checkout",
-                                                value: newdate,
-                                            },
-                                        })
-                                    }
+                                    // onChange={(newdate) =>
+                                    //     handleChange({
+                                    //         target: {
+                                    //             name: "checkout",
+                                    //             value: newdate,
+                                    //         },
+                                    //     })
+                                    // }
                                     minDate={
                                         new Date(
                                             +new Date(form.checkin) +

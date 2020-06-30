@@ -238,7 +238,7 @@ export default function ViewRoom({ category, id }) {
                                     format="yyyy-MM-dd"
                                     name="dateout"
                                     value={dateout}
-                                    onChange={onDateChangeOut}
+                                    // onChange={onDateChangeOut}
                                     minDate={
                                         new Date(
                                             +new Date(datein) +
