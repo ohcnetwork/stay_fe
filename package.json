@@ -30,7 +30,7 @@
         "build:css": "postcss src/tailwind.css -o src/index.css",
         "watch:css": "postcss src/tailwind.css -o src/index.css -w",
         "start": "concurrently --kill-others \"npm run watch:css\" \"react-scripts start\"",
-        "build": "npm run build:css && react-scripts build",
+        "build": "NODE_ENV=production npm run build:css && react-scripts build",
         "test": "react-scripts test --env=jsdom",
         "pretty": "prettier --write .",
         "eject": "react-scripts eject"
@@ -56,6 +56,6 @@
         "concurrently": "^5.1.0",
         "postcss-cli": "^7.1.0",
         "prettier": "2.0.5",
-        "tailwindcss": "^1.2.0"
+        "tailwindcss": "^1.4.6"
     }
 }
