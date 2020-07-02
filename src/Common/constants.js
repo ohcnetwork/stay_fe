@@ -52,8 +52,8 @@ export const HOTEL_STATUS = {
 };
 
 export const DEFAULT_IMAGE = {
-    HOTEL: "https://cdn.coronasafe.network/coronaSafeLogo.webp",
-    ROOM: "https://cdn.coronasafe.network/coronaSafeLogo.webp",
+    HOTEL: "https://cdn.coronasafe.network/stay/stay.png",
+    ROOM: "https://cdn.coronasafe.network/stay/stay.png",
     USER: "https://cdn.coronasafe.network/stay/userdefault.png",
 };
 
