@@ -53,7 +53,7 @@ export const HOTEL_STATUS = {
 
 export const DEFAULT_IMAGE = {
     HOTEL: "https://cdn.coronasafe.network/stay/no-image.png",
-    ROOM: "https://cdn.coronasafe.network/stay/no-image.png",
+    ROOM: "https://cdn.coronasafe.network/coronaSafeLogo.png",
     USER: "https://cdn.coronasafe.network/stay/userdefault.png",
 };
 
