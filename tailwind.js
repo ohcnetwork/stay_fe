@@ -7,4 +7,7 @@ module.exports = {
         flexDirection: ["responsive", "hover", "focus"],
     },
     plugins: [],
+    purge: {
+        content: ["./src/**/*.html", "./src/**/*.js", "./src/**/*.jsx"],
+    },
 };

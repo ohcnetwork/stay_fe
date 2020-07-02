@@ -390,12 +390,32 @@ export default function HotelForm({
                         {error.policy}
                     </div>
                 </div>
+
+                <div className="md:flex md:items-center mb-6">
+                    <label className="block text-gray-500">
+                        <input
+                            id="declaration"
+                            name="declaration"
+                            type="checkbox"
+                            className="mr-2 leading-tight"
+                            onChange={handleCheckbox}
+                            required
+                        />
+                        <span className=" text-sm text-justify text-gray-600 leading-tight">
+                            I hereby declare that the above mentioned hotel has
+                            obtained permission from the administration to offer
+                            paid quarantine facility as a service. I also
+                            declare that the hotel follows strict protocols for
+                            infection prevention as mandated by the health
+                            department.
+                        </span>
+                    </label>
+                </div>
                 <div className="h-10">
                     <p className="text-red-500 text-xs italic bold text-center mt-2">
                         {formError}
                     </p>
                 </div>
-
                 <div className="mt-2 flex items-center">
                     <button
                         className={`px-4 py-1 text-white font-bold tracking-wider ${
