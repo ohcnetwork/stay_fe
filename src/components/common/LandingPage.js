@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { A } from "hookrouter";
 import { useSelector } from "react-redux";
 import Hotel from "../Browse/Hotel";
-import landingpageimage from "../../Common/images/landingpageimage.png";
+const landingPageImage = "https://cdn.coronasafe.network/stay/landingpageimage.png";
 function LandingPage() {
     const state = useSelector((reduxState) => reduxState);
     const { currentUser } = state;
@@ -56,7 +56,7 @@ function LandingPage() {
                     <div className="hidden md:block lg:w-1/3 pr-8">
                         <div className="h-full object-cover">
                             <div className="h-full">
-                                <img src={landingpageimage} alt=""></img>
+                                <img src={landingPageImage} alt="Coronasafe Stay" />
                             </div>
                         </div>
                     </div>
