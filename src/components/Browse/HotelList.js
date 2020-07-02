@@ -27,7 +27,7 @@ const HotelList = ({ hotels, search, input }) => {
         }
     }
 
-    if (result.length === 0 || !hotels) {
+    if (result.length === 0) {
         return (
             <div>
                 <br />
