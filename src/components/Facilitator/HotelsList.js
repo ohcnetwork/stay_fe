@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import Star from "../common/Star";
 import { HOTEL_STATUS } from "../../Common/constants";
 import { A } from "hookrouter";
-import Pagination from "../common/Pagination";
+import Pagination from 'reactjs-hooks-pagination';
 
 export default function HotelsList({ hotelList = [], isAdmin }) {
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(0);
-    const limit = 14;
-    const [offset, setOffset] = useState(0);
-    const handlePagination = (page, limit) => {
-        const offset = (page - 1) * limit;
-        setCurrentPage(page);
-        setOffset(offset);
-    };
+    const [totalRecords, setTotalRecords] = useState(0);
+    const pageLimit = 4;
+    // const [offset, setOffset] = useState(0);
+    // const handlePagination = (page, limit) => {
+    //     const offset = (page - 1) * limit;
+    //     setCurrentPage(page);
+    //     setOffset(offset);
+    // };
     function showHotels(data) {
         let hotels = Object.values(data);
 
         if (hotels.length > 0) {
-            setTotalCount(hotels.length);
+            setTotalRecords(hotels.length);
 
             return hotels.map((hotel) => (
 
@@ -57,6 +57,7 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                     </div>
                 </A>
 
+
             ));
         } else {
             return (
@@ -82,10 +83,10 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
             {hotelList && showHotels(hotelList)}
             <div className="d-flex flex-row py-4 justify-content-end">
                 <Pagination
-                    cPage={currentPage}
-                    defaultPerPage={limit}
-                    data={{ totalCount }}
-                    onChange={handlePagination}
+                    totalRecords={totalRecords}
+                    pageLimit={pageLimit}
+                    pageRangeDisplayed={1}
+                    onChangePage={setCurrentPage}
                 />
             </div>
         </div>
