@@ -36,8 +36,9 @@ const HotelList = ({ hotels, search, input }) => {
         if (totalPage === 0) {
             return [1];
         }
-        for (i = 1; i < totalPage; i++)
+        for (i = 1; i < totalPage; i++) {
             pageNumbers.push(i);
+        }
         return pageNumbers;
     }
     if (result.length === 0) {

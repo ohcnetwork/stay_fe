@@ -8,14 +8,15 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
     let i = 0;
     const [offset, setOffset] = useState(0);
     const getPageNumbers = () => {
-        let hotel = Object.values(hotelList);
+        const hotel = Object.values(hotelList);
         const totalPage = Math.ceil(hotel.length / maxLimit);
         const pageNumbers = [];
         if (totalPage === 0) {
             return [1];
         }
-        for (i = 1; i < totalPage; i++)
+        for (i = 1; i < totalPage; i++) {
             pageNumbers.push(i);
+        }
         return pageNumbers;
     }
     const pageNumbers = getPageNumbers();
