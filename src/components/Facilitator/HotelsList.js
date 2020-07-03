@@ -80,7 +80,7 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                 </div>
             </div>
             {hotelList && showHotels(hotelList)}
-            <div className="sm:flex-1 sm:flex content-center justify-between">
+            <div className="sm:flex-1 flex align-content-center justify-between">
                 <div>
                     <nav className="relative z-0 inline-flex shadow-sm">
                         {pageNumbers.map(pageNo => (
