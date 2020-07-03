@@ -8,12 +8,6 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalRecords, setTotalRecords] = useState(0);
     const pageLimit = 4;
-    // const [offset, setOffset] = useState(0);
-    // const handlePagination = (page, limit) => {
-    //     const offset = (page - 1) * limit;
-    //     setCurrentPage(page);
-    //     setOffset(offset);
-    // };
     function showHotels(data) {
         let hotels = Object.values(data);
 
