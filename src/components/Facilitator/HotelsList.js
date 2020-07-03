@@ -14,7 +14,7 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
         if (totalPage === 0) {
             return [1];
         }
-        for (i = 1; i < totalPage; i++) {
+        for (i = 1; i <= totalPage; i++) {
             pageNumbers.push(i);
         }
         return pageNumbers;
