@@ -89,7 +89,7 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
 
                                 key={`page_${pageNo}`}
                                 className={`-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white text-gray-600 hover:text-gray-800 hover:bg-gray-200'}`}
-                                onClick={() => setOffset(pageNo * maxLimit)}
+                                onClick={() => setOffset((pageNo - 1) * maxLimit)}
                             >
                                 {pageNo}
                             </button>
