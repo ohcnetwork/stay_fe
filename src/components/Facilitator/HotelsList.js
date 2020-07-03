@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Star from "../common/Star";
 import { HOTEL_STATUS } from "../../Common/constants";
 import { A } from "hookrouter";
+import Pagination from "../common/Pagination";
 
 export default function HotelsList({ hotelList = [], isAdmin }) {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
+    const limit = 14;
+    const [offset, setOffset] = useState(0);
+    const handlePagination = (page, limit) => {
+        const offset = (page - 1) * limit;
+        setCurrentPage(page);
+        setOffset(offset);
+    };
     function showHotels(data) {
         let hotels = Object.values(data);
+
         if (hotels.length > 0) {
+            setTotalCount(hotels.length);
+
             return hotels.map((hotel) => (
+
                 <A
+
                     key={hotel.id.toString()}
                     href={
                         isAdmin
@@ -35,12 +50,13 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                             <div
                                 className={`text-sm py-1 px-2 bg-${
                                     HOTEL_STATUS[hotel.status].color
-                                } text-white font-bold uppercase tracking-wide text-center`}>
+                                    } text-white font-bold uppercase tracking-wide text-center`}>
                                 {HOTEL_STATUS[hotel.status].string}
                             </div>
                         </div>
                     </div>
                 </A>
+
             ));
         } else {
             return (
@@ -64,6 +80,16 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                 </div>
             </div>
             {hotelList && showHotels(hotelList)}
+            <div className="d-flex flex-row py-4 justify-content-end">
+                <Pagination
+                    cPage={currentPage}
+                    defaultPerPage={limit}
+                    data={{ totalCount }}
+                    onChange={handlePagination}
+                />
+            </div>
         </div>
+
+
     );
 }
