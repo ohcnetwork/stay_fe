@@ -69,20 +69,18 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
     }
 
     return (
-        <div>
-            <div className="flex-grow flex flex-col bg-white md:mx-0 mx-2 rounded shadow overflow-x-hidden overflow-y-auto">
-                <div className="border-b">
-                    <div className="flex justify-between px-6 -mb-px">
-                        <h3 className="text-indigo-900 py-4 font-normal text-lg">
-                            Your Hotels
+        <div className="flex-grow flex flex-col bg-white md:mx-0 mx-2 rounded shadow overflow-x-hidden overflow-y-auto">
+            <div className="border-b">
+                <div className="flex justify-between px-6 -mb-px">
+                    <h3 className="text-indigo-900 py-4 font-normal text-lg">
+                        Your Hotels
                         <span className="ml-2 text-sm text-gray-500">
-                                Click one to see more
+                            Click one to see more
                         </span>
-                        </h3>
-                    </div>
+                    </h3>
                 </div>
-                {hotelList && showHotels(hotelList)}
             </div>
+            {hotelList && showHotels(hotelList)}
             <div className="sm:flex-1 flex align-content-center justify-between">
                 <div>
                     <nav className="relative z-0 inline-flex shadow-sm">
