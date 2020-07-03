@@ -4,7 +4,7 @@ import { DEFAULT_IMAGE } from "../../Common/constants";
 import Star from "../common/Star";
 
 const HotelList = ({ hotels, search, input }) => {
-    const maxLimit = 9;
+    const maxLimit = 12;
     const [offset, setOffset] = useState(0);
     let result = [];
     let i = 0;
@@ -36,12 +36,10 @@ const HotelList = ({ hotels, search, input }) => {
         if (totalPage === 0) {
             return [1];
         }
-        for (i = 1; i <= totalPage; i++)
+        for (i = 1; i < totalPage; i++)
             pageNumbers.push(i);
         return pageNumbers;
     }
-    // const totalCount = item;
-    // console.log(result.length);
     if (result.length === 0) {
         return (
             <div>
@@ -61,8 +59,6 @@ const HotelList = ({ hotels, search, input }) => {
             </div>
         );
     }
-
-    // const totalPage = Math.ceil(result.length / maxLimit);
     const pageNumbers = getPageNumbers();
     return (
         <div className="hotelslist-center max-w-6xl mx-auto">
@@ -127,7 +123,7 @@ const HotelList = ({ hotels, search, input }) => {
                     );
                 })}
             </div>
-            <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div className="flex-1 flex items-center justify-between">
                 <div>
                     <nav className="relative z-0 inline-flex shadow-sm">
                         {pageNumbers.map(pageNo => (

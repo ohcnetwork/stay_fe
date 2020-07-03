@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import Star from "../common/Star";
 import { HOTEL_STATUS } from "../../Common/constants";
 import { A } from "hookrouter";
 
 export default function HotelsList({ hotelList = [], isAdmin }) {
+    const maxLimit = 12;
+    let i = 0;
+    const [offset, setOffset] = useState(0);
+    const getPageNumbers = () => {
+        let hotel = Object.values(hotelList);
+        const totalPage = Math.ceil(hotel.length / maxLimit);
+        const pageNumbers = [];
+        if (totalPage === 0) {
+            return [1];
+        }
+        for (i = 1; i < totalPage; i++)
+            pageNumbers.push(i);
+        return pageNumbers;
+    }
+    const pageNumbers = getPageNumbers();
     function showHotels(data) {
         let hotels = Object.values(data);
         if (hotels.length > 0) {
-            return hotels.map((hotel) => (
+            return hotels.slice(offset, offset + maxLimit).map((hotel) => (
                 <A
                     key={hotel.id.toString()}
                     href={
@@ -41,6 +56,7 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                         </div>
                     </div>
                 </A>
+
             ));
         } else {
             return (
@@ -64,6 +80,22 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                 </div>
             </div>
             {hotelList && showHotels(hotelList)}
+            <div className="flex-1 flex items-center justify-between">
+                <div>
+                    <nav className="relative z-0 inline-flex shadow-sm">
+                        {pageNumbers.map(pageNo => (
+                            <button type="button"
+
+                                key={`page_${pageNo}`}
+                                className={`-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white text-gray-600 hover:text-gray-800 hover:bg-gray-200'}`}
+                                onClick={() => setOffset(pageNo * maxLimit)}
+                            >
+                                {pageNo}
+                            </button>
+                        ))}
+                    </nav>
+                </div>
+            </div>
         </div>
     );
 }
