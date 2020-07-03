@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Star from "../common/Star";
-import Pagination from 'reactjs-hooks-pagination';
-
 
 const HotelList = ({ hotels, search, input }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    // const [totalRecords, setTotalRecords] = useState(0);
-    const pageLimit = 9;
+    const maxLimit = 9;
+    const [offset, setOffset] = useState(0);
     let result = [];
     let i = 0;
     let j = 0;
@@ -31,7 +28,20 @@ const HotelList = ({ hotels, search, input }) => {
             }
         }
     }
-    const totalRecords = result.length;
+
+    const getPageNumbers = () => {
+        const totalPage = Math.ceil(result.length / maxLimit);
+        const pageNumbers = [];
+
+        if (totalPage === 0) {
+            return [1];
+        }
+        for (i = 1; i <= totalPage; i++)
+            pageNumbers.push(i);
+        return pageNumbers;
+    }
+    // const totalCount = item;
+    // console.log(result.length);
     if (result.length === 0) {
         return (
             <div>
@@ -51,10 +61,13 @@ const HotelList = ({ hotels, search, input }) => {
             </div>
         );
     }
+
+    // const totalPage = Math.ceil(result.length / maxLimit);
+    const pageNumbers = getPageNumbers();
     return (
         <div className="hotelslist-center max-w-6xl mx-auto">
             <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-4 md:grid-cols-3 md:max-w-none sm:mx-8">
-                {result.map((item) => {
+                {result.slice(offset, offset + maxLimit).map((item) => {
                     return (
                         <div key={item.id}>
                             <A
@@ -110,17 +123,25 @@ const HotelList = ({ hotels, search, input }) => {
                                     </div>
                                 </div>
                             </A>
-                            <div className="d-flex flex-row py-4 justify-content-end">
-                                <Pagination
-                                    totalRecords={totalRecords}
-                                    pageLimit={pageLimit}
-                                    pageRangeDisplayed={1}
-                                    onChangePage={setCurrentPage}
-                                />
-                            </div>
                         </div>
                     );
                 })}
+            </div>
+            <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <nav className="relative z-0 inline-flex shadow-sm">
+                        {pageNumbers.map(pageNo => (
+                            <button type="button"
+
+                                key={`page_${pageNo}`}
+                                className={`-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white text-gray-600 hover:text-gray-800 hover:bg-gray-200'}`}
+                                onClick={setOffset(pageNo * maxLimit)}
+                            >
+                                {pageNo}
+                            </button>
+                        ))}
+                    </nav>
+                </div>
             </div>
         </div>
     );
