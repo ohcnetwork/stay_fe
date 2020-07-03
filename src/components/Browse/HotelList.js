@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { A } from "hookrouter";
 import { DEFAULT_IMAGE } from "../../Common/constants";
 import Star from "../common/Star";
+import Pagination from 'reactjs-hooks-pagination';
+
 
 const HotelList = ({ hotels, search, input }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalRecords, setTotalRecords] = useState(0);
+    const pageLimit = 9;
     let result = [];
     let i = 0;
     let j = 0;
@@ -26,7 +31,7 @@ const HotelList = ({ hotels, search, input }) => {
             }
         }
     }
-
+    setTotalRecords(result.length);
     if (result.length === 0) {
         return (
             <div>
@@ -105,6 +110,14 @@ const HotelList = ({ hotels, search, input }) => {
                                     </div>
                                 </div>
                             </A>
+                            <div className="d-flex flex-row py-4 justify-content-end">
+                                <Pagination
+                                    totalRecords={totalRecords}
+                                    pageLimit={pageLimit}
+                                    pageRangeDisplayed={1}
+                                    onChangePage={setCurrentPage}
+                                />
+                            </div>
                         </div>
                     );
                 })}
