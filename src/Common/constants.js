@@ -52,9 +52,9 @@ export const HOTEL_STATUS = {
 };
 
 export const DEFAULT_IMAGE = {
-    HOTEL: require("./images/no-image.png"),
-    ROOM: require("./images/no-image.png"),
-    USER: require("./images/userdefault.png"),
+    HOTEL: "https://cdn.coronasafe.network/stay/stay.png",
+    ROOM: "https://cdn.coronasafe.network/stay/stay.png",
+    USER: "https://cdn.coronasafe.network/stay/userdefault.png",
 };
 
 export const BOOKING_TERMS =
