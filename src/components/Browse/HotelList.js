@@ -7,7 +7,7 @@ import Pagination from 'reactjs-hooks-pagination';
 
 const HotelList = ({ hotels, search, input }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalRecords, setTotalRecords] = useState(0);
+    // const [totalRecords, setTotalRecords] = useState(0);
     const pageLimit = 9;
     let result = [];
     let i = 0;
@@ -31,7 +31,7 @@ const HotelList = ({ hotels, search, input }) => {
             }
         }
     }
-    setTotalRecords(result.length);
+    const totalRecords = result.length;
     if (result.length === 0) {
         return (
             <div>
