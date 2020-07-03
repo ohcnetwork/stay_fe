@@ -1,23 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Star from "../common/Star";
 import { HOTEL_STATUS } from "../../Common/constants";
 import { A } from "hookrouter";
-// import Pagination from 'reactjs-hooks-pagination';
 
 export default function HotelsList({ hotelList = [], isAdmin }) {
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [totalRecords, setTotalRecords] = useState(0);
-    // const pageLimit = 4;
     function showHotels(data) {
         let hotels = Object.values(data);
-
         if (hotels.length > 0) {
-            // setTotalRecords(hotels.length);
-
             return hotels.map((hotel) => (
-
                 <A
-
                     key={hotel.id.toString()}
                     href={
                         isAdmin
@@ -50,8 +41,6 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                         </div>
                     </div>
                 </A>
-
-
             ));
         } else {
             return (
@@ -75,16 +64,6 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                 </div>
             </div>
             {hotelList && showHotels(hotelList)}
-            {/* <div className="d-flex flex-row py-4 justify-content-end">
-                <Pagination
-                    totalRecords={totalRecords}
-                    pageLimit={pageLimit}
-                    pageRangeDisplayed={1}
-                    onChangePage={setCurrentPage}
-                />
-            </div> */}
         </div>
-
-
     );
 }
