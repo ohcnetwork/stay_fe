@@ -123,7 +123,7 @@ const HotelList = ({ hotels, search, input }) => {
                     );
                 })}
             </div>
-            <div className="flex-1 flex content-center justify-between">
+            <div className="sm:flex-1 sm:flex center justify-between">
                 <div>
                     <nav className="relative z-0 inline-flex shadow-sm">
                         {pageNumbers.map(pageNo => (
