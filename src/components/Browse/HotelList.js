@@ -132,7 +132,7 @@ const HotelList = ({ hotels, search, input }) => {
                                 type="button"
                                 key={`page_${pageNo}`}
                                 className={`-ml-px ${
-                                    pageNo === offset / 12 + 1
+                                    pageNo === offset / maxLimit + 1
                                         ? "bg-indigo-700 hover:bg-indigo-800 text-white"
                                         : "hover:text-gray-800"
                                 } relative inline-flex items-center font-semibold px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
