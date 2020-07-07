@@ -126,7 +126,7 @@ const HotelList = ({ hotels, search, input }) => {
             </div>
             <div className="sm:flex-1 mt-2 text-center justify-between">
                 <div>
-                    <div className="inline-flex shadow-sm">
+                    <nav className="inline-flex shadow-sm">
                         {pageNumbers.map((pageNo) => (
                             <button
                                 type="button"
@@ -142,7 +142,7 @@ const HotelList = ({ hotels, search, input }) => {
                                 {pageNo}
                             </button>
                         ))}
-                    </div>
+                    </nav>
                 </div>
             </div>
         </div>
