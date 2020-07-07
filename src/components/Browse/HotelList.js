@@ -135,7 +135,7 @@ const HotelList = ({ hotels, search, input }) => {
                                     pageNo === offset / 12 + 1
                                         ? "bg-indigo-700 hover:bg-indigo-800 text-white"
                                         : "hover:text-gray-800"
-                                } relative inline-flex items-center px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
+                                } relative inline-flex items-center text-semibold px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
                                 onClick={() =>
                                     setOffset((pageNo - 1) * maxLimit)
                                 }>
