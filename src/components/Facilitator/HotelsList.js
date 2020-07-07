@@ -18,7 +18,7 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
             pageNumbers.push(i);
         }
         return pageNumbers;
-    }
+    };
     const pageNumbers = getPageNumbers();
     function showHotels(data) {
         let hotels = Object.values(data);
@@ -51,13 +51,12 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
                             <div
                                 className={`text-sm py-1 px-2 bg-${
                                     HOTEL_STATUS[hotel.status].color
-                                    } text-white font-bold uppercase tracking-wide text-center`}>
+                                } text-white font-bold uppercase tracking-wide text-center`}>
                                 {HOTEL_STATUS[hotel.status].string}
                             </div>
                         </div>
                     </div>
                 </A>
-
             ));
         } else {
             return (
@@ -84,13 +83,14 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
             <div className="sm:flex-1 flex align-content-center justify-between">
                 <div>
                     <nav className="relative z-0 inline-flex shadow-sm">
-                        {pageNumbers.map(pageNo => (
-                            <button type="button"
-
+                        {pageNumbers.map((pageNo) => (
+                            <button
+                                type="button"
                                 key={`page_${pageNo}`}
                                 className={`-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white text-gray-600 hover:text-gray-800 hover:bg-gray-200'}`}
-                                onClick={() => setOffset((pageNo - 1) * maxLimit)}
-                            >
+                                onClick={() =>
+                                    setOffset((pageNo - 1) * maxLimit)
+                                }>
                                 {pageNo}
                             </button>
                         ))}
