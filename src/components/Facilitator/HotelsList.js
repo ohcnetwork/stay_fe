@@ -17,8 +17,9 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
             if (totalPage === 0) {
                 return [1];
             }
-            if (totalPage < 3)
+            if (totalPage < 3) {
                 n = totalPage;
+            }
             for (i = 1; i <= n; i++) {
                 pageNumbers.push(i);
             }
@@ -29,8 +30,9 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
             }
         }
         else {
-            if (current - 2 < 1)
+            if (current - 2 < 1) {
                 m = 1;
+            }
             for (i = m; i <= current; i++) {
                 pageNumbers.push(i);
             }
@@ -39,7 +41,7 @@ export default function HotelsList({ hotelList = [], isAdmin }) {
     };
     const handlePage = (pageNo) => {
         console.log(pageNo);
-        if (pageNo == 1) {
+        if (pageNo === 1) {
             setPagenumbers(getPageNumbers(1));
         }
         else {
