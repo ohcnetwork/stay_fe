@@ -40,7 +40,7 @@ const HotelList = ({ hotels, search, input }) => {
             pageNumbers.push(i);
         }
         return pageNumbers;
-    }
+    };
     if (result.length === 0) {
         return (
             <div>
@@ -124,16 +124,21 @@ const HotelList = ({ hotels, search, input }) => {
                     );
                 })}
             </div>
-            <div className="sm:flex-1 flex align-center justify-between">
+            <div className="sm:flex-1 mt-2 text-center justify-between">
                 <div>
-                    <nav className="relative z-0 inline-flex shadow-sm">
-                        {pageNumbers.map(pageNo => (
-                            <button type="button"
-
+                    <nav className="inline-flex shadow-sm">
+                        {pageNumbers.map((pageNo) => (
+                            <button
+                                type="button"
                                 key={`page_${pageNo}`}
-                                className={`-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white text-gray-600 hover:text-gray-800 hover:bg-gray-200'}`}
-                                onClick={() => setOffset((pageNo - 1) * maxLimit)}
-                            >
+                                className={`-ml-px ${
+                                    pageNo === offset / maxLimit + 1
+                                        ? "bg-indigo-700 hover:bg-indigo-800 text-white"
+                                        : "hover:text-gray-800"
+                                } relative inline-flex items-center font-semibold px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
+                                onClick={() =>
+                                    setOffset((pageNo - 1) * maxLimit)
+                                }>
                                 {pageNo}
                             </button>
                         ))}
