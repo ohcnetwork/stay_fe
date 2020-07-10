@@ -28,19 +28,46 @@ const HotelList = ({ hotels, search, input }) => {
             }
         }
     }
-
-    const getPageNumbers = () => {
-        const totalPage = Math.ceil(result.length / maxLimit);
+    const totalPage = Math.ceil(result.length / maxLimit);
+    const getPageNumbers = (current) => {
+        let n = 3;
+        let m = current - 2;
         const pageNumbers = [];
-
-        if (totalPage === 0) {
-            return [1];
+        if (current === 1) {
+            if (totalPage === 0) {
+                return [1];
+            }
+            if (totalPage < 3)
+                n = totalPage;
+            for (i = 1; i <= n; i++) {
+                pageNumbers.push(i);
+            }
         }
-        for (i = 1; i <= totalPage; i++) {
-            pageNumbers.push(i);
+        else if (current < totalPage) {
+            for (i = current - 1; i <= current + 1; i++) {
+                pageNumbers.push(i);
+            }
+        }
+        else {
+            if (current - 2 < 1)
+                m = 1;
+            for (i = m; i <= current; i++) {
+                pageNumbers.push(i);
+            }
         }
         return pageNumbers;
     };
+    const handlePage = (pageNo) => {
+        console.log(pageNo);
+        if (pageNo == 1) {
+            setPagenumbers(getPageNumbers(1));
+        }
+        else {
+            setPagenumbers(getPageNumbers(pageNo));
+        }
+        setOffset((pageNo - 1) * maxLimit)
+    };
+    const [pageNumbers, setPagenumbers] = useState(getPageNumbers(1));
     if (result.length === 0) {
         return (
             <div>
@@ -60,7 +87,7 @@ const HotelList = ({ hotels, search, input }) => {
             </div>
         );
     }
-    const pageNumbers = getPageNumbers();
+
     return (
         <div className="hotelslist-center max-w-6xl mx-auto">
             <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-4 md:grid-cols-3 md:max-w-none sm:mx-8">
@@ -124,28 +151,42 @@ const HotelList = ({ hotels, search, input }) => {
                     );
                 })}
             </div>
-            <div className="sm:flex-1 mt-2 text-center justify-between">
+            <div className={` ${totalPage === 1 ? "hidden" : "sm:flex-1 mt-2 text-center justify-between"}`}>
                 <div>
                     <nav className="inline-flex shadow-sm">
-                        {pageNumbers.map((pageNo) => (
-                            <button
-                                type="button"
-                                key={`page_${pageNo}`}
-                                className={`-ml-px ${
-                                    pageNo === offset / maxLimit + 1
-                                        ? "bg-indigo-700 hover:bg-indigo-800 text-white"
-                                        : "hover:text-gray-800"
-                                } relative inline-flex items-center font-semibold px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
-                                onClick={() =>
-                                    setOffset((pageNo - 1) * maxLimit)
-                                }>
-                                {pageNo}
-                            </button>
-                        ))}
-                    </nav>
-                </div>
-            </div>
-        </div>
+                        <button
+                            type="button"
+                            key={`page_${1}`}
+                            className={`-ml-px  "hover:text-gray-800" relative inline-flex items-center font-semibold px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
+                            onClick={() => handlePage(1)}>
+                            First
+                        </button>
+                        {
+                            pageNumbers.map((pageNo) => (
+                                <button
+                                    type="button"
+                                    key={`page_${pageNo}`}
+                                    className={`-ml-px ${
+                                        pageNo === offset / maxLimit + 1
+                                            ? "bg-indigo-700 hover:bg-indigo-800 text-white"
+                                            : "hover:text-gray-800"
+                                        } relative inline-flex items-center font-semibold px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
+                                    onClick={() => handlePage(pageNo)}>
+                                    {pageNo}
+                                </button>
+                            ))
+                        }
+                        <button
+                            type="button"
+                            key={`page_${totalPage}`}
+                            className={`-ml-px  "hover:text-gray-800" relative inline-flex items-center font-semibold px-4 py-3 border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-green-300 focus:shadow-outline-green transition ease-in-out duration-150 bg-white hover:bg-gray-200'}`}
+                            onClick={() => handlePage(totalPage)}>
+                            Last
+                        </button>
+                    </nav >
+                </div >
+            </div >
+        </div >
     );
 };
 
